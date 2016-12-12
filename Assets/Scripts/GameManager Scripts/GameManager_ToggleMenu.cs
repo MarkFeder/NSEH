@@ -52,6 +52,10 @@ namespace NSEH
                 gameManagerMaster.isMenuOn = !gameManagerMaster.isMenuOn;
                 gameManagerMaster.CallEventMenuToogle();
             }
+            else
+            {
+                Debug.LogWarning("You need to assing UI GameObject to the Toggle Menu script in the inspector.");
+            }
         }
     }
 }
