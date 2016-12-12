@@ -7,7 +7,7 @@ namespace NSEH
 
         public delegate void GameManagerEventHandler();
         public event GameManagerEventHandler MenuToogleEvent;
-        public event GameManagerEventHandler GoToMenuEvent;
+        public event GameManagerEventHandler GoToMenuSceneEvent;
         public event GameManagerEventHandler GameOverEvent;
 
         public bool isGameOver;
@@ -23,9 +23,9 @@ namespace NSEH
 
        public void CallEventGoToMenuScene()
         {
-            if (GoToMenuEvent != null)
+            if (GoToMenuSceneEvent != null)
             {
-               GoToMenuEvent();
+               GoToMenuSceneEvent();
             }
         }
 

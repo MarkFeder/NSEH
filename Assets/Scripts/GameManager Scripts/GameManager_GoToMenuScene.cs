@@ -10,12 +10,12 @@ namespace NSEH
         void OnEnable()
         {
             SetInitialReferences();
-            gameManagerMaster.GoToMenuEvent+= GoToMenuScene;
+            gameManagerMaster.GoToMenuSceneEvent+= GoToMenuScene;
         }
 
         void OnDisable()
         {
-            gameManagerMaster.GoToMenuEvent -= GoToMenuScene;
+            gameManagerMaster.GoToMenuSceneEvent -= GoToMenuScene;
         }
 
         void SetInitialReferences()
