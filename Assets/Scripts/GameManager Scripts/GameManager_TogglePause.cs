@@ -29,12 +29,12 @@ namespace NSEH
         {
             if (isPaused)
             {
-                Time.timeScale = 1;
+                Time.timeScale = 0;
                 isPaused = false;
             }
             else
             {
-                Time.timeScale = 0;
+                Time.timeScale = 1;
                 isPaused = true;
             }
         }

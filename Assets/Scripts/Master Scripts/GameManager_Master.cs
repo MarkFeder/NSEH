@@ -13,9 +13,9 @@ namespace NSEH
         public event GameManagerEventHandler Player2WinsEvent;
 
         public bool isTimesUp;
+        
 
-
-       public void CallEventMenuToogle()
+        public void CallEventMenuToogle()
         {
             if (MenuToogleEvent != null)
             {

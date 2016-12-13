@@ -7,7 +7,7 @@ namespace NSEH
     {
         private GameManager_Master gameManagerMaster;
         public GameObject panelTimesUp;
-
+       
         void OnEnable()
         {
             SetInitialPreferences();
@@ -29,6 +29,7 @@ namespace NSEH
             if(panelTimesUp != null)
             {
                 panelTimesUp.SetActive(true);
+
             }
         }
     } 
