@@ -25,7 +25,6 @@ namespace NSEH
 
         void GoToMenuScene()
         {
-            Debug.LogWarning("sadasdsa");
             Application.LoadLevel(0);
 
         }

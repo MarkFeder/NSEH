@@ -8,12 +8,15 @@ namespace NSEH
         public delegate void GameManagerEventHandler();
         public event GameManagerEventHandler MenuToogleEvent;
         public event GameManagerEventHandler GoToMenuSceneEvent;
-        public event GameManagerEventHandler GameOverEvent;
+        public event GameManagerEventHandler RestartEvent;
+        public event GameManagerEventHandler TimesUpEvent;
+        public event GameManagerEventHandler Player1WinsEvent;
+        public event GameManagerEventHandler Player2WinsEvent;
 
-        public bool isGameOver;
-        public bool isMenuOn;
+        public bool isTimesUp;
+        
 
-       public void CallEventMenuToogle()
+        public void CallEventMenuToogle()
         {
             if (MenuToogleEvent != null)
             {
@@ -29,14 +32,36 @@ namespace NSEH
             }
         }
 
-       public void CallEventGameOver()
+        public void CallRestart()
         {
-            if (GameOverEvent != null)
+            if (RestartEvent != null)
             {
-                isGameOver = true;
-                GameOverEvent();
+                RestartEvent();
             }
         }
+
+
+        public void CallEventTimesUp()
+        {
+            if (TimesUpEvent != null)
+            {
+                isTimesUp = true;
+
+                TimesUpEvent();
+            }
+            /*
+            else if (Player1WinsEvent != null)
+            {
+                isGameOver = true;
+                Player1WinsEvent();
+            }
+            else if (Player2WinsEvent != null)
+            {
+                isGameOver = true;
+                Player2WinsEvent();
+            }*/
+        }
+
     }
 }
 

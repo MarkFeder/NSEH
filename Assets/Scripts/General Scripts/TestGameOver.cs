@@ -15,9 +15,9 @@ namespace NSEH
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyUp(KeyCode.O))
+            if (Input.GetKeyUp(KeyCode.E))
             {
-                GetComponent<GameManager_Master>().CallEventGameOver();
+                GetComponent<GameManager_Master>().CallEventTimesUp();
             }
         }
     }
