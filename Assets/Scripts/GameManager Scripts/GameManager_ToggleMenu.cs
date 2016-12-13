@@ -23,12 +23,12 @@ namespace NSEH
         void OnEnable()
         {
             SetInitialPreferences();
-            gameManagerMaster.GameOverEvent += ToggleMenu;
+           gameManagerMaster.TimesUpEvent += ToggleMenu;
         }
 
         void OnDisable()
         {
-            gameManagerMaster.GameOverEvent -= ToggleMenu;
+            gameManagerMaster.TimesUpEvent -= ToggleMenu;
         }
 
         void SetInitialPreferences()
@@ -38,7 +38,8 @@ namespace NSEH
 
         void CheckForMenuToggleRequest()
         {
-            if(Input.GetKeyUp(KeyCode.Escape)&& !gameManagerMaster.isGameOver)
+            if(Input.GetKeyUp(KeyCode.Escape) && !gameManagerMaster.isTimesUp)
+            //if (Input.GetKeyUp(KeyCode.Escape))
             {
                 ToggleMenu();
             }
@@ -49,7 +50,7 @@ namespace NSEH
             if (menu != null)
             {
                 menu.SetActive(!menu.activeSelf);
-                gameManagerMaster.isMenuOn = !gameManagerMaster.isMenuOn;
+                //gameManagerMaster.isMenuOn = !gameManagerMaster.isMenuOn;
                 gameManagerMaster.CallEventMenuToogle();
             }
             else
