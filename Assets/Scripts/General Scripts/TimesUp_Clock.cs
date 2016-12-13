@@ -6,8 +6,9 @@ namespace NSEH
 {
     public class TimesUp_Clock : MonoBehaviour
     {
-        private float timeRemaining = 15;
+        private float timeRemaining = 5;
         public Text timerText;
+        private bool isPaused;
 
         // Use this for initialization
         void Start()
@@ -34,9 +35,14 @@ namespace NSEH
             }
             else
             {
-                timerText.text = "";
-                GetComponent<GameManager_Master>().CallEventTimesUp();
-
+               
+                    
+                    timerText.text = "";
+                    
+                    GetComponent<GameManager_Master>().CallEventTimesUp();
+                    isPaused = false;
+                   Time.timeScale = 0;
+             
             }
         }
     }
