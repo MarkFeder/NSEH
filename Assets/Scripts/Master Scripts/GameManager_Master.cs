@@ -8,6 +8,7 @@ namespace NSEH
         public delegate void GameManagerEventHandler();
         public event GameManagerEventHandler MenuToogleEvent;
         public event GameManagerEventHandler GoToMenuSceneEvent;
+        public event GameManagerEventHandler RestartEvent;
         public event GameManagerEventHandler TimesUpEvent;
         public event GameManagerEventHandler Player1WinsEvent;
         public event GameManagerEventHandler Player2WinsEvent;
@@ -31,7 +32,16 @@ namespace NSEH
             }
         }
 
-       public void CallEventTimesUp()
+        public void CallRestart()
+        {
+            if (RestartEvent != null)
+            {
+                RestartEvent();
+            }
+        }
+
+
+        public void CallEventTimesUp()
         {
             if (TimesUpEvent != null)
             {
