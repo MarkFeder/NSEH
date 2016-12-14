@@ -28,6 +28,7 @@ namespace NSEH
         {
             if(panelTimesUp != null)
             {
+                Time.timeScale = 0;
                 panelTimesUp.SetActive(true);
 
             }

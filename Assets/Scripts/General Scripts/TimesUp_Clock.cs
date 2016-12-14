@@ -38,10 +38,9 @@ namespace NSEH
                
                     
                     timerText.text = "";
-                    
                     GetComponent<GameManager_Master>().CallEventTimesUp();
                     isPaused = false;
-                   Time.timeScale = 0;
+                   
              
             }
         }
