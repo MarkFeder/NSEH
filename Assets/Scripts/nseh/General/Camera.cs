@@ -26,9 +26,9 @@ namespace nseh.General
             PositionPlayer1 = Player1.position;
             PositionPlayer2 = Player2.position;
             distance = Player1.position - Player2.position;
-            Midpoint =(Player2.position + Player1.position );
+            Midpoint =(Player2.position + Player1.position )/2;
             //MOVE CAMERA
-            if (distance.x > -1)
+            if (distance.x > -2 )
             {
                
                 Position =  new Vector3 (Midpoint.x, 1.5f, -10);
