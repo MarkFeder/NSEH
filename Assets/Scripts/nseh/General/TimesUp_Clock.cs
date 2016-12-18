@@ -7,7 +7,7 @@ namespace nseh.General
 {
     public class TimesUp_Clock : MonoBehaviour
     {
-        private float timeRemaining = 5;
+        private float timeRemaining = 1005;
         public Text timerText;
 
 
