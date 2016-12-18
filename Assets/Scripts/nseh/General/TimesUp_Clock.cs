@@ -9,7 +9,7 @@ namespace nseh.General
     {
         private float timeRemaining = 5;
         public Text timerText;
-        private bool isPaused;
+
 
         // Use this for initialization
         void Start()
@@ -40,8 +40,8 @@ namespace nseh.General
                     
                     timerText.text = "";
                     GetComponent<GameManager_Master>().CallEventTimesUp();
-                    isPaused = false;
-                   
+                Time.timeScale = 0;
+
              
             }
         }

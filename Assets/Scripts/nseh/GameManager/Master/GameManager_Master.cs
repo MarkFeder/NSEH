@@ -15,6 +15,7 @@ namespace nseh.GameManager
         public event GameManagerEventHandler Player2WinsEvent;
 
         public bool isTimesUp;
+        public bool isMenuOn;
         
 
         public void CallEventMenuToogle()
