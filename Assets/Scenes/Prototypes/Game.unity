@@ -201,6 +201,10 @@ MonoBehaviour:
   distance: {x: 0, y: 0, z: 0}
   Midpoint: {x: 0, y: 0, z: 0}
   Position: {x: 0, y: 0, z: 0}
+  xMin: -4
+  xMax: 4
+  yMin: 1.5
+  yMax: 4
 --- !u!1 &237750519
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +246,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400168, guid: 10d8df3f39332114b84bf32604296737, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 400168, guid: 10d8df3f39332114b84bf32604296737, type: 3}
       propertyPath: m_LocalPosition.z
@@ -500,8 +504,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 872461723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 10, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
