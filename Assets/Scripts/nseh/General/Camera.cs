@@ -9,6 +9,7 @@ namespace nseh.General
         public Transform Player2;
         public Vector3 PositionPlayer1;
         public Vector3 PositionPlayer2;
+
         public Vector3 distance;
         public Vector3 Midpoint;
         public Vector3 Position;
@@ -33,8 +34,14 @@ namespace nseh.General
         {
             PositionPlayer1 = Player1.position;
             PositionPlayer2 = Player2.position;
+           
+            float xMaxPlayers = Mathf.Max(PositionPlayer1.x, PositionPlayer2.x);
+            float xMinPlayers = Mathf.Min(PositionPlayer1.x, PositionPlayer2.x);
+            float yMaxPlayers = Mathf.Max(PositionPlayer1.y, PositionPlayer2.y);
+            float yMinPlayers = Mathf.Min(PositionPlayer1.y, PositionPlayer2.y);
+
             distance = Player1.position - Player2.position;
-            Midpoint =(Player2.position + Player1.position )/2;
+            Midpoint = new Vector3((xMaxPlayers + xMinPlayers) /2, (yMaxPlayers + yMinPlayers) / 2, 0);
             //MOVE CAMERA
             if (Mathf.Abs(distance.x) < 2 && Mathf.Abs(distance.y) < 2)
             {
