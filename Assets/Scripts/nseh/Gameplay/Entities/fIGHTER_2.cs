@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using nseh.Gameplay.Entities.Characters;
+using nseh.Gameplay.Animations;
 
 namespace nseh.Gameplay
 {
