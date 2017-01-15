@@ -30,6 +30,7 @@ namespace nseh.GameManager
             {
                 Time.timeScale = 0;
                 panelTimesUp.SetActive(true);
+                Time.timeScale = 0;
 
             }
         }
