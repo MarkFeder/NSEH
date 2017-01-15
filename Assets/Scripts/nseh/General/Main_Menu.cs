@@ -10,7 +10,7 @@ namespace nseh.General
 
         public void PlayGame()
         {
-            SceneManager.LoadScene(Constants.SCENE_01);
+            SceneManager.LoadScene(Constants.Scenes.SCENE_01);
         }
 
         public void Exit()

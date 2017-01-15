@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+using nseh.Gameplay.Entities.Characters;
 
-namespace nseh.Gameplay
+namespace nseh.Gameplay.Behaviour
 {
     public class FighterStateBehaviour : StateMachineBehaviour
     {
@@ -9,6 +9,8 @@ namespace nseh.Gameplay
 
         public float horizontalForce;
         public float verticalForce;
+
+        private Vector3 vect = new Vector3(1, 0, 0);
 
         protected Fighter fighter;
 
@@ -22,7 +24,7 @@ namespace nseh.Gameplay
             }
 
             fighter.CurrentState = behaviourState;
-
+            //fighter.Body.velocity = vect * horizontalForce;
             fighter.Body.AddRelativeForce(new Vector3(0, verticalForce, 0));
         }
 
@@ -30,7 +32,10 @@ namespace nseh.Gameplay
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
+            //fighter.Body.velocity = vect * horizontalForce;
+
             fighter.Body.AddRelativeForce(new Vector3(0, 0, horizontalForce));
+
         }
     } 
 }
