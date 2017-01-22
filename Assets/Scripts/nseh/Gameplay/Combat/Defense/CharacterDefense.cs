@@ -44,7 +44,6 @@ namespace nseh.Gameplay.Combat.Defense
             if (this.KeyHasBeenReleased() && this.CurrentMode == DefenseType.NormalDefense)
             {
                 this.CurrentMode = DefenseType.None;
-                //this.anim.SetBool(this.animParameters[Constants.CHARACTER_DEFENSE], false);
                 this.Animator.SetBool(this.HashAnimation, false);
             }
         }
@@ -54,24 +53,23 @@ namespace nseh.Gameplay.Combat.Defense
             if (this.CurrentMode != DefenseType.NormalDefense && this.KeyHasBeenHoldDown())
             {
                 this.CurrentMode = DefenseType.NormalDefense;
-                //this.anim.SetBool(this.animParameters[Constants.CHARACTER_DEFENSE], true);
-                this.Animator.SetBool(this.HashAnimation, false);
+                this.Animator.SetBool(this.HashAnimation, true);
             }
         }
 
         private bool IsInDefenseMode()
         {
-            return this.CurrentMode == DefenseType.NormalDefense && this.Animator.GetBool(this.HashAnimation) && this.Animator.GetCurrentAnimatorStateInfo(0).IsName(this.StateName);
+            return this.CurrentMode != DefenseType.NormalDefense && this.Animator.GetBool(this.HashAnimation) && this.Animator.GetCurrentAnimatorStateInfo(0).IsName(this.StateName);
         }
 
         private bool KeyHasBeenHoldDown()
         {
-            return this.KeyToPress == KeyCode.None && Input.GetKey(this.KeyToPress);
+            return this.KeyToPress != KeyCode.None && Input.GetKey(this.KeyToPress);
         }
 
         private bool KeyHasBeenReleased()
         {
-            return this.KeyToPress == KeyCode.None && Input.GetKeyUp(this.KeyToPress);
+            return this.KeyToPress != KeyCode.None && Input.GetKeyUp(this.KeyToPress);
         }
 
 

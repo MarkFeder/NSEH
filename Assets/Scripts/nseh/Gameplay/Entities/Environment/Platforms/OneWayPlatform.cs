@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using nseh.Utils.Helpers;
+using nseh.Gameplay.Base.Abstract;
 
 namespace nseh.Gameplay.Entities.Environment.Platforms
 {
@@ -22,8 +23,9 @@ namespace nseh.Gameplay.Entities.Environment.Platforms
                 Debug.Log("OnTriggerEnter");
 
                 var body = other.gameObject.GetComponent<Rigidbody>();
+                var movement = other.gameObject.GetSafeComponent<CharacterMovement>();
 
-                if (body.velocity.y > 0)
+                if (movement != null && movement.IsRaisingUp())
                 {
                     Debug.Log("y > 0 -> Trigger collider");
                     other.isTrigger = true;

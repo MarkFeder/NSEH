@@ -7,6 +7,8 @@ namespace nseh.Gameplay.Base.Interfaces
 {
     public interface IAction
     {
+        int HashAnimation { get; set; }
+
         bool KeyHasBeenPressed();
 
         bool ButtonHasBeenPressed();

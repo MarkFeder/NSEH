@@ -21,7 +21,6 @@ namespace nseh.Utils.Helpers
         }
 
         public static T GetSafeComponent<T>(this GameObject obj) 
-            where T : MonoBehaviour
         {
             T component = obj.GetComponent<T>();
 
@@ -31,6 +30,30 @@ namespace nseh.Utils.Helpers
             }
 
             return component;
+        }
+
+        public static T GetSafeComponentInChildren<T>(this GameObject obj)
+        {
+            T component = obj.GetComponentInChildren<T>();
+
+            if (component == null)
+            {
+                Debug.LogError("Expected to find in children a component of type " + typeof(T) + " but found none", obj);
+            }
+
+            return component;
+        }
+
+        public static T[] GetSafeComponentsInChildren<T>(this GameObject obj)
+        {
+            T[] components = obj.GetComponentsInChildren<T>();
+
+            if (components == null || components.Length == 0)
+            {
+                Debug.LogError("Expected to find in children some components of type " + typeof(T) + " but found none", obj);
+            }
+
+            return components;
         }
     }
 

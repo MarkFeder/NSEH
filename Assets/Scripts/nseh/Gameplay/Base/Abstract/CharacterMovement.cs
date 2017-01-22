@@ -10,26 +10,40 @@ namespace nseh.Gameplay.Base.Abstract
     [RequireComponent(typeof(Animator))]
     public abstract class CharacterMovement : MonoBehaviour, IMovement
     {
+        [SerializeField]
         protected float force = 20.0f;
 
+        [SerializeField]
         protected float walkSpeed = 0.15f;
+        [SerializeField]
         protected float runSpeed = 1.0f;
         protected float speedDampTime = 0.1f;
         private float speed;
 
-        protected float jumpHeight = 5.0f;
+        [SerializeField]
+        protected float jumpHeight = 10.0f;
+        [SerializeField]
         protected float jumpCooldown = 1.0f;
+        [SerializeField]
         protected float timeToNextJump = 0.0f;
 
         protected bool facingRight = true;
+        public bool IsFacingRight
+        {
+            get
+            {
+                return this.transform.root.transform.forward.x > 0.0f;
+            }
+        }
 
         private Animator anim;
-        // This is placeholder right now
         protected Dictionary<string, int> animParameters;
 
         private Rigidbody body;
     
         private float distToGround;
+        private float offsetToGround;
+        private float minimumHeight;
 
         protected float horizontal;
         protected bool run;
@@ -44,6 +58,8 @@ namespace nseh.Gameplay.Base.Abstract
             this.animParameters = new Dictionary<string, int>();
             this.FillInAnimParameters();
             this.distToGround = GetComponent<Collider>().bounds.extents.y;
+            this.offsetToGround = 0.2f;
+            this.minimumHeight = 5.0f;
         }
 
         private void FillInAnimParameters()
@@ -63,6 +79,10 @@ namespace nseh.Gameplay.Base.Abstract
             this.run = Input.GetButton(Constants.Input.BUTTON_RUN);
 
             this.isMoving = Mathf.Abs(this.horizontal) > 0.1f;
+
+            // Fix to let the character moves on the ground
+            // See: http://answers.unity3d.com/questions/468709/no-gravity-with-mecanim.html for more details
+            this.anim.applyRootMotion = this.IsGrounded();
         }
 
         protected virtual void FixedUpdate()
@@ -84,7 +104,7 @@ namespace nseh.Gameplay.Base.Abstract
 
         public virtual void Jump()
         {
-            if (this.body.velocity.y < 10) // already jumped
+            if (this.body.velocity.y < 10)
             {
                 this.anim.SetBool(this.animParameters[Constants.Animations.Movement.JUMP], false);
                 if (this.timeToNextJump > 0)
@@ -106,9 +126,14 @@ namespace nseh.Gameplay.Base.Abstract
             this.MovementManagement(this.horizontal, this.run);
         }
 
-        protected virtual bool IsGrounded()
+        public virtual bool IsRaisingUp()
         {
-            return Physics.Raycast(this.transform.position, -Vector3.up, this.distToGround + 0.1f);
+            return this.body.velocity.y > this.minimumHeight;
+        }
+
+        public virtual bool IsGrounded()
+        {
+            return Physics.Raycast(this.transform.position, -Vector3.up, this.distToGround + this.offsetToGround);
         }
 
         protected virtual void MovementManagement(float horizontal, bool running)

@@ -9,16 +9,15 @@ namespace nseh.Gameplay.Base.Abstract
     [RequireComponent(typeof(Animator))]
     public abstract class CharacterHealth : MonoBehaviour, IHealth
     {
+        [SerializeField]
         protected int startingHealth = 100;
+        [SerializeField]
         protected int maxHealth = 100;
         protected int currentHealth;
-
-        protected float flashSpeed = 0.5f;
 
         private Animator anim;
         protected CharacterMovement characterMovement;
         protected bool isDead;
-
         protected int animDead;
 
         protected virtual void Awake()

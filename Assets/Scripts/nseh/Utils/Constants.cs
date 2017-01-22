@@ -7,10 +7,21 @@ namespace nseh.Utils
 {
     public static class Constants
     {
+        public static class Colors
+        {
+            public const string TEAL = "#008080ff";
+            public const string OLIVE = "#808000ff";
+            public const string BROWN = "#a52a2aff";
+            public const string FUCHSIA = "#ff00ffff";
+        }
+
         public static class Tags
         {
             public const string PLAYER = "Player";
             public const string ENEMY = "Enemy";
+            public const string WEAPON = "Weapon";
+            public const string CHARACTER = "Character";
+            public const string BOSS = "Boss";
         }
 
         public static class Scenes
@@ -38,10 +49,6 @@ namespace nseh.Utils
                 public const string CHARACTER_DEFENSE = "Defend";
                 public const string CHARACTER_ATTACK_A = "Attack_A";
                 public const string CHARACTER_ATTACK_B = "Attack_B";
-                public const string CHARACTER_DEFINITIVE = "Definitive";
-                public const string CHARACTER_HABILITY = "Hability";
-                public const string CHARACTER_USEITEM = "UseItem";
-                public const string CHARACTER_COMBO_AAA = "Combo_AAA";
 
                 public const string CHARACTER_COMBO_AAA_01 = "Combo_AAA_01";
                 public const string CHARACTER_COMBO_AAA_02 = "Combo_AAA_02";
@@ -49,6 +56,14 @@ namespace nseh.Utils
 
                 public const string CHARACTER_COMBO_BB_01 = "Combo_BB_01";
                 public const string CHARACTER_COMBO_BB_02 = "Combo_BB_02";
+
+                public const string CHARACTER_COMBO_B_SHARP = "Combo_B#";
+
+                public const string CHARACTER_HABILITY = "Hability";
+                public const string CHARACTER_DEFINITIVE = "Definitive";
+
+                public const string CHARACTER_USEITEM = "UseItem";
+                public const string CHARACTER_IMPACT = "Impact";
 
                 public const string CHARACTER_DEAD = "Dead";
             }

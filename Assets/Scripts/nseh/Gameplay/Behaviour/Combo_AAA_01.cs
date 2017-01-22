@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using nseh.Utils;
+using nseh.Utils.Helpers;
 using nseh.Gameplay.Base.Abstract;
 
 namespace nseh.Gameplay.Behaviour
@@ -9,17 +11,19 @@ namespace nseh.Gameplay.Behaviour
     {
 
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-        //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        //
+        //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        //{
         //}
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            var component = animator.gameObject.GetComponent<CharacterCombat>();
+            var component = animator.gameObject.GetSafeComponent<CharacterCombat>();
+            var targetEnemy = component.TargetEnemy;
+            var action = component.GetCharacterAttack(stateInfo.shortNameHash);
 
-            if (Input.GetKeyDown(KeyCode.C))
-            {
+            if (action != null && action.KeyHasBeenPressed())
+            { 
                 animator.SetBool(Animator.StringToHash(Constants.Animations.Combat.CHARACTER_COMBO_AAA_01), false);
                 animator.SetBool(Animator.StringToHash(Constants.Animations.Combat.CHARACTER_COMBO_AAA_03), false);
                 animator.SetBool(Animator.StringToHash(Constants.Animations.Combat.CHARACTER_COMBO_AAA_02), true);
