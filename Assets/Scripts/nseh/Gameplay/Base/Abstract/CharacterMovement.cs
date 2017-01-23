@@ -26,6 +26,7 @@ namespace nseh.Gameplay.Base.Abstract
         protected float jumpCooldown = 1.0f;
         [SerializeField]
         protected float timeToNextJump = 0.0f;
+        protected bool hasJumped = false;
 
         protected bool facingRight = true;
         public bool IsFacingRight
@@ -58,7 +59,7 @@ namespace nseh.Gameplay.Base.Abstract
             this.animParameters = new Dictionary<string, int>();
             this.FillInAnimParameters();
             this.distToGround = GetComponent<Collider>().bounds.extents.y;
-            this.offsetToGround = 0.2f;
+            this.offsetToGround = 0.1f;
             this.minimumHeight = 5.0f;
         }
 
@@ -83,14 +84,13 @@ namespace nseh.Gameplay.Base.Abstract
             // Fix to let the character moves on the ground
             // See: http://answers.unity3d.com/questions/468709/no-gravity-with-mecanim.html for more details
             this.anim.applyRootMotion = this.IsGrounded();
+
+            this.anim.SetFloat(this.animParameters[Constants.Animations.Movement.H], this.horizontal);
+            this.anim.SetBool(this.animParameters[Constants.Animations.Movement.GROUNDED], this.IsGrounded());
         }
 
         protected virtual void FixedUpdate()
         {
-            this.anim.SetFloat(this.animParameters[Constants.Animations.Movement.H], this.horizontal);
-
-            this.anim.SetBool(this.animParameters[Constants.Animations.Movement.GROUNDED], this.IsGrounded());
-
             this.Move();
 
             this.Jump();
@@ -107,17 +107,11 @@ namespace nseh.Gameplay.Base.Abstract
             if (this.body.velocity.y < 10)
             {
                 this.anim.SetBool(this.animParameters[Constants.Animations.Movement.JUMP], false);
-                if (this.timeToNextJump > 0)
-                    this.timeToNextJump -= Time.deltaTime;
             }
             if (Input.GetButtonDown(Constants.Animations.Movement.JUMP))
             {
                 anim.SetBool(this.animParameters[Constants.Animations.Movement.JUMP], true);
-                if (this.speed > 0 && this.timeToNextJump <= 0)
-                {
-                    this.body.velocity = new Vector3(0, this.jumpHeight, 0);
-                    this.timeToNextJump = this.jumpCooldown;
-                }
+                this.body.velocity = new Vector3(0, this.jumpHeight, 0);                
             }
         }
 

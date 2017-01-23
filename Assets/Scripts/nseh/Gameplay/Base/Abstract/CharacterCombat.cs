@@ -6,7 +6,6 @@ using nseh.Gameplay.Combat;
 using nseh.Gameplay.Base.Interfaces;
 using nseh.Gameplay.Combat.Defense;
 using nseh.Utils.Helpers;
-using nseh.Gameplay.Weapons;
 using Constants = nseh.Utils.Constants.Animations.Combat;
 using Colors = nseh.Utils.Constants.Colors;
 using Tags = nseh.Utils.Constants.Tags;
