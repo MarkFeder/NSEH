@@ -216,8 +216,9 @@ GameObject:
   - 33: {fileID: 35894205}
   - 23: {fileID: 35894204}
   - 65: {fileID: 35894203}
+  - 114: {fileID: 35894207}
   m_Layer: 0
-  m_Name: Platform (12)
+  m_Name: Platform_Left_Stone
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,6 +286,21 @@ Transform:
   - {fileID: 941362199}
   m_Father: {fileID: 0}
   m_RootOrder: 19
+--- !u!114 &35894207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 35894202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701f32678c8172040a2cd487ceb35657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformTarget: {fileID: 1265210471}
+  initialTarPosition: {x: 0, y: 0, z: 0}
+  platformPosition: {x: 0, y: 0, z: 0}
+  targetTarPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &41754210
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +584,7 @@ GameObject:
   - 23: {fileID: 105931895}
   - 65: {fileID: 105931894}
   m_Layer: 0
-  m_Name: Platform (9)
+  m_Name: Platform_Central_Central
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -676,8 +692,9 @@ GameObject:
   - 33: {fileID: 131553173}
   - 23: {fileID: 131553172}
   - 65: {fileID: 131553171}
+  - 114: {fileID: 131553175}
   m_Layer: 0
-  m_Name: Platform (7)
+  m_Name: Platform_Right_Stone
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -745,6 +762,21 @@ Transform:
   - {fileID: 2114053521}
   m_Father: {fileID: 0}
   m_RootOrder: 14
+--- !u!114 &131553175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 131553170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701f32678c8172040a2cd487ceb35657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformTarget: {fileID: 1265210471}
+  initialTarPosition: {x: 0, y: 0, z: 0}
+  platformPosition: {x: 0, y: 0, z: 0}
+  targetTarPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &158825467
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +1019,7 @@ GameObject:
   - 23: {fileID: 308363935}
   - 65: {fileID: 308363934}
   m_Layer: 0
-  m_Name: Platform (6)
+  m_Name: Platform_Right_Up_2
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1354,7 +1386,7 @@ GameObject:
   - 23: {fileID: 401570939}
   - 65: {fileID: 401570938}
   m_Layer: 0
-  m_Name: Platform (8)
+  m_Name: Platform_Central_Down
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1988,7 +2020,7 @@ GameObject:
   - 23: {fileID: 576200092}
   - 65: {fileID: 576200091}
   m_Layer: 0
-  m_Name: Platform (5)
+  m_Name: Platform_Right_1
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2097,7 +2129,7 @@ GameObject:
   - 23: {fileID: 590167532}
   - 65: {fileID: 590167531}
   m_Layer: 0
-  m_Name: Platform (18)
+  m_Name: Platform_Right_Up
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2314,7 +2346,7 @@ Transform:
   m_Children:
   - {fileID: 17300190}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1 &641105318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,7 +2975,7 @@ GameObject:
   - 23: {fileID: 863889608}
   - 65: {fileID: 863889607}
   m_Layer: 0
-  m_Name: Platform (15)
+  m_Name: Platform_Right_Central_2
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3090,7 +3122,7 @@ Transform:
   m_Children:
   - {fileID: 840511010}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!1 &865837300
 GameObject:
   m_ObjectHideFlags: 0
@@ -3193,7 +3225,7 @@ GameObject:
   - 23: {fileID: 903401409}
   - 65: {fileID: 903401408}
   m_Layer: 0
-  m_Name: Platform (17)
+  m_Name: Platform_Volcano_Left
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3273,7 +3305,7 @@ GameObject:
   - 23: {fileID: 905681157}
   - 65: {fileID: 905681156}
   m_Layer: 0
-  m_Name: Platform (2)
+  m_Name: Platform_Right_Central_2
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3515,6 +3547,25 @@ Transform:
   - {fileID: 41754211}
   m_Father: {fileID: 1570438693}
   m_RootOrder: 0
+--- !u!1 &1001333764 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100028, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+  m_PrefabInternal: {fileID: 2134222815}
+--- !u!114 &1001333766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1001333764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701f32678c8172040a2cd487ceb35657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformTarget: {fileID: 1265210471}
+  initialTarPosition: {x: 0, y: 0, z: 0}
+  platformPosition: {x: 0, y: 0, z: 0}
+  targetTarPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1022475949
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,7 +3578,7 @@ GameObject:
   - 23: {fileID: 1022475951}
   - 65: {fileID: 1022475950}
   m_Layer: 0
-  m_Name: Platform (14)
+  m_Name: Platform_Right_Central_1
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3758,7 +3809,7 @@ GameObject:
   - 23: {fileID: 1036687413}
   - 65: {fileID: 1036687412}
   m_Layer: 0
-  m_Name: Platform (16)
+  m_Name: Platform_Volcano_Right
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4111,7 +4162,7 @@ GameObject:
   - 23: {fileID: 1128938904}
   - 65: {fileID: 1128938903}
   m_Layer: 0
-  m_Name: Platform (3)
+  m_Name: Platform_Right_Central_3
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4249,7 +4300,7 @@ GameObject:
   - 23: {fileID: 1213161650}
   - 65: {fileID: 1213161651}
   m_Layer: 0
-  m_Name: Platform
+  m_Name: Platform_Right_Down
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4268,7 +4319,7 @@ Transform:
   m_Children:
   - {fileID: 1487398531}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 7
 --- !u!23 &1213161650
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4387,7 +4438,7 @@ GameObject:
   - 23: {fileID: 1265210469}
   - 65: {fileID: 1265210468}
   m_Layer: 0
-  m_Name: Platform (4)
+  m_Name: Platform_Sand_House
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5457,7 +5508,7 @@ Transform:
   m_Children:
   - {fileID: 2020427133}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &1524333355
 GameObject:
   m_ObjectHideFlags: 0
@@ -5972,7 +6023,7 @@ GameObject:
   - 23: {fileID: 1628978144}
   - 65: {fileID: 1628978143}
   m_Layer: 0
-  m_Name: Platform (11)
+  m_Name: Platform_Central_Up
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6207,7 +6258,7 @@ GameObject:
   - 23: {fileID: 1679286611}
   - 65: {fileID: 1679286610}
   m_Layer: 0
-  m_Name: Platform (1)
+  m_Name: Platform_Right_Central_1
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6337,6 +6388,101 @@ Transform:
   - {fileID: 1341936517}
   m_Father: {fileID: 2020427133}
   m_RootOrder: 0
+--- !u!1 &1691013415
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1691013420}
+  - 33: {fileID: 1691013419}
+  - 65: {fileID: 1691013418}
+  - 23: {fileID: 1691013417}
+  - 114: {fileID: 1691013416}
+  m_Layer: 0
+  m_Name: Tar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1691013416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1691013415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701f32678c8172040a2cd487ceb35657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformTarget: {fileID: 1265210471}
+  initialTarPosition: {x: 0, y: 0, z: 0}
+  platformPosition: {x: 0, y: 0, z: 0}
+  targetTarPosition: {x: 0, y: 0, z: 0}
+--- !u!23 &1691013417
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1691013415}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 1265210471}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &1691013418
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1691013415}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1691013419
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1691013415}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1691013420
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1691013415}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.234266, y: -4.19, z: 1.1191311}
+  m_LocalScale: {x: 71.3539, y: 7.6, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 26
 --- !u!1 &1698986611
 GameObject:
   m_ObjectHideFlags: 0
@@ -6800,6 +6946,25 @@ Transform:
   - {fileID: 1444253800}
   m_Father: {fileID: 1325304784}
   m_RootOrder: 1
+--- !u!1 &1860797001 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100026, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+  m_PrefabInternal: {fileID: 2134222815}
+--- !u!114 &1860797003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1860797001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701f32678c8172040a2cd487ceb35657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformTarget: {fileID: 1265210471}
+  initialTarPosition: {x: 0, y: 0, z: 0}
+  platformPosition: {x: 0, y: 0, z: 0}
+  targetTarPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1861234858
 GameObject:
   m_ObjectHideFlags: 0
@@ -7737,7 +7902,7 @@ GameObject:
   - 23: {fileID: 2075413816}
   - 65: {fileID: 2075413815}
   m_Layer: 0
-  m_Name: Platform (13)
+  m_Name: Platform_Right_Down
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8011,7 +8176,7 @@ GameObject:
   - 23: {fileID: 2115150544}
   - 65: {fileID: 2115150543}
   m_Layer: 0
-  m_Name: Platform (10)
+  m_Name: Platform_Picapiedra_House
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8116,7 +8281,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400020, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
       propertyPath: m_LocalRotation.x
@@ -8145,6 +8310,74 @@ Prefab:
     - target: {fileID: 400008, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
       propertyPath: m_LocalPosition.z
       value: 2.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Stage
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Sand House
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Conic House
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Straw House
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Picapiedra's House
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Volcano House
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Central Stone
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Right Down
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Right Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Stage Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Stage Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 100022, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Left Down
+      objectReference: {fileID: 0}
+    - target: {fileID: 100024, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Left Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 100026, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Right Stone
+      objectReference: {fileID: 0}
+    - target: {fileID: 100028, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Left Stone
+      objectReference: {fileID: 0}
+    - target: {fileID: 100030, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 100032, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
+      propertyPath: m_Name
+      value: Tunnel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2405f8e216f8ec47b9060ed3e1925cc, type: 3}
