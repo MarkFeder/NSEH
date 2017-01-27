@@ -1,0 +1,193 @@
+fileFormatVersion: 2
+guid: f77f4af4f2437544aa2af86e1547699b
+timeCreated: 1485528251
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Baoba_1
+    100002: Baoba_2
+    100004: Big Cactus_1
+    100006: Big Cactus_2
+    100008: //RootNode
+    100010: Ground
+    100012: Little Cactus
+    100014: Little Cactus Flower
+    100016: Medium Cactus
+    100018: Rock_1
+    100020: Rock_10
+    100022: Rock_11
+    100024: Rock_2
+    100026: Rock_3
+    100028: Rock_4
+    100030: Rock_5
+    100032: Rock_6
+    100034: Rock_7
+    100036: Rock_8
+    100038: Rock_9
+    100040: Tree_1
+    100042: Tree_2
+    100044: Tree_3
+    100046: Volcano
+    400000: Baoba_1
+    400002: Baoba_2
+    400004: Big Cactus_1
+    400006: Big Cactus_2
+    400008: //RootNode
+    400010: Ground
+    400012: Little Cactus
+    400014: Little Cactus Flower
+    400016: Medium Cactus
+    400018: Rock_1
+    400020: Rock_10
+    400022: Rock_11
+    400024: Rock_2
+    400026: Rock_3
+    400028: Rock_4
+    400030: Rock_5
+    400032: Rock_6
+    400034: Rock_7
+    400036: Rock_8
+    400038: Rock_9
+    400040: Tree_1
+    400042: Tree_2
+    400044: Tree_3
+    400046: Volcano
+    2300000: Baoba_1
+    2300002: Baoba_2
+    2300004: Big Cactus_1
+    2300006: Big Cactus_2
+    2300008: Ground
+    2300010: Little Cactus
+    2300012: Little Cactus Flower
+    2300014: Medium Cactus
+    2300016: Rock_1
+    2300018: Rock_10
+    2300020: Rock_11
+    2300022: Rock_2
+    2300024: Rock_3
+    2300026: Rock_4
+    2300028: Rock_5
+    2300030: Rock_6
+    2300032: Rock_7
+    2300034: Rock_8
+    2300036: Rock_9
+    2300038: Tree_1
+    2300040: Tree_2
+    2300042: Tree_3
+    2300044: Volcano
+    3300000: Baoba_1
+    3300002: Baoba_2
+    3300004: Big Cactus_1
+    3300006: Big Cactus_2
+    3300008: Ground
+    3300010: Little Cactus
+    3300012: Little Cactus Flower
+    3300014: Medium Cactus
+    3300016: Rock_1
+    3300018: Rock_10
+    3300020: Rock_11
+    3300022: Rock_2
+    3300024: Rock_3
+    3300026: Rock_4
+    3300028: Rock_5
+    3300030: Rock_6
+    3300032: Rock_7
+    3300034: Rock_8
+    3300036: Rock_9
+    3300038: Tree_1
+    3300040: Tree_2
+    3300042: Tree_3
+    3300044: Volcano
+    4300000: Ground
+    4300002: Volcano
+    4300004: Baoba_1
+    4300006: Little Cactus Flower
+    4300008: Tree_1
+    4300010: Rock_1
+    4300012: Rock_2
+    4300014: Rock_3
+    4300016: Rock_4
+    4300018: Rock_5
+    4300020: Rock_6
+    4300022: Big Cactus_1
+    4300024: Baoba_2
+    4300026: Big Cactus_2
+    4300028: Rock_7
+    4300030: Rock_8
+    4300032: Rock_9
+    4300034: Tree_2
+    4300036: Tree_3
+    4300038: Medium Cactus
+    4300040: Little Cactus
+    4300042: Rock_10
+    4300044: Rock_11
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
