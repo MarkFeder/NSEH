@@ -55,13 +55,28 @@ namespace nseh.General
                 Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -15);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
-            else
+            else if (Mathf.Abs(distance.x) < 10 && Mathf.Abs(distance.y) < 10)
             {
-                Position = new Vector3(Mathf.Clamp(Midpoint.x,xMin,xMax), Mathf.Clamp(Midpoint.y,yMin,yMax), -20);
+                //Position = new Vector3(Mathf.Clamp(Midpoint.x,xMin,xMax), Mathf.Clamp(Midpoint.y,yMin,yMax), -100);
+                Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -20);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
-           
 
-    }
+            else if(Mathf.Abs(distance.x) < 20 && Mathf.Abs(distance.y) < 20)
+            {
+                Position = new Vector3(Mathf.Clamp(Midpoint.x,xMin,xMax), Mathf.Clamp(Midpoint.y,yMin,yMax), -40);
+                //Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -20);
+                transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
+            }
+
+            else 
+            {
+                Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -80);
+                //Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -20);
+                transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
+            }
+
+
+        }
     }
 }
