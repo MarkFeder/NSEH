@@ -22,7 +22,7 @@ namespace nseh.Gameplay.Animations.Behaviour
             var targetEnemy = component.TargetEnemy;
             var action = component.GetCharacterAttack(stateInfo.shortNameHash);
 
-            if (action != null && action.KeyHasBeenPressed())
+            if (action != null && (action.KeyHasBeenPressed() || action.ButtonHasBeenPressed()))
             { 
                 animator.SetBool(Animator.StringToHash(Constants.Animations.Combat.CHARACTER_COMBO_AAA_01), false);
                 animator.SetBool(Animator.StringToHash(Constants.Animations.Combat.CHARACTER_COMBO_AAA_03), false);

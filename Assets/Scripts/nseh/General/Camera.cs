@@ -22,6 +22,8 @@ namespace nseh.General
         private float yMin;
         [SerializeField]
         private float yMax;
+        [SerializeField]
+        private float zMax;
 
         // Use this for initialization
         void Start()
@@ -57,7 +59,7 @@ namespace nseh.General
             }
             else
             {
-                Position = new Vector3(Mathf.Clamp(Midpoint.x,xMin,xMax), Mathf.Clamp(Midpoint.y,yMin,yMax), -20);
+                Position = new Vector3(Mathf.Clamp(Midpoint.x,xMin,xMax), Mathf.Clamp(Midpoint.y,yMin,yMax), -zMax);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
            

@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Constants = nseh.Utils.Constants;
+using nseh.Utils;
+using Constants = nseh.Utils.Constants.Animations.Movement;
+using Inputs = nseh.Utils.Constants.Input;
 
 namespace nseh.Gameplay.Base.Abstract
 {
@@ -10,25 +12,36 @@ namespace nseh.Gameplay.Base.Abstract
     [RequireComponent(typeof(Animator))]
     public abstract class CharacterMovement : MonoBehaviour, IMovement
     {
-        [SerializeField]
-        protected float force = 20.0f;
+        // External References
 
+        private Animator anim;
+        private Rigidbody body;
+
+        // Properties
+
+        [SerializeField]
+        protected int gamepadIndex;
         [SerializeField]
         protected float walkSpeed = 0.15f;
         [SerializeField]
         protected float runSpeed = 1.0f;
-        protected float speedDampTime = 0.1f;
-        private float speed;
-
         [SerializeField]
         protected float jumpHeight = 10.0f;
-        [SerializeField]
-        protected float jumpCooldown = 1.0f;
-        [SerializeField]
-        protected float timeToNextJump = 0.0f;
-        protected bool hasJumped = false;
 
+        protected float horizontal;
+        protected float speedDampTime = 0.1f;
+
+        protected bool hasJumped = false;
         protected bool facingRight = true;
+        protected bool isMoving;
+
+        protected Dictionary<string, int> animParameters;
+
+        private float speed;
+        private float distToGround;
+        private float offsetToGround;
+        private float minimumHeight;
+
         public bool IsFacingRight
         {
             get
@@ -37,18 +50,14 @@ namespace nseh.Gameplay.Base.Abstract
             }
         }
 
-        private Animator anim;
-        protected Dictionary<string, int> animParameters;
+        public int GamepadIndex
+        {
+            get
+            {
+                return this.gamepadIndex;
 
-        private Rigidbody body;
-    
-        private float distToGround;
-        private float offsetToGround;
-        private float minimumHeight;
-
-        protected float horizontal;
-        protected bool run;
-        protected bool isMoving;
+            }
+        }
 
         protected virtual void Awake()
         {
@@ -56,37 +65,43 @@ namespace nseh.Gameplay.Base.Abstract
             this.body = GetComponent<Rigidbody>();
             this.body.isKinematic = false;
 
-            this.animParameters = new Dictionary<string, int>();
-            this.FillInAnimParameters();
+            this.animParameters = this.FillInAnimParameters();
             this.distToGround = GetComponent<Collider>().bounds.extents.y;
+            
             this.offsetToGround = 0.1f;
             this.minimumHeight = 5.0f;
         }
 
-        private void FillInAnimParameters()
+        protected void Start()
         {
-            if (this.animParameters.Count == 0)
+            if (this.gamepadIndex == 0)
             {
-                this.animParameters.Add(Constants.Animations.Movement.SPEED, Animator.StringToHash(Constants.Animations.Movement.SPEED));
-                this.animParameters.Add(Constants.Animations.Movement.JUMP, Animator.StringToHash(Constants.Animations.Movement.JUMP));
-                this.animParameters.Add(Constants.Animations.Movement.H, Animator.StringToHash(Constants.Animations.Movement.H));
-                this.animParameters.Add(Constants.Animations.Movement.GROUNDED, Animator.StringToHash(Constants.Animations.Movement.GROUNDED));
+                Debug.LogError("GamepadIndex is 0 when it should be > 0");
             }
+        }
+
+        private Dictionary<string, int> FillInAnimParameters()
+        {
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+            dict.Add(Constants.SPEED, Animator.StringToHash(Constants.SPEED));
+            dict.Add(Constants.JUMP, Animator.StringToHash(Constants.JUMP));
+            dict.Add(Constants.H, Animator.StringToHash(Constants.H));
+            dict.Add(Constants.GROUNDED, Animator.StringToHash(Constants.GROUNDED));
+
+            return dict;
         }
 
         protected virtual void Update()
         {
-            this.horizontal = Input.GetAxis(Constants.Input.AXIS_HORIZONTAL);
-            this.run = Input.GetButton(Constants.Input.BUTTON_RUN);
-
+            this.horizontal = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL, this.gamepadIndex));
             this.isMoving = Mathf.Abs(this.horizontal) > 0.1f;
 
             // Fix to let the character moves on the ground
             // See: http://answers.unity3d.com/questions/468709/no-gravity-with-mecanim.html for more details
             this.anim.applyRootMotion = this.IsGrounded();
 
-            this.anim.SetFloat(this.animParameters[Constants.Animations.Movement.H], this.horizontal);
-            this.anim.SetBool(this.animParameters[Constants.Animations.Movement.GROUNDED], this.IsGrounded());
+            this.anim.SetFloat(this.animParameters[Constants.H], this.horizontal);
+            this.anim.SetBool(this.animParameters[Constants.GROUNDED], this.IsGrounded());
         }
 
         protected virtual void FixedUpdate()
@@ -96,28 +111,35 @@ namespace nseh.Gameplay.Base.Abstract
             this.Jump();
         }
 
-        protected virtual void Start()
-        {
-        }
-
         #region Movement Logic
 
         public virtual void Jump()
         {
             if (this.body.velocity.y < 10)
             {
-                this.anim.SetBool(this.animParameters[Constants.Animations.Movement.JUMP], false);
+                this.anim.SetBool(this.animParameters[Constants.JUMP], false);
             }
-            if (Input.GetButtonDown(Constants.Animations.Movement.JUMP))
+            if (Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex)) && this.IsGrounded())
             {
-                anim.SetBool(this.animParameters[Constants.Animations.Movement.JUMP], true);
+                anim.SetBool(this.animParameters[Constants.JUMP], true);
                 this.body.velocity = new Vector3(0, this.jumpHeight, 0);                
             }
         }
 
         public virtual void Move()
         {
-            this.MovementManagement(this.horizontal, this.run);
+            this.MakeCharacterToFlip(horizontal);
+
+            if (this.isMoving)
+            {
+                this.speed = this.runSpeed;
+                this.anim.SetFloat(this.animParameters[Constants.SPEED], this.speed, this.speedDampTime, Time.deltaTime);
+            }
+            else
+            {
+                this.speed = 0.0f;
+                this.anim.SetFloat(this.animParameters[Constants.SPEED], 0.0f);
+            }
         }
 
         public virtual bool IsRaisingUp()
@@ -128,39 +150,6 @@ namespace nseh.Gameplay.Base.Abstract
         public virtual bool IsGrounded()
         {
             return Physics.Raycast(this.transform.position, -Vector3.up, this.distToGround + this.offsetToGround);
-        }
-
-        protected virtual void MovementManagement(float horizontal, bool running)
-        {
-            this.MakeCharacterToFlip(horizontal);
-
-            if (this.isMoving)
-            {
-                if (running)
-                {
-                    this.speed = this.runSpeed;
-                }
-                else
-                {
-                    this.speed = this.walkSpeed;
-                }
-
-                this.anim.SetFloat(this.animParameters[Constants.Animations.Movement.SPEED], this.speed, this.speedDampTime, Time.deltaTime);
-            }
-            else
-            {
-                this.speed = 0.0f;
-                this.anim.SetFloat(this.animParameters[Constants.Animations.Movement.SPEED], 0.0f);
-            }
-
-            if (this.facingRight)
-            {
-                this.body.AddForce(transform.right * speed);
-            }
-            else
-            {
-                this.body.AddForce(-transform.right * speed);
-            }
         }
 
         #endregion

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using nseh.Utils;
+using nseh.Utils.Helpers;
+using nseh.Gameplay.Base.Abstract;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
@@ -15,7 +17,11 @@ namespace nseh.Gameplay.Animations.Behaviour
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            var component = animator.gameObject.GetSafeComponent<CharacterCombat>();
+            var targetEnemy = component.TargetEnemy;
+            var action = component.GetCharacterAttack(stateInfo.shortNameHash);
+
+            if (action != null && (action.KeyHasBeenPressed() || action.ButtonHasBeenPressed()))
             {
                 animator.SetBool(Animator.StringToHash(Constants.Animations.Combat.CHARACTER_COMBO_AAA_01), false);
                 animator.SetBool(Animator.StringToHash(Constants.Animations.Combat.CHARACTER_COMBO_AAA_02), false);

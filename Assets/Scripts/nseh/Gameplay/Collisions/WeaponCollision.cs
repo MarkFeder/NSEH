@@ -16,6 +16,8 @@ namespace nseh.Gameplay.Collisions
     [RequireComponent(typeof(Collider))]
     public class WeaponCollision : MonoBehaviour, IWeapon
     {
+        // Properties
+
         [SerializeField]
         protected string enemyType;
 
