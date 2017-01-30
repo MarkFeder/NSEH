@@ -9,6 +9,7 @@ TagManager:
   - OneWayPlatform
   - Floor
   - Weapon
+  - Plataform
   layers:
   - Default
   - TransparentFX
