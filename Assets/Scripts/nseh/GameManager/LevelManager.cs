@@ -146,9 +146,11 @@ public class LevelManager : Service {
             { 
                 _Clock.text = "";
                 Time.timeScale = 0;
-                Text gameOver= GameObject.Find("CanvasGameOver/PanelGameOver").GetComponent<Text>(); 
-                gameOver.text = "Time's Up";
                 _canvasGameOver.gameObject.SetActive(true);
+                Text gameOver= GameObject.Find("CanvasGameOver/PanelGameOver/TextGameOver").GetComponent<Text>();
+                 
+                gameOver.text = "Time's Up";
+                //_canvasGameOver.gameObject.SetActive(true);
 
 
             }

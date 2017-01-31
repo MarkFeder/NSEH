@@ -55,7 +55,8 @@ public class GameManager : MonoBehaviour {
                 case States.MainMenu:
                     _currentState = nextState;
                     Find<MenuManager>().Release();
-                    SceneManager.LoadSceneAsync("Game");
+                    SceneManager.LoadScene("Game");
+ 
                     Find<LevelManager>().Activate();
                     
                     break;
