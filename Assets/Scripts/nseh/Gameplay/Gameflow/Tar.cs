@@ -11,9 +11,9 @@ public class Tar : MonoBehaviour {
     //float GameTime = 0;
     //int eventStartedAt = 0;
     float eventDuration = 10.0f;
-    bool eventFinished = false;
+    //bool eventFinished = false;
     float elapsedTime;
-    bool goingUp = true;
+    //bool goingUp = true;
 
     // Use this for initialization
     void Start () {
@@ -61,7 +61,6 @@ public class Tar : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, initialTarPosition, elapsedTime / 120.0f);
         if (transform.position == initialTarPosition)
         {
-            eventFinished = !eventFinished;
             Debug.Log("Tar is down (" + elapsedTime + ")");
             return false;
         }
