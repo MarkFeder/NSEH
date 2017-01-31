@@ -32,11 +32,11 @@ public class LevelManager : Service {
     }
 
     public void PauseGame()
-    {   Debug.Log("dasdas");
+    {   
         _isPaused = !_isPaused;
         if (_isPaused)
         {
-            //Debug.Log(GameObject.Find("CanvasPaused").GetComponent<Canvas>().gameObject);
+            
             _canvasIsPaused.gameObject.SetActive(true);
             Time.timeScale = 0;
             
@@ -68,9 +68,7 @@ public class LevelManager : Service {
         _currentState = States.LevelEvent;
         _isPaused = false;
         _firstTick = true;
-        //_canvasIsPaused = new Canvas();
-        //_canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
-        //Debug.Log(_canvasIsPaused);
+
 
 
     }
@@ -78,8 +76,6 @@ public class LevelManager : Service {
     override public void Activate()
     {
         IsActivated = true;
-        //SceneManager.LoadScene("Game");
-        //_canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
         
 
     }
@@ -148,10 +144,7 @@ public class LevelManager : Service {
                 Time.timeScale = 0;
                 _canvasGameOver.gameObject.SetActive(true);
                 Text gameOver= GameObject.Find("CanvasGameOver/PanelGameOver/TextGameOver").GetComponent<Text>();
-                 
                 gameOver.text = "Time's Up";
-                //_canvasGameOver.gameObject.SetActive(true);
-
 
             }
             //
