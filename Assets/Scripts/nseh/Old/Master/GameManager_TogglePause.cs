@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/*
 namespace nseh.GameManager
 {
     public class GameManager_TogglePause : MonoBehaviour {
@@ -43,3 +43,4 @@ namespace nseh.GameManager
 
 
 
+    */

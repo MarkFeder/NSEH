@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
 using nseh.Utils;
-
+/*
 namespace nseh.GameManager
 {
     public class GameManager : MonoBehaviour
@@ -228,3 +228,4 @@ namespace nseh.GameManager
         #endregion
     }
 }
+*/

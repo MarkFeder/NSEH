@@ -4,12 +4,12 @@ using UnityEngine;
 
 public abstract class Event {
 
-    public Game MyGame;
+    public GameManager MyGame;
     public LevelManager LvlManager;
     public bool IsActivated;
 
     //Setup the event providing the current game instance. The event is not active here yet.
-    virtual public void Setup(Game myGame, LevelManager lvlManager)
+    virtual public void Setup(GameManager myGame, LevelManager lvlManager)
     {
         MyGame = myGame;
         LvlManager = lvlManager;

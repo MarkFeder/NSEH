@@ -5,7 +5,7 @@ using UnityEngine;
 public class MenuManager : Service
 {
   
-    public override void Setup(Game myGame)
+    public override void Setup(GameManager myGame)
     {
         base.Setup(myGame);
     }
@@ -17,17 +17,17 @@ public class MenuManager : Service
 
     public void ChangePlayers(int number)
     {
-        Game.thisGame.ChangePlayers(number);
+        GameManager.thisGame.ChangePlayers(number);
     }
 
     public void ChangeStates()
     {
-        Game.thisGame.ChangeState(Game.States.Playing);
+        GameManager.thisGame.ChangeState(GameManager.States.Playing);
     }
 
     public void ExitGame()
     {
-        Game.thisGame.ExitGame();
+        GameManager.thisGame.ExitGame();
     }
 
     public override void Tick()

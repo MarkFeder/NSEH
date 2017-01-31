@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/*
 namespace nseh.GameManager
 {
     public class GameManager_ToggleMenu : MonoBehaviour {
@@ -62,3 +62,4 @@ namespace nseh.GameManager
 }
 
 
+    */

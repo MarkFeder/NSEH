@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/*
 namespace nseh.GameManager
 {
     public class GameManager_Master : MonoBehaviour {
@@ -61,10 +61,11 @@ namespace nseh.GameManager
             {
                 isGameOver = true;
                 Player2WinsEvent();
-            }*/
+            }
         }
 
     }
 }
 
 
+*/

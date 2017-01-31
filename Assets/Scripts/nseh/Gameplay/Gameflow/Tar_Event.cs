@@ -13,7 +13,7 @@ public class Tar_Event : Event {
     public static event TarHandler TarUp;
     public static event TarHandler TarDown;
     //Setup the event providing the current game instance. The event is not active here yet.
-    override public void Setup(Game myGame, LevelManager lvlManager)
+    override public void Setup(GameManager myGame, LevelManager lvlManager)
     {
         base.Setup(myGame, lvlManager);
         //_tarComponents = new List<EventComponent>();

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/*
 namespace nseh.GameManager
 {
     public class GameManager_GameOver : MonoBehaviour
@@ -34,3 +34,4 @@ namespace nseh.GameManager
     }
 
 }
+*/

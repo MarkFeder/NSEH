@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/*
 namespace nseh.GameManager
 {
     public class GameManager_TimesUp : MonoBehaviour
@@ -37,3 +37,4 @@ namespace nseh.GameManager
     } 
 
 }
+*/

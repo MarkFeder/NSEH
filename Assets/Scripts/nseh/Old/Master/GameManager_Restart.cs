@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/*
 namespace nseh.GameManager
 {
     public class GameManager_Restart : MonoBehaviour
@@ -35,4 +35,4 @@ namespace nseh.GameManager
 }
 
 
-
+    */

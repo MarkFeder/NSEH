@@ -2,8 +2,8 @@
 using System.Collections;
 using System;
 
-namespace nseh.GameManager
-{
+//namespace nseh.GameManager
+//{
     public class CameraControl : MonoBehaviour
     {
 
@@ -123,5 +123,5 @@ namespace nseh.GameManager
             // Find and set the required size of the camera.
             this.camera.orthographicSize = FindRequiredSize();
         }
-    } 
+   // } 
 }
