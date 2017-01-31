@@ -12,7 +12,7 @@ public class Tar : MonoBehaviour {
     //int eventStartedAt = 0;
     float eventDuration = 10.0f;
     //bool eventFinished = false;
-    float elapsedTime;
+    //float elapsedTime;
     //bool goingUp = true;
 
     // Use this for initialization
@@ -40,14 +40,14 @@ public class Tar : MonoBehaviour {
 
     }
  
-    bool TarUp()
+    bool TarUp(float elapsedTime)
     {
         //tar.SetActive(true);
         targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, targetTarPosition, elapsedTime / 80.0f);
         if (transform.position == targetTarPosition)
         {
-            Debug.Log("Tar is up");
+            Debug.Log("Tar is up. " + "(" + elapsedTime + ")" );
             return true;
         }
 
@@ -55,13 +55,13 @@ public class Tar : MonoBehaviour {
         //transform.position = Vector3.SmoothDamp(transform.position, targetTarPosition, ref velocity, 0.15f);
     }
 
-    bool TarDown()
+    bool TarDown(float elapsedTime)
     {
         targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, initialTarPosition, elapsedTime / 120.0f);
         if (transform.position == initialTarPosition)
         {
-            Debug.Log("Tar is down");
+            Debug.Log("Tar is down. " + "(" + elapsedTime + ")");
             return false;
         }
         return true;

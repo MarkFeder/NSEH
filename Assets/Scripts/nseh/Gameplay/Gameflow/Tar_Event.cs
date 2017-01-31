@@ -9,7 +9,7 @@ public class Tar_Event : Event {
     //bool eventFinished = false;
     public float elapsedTime;
     bool isUp = false;
-    public delegate bool TarHandler();
+    public delegate bool TarHandler(float gameTime);
     public static event TarHandler TarUp;
     public static event TarHandler TarDown;
     //Setup the event providing the current game instance. The event is not active here yet.
@@ -35,14 +35,14 @@ public class Tar_Event : Event {
         {
             //foreach(EventComponent tarComponent in _tarComponents)
             //{
-                isUp = TarUp();
+                isUp = TarUp(elapsedTime);
             //}
             
         }
         //Controls when the tar should go down
         else if (elapsedTime >= (5.0f + eventDuration) && isUp)
         {
-                isUp = TarDown();
+                isUp = TarDown(elapsedTime);
         }
         //Controls when the event cycle is completed and resets the involved variables
         else if (elapsedTime >= (5.0f + eventDuration) && !isUp)
