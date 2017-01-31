@@ -11,13 +11,13 @@ namespace nseh.General
 
         public void OneNumberCharacter(GameObject newCanvas)
         {
-            Game.thisGame.ChangePlayers(1);
+            Game.thisGame.Find<MenuManager>().ChangePlayers(1);
             ChangeCanvas(newCanvas);
         }
 
         public void TwoNumberCharacter(GameObject newCanvas)
         {
-            Game.thisGame.ChangePlayers(2);
+            Game.thisGame.Find<MenuManager>().ChangePlayers(2);
             ChangeCanvas(newCanvas);
         }
 
@@ -39,13 +39,14 @@ namespace nseh.General
         public void PlayGame(GameObject newCanvas)
         {
             //ChangeCanvas(newCanvas);
-            Game.thisGame.ChangeState(Game.States.Playing);
-            
+            Game.thisGame.Find<MenuManager>().ChangeStates();
+
         }
         
         public void Exit()
         {
-            Game.thisGame.ExitGame();
+            Game.thisGame.Find<MenuManager>().ExitGame();
+      
         }
     }
 

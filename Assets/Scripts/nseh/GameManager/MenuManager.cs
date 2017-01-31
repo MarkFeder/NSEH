@@ -15,7 +15,20 @@ public class MenuManager : Service
         IsActivated = true;
     }
 
-    
+    public void ChangePlayers(int number)
+    {
+        Game.thisGame.ChangePlayers(number);
+    }
+
+    public void ChangeStates()
+    {
+        Game.thisGame.ChangeState(Game.States.Playing);
+    }
+
+    public void ExitGame()
+    {
+        Game.thisGame.ExitGame();
+    }
 
     public override void Tick()
     {
