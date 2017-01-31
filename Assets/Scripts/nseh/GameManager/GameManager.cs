@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
     static public GameManager thisGame;
 
     //Properties
-    public enum States { MainMenu, Playing };
+    public enum States { MainMenu, Playing , Restart};
     public States _currentState;
     private States nextState;
     private int numberPlayers = 0;
@@ -50,18 +50,24 @@ public class GameManager : MonoBehaviour {
 
         if (nextState != _currentState)
         {
-            switch (_currentState)
+            switch (nextState)
             {
-                case States.MainMenu:
+                case States.Playing:
                     _currentState = nextState;
                     Find<MenuManager>().Release();
                     SceneManager.LoadScene("Game");
- 
                     Find<LevelManager>().Activate();
-                    
                     break;
 
-                case States.Playing:
+                case States.Restart:
+                    _currentState = States.Playing;
+                    Find<LevelManager>().Release();
+                    SceneManager.LoadScene("Game");
+                    Find<LevelManager>().Activate();
+                    break;
+
+                case States.MainMenu:
+                    Time.timeScale = 1;
                     _currentState = nextState;
                     nextState = States.MainMenu;
                     Find<LevelManager>().Release();

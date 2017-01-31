@@ -12,11 +12,11 @@ public class LevelManager : Service {
     public States _currentState;
     private States nextState;
     private bool _isPaused;
-    private Canvas _canvasIsPaused;
-    private Canvas _canvasGameOver;
-    private Text _Clock;
-    private float timeRemaining = 1;
-    private bool _firstTick;
+    private Canvas _canvasIsPaused=null;
+    private Canvas _canvasGameOver=null;
+    private Text _Clock=null;
+    private Text _gameOverText=null;
+    private float timeRemaining;
 
     //List of all events (E.g: EventManager, LightManager...) 
     private List<Event> _eventsList;
@@ -67,7 +67,6 @@ public class LevelManager : Service {
         _eventsList = new List<Event>();
         _currentState = States.LevelEvent;
         _isPaused = false;
-        _firstTick = true;
 
 
 
@@ -76,7 +75,9 @@ public class LevelManager : Service {
     override public void Activate()
     {
         IsActivated = true;
+        Time.timeScale = 1;
         
+
 
     }
 
@@ -121,30 +122,52 @@ public class LevelManager : Service {
             _Clock.text = "";
             Time.timeScale = 0;
             _canvasGameOver.gameObject.SetActive(true);
-            Text gameOver = GameObject.Find("CanvasGameOver/PanelGameOver/TextGameOver").GetComponent<Text>();
-            gameOver.text = "Time's Up";
+            _gameOverText = GameObject.Find("CanvasGameOver/PanelGameOver/TextGameOver").GetComponent<Text>();
+            _gameOverText.text = "Time's Up";
 
         }
     }
+
+
+    public void Restart()
+    {
+        MyGame.ChangeState(GameManager.States.Restart);
+    }
+
+    public void GoToMainMenu()
+    {
+        MyGame.ChangeState(GameManager.States.MainMenu);
+        
+    }
+
     //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
     override public void Tick()
     {
-        if (_firstTick && SceneManager.GetActiveScene().name == "Game")
+        if (_canvasIsPaused == null && SceneManager.GetActiveScene().name == "Game")
         {
+            timeRemaining = 3F;
+            _canvasIsPaused = new Canvas();
             _canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
             _Clock = GameObject.Find("CanvasClock/TextClock").GetComponent<Text>();
             _canvasIsPaused.gameObject.SetActive(false);
-            _canvasGameOver= GameObject.Find("CanvasGameOver").GetComponent<Canvas>();
-            _canvasGameOver.gameObject.SetActive(false);
-            _firstTick = false;
+
         }
-        else if (_firstTick && SceneManager.GetActiveScene().name != "Game")
+        else if (_canvasGameOver == null && SceneManager.GetActiveScene().name == "Game")
+        {
+            _canvasGameOver = new Canvas();
+            _canvasGameOver = GameObject.Find("CanvasGameOver").GetComponent<Canvas>();
+            _canvasGameOver.gameObject.SetActive(false);
+        }
+        else if (SceneManager.GetActiveScene().name != "Game")
         {
             Debug.Log("Loading");
         }
         else
         {
-            Clock();
+            if (timeRemaining > 0)
+            {
+                Clock();
+            }
             //
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -168,5 +191,9 @@ public class LevelManager : Service {
     override public void Release()
     {
         IsActivated = false;
+        //_canvasGameOver = null;
+        //_canvasGameOver.gameObject.SetActive(false);
+        //_canvasIsPaused.gameObject.SetActive(true);
+
     }
 }
