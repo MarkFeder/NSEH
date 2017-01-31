@@ -7,15 +7,45 @@ namespace nseh.General
 {
     public class Main_Menu : MonoBehaviour
     {
+        public GameObject current;
 
-        public void PlayGame()
+        public void OneNumberCharacter(GameObject newCanvas)
         {
-            SceneManager.LoadScene(Constants.Scenes.SCENE_01);
+            Game.thisGame.ChangePlayers(1);
+            ChangeCanvas(newCanvas);
         }
 
+        public void TwoNumberCharacter(GameObject newCanvas)
+        {
+            Game.thisGame.ChangePlayers(2);
+            ChangeCanvas(newCanvas);
+        }
+
+        public void ChangeCanvas(GameObject newCanvas)
+        {
+            current.SetActive(false);
+            current = newCanvas;
+            current.SetActive(true);
+
+        }
+
+      
+
+        public void SaveChanges()
+        {
+
+        }
+
+        public void PlayGame(GameObject newCanvas)
+        {
+            //ChangeCanvas(newCanvas);
+            Game.thisGame.ChangeState(Game.States.Playing);
+            
+        }
+        
         public void Exit()
         {
-            Application.Quit();
+            Game.thisGame.ExitGame();
         }
     }
 
