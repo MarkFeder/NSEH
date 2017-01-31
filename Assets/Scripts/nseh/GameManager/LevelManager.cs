@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : Service {
@@ -12,6 +13,9 @@ public class LevelManager : Service {
     private States nextState;
     private bool _isPaused;
     private Canvas _canvasIsPaused;
+    private Canvas _canvasGameOver;
+    private Text _Clock;
+    private float timeRemaining = 1;
     private bool _firstTick;
 
     //List of all events (E.g: EventManager, LightManager...) 
@@ -113,32 +117,58 @@ public class LevelManager : Service {
     //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
     override public void Tick()
     {
-       if (_firstTick && SceneManager.GetActiveScene().name == "Game")
+        if (_firstTick && SceneManager.GetActiveScene().name == "Game")
         {
             _canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
+            _Clock = GameObject.Find("CanvasClock/TextClock").GetComponent<Text>();
             _canvasIsPaused.gameObject.SetActive(false);
+            _canvasGameOver= GameObject.Find("CanvasGameOver").GetComponent<Canvas>();
+            _canvasGameOver.gameObject.SetActive(false);
             _firstTick = false;
         }
-       else if (_firstTick && SceneManager.GetActiveScene().name != "Game")
+        else if (_firstTick && SceneManager.GetActiveScene().name != "Game")
         {
             Debug.Log("Loading");
         }
-        //
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else
         {
-            PauseGame();
-        }
-
-       if (!_isPaused)
-        { 
-            //State execution
-            foreach (Event thisEvent in _eventsList)
+            timeRemaining -= Time.deltaTime;
+            if (timeRemaining > 0 && timeRemaining > 10)
             {
-                if (thisEvent.IsActivated)
-                    thisEvent.EventTick();
+                _Clock.text = timeRemaining.ToString("f0");
             }
-            //End of state execution
-            //MyGame.ChangeState(Game.States.MainMenu);
+
+            else if (timeRemaining > 0 && timeRemaining < 10)
+            {
+                _Clock.text = timeRemaining.ToString("f2");
+            }
+            else
+            { 
+                _Clock.text = "";
+                Time.timeScale = 0;
+                Text gameOver= GameObject.Find("CanvasGameOver/PanelGameOver").GetComponent<Text>(); 
+                gameOver.text = "Time's Up";
+                _canvasGameOver.gameObject.SetActive(true);
+
+
+            }
+            //
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PauseGame();
+            }
+
+            if (!_isPaused)
+            {
+                //State execution
+                foreach (Event thisEvent in _eventsList)
+                {
+                    if (thisEvent.IsActivated)
+                        thisEvent.EventTick();
+                }
+                //End of state execution
+                //MyGame.ChangeState(Game.States.MainMenu);
+            }
         }
     }
 
