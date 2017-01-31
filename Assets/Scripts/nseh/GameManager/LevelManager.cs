@@ -26,7 +26,7 @@ public class LevelManager : Service {
     {
         //Debug.Log("Estoy añadiendo :D");
         Event serviceToAdd = new T() as Event;
-        serviceToAdd.Setup(MyGame, this);
+        serviceToAdd.Setup(this);
         _eventsList.Add(serviceToAdd);
 
     }
@@ -92,17 +92,11 @@ public class LevelManager : Service {
             switch (nextState)
             {
                 case States.LevelEvent:
-                    if (_currentState == States.Minigame)
-                    {
-                        Find<Tar_Event>().ActivateEvent();
-                    }
+                     Find<Tar_Event>().ActivateEvent();
                     _currentState = nextState;
                     break;
                 case States.Minigame:
-                    if (_currentState == States.LevelEvent)
-                    {
-                        Find<Tar_Event>().EventRelease();
-                    }
+                     Find<Tar_Event>().EventRelease();
                     _currentState = nextState;
                     break;
             }
@@ -110,6 +104,28 @@ public class LevelManager : Service {
         //End of transitions
     }
 
+    public void Clock()
+    {
+        timeRemaining -= Time.deltaTime;
+        if (timeRemaining > 0 && timeRemaining > 10)
+        {
+            _Clock.text = timeRemaining.ToString("f0");
+        }
+
+        else if (timeRemaining > 0 && timeRemaining < 10)
+        {
+            _Clock.text = timeRemaining.ToString("f2");
+        }
+        else
+        {
+            _Clock.text = "";
+            Time.timeScale = 0;
+            _canvasGameOver.gameObject.SetActive(true);
+            Text gameOver = GameObject.Find("CanvasGameOver/PanelGameOver/TextGameOver").GetComponent<Text>();
+            gameOver.text = "Time's Up";
+
+        }
+    }
     //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
     override public void Tick()
     {
@@ -128,25 +144,7 @@ public class LevelManager : Service {
         }
         else
         {
-            timeRemaining -= Time.deltaTime;
-            if (timeRemaining > 0 && timeRemaining > 10)
-            {
-                _Clock.text = timeRemaining.ToString("f0");
-            }
-
-            else if (timeRemaining > 0 && timeRemaining < 10)
-            {
-                _Clock.text = timeRemaining.ToString("f2");
-            }
-            else
-            { 
-                _Clock.text = "";
-                Time.timeScale = 0;
-                _canvasGameOver.gameObject.SetActive(true);
-                Text gameOver= GameObject.Find("CanvasGameOver/PanelGameOver/TextGameOver").GetComponent<Text>();
-                gameOver.text = "Time's Up";
-
-            }
+            Clock();
             //
             if (Input.GetKeyDown(KeyCode.Escape))
             {

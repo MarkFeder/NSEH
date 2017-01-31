@@ -47,7 +47,7 @@ public class Tar : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, targetTarPosition, elapsedTime / 80.0f);
         if (transform.position == targetTarPosition)
         {
-            Debug.Log("Tar is up (" + elapsedTime + ")");
+            Debug.Log("Tar is up");
             return true;
         }
 
@@ -61,7 +61,7 @@ public class Tar : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, initialTarPosition, elapsedTime / 120.0f);
         if (transform.position == initialTarPosition)
         {
-            Debug.Log("Tar is down (" + elapsedTime + ")");
+            Debug.Log("Tar is down");
             return false;
         }
         return true;

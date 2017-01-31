@@ -6,16 +6,16 @@ public class Tar_Event : Event {
 
     //List<EventComponent> _tarComponents;
     float eventDuration = 10.0f;
-    bool eventFinished = false;
-    float elapsedTime;
+    //bool eventFinished = false;
+    public float elapsedTime;
     bool isUp = false;
     public delegate bool TarHandler();
     public static event TarHandler TarUp;
     public static event TarHandler TarDown;
     //Setup the event providing the current game instance. The event is not active here yet.
-    override public void Setup(GameManager myGame, LevelManager lvlManager)
+    override public void Setup(LevelManager lvlManager)
     {
-        base.Setup(myGame, lvlManager);
+        base.Setup(lvlManager);
         //_tarComponents = new List<EventComponent>();
     }
 
