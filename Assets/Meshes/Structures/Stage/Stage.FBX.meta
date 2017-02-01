@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b72a7819924a1fa46a0a0e9a16848bb1
-timeCreated: 1485697656
+guid: e27b14a9826e4c445b282eb5c413f882
+timeCreated: 1485949744
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -80,13 +80,13 @@ ModelImporter:
     4300012: Left_Up
     4300014: Ground
     4300016: Straw House
-    4300018: Right_Stone
-    4300020: Sand House
-    4300022: Conic House
-    4300024: Picapiedra's House
-    4300026: Volcano House
-    4300028: Left_Stone
-    4300030: Stage_Left
+    4300018: Sand House
+    4300020: Conic House
+    4300022: Picapiedra's House
+    4300024: Left_Stone
+    4300026: Stage_Left
+    4300028: Right_Stone
+    4300030: Volcano House
     9500000: //RootNode
   materials:
     importMaterials: 1
