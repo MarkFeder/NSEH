@@ -16,17 +16,17 @@ namespace nseh.Gameplay.Collisions
     [RequireComponent(typeof(Collider))]
     public class WeaponCollision : MonoBehaviour, IWeapon
     {
-        // Properties
-
-        [SerializeField]
-        protected string enemyType;
-
+        // External References
         protected Collider hitBox;
         protected CharacterCombat characterCombat;
         protected CharacterMovement characterMovement;
 
         protected List<GameObject> enemyTargets;
         protected GameObject rootCharacter;
+
+        // Properties
+        [SerializeField]
+        protected string enemyType;
 
         protected string parentObjName;
 
@@ -67,24 +67,15 @@ namespace nseh.Gameplay.Collisions
 
             if (enemy.CompareTag(this.enemyType) && this.parentObjName != enemy.name)
             {
-                CharacterMovement enemyMov = enemy.GetComponent<CharacterMovement>();
-
                 bool enemyTakenAback = this.EnemyHasBeenTakenAback(ref enemy);
 
                 if (enemyTakenAback)
                 {
-                    // enemies are not watching each other (enemy taken aback)
                     var attack = this.characterCombat.Actions.OfType<CharacterAttack>().Where(at => at.HashAnimation == this.characterCombat.CurrentHashAnimation).FirstOrDefault();
-                    if (attack != null)
-                    {
-                        Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
 
-                        attack.PerformDamage(this.rootCharacter, enemy);
-                    }
-                    else
-                    {
-                        Debug.Log("Attack is null when it should not!");
-                    }
+                    Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
+
+                    attack.PerformDamage(this.rootCharacter, enemy);
                 }
                 else
                 {
@@ -92,16 +83,10 @@ namespace nseh.Gameplay.Collisions
                     this.enemyTargets.Add(enemy);
 
                     var attack = this.characterCombat.Actions.OfType<CharacterAttack>().Where(at => at.HashAnimation == this.characterCombat.CurrentHashAnimation).FirstOrDefault();
-                    if (attack != null)
-                    {
-                        Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
 
-                        attack.PerformDamage(this.rootCharacter, this.EnemyTargets);
-                    }
-                    else
-                    {
-                        Debug.Log("Attack is null when it should not!");
-                    }
+                    Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
+
+                    attack.PerformDamage(this.rootCharacter, this.EnemyTargets);
                 }
             }
         }

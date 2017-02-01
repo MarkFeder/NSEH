@@ -48,6 +48,9 @@ namespace nseh.Utils
             public const string DEFINITIVE = "Definitive_";
 
             public const string BUTTON_RUN = "Run";
+
+            // Defense
+            public const string DEFENSE = "Defense_";
         }
 
         public static class Animations

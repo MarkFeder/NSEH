@@ -77,7 +77,12 @@ namespace nseh.Gameplay.Combat
                             var enemyAttack = enemyAction as CharacterAttack;
 
                             this.ResolveConflict(conflict, ref sender, ref obj, ref enemyAttack);
-                        } 
+                        }
+                        else
+                        {
+                            // Enemy is not taking any action
+                            obj.GetSafeComponent<CharacterHealth>().TakeDamage((int)this.Damage);
+                        }
                     }
                 });
             }

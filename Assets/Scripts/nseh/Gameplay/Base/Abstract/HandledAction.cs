@@ -1,16 +1,21 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
 using System.Linq;
 using UnityEngine;
+using System;
 
 namespace nseh.Gameplay.Base.Abstract
 {
-    public abstract class HandledAction : IAction
+    public abstract class HandledAction : MonoBehaviour, IAction
     {
+        // Public properties
+
         public int HashAnimation { get; set; }
         public string StateName { get; set; }
         public KeyCode KeyToPress { get; set; }
         public string ButtonToPress { get; set; }
         public Animator Animator { get; set; }
+
+        // Private properties
 
         private AnimatorControllerParameterType ParameterType { get; set; }
 
@@ -37,6 +42,8 @@ namespace nseh.Gameplay.Base.Abstract
             return animatorController.type;
         }
 
+        #region Input Support
+
         public bool KeyHasBeenPressed()
         {
             return this.KeyToPress != KeyCode.None && Input.GetKeyDown(this.KeyToPress);
@@ -44,8 +51,36 @@ namespace nseh.Gameplay.Base.Abstract
 
         public bool ButtonHasBeenPressed()
         {
-            return this.ButtonToPress != null && Input.GetButtonDown(this.ButtonToPress);
+            return !String.IsNullOrEmpty(this.ButtonToPress) && Input.GetButtonDown(this.ButtonToPress);
         }
+
+        public bool KeyHasBeenReleased()
+        {
+            return this.KeyToPress != KeyCode.None && Input.GetKeyUp(this.KeyToPress);
+        }
+
+        public bool KeyIsHoldDown()
+        {
+            return this.KeyToPress != KeyCode.None && Input.GetKey(this.KeyToPress);
+        }
+
+        public bool ButtonIsHoldDown()
+        {
+            return !String.IsNullOrEmpty(this.ButtonToPress) && Input.GetButton(this.ButtonToPress);
+        }
+
+        public bool ButtonHasBeenReleased()
+        {
+            return !String.IsNullOrEmpty(this.ButtonToPress) && Input.GetButtonUp(this.ButtonToPress);
+        }
+
+        public bool ReceiveInput()
+        {
+            return this.KeyHasBeenPressed() || this.ButtonHasBeenPressed() ||
+                   this.KeyHasBeenReleased() || this.KeyIsHoldDown();
+        }
+
+        #endregion
 
         public virtual void DoAction()
         {

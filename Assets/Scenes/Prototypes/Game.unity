@@ -2574,12 +2574,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78758c079704d0d4c96faab6415d74cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 30
+  gamepadIndex: 1
   walkSpeed: 0.15
   runSpeed: 15
   jumpHeight: 10
-  jumpCooldown: 1
-  timeToNextJump: 0
 --- !u!114 &638425842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2591,8 +2589,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab89400382b9db46ad3c9d55ca94930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
-  maxHealth: 100
+  startingHealth: 200
+  maxHealth: 200
 --- !u!114 &638425843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2655,14 +2653,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 638425840}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -8, y: 0.061, z: 2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 17300190}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &641105318
 GameObject:
   m_ObjectHideFlags: 0
@@ -6815,12 +6813,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78758c079704d0d4c96faab6415d74cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 30
+  gamepadIndex: 1
   walkSpeed: 0.15
-  runSpeed: 15
+  runSpeed: 1
   jumpHeight: 10
-  jumpCooldown: 1
-  timeToNextJump: 0
 --- !u!114 &1512057970
 MonoBehaviour:
   m_ObjectHideFlags: 0

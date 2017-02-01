@@ -9,14 +9,22 @@ namespace nseh.Gameplay.Base.Interfaces
     {
         int HashAnimation { get; set; }
 
-        bool KeyHasBeenPressed();
-
-        bool ButtonHasBeenPressed();
-
         void DoAction(float value);
 
         void DoAction(int value);
 
         void DoAction();
+
+        bool KeyHasBeenPressed();
+
+        bool KeyHasBeenReleased();
+
+        bool KeyIsHoldDown();
+
+        bool ButtonHasBeenPressed();
+
+        bool ButtonHasBeenReleased();
+
+        bool ButtonIsHoldDown();
     }
 }
