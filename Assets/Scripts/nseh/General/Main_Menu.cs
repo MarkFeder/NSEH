@@ -3,20 +3,55 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using nseh.Utils;
 
-namespace nseh.General
-{
+
     public class Main_Menu : MonoBehaviour
     {
+        public GameObject current;
+        MenuManager _MenuManager;
 
-        public void PlayGame()
+        void Start()
+         {
+            _MenuManager = GameManager.thisGame.Find<MenuManager>();
+         }
+        public void OneNumberCharacter(GameObject newCanvas)
         {
-            SceneManager.LoadScene(Constants.Scenes.SCENE_01);
+            _MenuManager.ChangePlayers(1);
+            ChangeCanvas(newCanvas);
         }
 
+        public void TwoNumberCharacter(GameObject newCanvas)
+        {
+            _MenuManager.ChangePlayers(2);
+            ChangeCanvas(newCanvas);
+        }
+
+        public void ChangeCanvas(GameObject newCanvas)
+        {
+            current.SetActive(false);
+            current = newCanvas;
+            current.SetActive(true);
+
+        }
+
+      
+
+        public void SaveChanges()
+        {
+
+        }
+
+        public void PlayGame(GameObject newCanvas)
+        {
+        //ChangeCanvas(newCanvas);
+            _MenuManager.ChangeStates();
+
+        }
+        
         public void Exit()
         {
-            Application.Quit();
+            _MenuManager.ExitGame();
+      
         }
     }
 
-}
+

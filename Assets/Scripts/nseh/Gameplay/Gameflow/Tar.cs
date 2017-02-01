@@ -10,10 +10,10 @@ public class Tar : MonoBehaviour {
     //private Vector3 velocity = new Vector3(1f,1f,1f);
     //float GameTime = 0;
     //int eventStartedAt = 0;
-    float eventDuration = 10.0f;
-    bool eventFinished = false;
-    float elapsedTime;
-    bool goingUp = true;
+    //float eventDuration = 10.0f;
+    //bool eventFinished = false;
+    //float elapsedTime;
+    //bool goingUp = true;
 
     // Use this for initialization
     void Start () {
@@ -40,14 +40,14 @@ public class Tar : MonoBehaviour {
 
     }
  
-    bool TarUp()
+    bool TarUp(float elapsedTime)
     {
         //tar.SetActive(true);
         targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, targetTarPosition, elapsedTime / 80.0f);
         if (transform.position == targetTarPosition)
         {
-            Debug.Log("Tar is up (" + elapsedTime + ")");
+            Debug.Log("Tar is up. " + "(" + elapsedTime + ")" );
             return true;
         }
 
@@ -55,14 +55,13 @@ public class Tar : MonoBehaviour {
         //transform.position = Vector3.SmoothDamp(transform.position, targetTarPosition, ref velocity, 0.15f);
     }
 
-    bool TarDown()
+    bool TarDown(float elapsedTime)
     {
         targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, initialTarPosition, elapsedTime / 120.0f);
         if (transform.position == initialTarPosition)
         {
-            eventFinished = !eventFinished;
-            Debug.Log("Tar is down (" + elapsedTime + ")");
+            Debug.Log("Tar is down. " + "(" + elapsedTime + ")");
             return false;
         }
         return true;

@@ -7,8 +7,8 @@ public class LevelManager : Service {
     //Properties
     //Level game flow
     public enum States { LevelEvent, Minigame };
-    private States _currentState;
-    public States nextState;
+    public States _currentState;
+    private States nextState;
 
     //List of all events (E.g: EventManager, LightManager...) 
     private List<Event> _eventsList;
@@ -47,9 +47,10 @@ public class LevelManager : Service {
         IsActivated = true;
     }
 
-    //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
-    override public void Tick()
+    public void ChangeState(States newState)
     {
+
+        nextState = newState;
         //Transitions
         if (nextState != _currentState)
         {
@@ -58,22 +59,26 @@ public class LevelManager : Service {
                 case States.LevelEvent:
                     if (_currentState == States.Minigame)
                     {
-                        //Find<Lights>().Release();
-                        //Find<MenuManager>().Activate();
+                        Find<Tar_Event>().ActivateEvent();
                     }
                     _currentState = nextState;
                     break;
                 case States.Minigame:
                     if (_currentState == States.LevelEvent)
                     {
-                        //Find<MenuManager>().Release();
-                        //Find<Lights>().Activate();
+                        Find<Tar_Event>().EventRelease();
                     }
                     _currentState = nextState;
                     break;
             }
         }
         //End of transitions
+    }
+
+    //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
+    override public void Tick()
+    {
+        
 
         //State execution
         foreach (Event thisEvent in _eventsList)
@@ -82,6 +87,7 @@ public class LevelManager : Service {
                 thisEvent.EventTick();
         }
         //End of state execution
+        MyGame.ChangeState(Game.States.MainMenu);
     }
 
     override public void Release()

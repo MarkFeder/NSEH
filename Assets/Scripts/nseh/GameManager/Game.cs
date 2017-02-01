@@ -9,8 +9,9 @@ public class Game : MonoBehaviour
 
     //Properties
     public enum States { MainMenu, Playing };
-    private States _currentState;
-    public States nextState;
+    public States _currentState;
+    private States nextState;
+    private int numberPlayers=0;
 
     //List of all services (E.g: EventManager, LightManager...) 
     private List<Service> _servicesList;
@@ -18,7 +19,7 @@ public class Game : MonoBehaviour
     //Adds the specified service to the services list
     void Add<T>() where T : new()
     {
-        Debug.Log("Estoy añadiendo :D");
+
         Service serviceToAdd = new T() as Service;
         serviceToAdd.Setup(this);
         _servicesList.Add(serviceToAdd);
@@ -36,13 +37,44 @@ public class Game : MonoBehaviour
         return null;
     }
 
+    public void ChangePlayers(int number)
+    {
+        numberPlayers = number;
+    }
+
+    public void ChangeState (States newState)
+    {
+   
+        nextState = newState;
+
+        if (nextState != _currentState)
+        {
+            switch (_currentState)
+            {
+                case States.MainMenu:
+                    _currentState = nextState;
+                    Find<MenuManager>().Release();
+                    Find<LevelManager>().Activate();
+                    Application.LoadLevel(1);
+                    break;
+
+                case States.Playing:
+                    _currentState = nextState;
+                    nextState = States.MainMenu;
+                    Find<LevelManager>().Release();
+                    Find<MenuManager>().Activate();
+                    Application.LoadLevel(0);
+                    break;
+            }
+        }
+    }
+
     //Managers should be initialised here
     void Start()
     {
-        //Add<MenuManager>();
-        //Add<Lights>();
+        Add<MenuManager>();
         Add<LevelManager>();
-        //Find<MenuManager>().Activate();
+        Find<MenuManager>().Activate();
     }
 
 
@@ -58,30 +90,6 @@ public class Game : MonoBehaviour
     //Here is where the different game services are triggered in a similar way to a state machine
     void Update()
     {
-        //Transitions
-        if (nextState != _currentState)
-        {
-            switch (nextState)
-            {
-                case States.MainMenu:
-                    if (_currentState == States.Playing)
-                    {
-                        Find<LevelManager>().Release();
-                        //Find<MenuManager>().Activate();
-                    }
-                    _currentState = nextState;
-                    break;
-                case States.Playing:
-                    if (_currentState == States.MainMenu)
-                    {
-                        //Find<MenuManager>().Release();
-                        Find<LevelManager>().Activate();
-                    }
-                    _currentState = nextState;
-                    break;
-            }
-        }
-        //End of transitions
 
         //State execution
         foreach (Service thisService in _servicesList)
@@ -90,6 +98,11 @@ public class Game : MonoBehaviour
                 thisService.Tick();
         }
         //End of state execution
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
 
