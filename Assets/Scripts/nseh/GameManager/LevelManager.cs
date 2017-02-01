@@ -67,7 +67,7 @@ public class LevelManager : Service {
         _eventsList = new List<Event>();
         _currentState = States.LevelEvent;
         _isPaused = false;
-
+        Add<Tar_Event>();
 
 
     }
@@ -76,7 +76,8 @@ public class LevelManager : Service {
     {
         IsActivated = true;
         Time.timeScale = 1;
-        
+        //Initial event
+        Find<Tar_Event>().ActivateEvent();
 
 
     }
@@ -145,7 +146,7 @@ public class LevelManager : Service {
     {
         if (_canvasIsPaused == null && SceneManager.GetActiveScene().name == "Game")
         {
-            timeRemaining = 3F;
+            timeRemaining = 45F;
             _canvasIsPaused = new Canvas();
             _canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
             _Clock = GameObject.Find("CanvasClock/TextClock").GetComponent<Text>();

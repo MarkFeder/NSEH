@@ -10,7 +10,7 @@ public class Tar : MonoBehaviour {
     //private Vector3 velocity = new Vector3(1f,1f,1f);
     //float GameTime = 0;
     //int eventStartedAt = 0;
-    float eventDuration = 10.0f;
+    //float eventDuration = 10.0f;
     //bool eventFinished = false;
     //float elapsedTime;
     //bool goingUp = true;

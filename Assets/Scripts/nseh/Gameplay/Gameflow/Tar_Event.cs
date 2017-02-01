@@ -54,7 +54,7 @@ public class Tar_Event : Event {
             elapsedTime = 0;
             Debug.Log("Variables are reset and tar will remain up next time: " + eventDuration + " seconds.");
         }
-        LvlManager.ChangeState(LevelManager.States.LevelEvent);
+        //LvlManager.ChangeState(LevelManager.States.LevelEvent);
     }
 
     //Deactivates the event
