@@ -146,7 +146,7 @@ public class LevelManager : Service {
     {
         if (_canvasIsPaused == null && SceneManager.GetActiveScene().name == "Game")
         {
-            timeRemaining = 45F;
+            timeRemaining = 5F;
             _canvasIsPaused = new Canvas();
             _canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
             _Clock = GameObject.Find("CanvasClock/TextClock").GetComponent<Text>();
@@ -192,6 +192,8 @@ public class LevelManager : Service {
     override public void Release()
     {
         IsActivated = false;
+        Find<Tar_Event>().EventRelease();
+        //Find<Tar_Event>().EventRelease;
         //_canvasGameOver = null;
         //_canvasGameOver.gameObject.SetActive(false);
         //_canvasIsPaused.gameObject.SetActive(true);

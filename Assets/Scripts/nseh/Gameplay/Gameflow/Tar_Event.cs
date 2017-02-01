@@ -7,7 +7,7 @@ public class Tar_Event : Event {
     //List<EventComponent> _tarComponents;
     float eventDuration = 10.0f;
     //bool eventFinished = false;
-    public float elapsedTime;
+    public float elapsedTime =0;
     bool isUp = false;
     public delegate bool TarHandler(float gameTime);
     public static event TarHandler TarUp;
@@ -23,6 +23,7 @@ public class Tar_Event : Event {
     override public void ActivateEvent()
     {
         IsActivated = true;
+        eventDuration = 10.0f;
     }
 
     
@@ -61,6 +62,10 @@ public class Tar_Event : Event {
     override public void EventRelease()
     {
         IsActivated = false;
+        TarUp(0);
+        TarDown(0);
+        isUp = false;
+        
     }
 /*
     public void RegisterLight(MonoBehaviour componentToRegister)
