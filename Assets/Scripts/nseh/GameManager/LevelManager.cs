@@ -29,7 +29,6 @@ namespace nseh.GameManager
         //Adds the specified event to the events list
         void Add<T>() where T : new()
         {
-            //Debug.Log("Estoy añadiendo :D");
             LevelEvent serviceToAdd = new T() as LevelEvent;
             serviceToAdd.Setup(this);
             _eventsList.Add(serviceToAdd);
@@ -79,6 +78,12 @@ namespace nseh.GameManager
 
         override public void Activate()
         {
+            timeRemaining = 1F;
+            _canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
+            _Clock = GameObject.Find("CanvasClock/TextClock").GetComponent<Text>();
+            _canvasIsPaused.gameObject.SetActive(false);
+            _canvasGameOver = GameObject.Find("CanvasGameOver").GetComponent<Canvas>();
+            _canvasGameOver.gameObject.SetActive(false);
             IsActivated = true;
             Time.timeScale = 1;
             //Initial event
@@ -137,7 +142,11 @@ namespace nseh.GameManager
 
         public void Restart()
         {
-            MyGame.ChangeState(GameManager.States.Restart);
+            timeRemaining = 1F;
+            _canvasGameOver.gameObject.SetActive(false);
+            _canvasIsPaused.gameObject.SetActive(false);
+            Time.timeScale = 1;
+            //Find<Tar_Event>().ActivateEvent();
         }
 
         public void GoToMainMenu()
@@ -149,27 +158,7 @@ namespace nseh.GameManager
         //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
         override public void Tick()
         {
-            if (_canvasIsPaused == null && SceneManager.GetActiveScene().name == "Game")
-            {
-                timeRemaining = 45F;
-                _canvasIsPaused = new Canvas();
-                _canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
-                _Clock = GameObject.Find("CanvasClock/TextClock").GetComponent<Text>();
-                _canvasIsPaused.gameObject.SetActive(false);
-
-            }
-            else if (_canvasGameOver == null && SceneManager.GetActiveScene().name == "Game")
-            {
-                _canvasGameOver = new Canvas();
-                _canvasGameOver = GameObject.Find("CanvasGameOver").GetComponent<Canvas>();
-                _canvasGameOver.gameObject.SetActive(false);
-            }
-            else if (SceneManager.GetActiveScene().name != "Game")
-            {
-                Debug.Log("Loading");
-            }
-            else
-            {
+       
                 if (timeRemaining > 0)
                 {
                     Clock();
@@ -189,18 +178,15 @@ namespace nseh.GameManager
                             thisEvent.EventTick();
                     }
                     //End of state execution
-                    //MyGame.ChangeState(Game.States.MainMenu);
                 }
-            }
+            
         }
 
         override public void Release()
         {
             IsActivated = false;
-            //_canvasGameOver = null;
-            //_canvasGameOver.gameObject.SetActive(false);
-            //_canvasIsPaused.gameObject.SetActive(true);
-
+            _canvasGameOver.gameObject.SetActive(false);
+            _canvasIsPaused.gameObject.SetActive(false);
         }
     } 
 }
