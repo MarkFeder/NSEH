@@ -33,6 +33,7 @@ namespace nseh.Gameplay.Gameflow
         override public void ActivateEvent()
         {
             IsActivated = true;
+            ResetTarComponents();
             eventDuration = 10.0f;
             elapsedTime = 0;
             isUp = false;
