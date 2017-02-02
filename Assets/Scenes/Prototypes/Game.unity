@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 35776624}
   - component: {fileID: 35776626}
   - component: {fileID: 35776625}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 35894203}
   - component: {fileID: 35894207}
   - component: {fileID: 35894208}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Left_Stone
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -744,17 +744,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d360b454dff05e942918070bcd909b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player1: {fileID: 1512057975}
-  Player2: {fileID: 1512057975}
+  Player1: {fileID: 295807371}
+  Player2: {fileID: 638425847}
   PositionPlayer1: {x: 0, y: 0, z: 0}
   PositionPlayer2: {x: 0, y: 0, z: 0}
   distance: {x: 0, y: 0, z: 0}
   Midpoint: {x: 0, y: 0, z: 0}
   Position: {x: 0, y: 0, z: 0}
-  xMin: -30
-  xMax: 20
-  yMin: 1.5
-  yMax: 40
+  xMin: 0
+  xMax: 0
+  yMin: 0
+  yMax: 0
 --- !u!1 &59061936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,7 +1162,7 @@ GameObject:
   - component: {fileID: 105931896}
   - component: {fileID: 105931895}
   - component: {fileID: 105931894}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Central_Central
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -1415,7 +1415,7 @@ GameObject:
   - component: {fileID: 131553171}
   - component: {fileID: 131553175}
   - component: {fileID: 131553176}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_Stone
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -1688,7 +1688,7 @@ Prefab:
     - target: {fileID: 224000013714938578, guid: ea3ff19ef0187a345a65f0e9f79f4739,
         type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 224000013714938578, guid: ea3ff19ef0187a345a65f0e9f79f4739,
         type: 2}
@@ -2232,6 +2232,125 @@ Transform:
   m_Father: {fileID: 1476773437}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &295807370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 295807371}
+  - component: {fileID: 295807377}
+  - component: {fileID: 295807376}
+  - component: {fileID: 295807375}
+  - component: {fileID: 295807373}
+  - component: {fileID: 295807372}
+  - component: {fileID: 295807374}
+  m_Layer: 0
+  m_Name: Paladin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &295807371
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295807370}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -10.1, y: 0, z: 2.09}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1512057975}
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &295807372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295807370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab89400382b9db46ad3c9d55ca94930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  maxHealth: 100
+--- !u!114 &295807373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295807370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e49bfb05fbbe7eb41960faa0239a5e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &295807374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295807370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78758c079704d0d4c96faab6415d74cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamepadIndex: 1
+  walkSpeed: 0.15
+  runSpeed: 1
+  jumpHeight: 10
+--- !u!136 &295807375
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295807370}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.24
+  m_Height: 1.81
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.85, z: 0}
+--- !u!95 &295807376
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295807370}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 5e26579d9ef8b5f4ca8fbd13aa7756b9, type: 3}
+  m_Controller: {fileID: 9100000, guid: 08547f305fee0ca4ebce4c6990a864db, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!54 &295807377
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295807370}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
 --- !u!1 &303650849
 GameObject:
   m_ObjectHideFlags: 0
@@ -2271,7 +2390,7 @@ GameObject:
   - component: {fileID: 308363936}
   - component: {fileID: 308363935}
   - component: {fileID: 308363934}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_Up_2
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -2850,7 +2969,7 @@ GameObject:
   - component: {fileID: 401570940}
   - component: {fileID: 401570939}
   - component: {fileID: 401570938}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Central_Down
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -2989,7 +3108,7 @@ Transform:
   - {fileID: 1273912148}
   - {fileID: 1256081572}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 181.24399, z: 0}
 --- !u!1 &406676570
 GameObject:
@@ -3059,7 +3178,7 @@ Transform:
   - {fileID: 1945524356}
   - {fileID: 618956030}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 181.24399, z: 0}
 --- !u!1 &407564335
 GameObject:
@@ -3570,7 +3689,7 @@ GameObject:
   - component: {fileID: 521052719}
   - component: {fileID: 521052721}
   - component: {fileID: 521052720}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -3629,7 +3748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &521835102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3673,7 +3792,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &526547294
 GameObject:
@@ -3893,7 +4012,7 @@ GameObject:
   - component: {fileID: 563888371}
   - component: {fileID: 563888373}
   - component: {fileID: 563888372}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -4120,7 +4239,7 @@ GameObject:
   - component: {fileID: 576200093}
   - component: {fileID: 576200092}
   - component: {fileID: 576200091}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_1
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -4231,7 +4350,7 @@ GameObject:
   - component: {fileID: 590167533}
   - component: {fileID: 590167532}
   - component: {fileID: 590167531}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_Up
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -4463,7 +4582,7 @@ RectTransform:
   m_Children:
   - {fileID: 1021925914}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4741,12 +4860,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78758c079704d0d4c96faab6415d74cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 30
+  gamepadIndex: 0
   walkSpeed: 0.15
   runSpeed: 15
   jumpHeight: 10
-  jumpCooldown: 1
-  timeToNextJump: 0
 --- !u!114 &638425842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4828,7 +4945,7 @@ Transform:
   m_Children:
   - {fileID: 17300190}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &641105318
 GameObject:
@@ -4840,7 +4957,7 @@ GameObject:
   - component: {fileID: 641105319}
   - component: {fileID: 641105321}
   - component: {fileID: 641105320}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -5062,7 +5179,7 @@ GameObject:
   - component: {fileID: 668183251}
   - component: {fileID: 668183253}
   - component: {fileID: 668183252}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -5805,7 +5922,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &773210990
 GameObject:
@@ -5992,7 +6109,7 @@ Prefab:
     - target: {fileID: 224000010050126112, guid: 339109638990e8e498c684797a27d9a3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 224000010050126112, guid: 339109638990e8e498c684797a27d9a3,
         type: 2}
@@ -6342,7 +6459,7 @@ GameObject:
   - component: {fileID: 840511010}
   - component: {fileID: 840511012}
   - component: {fileID: 840511011}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -6424,7 +6541,7 @@ GameObject:
   - component: {fileID: 850844091}
   - component: {fileID: 850844093}
   - component: {fileID: 850844092}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -6547,7 +6664,7 @@ GameObject:
   - component: {fileID: 857106340}
   - component: {fileID: 857106342}
   - component: {fileID: 857106341}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -6729,7 +6846,7 @@ GameObject:
   - component: {fileID: 863889609}
   - component: {fileID: 863889608}
   - component: {fileID: 863889607}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_Central_2
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -6811,7 +6928,7 @@ GameObject:
   - component: {fileID: 864278858}
   - component: {fileID: 864278857}
   - component: {fileID: 864278856}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -7204,7 +7321,7 @@ GameObject:
   - component: {fileID: 903401410}
   - component: {fileID: 903401409}
   - component: {fileID: 903401408}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Volcano_Left
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -7426,7 +7543,7 @@ GameObject:
   - component: {fileID: 905681158}
   - component: {fileID: 905681157}
   - component: {fileID: 905681156}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_Central_2
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -7676,7 +7793,7 @@ GameObject:
   - component: {fileID: 941362199}
   - component: {fileID: 941362201}
   - component: {fileID: 941362200}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -7999,7 +8116,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400022, guid: e27b14a9826e4c445b282eb5c413f882, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e27b14a9826e4c445b282eb5c413f882, type: 3}
@@ -8151,7 +8268,7 @@ GameObject:
   - component: {fileID: 1022475952}
   - component: {fileID: 1022475951}
   - component: {fileID: 1022475950}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_Central_1
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -8456,7 +8573,7 @@ GameObject:
   - component: {fileID: 1036687414}
   - component: {fileID: 1036687413}
   - component: {fileID: 1036687412}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Volcano_Right
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -8595,7 +8712,7 @@ Transform:
   - {fileID: 333781380}
   - {fileID: 1236731696}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 181.24399, z: 0}
 --- !u!1 &1051301111
 GameObject:
@@ -8784,7 +8901,7 @@ GameObject:
   - component: {fileID: 1084973660}
   - component: {fileID: 1084973662}
   - component: {fileID: 1084973661}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -8953,7 +9070,7 @@ GameObject:
   - component: {fileID: 1128938905}
   - component: {fileID: 1128938904}
   - component: {fileID: 1128938903}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_Central_3
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -9373,7 +9490,7 @@ GameObject:
   - component: {fileID: 1213161652}
   - component: {fileID: 1213161650}
   - component: {fileID: 1213161651}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_Down
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -9793,7 +9910,7 @@ GameObject:
   - component: {fileID: 1265210470}
   - component: {fileID: 1265210469}
   - component: {fileID: 1265210468}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Sand_House
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -10228,7 +10345,7 @@ Transform:
   - {fileID: 1385837602}
   - {fileID: 1411474559}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 181.24399, z: 0}
 --- !u!1 &1320618853
 GameObject:
@@ -11170,7 +11287,7 @@ GameObject:
   - component: {fileID: 1401176357}
   - component: {fileID: 1401176359}
   - component: {fileID: 1401176358}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -11491,7 +11608,7 @@ GameObject:
   - component: {fileID: 1435741997}
   - component: {fileID: 1435741999}
   - component: {fileID: 1435741998}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -11659,7 +11776,7 @@ GameObject:
   - component: {fileID: 1487398531}
   - component: {fileID: 1487398532}
   - component: {fileID: 1487398533}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -11808,12 +11925,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1512057975}
-  - component: {fileID: 1512057974}
-  - component: {fileID: 1512057973}
-  - component: {fileID: 1512057972}
-  - component: {fileID: 1512057971}
-  - component: {fileID: 1512057970}
-  - component: {fileID: 1512057969}
   m_Layer: 0
   m_Name: Character (1)
   m_TagString: Player
@@ -11821,105 +11932,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1512057969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1512057968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78758c079704d0d4c96faab6415d74cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  force: 30
-  walkSpeed: 0.15
-  runSpeed: 15
-  jumpHeight: 10
-  jumpCooldown: 1
-  timeToNextJump: 0
---- !u!114 &1512057970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1512057968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ab89400382b9db46ad3c9d55ca94930, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 100
-  maxHealth: 100
---- !u!114 &1512057971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1512057968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e49bfb05fbbe7eb41960faa0239a5e67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!136 &1512057972
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1512057968}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.24
-  m_Height: 1.81
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.85, z: 0}
---- !u!54 &1512057973
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1512057968}
-  serializedVersion: 2
-  m_Mass: 60
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 120
-  m_CollisionDetection: 0
---- !u!95 &1512057974
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1512057968}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 5e26579d9ef8b5f4ca8fbd13aa7756b9, type: 3}
-  m_Controller: {fileID: 9100000, guid: 08547f305fee0ca4ebce4c6990a864db, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!4 &1512057975
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1512057968}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -10.9, y: 0.061, z: 2.1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2020427133}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 295807371}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1524333355
 GameObject:
@@ -12662,7 +12687,7 @@ GameObject:
   - component: {fileID: 1625857889}
   - component: {fileID: 1625857891}
   - component: {fileID: 1625857890}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -12716,7 +12741,7 @@ GameObject:
   - component: {fileID: 1628978145}
   - component: {fileID: 1628978144}
   - component: {fileID: 1628978143}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Central_Up
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -12797,7 +12822,7 @@ GameObject:
   - component: {fileID: 1639146274}
   - component: {fileID: 1639146276}
   - component: {fileID: 1639146275}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -13163,7 +13188,7 @@ GameObject:
   - component: {fileID: 1679286612}
   - component: {fileID: 1679286611}
   - component: {fileID: 1679286610}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_Central_1
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -13315,7 +13340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1691013416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13392,7 +13417,7 @@ Transform:
   m_LocalScale: {x: 71.3539, y: 7.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1691013421
 MonoBehaviour:
@@ -14069,7 +14094,7 @@ Transform:
   - {fileID: 590167534}
   - {fileID: 864278859}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1856407432
 GameObject:
@@ -14636,7 +14661,7 @@ GameObject:
   - component: {fileID: 1922163121}
   - component: {fileID: 1922163123}
   - component: {fileID: 1922163122}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -15043,7 +15068,7 @@ GameObject:
   - component: {fileID: 1990444191}
   - component: {fileID: 1990444193}
   - component: {fileID: 1990444192}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -15096,7 +15121,7 @@ GameObject:
   - component: {fileID: 2000828765}
   - component: {fileID: 2000828767}
   - component: {fileID: 2000828766}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -15431,7 +15456,7 @@ GameObject:
   - component: {fileID: 2075413817}
   - component: {fileID: 2075413816}
   - component: {fileID: 2075413815}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Right_Down
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -15542,7 +15567,7 @@ GameObject:
   - component: {fileID: 2088805878}
   - component: {fileID: 2088805880}
   - component: {fileID: 2088805879}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -15723,7 +15748,7 @@ GameObject:
   - component: {fileID: 2114053521}
   - component: {fileID: 2114053523}
   - component: {fileID: 2114053522}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -15777,7 +15802,7 @@ GameObject:
   - component: {fileID: 2115150545}
   - component: {fileID: 2115150544}
   - component: {fileID: 2115150543}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Picapiedra_House
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}

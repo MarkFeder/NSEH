@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Service
+namespace nseh.GameManager
 {
-    public GameManager MyGame;
-    public bool IsActivated;
-    
-    //Setup the Service providing the current game instance. The Service is not active here yet.
-    virtual public void Setup(GameManager myGame)
+    public abstract class Service
     {
-        MyGame = myGame;
-    }
+        public GameManager MyGame;
+        public bool IsActivated;
 
-    //Activate the Service execution.
-    abstract public void Activate();
+        //Setup the Service providing the current game instance. The Service is not active here yet.
+        virtual public void Setup(GameManager myGame)
+        {
+            MyGame = myGame;
+        }
 
-    //Service execution.
-    abstract public void Tick();
+        //Activate the Service execution.
+        abstract public void Activate();
 
-    //Deactivates the Service
-    abstract public void Release();
+        //Service execution.
+        abstract public void Tick();
+
+        //Deactivates the Service
+        abstract public void Release();
+    } 
 }

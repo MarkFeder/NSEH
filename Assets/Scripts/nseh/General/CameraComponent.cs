@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace nseh.General
 {
-    public class Camera : MonoBehaviour
+    public class CameraComponent : MonoBehaviour
     {
         public Transform Player1;
         public Transform Player2;
@@ -42,11 +42,14 @@ namespace nseh.General
 
             distance = Player1.position - Player2.position;
             Midpoint = new Vector3((xMaxPlayers + xMinPlayers) /2, (yMaxPlayers + yMinPlayers) / 2, 0);
+
+            float tempZ = -30f;
+
             //MOVE CAMERA
             if (Mathf.Abs(distance.x) < 2 && Mathf.Abs(distance.y) < 2)
             {
 
-                Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -10);
+                Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), tempZ/*-10*/);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
             else if (Mathf.Abs(distance.x) < 4 && Mathf.Abs(distance.y) < 4 )

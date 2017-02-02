@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using nseh.Utils;
 using Constants = nseh.Utils.Constants.Animations.Movement;
+using SceneObjects = nseh.Utils.Constants.Scenes;
 using Inputs = nseh.Utils.Constants.Input;
 
 namespace nseh.Gameplay.Base.Abstract
@@ -16,6 +17,7 @@ namespace nseh.Gameplay.Base.Abstract
 
         private Animator anim;
         private Rigidbody body;
+        private CapsuleCollider collider;
 
         // Properties
 
@@ -34,6 +36,7 @@ namespace nseh.Gameplay.Base.Abstract
         protected bool hasJumped = false;
         protected bool facingRight = true;
         protected bool isMoving;
+        protected bool isJumping;
 
         protected Dictionary<string, int> animParameters;
 
@@ -41,6 +44,8 @@ namespace nseh.Gameplay.Base.Abstract
         private float distToGround;
         private float offsetToGround;
         private float minimumHeight;
+        private float radius;
+        private int layerMask;
 
         public bool IsFacingRight
         {
@@ -67,9 +72,12 @@ namespace nseh.Gameplay.Base.Abstract
 
             this.animParameters = this.FillInAnimParameters();
             this.distToGround = GetComponent<Collider>().bounds.extents.y;
+            this.collider = GetComponent<CapsuleCollider>();
             
             this.offsetToGround = 0.1f;
             this.minimumHeight = 5.0f;
+            this.radius = this.collider.radius * 0.9f;
+            this.layerMask = LayerMask.GetMask("Platform");
         }
 
         protected void Start()
@@ -95,10 +103,11 @@ namespace nseh.Gameplay.Base.Abstract
         {
             this.horizontal = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL, this.gamepadIndex));
             this.isMoving = Mathf.Abs(this.horizontal) > 0.1f;
+            this.isJumping = this.anim.GetBool(this.animParameters[Constants.GROUNDED]);
 
             // Fix to let the character moves on the ground
             // See: http://answers.unity3d.com/questions/468709/no-gravity-with-mecanim.html for more details
-            this.anim.applyRootMotion = this.IsGrounded();
+            // this.anim.applyRootMotion = this.IsGrounded();
 
             this.anim.SetFloat(this.animParameters[Constants.H], this.horizontal);
             this.anim.SetBool(this.animParameters[Constants.GROUNDED], this.IsGrounded());
@@ -119,10 +128,12 @@ namespace nseh.Gameplay.Base.Abstract
             {
                 this.anim.SetBool(this.animParameters[Constants.JUMP], false);
             }
+
             if (Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex)) && this.IsGrounded())
             {
-                anim.SetBool(this.animParameters[Constants.JUMP], true);
-                this.body.velocity = new Vector3(0, this.jumpHeight, 0);                
+                this.anim.SetBool(this.animParameters[Constants.JUMP], true);
+
+                this.body.velocity = new Vector3(0, this.jumpHeight, 0);
             }
         }
 
@@ -149,7 +160,14 @@ namespace nseh.Gameplay.Base.Abstract
 
         public virtual bool IsGrounded()
         {
-            return Physics.Raycast(this.transform.position, -Vector3.up, this.distToGround + this.offsetToGround);
+            return Physics.CheckSphere(this.transform.position, this.radius, this.layerMask);
+            //RaycastHit hit; 
+            //if (Physics.Raycast(this.transform.position, -Vector3.up, out hit, this.distToGround + this.offsetToGround))
+            //{
+            //    return hit.transform.CompareTag(SceneObjects.PLATFORM);
+            //}
+
+            //return false;
         }
 
         #endregion
@@ -170,11 +188,18 @@ namespace nseh.Gameplay.Base.Abstract
 
         protected virtual void Flip()
         {
-            this.facingRight = !this.facingRight;
-            Vector3 theScale = transform.localScale;
+            //this.facingRight = !this.facingRight;
+            //Vector3 theScale = transform.localScale;
 
-            theScale.z *= -1;
-            this.transform.localScale = theScale;
+            //theScale.z *= -1;
+            //this.transform.localScale = theScale;
+
+            this.facingRight = !this.facingRight;
+
+            var rotation = this.transform.localRotation;
+            rotation.y = -rotation.y;
+            this.transform.localRotation = rotation;
+
         }
 
         #endregion

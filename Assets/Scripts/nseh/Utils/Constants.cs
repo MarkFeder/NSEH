@@ -27,6 +27,7 @@ namespace nseh.Utils
         public static class Scenes
         {
             public const string SCENE_01 = "Game";
+            public const string PLATFORM = "OneWayPlatform";
         }
 
         public static class GameManager
