@@ -27,12 +27,29 @@ namespace nseh.Utils
         public static class Scenes
         {
             public const string SCENE_01 = "Game";
+            public const string SCENE_MAIN_MENU = "MainMenu";
             public const string PLATFORM = "OneWayPlatform";
         }
 
         public static class GameManager
         {
             public const string ON_START_GAME = "FIGHT TO DEAD!";
+        }
+
+        public static class LevelManager
+        {
+            public const float TIME_REMAINING = 45F;
+        }
+
+        public static class Events
+        {
+            public static class Tar_Event
+            {
+                public const float EVENT_START = 5.0f;
+                public const float EVENT_DURATION_MIN = 10f;
+                public const float EVENT_DURATION_INCREASE = 5.0f;
+                public const float EVENT_DURATION_MAX = 45.0f;
+            }
         }
 
         public static class Input
