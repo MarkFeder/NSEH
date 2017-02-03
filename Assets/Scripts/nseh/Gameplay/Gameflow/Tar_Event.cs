@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using nseh.Gameplay.Base.Abstract.Gameflow;
 using nseh.GameManager;
+using nseh.Utils;
 
 namespace nseh.Gameplay.Gameflow
 {
@@ -10,7 +11,7 @@ namespace nseh.Gameplay.Gameflow
     {
 
         //List<EventComponent> _tarComponents;
-        float eventDuration = 10.0f;
+        float eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
         //bool eventFinished = false;
         public float elapsedTime;
         bool isUp = false;
@@ -34,7 +35,7 @@ namespace nseh.Gameplay.Gameflow
         {
             IsActivated = true;
             ResetTarComponents();
-            eventDuration = 10.0f;
+            eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
             elapsedTime = 0;
             isUp = false;
         }
@@ -45,7 +46,7 @@ namespace nseh.Gameplay.Gameflow
         {
             elapsedTime += Time.deltaTime;
             //Controls when the tar should go up
-            if (elapsedTime >= 5.0f && elapsedTime < (5.0f + eventDuration) && !isUp)
+            if (elapsedTime >= Constants.Events.Tar_Event.EVENT_START && elapsedTime < (Constants.Events.Tar_Event.EVENT_START + eventDuration) && !isUp)
             {
                 //foreach(EventComponent tarComponent in _tarComponents)
                 //{
@@ -54,16 +55,16 @@ namespace nseh.Gameplay.Gameflow
 
             }
             //Controls when the tar should go down
-            else if (elapsedTime >= (5.0f + eventDuration) && isUp)
+            else if (elapsedTime >= (Constants.Events.Tar_Event.EVENT_START + eventDuration) && isUp)
             {
                 isUp = TarDown(elapsedTime);
             }
             //Controls when the event cycle is completed and resets the involved variables
-            else if (elapsedTime >= (5.0f + eventDuration) && !isUp)
+            else if (elapsedTime >= (Constants.Events.Tar_Event.EVENT_START + eventDuration) && !isUp)
             {
-                if (eventDuration != 45.0f)
+                if (eventDuration != Constants.Events.Tar_Event.EVENT_DURATION_MAX)
                 {
-                    eventDuration += 5.0f;
+                    eventDuration += Constants.Events.Tar_Event.EVENT_DURATION_INCREASE;
                 }
                 elapsedTime = 0;
                 Debug.Log("Variables are reset and tar will remain up next time: " + eventDuration + " seconds.");
@@ -75,7 +76,7 @@ namespace nseh.Gameplay.Gameflow
         override public void EventRelease()
         {
             ResetTarComponents();
-            eventDuration = 10f;
+            eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
             elapsedTime = 0;
             isUp = false;
             IsActivated = false;

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using nseh.Gameplay.Gameflow;
 using nseh.Gameplay.Base.Abstract.Gameflow;
+using nseh.Utils;
 
 namespace nseh.GameManager
 {
@@ -78,7 +79,7 @@ namespace nseh.GameManager
 
         override public void Activate()
         {
-            timeRemaining = 45F;
+            timeRemaining = Constants.LevelManager.TIME_REMAINING;
             _canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
             _Clock = GameObject.Find("CanvasClock/TextClock").GetComponent<Text>();
             _canvasIsPaused.gameObject.SetActive(false);
@@ -142,7 +143,7 @@ namespace nseh.GameManager
 
         public void Restart()
         {
-            timeRemaining = 45F;
+            timeRemaining = Constants.LevelManager.TIME_REMAINING;
             _canvasGameOver.gameObject.SetActive(false);
             _canvasIsPaused.gameObject.SetActive(false);
             Time.timeScale = 1;

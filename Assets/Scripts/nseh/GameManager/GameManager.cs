@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using nseh.Utils;
 
 namespace nseh.GameManager
 {
@@ -59,7 +60,7 @@ namespace nseh.GameManager
                         _currentState = States.Loading;
                         nextState = States.Playing;
                         Find<MenuManager>().Release();
-                        SceneManager.LoadScene("Game");
+                        SceneManager.LoadScene(Constants.Scenes.SCENE_01);
                         Find<LoadingScene>().Activate();
                         break;
 
@@ -83,7 +84,7 @@ namespace nseh.GameManager
                         _currentState = States.Loading;
                         nextState = States.MainMenu;
                         Find<LevelManager>().Release();
-                        SceneManager.LoadScene("MainMenu");
+                        SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
                         Find<LoadingScene>().Activate();
                         break;
                 }
