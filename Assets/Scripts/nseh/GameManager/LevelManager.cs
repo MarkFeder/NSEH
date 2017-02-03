@@ -78,7 +78,7 @@ namespace nseh.GameManager
 
         override public void Activate()
         {
-            timeRemaining = 1F;
+            timeRemaining = 45F;
             _canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
             _Clock = GameObject.Find("CanvasClock/TextClock").GetComponent<Text>();
             _canvasIsPaused.gameObject.SetActive(false);
@@ -142,11 +142,11 @@ namespace nseh.GameManager
 
         public void Restart()
         {
-            timeRemaining = 1F;
+            timeRemaining = 45F;
             _canvasGameOver.gameObject.SetActive(false);
             _canvasIsPaused.gameObject.SetActive(false);
             Time.timeScale = 1;
-            //Find<Tar_Event>().ActivateEvent();
+            Find<Tar_Event>().ActivateEvent();
         }
 
         public void GoToMainMenu()
