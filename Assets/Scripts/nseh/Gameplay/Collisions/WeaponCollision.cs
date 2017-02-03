@@ -9,6 +9,7 @@ using System.Linq;
 using Constants = nseh.Utils.Constants;
 using Colors = nseh.Utils.Constants.Colors;
 using Tags = nseh.Utils.Constants.Tags;
+using nseh.Gameplay.Base.Abstract.Movement;
 
 namespace nseh.Gameplay.Collisions
 {
@@ -56,7 +57,9 @@ namespace nseh.Gameplay.Collisions
 
         private bool EnemyHasBeenTakenAback(ref GameObject enemy)
         {
-            CharacterMovement enemyMov = enemy.GetComponent<CharacterMovement>();
+            //CharacterMovement enemyMov = enemy.GetComponent<CharacterMovement>();
+
+            CharMovement enemyMov = enemy.GetComponent<CharMovement>();
             return !(this.characterMovement.IsFacingRight && !enemyMov.IsFacingRight 
                     || !this.characterMovement.IsFacingRight && enemyMov.IsFacingRight);
         }

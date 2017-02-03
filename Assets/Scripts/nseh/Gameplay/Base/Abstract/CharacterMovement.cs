@@ -22,6 +22,9 @@ namespace nseh.Gameplay.Base.Abstract
         // Properties
 
         [SerializeField]
+        public bool useGamepad = false;
+
+        [SerializeField]
         protected int gamepadIndex;
         [SerializeField]
         protected float walkSpeed = 0.15f;
@@ -101,13 +104,12 @@ namespace nseh.Gameplay.Base.Abstract
 
         protected virtual void Update()
         {
-            this.horizontal = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL, this.gamepadIndex));
+            this.horizontal = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_HORIZONTAL_KEYBOARD);
             this.isMoving = Mathf.Abs(this.horizontal) > 0.1f;
-            this.isJumping = this.anim.GetBool(this.animParameters[Constants.GROUNDED]);
 
             // Fix to let the character moves on the ground
             // See: http://answers.unity3d.com/questions/468709/no-gravity-with-mecanim.html for more details
-            // this.anim.applyRootMotion = this.IsGrounded();
+            this.anim.applyRootMotion = this.IsGrounded();
 
             this.anim.SetFloat(this.animParameters[Constants.H], this.horizontal);
             this.anim.SetBool(this.animParameters[Constants.GROUNDED], this.IsGrounded());
@@ -132,8 +134,7 @@ namespace nseh.Gameplay.Base.Abstract
             if (Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex)) && this.IsGrounded())
             {
                 this.anim.SetBool(this.animParameters[Constants.JUMP], true);
-
-                this.body.velocity = new Vector3(0, this.jumpHeight, 0);
+                this.body.velocity = new Vector3(this.body.velocity.x, this.jumpHeight, this.body.velocity.z);
             }
         }
 
@@ -145,11 +146,14 @@ namespace nseh.Gameplay.Base.Abstract
             {
                 this.speed = this.runSpeed;
                 this.anim.SetFloat(this.animParameters[Constants.SPEED], this.speed, this.speedDampTime, Time.deltaTime);
+
+                this.body.velocity = this.transform.forward * this.speed * Time.deltaTime;
             }
             else
             {
                 this.speed = 0.0f;
                 this.anim.SetFloat(this.animParameters[Constants.SPEED], 0.0f);
+                this.body.velocity = Vector3.zero;
             }
         }
 
@@ -161,6 +165,9 @@ namespace nseh.Gameplay.Base.Abstract
         public virtual bool IsGrounded()
         {
             return Physics.CheckSphere(this.transform.position, this.radius, this.layerMask);
+            //return Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down);
+
+
             //RaycastHit hit; 
             //if (Physics.Raycast(this.transform.position, -Vector3.up, out hit, this.distToGround + this.offsetToGround))
             //{

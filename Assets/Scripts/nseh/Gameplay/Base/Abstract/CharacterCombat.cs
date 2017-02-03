@@ -83,7 +83,7 @@ namespace nseh.Gameplay.Base.Abstract
             this.characterMovement = GetComponent<CharacterMovement>();
             this.body = GetComponent<Rigidbody>();
 
-            this.gamePadIndex = this.characterMovement.GamepadIndex;
+            this.gamePadIndex = 1;//this.characterMovement.GamepadIndex;
             this.actions = this.FillCharacterActions();
             this.currentAction = null;
             this.targetType = Tags.PLAYER;

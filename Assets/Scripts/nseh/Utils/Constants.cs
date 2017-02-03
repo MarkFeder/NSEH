@@ -38,7 +38,8 @@ namespace nseh.Utils
         public static class Input
         {
             // Movement
-            public const string AXIS_HORIZONTAL = "Horizontal_";
+            public const string AXIS_HORIZONTAL_GAMEPAD = "Horizontal_";
+            public const string AXIS_HORIZONTAL_KEYBOARD = "Horizontal";
             public const string AXIS_VERTICAL = "Vertical_";
             public const string JUMP = "Jump_";
 
