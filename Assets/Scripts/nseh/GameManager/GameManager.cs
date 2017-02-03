@@ -11,9 +11,9 @@ namespace nseh.GameManager
         static public GameManager thisGame;
 
         //Properties
-        public enum States { MainMenu, Playing, Restart };
-        public States _currentState;
-        private States nextState;
+        public enum States { MainMenu, Playing, Loading };
+        private States _currentState;
+        public States nextState;
         private int numberPlayers = 0;
 
         //List of all services (E.g: EventManager, LightManager...) 
@@ -53,29 +53,38 @@ namespace nseh.GameManager
 
             if (nextState != _currentState)
             {
-                switch (nextState)
+                switch (_currentState)
                 {
-                    case States.Playing:
-                        _currentState = nextState;
+                    case States.MainMenu:
+                        _currentState = States.Loading;
+                        nextState = States.Playing;
                         Find<MenuManager>().Release();
                         SceneManager.LoadScene("Game");
-                        Find<LevelManager>().Activate();
+                        Find<LoadingScene>().Activate();
                         break;
 
-                    case States.Restart:
-                        _currentState = States.Playing;
-                        Find<LevelManager>().Release();
-                        SceneManager.LoadScene("Game");
-                        Find<LevelManager>().Activate();
+                    case States.Loading:
+                        if (nextState == States.MainMenu)
+                        {
+                            Time.timeScale = 1;
+                            _currentState = nextState;
+                            Find<LoadingScene>().Release();
+                            Find<MenuManager>().Activate();
+                        }
+                        else if (nextState == States.Playing)
+                        {
+                            _currentState = nextState;
+                            Find<LoadingScene>().Release();
+                            Find<LevelManager>().Activate();
+                        }
                         break;
 
-                    case States.MainMenu:
-                        Time.timeScale = 1;
-                        _currentState = nextState;
+                    case States.Playing:
+                        _currentState = States.Loading;
                         nextState = States.MainMenu;
                         Find<LevelManager>().Release();
-                        Find<MenuManager>().Activate();
                         SceneManager.LoadScene("MainMenu");
+                        Find<LoadingScene>().Activate();
                         break;
                 }
             }
@@ -86,6 +95,7 @@ namespace nseh.GameManager
         {
             Add<MenuManager>();
             Add<LevelManager>();
+            Add<LoadingScene>();
             Find<MenuManager>().Activate();
         }
 
@@ -117,4 +127,6 @@ namespace nseh.GameManager
             Application.Quit();
         }
     }
+
+
 }

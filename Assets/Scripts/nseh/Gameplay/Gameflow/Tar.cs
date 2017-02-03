@@ -30,6 +30,7 @@ namespace nseh.Gameplay.Gameflow
         {
             Tar_Event.TarUp += TarUp;
             Tar_Event.TarDown += TarDown;
+            Tar_Event.ResetTarComponents += TarReset;
         }
 
         //Component unsuscribes to event on disable
@@ -37,6 +38,8 @@ namespace nseh.Gameplay.Gameflow
         {
             Tar_Event.TarUp -= TarUp;
             Tar_Event.TarDown -= TarDown;
+            Tar_Event.ResetTarComponents -= TarReset;
+
         }
 
         // Update is called once per frame
@@ -72,6 +75,11 @@ namespace nseh.Gameplay.Gameflow
             return true;
             //transform.position = Vector3.SmoothDamp(transform.position, initialTarPosition, ref velocity, 0.15f);
             //tar.SetActive(false);
+        }
+
+        void TarReset()
+        {
+            transform.position = initialTarPosition;
         }
     } 
 }

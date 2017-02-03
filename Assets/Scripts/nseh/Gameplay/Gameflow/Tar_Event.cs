@@ -14,9 +14,14 @@ namespace nseh.Gameplay.Gameflow
         //bool eventFinished = false;
         public float elapsedTime;
         bool isUp = false;
+        //Event components should suscribe their movement functions here to be handled by event
         public delegate bool TarHandler(float gameTime);
         public static event TarHandler TarUp;
         public static event TarHandler TarDown;
+
+        //Resets all event component positions
+        public delegate void TarReset();
+        public static event TarReset ResetTarComponents;
         //Setup the event providing the current game instance. The event is not active here yet.
         override public void Setup(LevelManager lvlManager)
         {
@@ -28,6 +33,10 @@ namespace nseh.Gameplay.Gameflow
         override public void ActivateEvent()
         {
             IsActivated = true;
+            ResetTarComponents();
+            eventDuration = 10.0f;
+            elapsedTime = 0;
+            isUp = false;
         }
 
 
@@ -65,6 +74,10 @@ namespace nseh.Gameplay.Gameflow
         //Deactivates the event
         override public void EventRelease()
         {
+            ResetTarComponents();
+            eventDuration = 10f;
+            elapsedTime = 0;
+            isUp = false;
             IsActivated = false;
         }
         /*
