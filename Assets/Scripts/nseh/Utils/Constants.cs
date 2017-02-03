@@ -86,7 +86,11 @@ namespace nseh.Utils
                 public const string GROUNDED = "Grounded";
                 public const string H = "H";
                 public const string SPEED = "Speed";
-                public const string JUMP = "Jump";
+                public const string LOCOMOTION = "Locomotion";
+                public const string IDLE = "Idle";
+
+                public const string LOCOMOTION_JUMP = "LocomotionJump";
+                public const string IDLE_JUMP = "IdleJump";
             }
         }
     }

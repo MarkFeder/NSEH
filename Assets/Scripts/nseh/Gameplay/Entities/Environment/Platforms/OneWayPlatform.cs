@@ -2,6 +2,7 @@
 using System.Collections;
 using nseh.Utils.Helpers;
 using nseh.Gameplay.Base.Abstract;
+using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Entities.Environment.Platforms
 {
@@ -18,7 +19,7 @@ namespace nseh.Gameplay.Entities.Environment.Platforms
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag(Tags.PLAYER) && !other.isTrigger)
             {
                 Debug.Log("OnTriggerEnter");
 
@@ -35,7 +36,7 @@ namespace nseh.Gameplay.Entities.Environment.Platforms
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag(Tags.PLAYER) && other.isTrigger)
             {
                 Debug.Log("OnTriggerExit");
                 other.isTrigger = false;
