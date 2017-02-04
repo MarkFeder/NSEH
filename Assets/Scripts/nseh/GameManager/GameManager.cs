@@ -36,11 +36,11 @@ namespace nseh.GameManager
             characters.Add(character);
             
         }
-       /* public GameObject Instantiate(GameObject Object, Vector3 pos, Vector3 rot)
+
+       public GameObject InstantiateCharacter(GameObject Object,Vector3 pos, Vector3 rot)
         {
-            Debug.Log("instanciar "+Object.name);
-            return Instantiate(Object, pos, rot);
-        }*/
+            return Instantiate(Object, pos, Quaternion.Euler(rot));
+        }
 
         public void RestartList()
         {
