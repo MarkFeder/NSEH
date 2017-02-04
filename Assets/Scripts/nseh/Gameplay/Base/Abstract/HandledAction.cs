@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 namespace nseh.Gameplay.Base.Abstract
 {
@@ -82,6 +83,8 @@ namespace nseh.Gameplay.Base.Abstract
 
         #endregion
 
+        #region Virtual Methods
+
         public virtual void DoAction()
         {
             switch (this.ParameterType)
@@ -115,5 +118,11 @@ namespace nseh.Gameplay.Base.Abstract
                     break;
             }
         }
+
+        #endregion
+
+        public virtual void PerformDamage(ref GameObject sender, ref GameObject enemy) { }
+        public virtual void PerformDamage(ref GameObject sender, ref List<GameObject> targetEnemies) { }
+
     }
 }

@@ -31,6 +31,9 @@ namespace nseh.Gameplay.Base.Abstract
         private IAction currentDefenseAction;
 
         private List<IAction> actions;
+
+        #region Public Properties
+
         public List<IAction> Actions
         {
             get
@@ -47,17 +50,25 @@ namespace nseh.Gameplay.Base.Abstract
             }
         }
 
-        public HandledAction CurrentAction
+        public CharacterAttack CurrentAttack
         {
             get
             {
-                if (this.actions != null && this.actions.Count > 0)
-                {
-                    return (this.actions.Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault()) as HandledAction;
-                }
-
-                return null;
+                return (this.actions.Where(act => act.HashAnimation == this.CurrentHashAnimation)).FirstOrDefault() as CharacterAttack;
             }
+        }
+
+        public IAction CurrentAction
+        {
+            get
+            {
+                return (this.actions.Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault());
+            }
+        }
+
+        public IAction CurrentCharacterAction
+        {
+            get { return this.currentAction; }
         }
 
         public CharacterAttack CurrentCharacterAttackAction
@@ -77,13 +88,15 @@ namespace nseh.Gameplay.Base.Abstract
 
         public GameObject TargetEnemy { get; set; }
 
+        #endregion
+
         protected virtual void Awake()
         {
             this.anim = GetComponent<Animator>();
             this.characterMovement = GetComponent<CharacterMovement>();
             this.body = GetComponent<Rigidbody>();
 
-            this.gamePadIndex = 1;//this.characterMovement.GamepadIndex;
+            this.gamePadIndex = this.characterMovement.GamepadIndex;
             this.actions = this.FillCharacterActions();
             this.currentAction = null;
             this.targetType = Tags.PLAYER;
@@ -102,14 +115,14 @@ namespace nseh.Gameplay.Base.Abstract
         {
             var list = new List<IAction>()
             {
-                new CharacterAttack(AttackType.CharacterAttackAStep1, Animator.StringToHash(Constants.CHARACTER_COMBO_AAA_01), Constants.CHARACTER_COMBO_AAA_01, this.anim, KeyCode.C, String.Format("{0}{1}", Inputs.A, this.gamePadIndex), 10.0f),
-                new CharacterAttack(AttackType.CharacterAttackAStep2, Animator.StringToHash(Constants.CHARACTER_COMBO_AAA_02), Constants.CHARACTER_COMBO_AAA_02, this.anim, KeyCode.C, String.Format("{0}{1}", Inputs.A, this.gamePadIndex), 5.0f),
-                new CharacterAttack(AttackType.CharacterAttackAStep3, Animator.StringToHash(Constants.CHARACTER_COMBO_AAA_03), Constants.CHARACTER_COMBO_AAA_03, this.anim, KeyCode.C, String.Format("{0}{1}", Inputs.A, this.gamePadIndex), 1.0f),
-                new CharacterAttack(AttackType.CharacterAttackBStep1, Animator.StringToHash(Constants.CHARACTER_COMBO_BB_01), Constants.CHARACTER_COMBO_BB_01, this.anim, KeyCode.B, String.Format("{0}{1}", Inputs.B, this.gamePadIndex), 10.0f),
-                new CharacterAttack(AttackType.CharacterAttackBStep2, Animator.StringToHash(Constants.CHARACTER_COMBO_BB_02), Constants.CHARACTER_COMBO_BB_02, this.anim, KeyCode.B, String.Format("{0}{1}", Inputs.B, this.gamePadIndex), 10.0f),
-                new CharacterAttack(AttackType.CharacterDefinitive, Animator.StringToHash(Constants.CHARACTER_DEFINITIVE), Constants.CHARACTER_DEFINITIVE, this.anim, KeyCode.N, String.Format("{0}{1}", Inputs.DEFINITIVE, this.gamePadIndex), 20.0f),
-                new CharacterAttack(AttackType.CharacterHability, Animator.StringToHash(Constants.CHARACTER_HABILITY), Constants.CHARACTER_HABILITY, this.anim, KeyCode.M, String.Format("{0}{1}", Inputs.HABILITY, this.gamePadIndex), 20.0f),
-                new CharacterDefense(DefenseType.NormalDefense, Animator.StringToHash(Constants.CHARACTER_DEFENSE), Constants.CHARACTER_DEFENSE, this.anim, KeyCode.F, String.Format("{0}{1}", Inputs.DEFENSE, this.gamePadIndex))
+                new CharacterAttack(AttackType.CharacterAttackAStep1, Animator.StringToHash(Constants.CHARACTER_COMBO_AAA_01), Constants.CHARACTER_COMBO_AAA_01, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.gamePadIndex), 10.0f),
+                new CharacterAttack(AttackType.CharacterAttackAStep2, Animator.StringToHash(Constants.CHARACTER_COMBO_AAA_02), Constants.CHARACTER_COMBO_AAA_02, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.gamePadIndex), 5.0f),
+                new CharacterAttack(AttackType.CharacterAttackAStep3, Animator.StringToHash(Constants.CHARACTER_COMBO_AAA_03), Constants.CHARACTER_COMBO_AAA_03, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.gamePadIndex), 1.0f),
+                new CharacterAttack(AttackType.CharacterAttackBStep1, Animator.StringToHash(Constants.CHARACTER_COMBO_BB_01), Constants.CHARACTER_COMBO_BB_01, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.B, this.gamePadIndex), 10.0f),
+                new CharacterAttack(AttackType.CharacterAttackBStep2, Animator.StringToHash(Constants.CHARACTER_COMBO_BB_02), Constants.CHARACTER_COMBO_BB_02, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.B, this.gamePadIndex), 10.0f),
+                new CharacterAttack(AttackType.CharacterDefinitive, Animator.StringToHash(Constants.CHARACTER_DEFINITIVE), Constants.CHARACTER_DEFINITIVE, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.DEFINITIVE, this.gamePadIndex), 20.0f),
+                new CharacterAttack(AttackType.CharacterHability, Animator.StringToHash(Constants.CHARACTER_HABILITY), Constants.CHARACTER_HABILITY, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.HABILITY, this.gamePadIndex), 20.0f),
+                new CharacterDefense(DefenseType.NormalDefense, Animator.StringToHash(Constants.CHARACTER_DEFENSE), Constants.CHARACTER_DEFENSE, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.DEFENSE, this.gamePadIndex))
             };
 
             return list;
