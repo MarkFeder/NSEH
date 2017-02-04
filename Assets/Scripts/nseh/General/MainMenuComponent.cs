@@ -3,15 +3,27 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using nseh.Utils;
 using nseh.GameManager;
+using UnityEngine.UI;
 
 public class MainMenuComponent : MonoBehaviour
 {
     public GameObject current;
     MenuManager _MenuManager;
+    GameObject _paladin;
+    GameObject _demon;
+    int adding;
+    public Text _playerTurnText;
+    public Button play;
+    public Button paladin;
+    public Button demon;
 
     void Start()
     {
         _MenuManager = GameManager.thisGame.Find<MenuManager>();
+        _paladin = GameObject.Find("Paladin");
+        _demon = GameObject.Find("Demon");
+        adding = 0;
+        _playerTurnText.text = "PLAYER "+ (adding+1).ToString()+ " TURN!";
     }
 
     public void OneNumberCharacter(GameObject newCanvas)
@@ -27,14 +39,68 @@ public class MainMenuComponent : MonoBehaviour
     }
 
     public void ChangeCanvas(GameObject newCanvas)
-    {
+    {   if (current.name == "Canvas_PickingCharacters")
+        {
+            adding = 0;
+            _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+            paladin.interactable = true;
+            demon.interactable = true;
+            play.interactable = false;
+        }
         current.SetActive(false);
         current = newCanvas;
         current.SetActive(true);
+        
 
     }
 
+    public void AddingPaladin()
+    {
+        _paladin = Resources.Load("Ryu 1") as GameObject;
+        Debug.Log(_paladin);
+        //variableForPrefab = Resources.Load("prefabs/prefab1", GameObject) as GameObject;
+        //_MenuManager.Adding(_paladin);
+        adding++;
+
+        if(adding == GameManager.thisGame.numberPlayers)
+        {
+            _playerTurnText.text = "READY?";
+            paladin.interactable=false;
+            demon.interactable = false;
+            play.interactable = true;
+            _MenuManager.RestartingCharacters();
+        }
+        else
+        {
+            _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+        }
+    }
+
+    public void AddingDemon()
+    {
+        _MenuManager.Adding(_demon);
+        adding++;
+        
+        if (adding == GameManager.thisGame.numberPlayers)
+        {
+            _playerTurnText.text = "READY?";
+            paladin.interactable = false;
+            demon.interactable = false;
+            play.interactable = true;
+
+        }
+        else
+        {
+            _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+        }
+    }
+
     public void SaveChanges()
+    {
+
+    }
+
+    public void Update()
     {
 
     }

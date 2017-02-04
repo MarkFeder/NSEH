@@ -23,6 +23,8 @@ namespace nseh.GameManager
         private Text _Clock = null;
         private Text _gameOverText = null;
         private float timeRemaining;
+        private GameObject _player1;
+        private GameObject _player2;
 
         //List of all events (E.g: EventManager, LightManager...) 
         private List<LevelEvent> _eventsList;
@@ -89,6 +91,20 @@ namespace nseh.GameManager
             Time.timeScale = 1;
             //Initial event
             Find<Tar_Event>().ActivateEvent();
+            switch (GameManager.thisGame.numberPlayers)
+            {
+                case 1:
+                    //_player1 = GameManager.thisGame.Instantiate(GameManager.thisGame.characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
+                    //INTERFAZ
+                    break;
+
+                case 2:
+                    //_player1 = GameManager.thisGame.Instantiate(GameManager.thisGame.characters[0], new Vector3(-10, 1, 2), new Vector3(0,90,0));
+                    //_player2 = GameManager.thisGame.Instantiate(GameManager.thisGame.characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+                    //INTERFAZ
+                    break;
+            }
+           
 
 
         }

@@ -15,7 +15,8 @@ namespace nseh.GameManager
         public enum States { MainMenu, Playing, Loading };
         private States _currentState;
         public States nextState;
-        private int numberPlayers = 0;
+        public int numberPlayers = 0;
+        public List<GameObject> characters;
 
         //List of all services (E.g: EventManager, LightManager...) 
         private List<Service> _servicesList;
@@ -28,6 +29,21 @@ namespace nseh.GameManager
             serviceToAdd.Setup(this);
             _servicesList.Add(serviceToAdd);
 
+        }
+
+       public void AddCharacter(GameObject character)
+        {
+            characters.Add(character);
+
+        }
+        public GameObject Instantiate(GameObject Object, Vector3 pos, Vector3 rot)
+        {
+            return Instantiate(Object, pos, rot);
+        }
+
+        public void RestartList()
+        {
+            characters = new List<GameObject>();
         }
 
         //Finds the specified service in the services list
@@ -106,9 +122,13 @@ namespace nseh.GameManager
             thisGame = this;
             DontDestroyOnLoad(this);
             _servicesList = new List<Service>();
+            characters = new List<GameObject>();
             _currentState = States.MainMenu;
 
+
         }
+
+        
 
         //Here is where the different game services are triggered in a similar way to a state machine
         void Update()
