@@ -91,10 +91,12 @@ namespace nseh.GameManager
             Time.timeScale = 1;
             //Initial event
             Find<Tar_Event>().ActivateEvent();
+            Debug.Log("dsasad "+GameManager.thisGame.numberPlayers+" "+ (GameManager.thisGame.characters[0].name));
             switch (GameManager.thisGame.numberPlayers)
             {
                 case 1:
-                    //_player1 = GameManager.thisGame.Instantiate(GameManager.thisGame.characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
+                    
+                    //_player1 = GameManager.thisGame.Instantiate(GameManager.thisGame.characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0)) as GameObject;
                     //INTERFAZ
                     break;
 

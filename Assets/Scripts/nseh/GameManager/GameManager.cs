@@ -34,12 +34,13 @@ namespace nseh.GameManager
        public void AddCharacter(GameObject character)
         {
             characters.Add(character);
-
+            
         }
-        public GameObject Instantiate(GameObject Object, Vector3 pos, Vector3 rot)
+       /* public GameObject Instantiate(GameObject Object, Vector3 pos, Vector3 rot)
         {
+            Debug.Log("instanciar "+Object.name);
             return Instantiate(Object, pos, rot);
-        }
+        }*/
 
         public void RestartList()
         {

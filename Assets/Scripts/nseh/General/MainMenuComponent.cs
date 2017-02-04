@@ -20,8 +20,6 @@ public class MainMenuComponent : MonoBehaviour
     void Start()
     {
         _MenuManager = GameManager.thisGame.Find<MenuManager>();
-        _paladin = GameObject.Find("Paladin");
-        _demon = GameObject.Find("Demon");
         adding = 0;
         _playerTurnText.text = "PLAYER "+ (adding+1).ToString()+ " TURN!";
     }
@@ -46,6 +44,7 @@ public class MainMenuComponent : MonoBehaviour
             paladin.interactable = true;
             demon.interactable = true;
             play.interactable = false;
+            _MenuManager.RestartingCharacters();
         }
         current.SetActive(false);
         current = newCanvas;
@@ -56,10 +55,8 @@ public class MainMenuComponent : MonoBehaviour
 
     public void AddingPaladin()
     {
-        _paladin = Resources.Load("Ryu 1") as GameObject;
-        Debug.Log(_paladin);
-        //variableForPrefab = Resources.Load("prefabs/prefab1", GameObject) as GameObject;
-        //_MenuManager.Adding(_paladin);
+        _paladin = Resources.Load("Paladin") as GameObject;
+        _MenuManager.Adding(_paladin);
         adding++;
 
         if(adding == GameManager.thisGame.numberPlayers)
@@ -68,7 +65,7 @@ public class MainMenuComponent : MonoBehaviour
             paladin.interactable=false;
             demon.interactable = false;
             play.interactable = true;
-            _MenuManager.RestartingCharacters();
+           // 
         }
         else
         {
@@ -78,6 +75,7 @@ public class MainMenuComponent : MonoBehaviour
 
     public void AddingDemon()
     {
+        _demon = Resources.Load("Demon") as GameObject;
         _MenuManager.Adding(_demon);
         adding++;
         
