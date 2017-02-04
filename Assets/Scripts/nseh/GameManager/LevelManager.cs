@@ -25,6 +25,8 @@ namespace nseh.GameManager
         private float timeRemaining;
         private GameObject _player1;
         private GameObject _player2;
+        private Image _player1_HUD;
+        private Image _player2_HUD;
 
         //List of all events (E.g: EventManager, LightManager...) 
         private List<LevelEvent> _eventsList;
@@ -87,6 +89,8 @@ namespace nseh.GameManager
             _canvasIsPaused.gameObject.SetActive(false);
             _canvasGameOver = GameObject.Find("CanvasGameOver").GetComponent<Canvas>();
             _canvasGameOver.gameObject.SetActive(false);
+            _player1_HUD = GameObject.Find("CanvasPlayersHUD/Player1_HUD").GetComponent<Image>();
+            _player2_HUD = GameObject.Find("CanvasPlayersHUD/Player2_HUD").GetComponent<Image>();
             IsActivated = true;
             Time.timeScale = 1;
             //Initial event
@@ -95,20 +99,21 @@ namespace nseh.GameManager
             switch (GameManager.thisGame.numberPlayers)
             {
                 case 1:
-                    
-                    //_player1 = GameManager.thisGame.Instantiate(GameManager.thisGame.characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0)) as GameObject;
+
+                    _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
                     //INTERFAZ
+                    _player1_HUD.gameObject.SetActive(true);
+                    _player2_HUD.gameObject.SetActive(false);
                     break;
 
                 case 2:
-                    //_player1 = GameManager.thisGame.Instantiate(GameManager.thisGame.characters[0], new Vector3(-10, 1, 2), new Vector3(0,90,0));
-                    //_player2 = GameManager.thisGame.Instantiate(GameManager.thisGame.characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+                    _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
+                    _player2 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
                     //INTERFAZ
+                    _player1_HUD.gameObject.SetActive(true);
+                    _player2_HUD.gameObject.SetActive(true);
                     break;
             }
-           
-
-
         }
 
 
@@ -166,6 +171,21 @@ namespace nseh.GameManager
             _canvasIsPaused.gameObject.SetActive(false);
             Time.timeScale = 1;
             Find<Tar_Event>().ActivateEvent();
+            switch (GameManager.thisGame.numberPlayers)
+            {
+                case 1:
+
+                    GameObject.Destroy(_player1);
+                    _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
+                    break;
+
+                case 2:
+                    GameObject.Destroy(_player1);
+                    GameObject.Destroy(_player2);
+                    _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
+                    _player2 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+                    break;
+            }
         }
 
         public void GoToMainMenu()
