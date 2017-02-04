@@ -38,6 +38,16 @@ namespace nseh.GameManager
 
         }
 
+        public void RestartingCharacters()
+        {
+            GameManager.thisGame.RestartList();
+        }
+
+        public void Adding(GameObject Character)
+        {
+            GameManager.thisGame.AddCharacter(Character);
+        }
+
         public override void Release()
         {
             IsActivated = false;

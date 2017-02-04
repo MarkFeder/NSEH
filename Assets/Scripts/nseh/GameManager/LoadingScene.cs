@@ -28,6 +28,7 @@ namespace nseh.GameManager
 
         public override void Tick()
         {
+            Debug.Log("Laoding");
             if (aux != SceneManager.GetActiveScene().name)
             {
                 Release();
