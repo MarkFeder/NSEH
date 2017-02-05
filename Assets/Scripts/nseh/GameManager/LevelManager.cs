@@ -104,6 +104,9 @@ namespace nseh.GameManager
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
                     _player2_HUD.gameObject.SetActive(false);
+                    //CAMBIAR 
+                    _player1.GetComponent<CharacterMovement>();
+
                     break;
 
                 case 2:

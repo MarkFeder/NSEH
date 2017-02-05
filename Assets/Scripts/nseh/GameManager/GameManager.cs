@@ -64,6 +64,14 @@ namespace nseh.GameManager
 
         }
 
+        public static MainMenuComponent CreateComponent(GameObject where, int parameter)
+        {
+            MainMenuComponent myC = where.AddComponent<MainMenuComponent>();
+
+
+            return myC;
+        }
+
         public void ChangeState(States newState)
         {
 
