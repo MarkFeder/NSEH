@@ -507,6 +507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextState: 0
   numberPlayers: 0
+  characters: []
 --- !u!4 &328593792
 Transform:
   m_ObjectHideFlags: 0
@@ -878,7 +879,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478989261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f6ebaff98c200448b8a3e2c503f4a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d2576761183b9241b3b20f893ba144b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   current: {fileID: 8937661}
