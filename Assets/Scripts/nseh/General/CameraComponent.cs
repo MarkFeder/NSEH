@@ -48,16 +48,16 @@ namespace nseh.General
             //MOVE CAMERA
             if (Mathf.Abs(distance.x) < 2 && Mathf.Abs(distance.y) < 2)
             {
-
                 Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), tempZ/*-10*/);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
+
             else if (Mathf.Abs(distance.x) < 4 && Mathf.Abs(distance.y) < 4 )
             {
-
                 Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -15);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
+
             else if (Mathf.Abs(distance.x) < 10 && Mathf.Abs(distance.y) < 10)
             {
                 //Position = new Vector3(Mathf.Clamp(Midpoint.x,xMin,xMax), Mathf.Clamp(Midpoint.y,yMin,yMax), -100);
@@ -78,7 +78,6 @@ namespace nseh.General
                 //Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -20);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
-
 
         }
     }
