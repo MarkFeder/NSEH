@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace nseh.GameManager
+namespace nseh.GameManager.Other
 {
     public class CharacterMovement : MonoBehaviour
     {
