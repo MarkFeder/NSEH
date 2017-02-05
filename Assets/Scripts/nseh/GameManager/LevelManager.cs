@@ -106,13 +106,18 @@ namespace nseh.GameManager
                     _player1_HUD.gameObject.SetActive(true);
                     _player2_HUD.gameObject.SetActive(false);
                     //CAMBIAR 
-                    _player1.GetComponent<CharacterMovement>().GamepadIndex = 2;
+                    _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
+                    //_camera.GetComponent<Camera>.
+
 
                     break;
 
                 case 2:
                     _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
                     _player2 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+                    _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
+                    _player2.GetComponent<CharacterMovement>().useGamepad = true;
+                    _player2.GetComponent<CharacterMovement>().GamepadIndex = 2;
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
                     _player2_HUD.gameObject.SetActive(true);
