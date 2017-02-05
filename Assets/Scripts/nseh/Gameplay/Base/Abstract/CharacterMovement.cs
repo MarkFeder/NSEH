@@ -62,6 +62,14 @@ namespace nseh.Gameplay.Base.Abstract
                 return this.gamepadIndex;
 
             }
+
+            set
+            {
+                if (value != 0)
+                {
+                    this.gamepadIndex = value;
+                }
+            }
         }
 
         #region State Properties
