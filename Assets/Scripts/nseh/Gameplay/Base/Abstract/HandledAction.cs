@@ -120,9 +120,5 @@ namespace nseh.Gameplay.Base.Abstract
         }
 
         #endregion
-
-        public virtual void PerformDamage(ref GameObject sender, ref GameObject enemy) { }
-        public virtual void PerformDamage(ref GameObject sender, ref List<GameObject> targetEnemies) { }
-
     }
 }

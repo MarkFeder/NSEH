@@ -10,6 +10,7 @@ using Tags = nseh.Utils.Constants.Tags;
 using Actions = nseh.Utils.Constants.Animations.Combat;
 using Movements = nseh.Utils.Constants.Animations.Movement;
 using SystemObject = System.Object;
+using nseh.Gameplay.Combat.Defense;
 
 namespace nseh.Gameplay.Combat.System
 {
@@ -149,12 +150,9 @@ namespace nseh.Gameplay.Combat.System
 
                         if (!SystemObject.ReferenceEquals(null, enemyAction))
                         {
-                            int conflict = CombatRules.CompareAttacks(ref senderAction, ref enemyAction);
+                            int conflict = CombatRules.CompareActions(ref senderAction, ref enemyAction);
 
-                            var enemyAttack = enemyAction as CharacterAttack;
-                            var senderAttack = senderAction as CharacterAttack;
-
-                            this.ResolveConflict(conflict, ref sender, ref senderAttack, ref enemy, ref enemyAttack);
+                            this.ResolveConflict(conflict, ref sender, ref senderAction, ref enemy, ref enemyAction);
                         }
                         else
                         {
@@ -172,7 +170,62 @@ namespace nseh.Gameplay.Combat.System
             }
         }
 
-        // We should move this function to Combact rules
+        private void ResolveConflict(int conflict, ref GameObject sender, ref HandledAction senderAction, ref GameObject enemy, ref HandledAction enemyAction)
+        {
+            // Print debug info to log
+            // See: http://stackoverflow.com/questions/1810785/why-cant-i-pass-a-property-or-indexer-as-a-ref-parameter-when-net-reflector-sh
+            string senderName = sender.name;
+            string enemyName = enemy.name;
+            string colorDebug = Colors.BROWN;
+
+            CombatRules.PrintConflictInfo(ref colorDebug, ref conflict, ref senderName, ref enemyName);
+
+            if (senderAction is CharacterAttack && enemyAction is CharacterAttack)
+            {
+                CharacterAttack enemyAttack = enemyAction as CharacterAttack;
+                CharacterAttack senderAttack = senderAction as CharacterAttack;
+
+                this.ResolveConflict(conflict, ref sender, ref senderAttack, ref enemy, ref enemyAttack);
+            }
+            else if (senderAction is CharacterAttack && enemyAction is CharacterDefense)
+            {
+                CharacterAttack senderAttack = senderAction as CharacterAttack;
+                CharacterDefense enemyDefense = enemyAction as CharacterDefense;
+
+                this.ResolveConflict(conflict, ref sender, ref senderAttack, ref enemy, ref enemyDefense);
+            }
+            else
+            {
+                Debug.Log("Check types for senderAction and EnemyAction");
+            }
+        }
+
+        private void ResolveConflict(int conflict, ref GameObject sender, ref CharacterAttack senderAttack, ref GameObject enemy, ref CharacterDefense enemyDefense)
+        {
+            if (conflict == -1)
+            {
+                if (senderAttack.AttackType == AttackType.CharacterAttackBSharp)
+                {
+                    enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAttack.Damage / 2);
+                    enemyDefense.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+                }
+                else if (senderAttack.AttackType == AttackType.CharacterAttackBStep2 
+                        || senderAttack.AttackType == AttackType.CharacterDefinitive)
+                {
+                    enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAttack.Damage);
+                    enemyDefense.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+                }
+            }
+            else if (conflict == 0)
+            {
+                senderAttack.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+            }
+            else
+            {
+                Debug.Log(string.Format("No conflict for characters: {0} and {1}", enemy.name, sender.name));
+            }
+        }
+
         private void ResolveConflict(int conflict, ref GameObject sender, ref CharacterAttack senderAction, ref GameObject enemy, ref CharacterAttack enemyAction)
         {
             if (conflict == -1)
@@ -216,14 +269,6 @@ namespace nseh.Gameplay.Combat.System
 
             // TODO: Apply force to gameobject
             // TODO: We should store hashAnimations somewhere
-
-            // Print debug info to log
-            // See: http://stackoverflow.com/questions/1810785/why-cant-i-pass-a-property-or-indexer-as-a-ref-parameter-when-net-reflector-sh
-            string senderName = sender.name;
-            string enemyName = enemy.name;
-            string colorDebug = Colors.BROWN;
-
-            CombatRules.PrintConflictInfo(ref colorDebug, ref conflict, ref senderName, ref enemyName);
         }
 
         #endregion
