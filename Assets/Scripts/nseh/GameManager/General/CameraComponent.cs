@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace nseh.General
+namespace nseh.GameManager.General
 {
     public class CameraComponent : MonoBehaviour
     {
