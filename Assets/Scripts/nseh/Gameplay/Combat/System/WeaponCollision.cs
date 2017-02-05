@@ -77,38 +77,30 @@ namespace nseh.Gameplay.Combat.System
             {
                 bool enemyTakenAback = this.EnemyHasBeenTakenAback(ref enemy);
 
-                try
+                if (enemyTakenAback)
                 {
-                    if (enemyTakenAback)
-                    {
-                        var attack = this.characterCombat.CurrentAction as HandledAction;
+                    var attack = this.characterCombat.CurrentAction as HandledAction;
                         
-                        if (!SystemObject.ReferenceEquals(null, attack))
-                        {
-                            Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
-
-                            this.PerformDamage(ref this.rootCharacter, ref attack, ref enemy);
-                        }
-                    }
-                    else
+                    if (!SystemObject.ReferenceEquals(null, attack))
                     {
-                        // enemies are watching each other
-                        this.enemyTargets.Add(enemy);
+                        Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
 
-                        var attack = this.characterCombat.CurrentAction as HandledAction;
-
-                        if (!SystemObject.ReferenceEquals(null, attack))
-                        {
-                            Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
-
-                            this.PerformDamage(ref this.rootCharacter, ref attack, ref this.enemyTargets);
-                        }
+                        this.PerformDamage(ref this.rootCharacter, ref attack, ref enemy);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    Debug.Log(ex);
-                    throw ex;
+                    // enemies are watching each other
+                    this.enemyTargets.Add(enemy);
+
+                    var attack = this.characterCombat.CurrentAction as HandledAction;
+
+                    if (!SystemObject.ReferenceEquals(null, attack))
+                    {
+                        Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
+
+                        this.PerformDamage(ref this.rootCharacter, ref attack, ref this.enemyTargets);
+                    }
                 }
             }
         }
