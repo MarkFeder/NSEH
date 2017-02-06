@@ -1,32 +1,64 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using nseh.GameManager.General;
+using nseh.Gameplay.Base.Abstract.Gameflow;
 using UnityEngine;
 
 namespace nseh.GameManager
 {
-    public class CameraManager : Service
+    public class CameraManager : LevelEvent
 
     {
-
+        List<GameObject> _sceneCameras;
+        Vector3 _player1position;
+        Vector3 _player2position;
+        GameObject _camera;
         // Use this for initialization
-        public override void Setup(GameManager myGame)
+        public override void Setup(LevelManager lvlManager)
         {
-            base.Setup(myGame);
+            base.Setup(lvlManager);
         }
 
-        public override void Activate()
+        public override void ActivateEvent()
         {
             IsActivated = true;
+            _sceneCameras = new List<GameObject>();
+            //reminder: it would be nice to add a switch which controls the camera instantiation depending on LevelManager states.
+            _camera = Object.Instantiate(Resources.Load("LevelCamera"), Vector3.zero, Quaternion.Euler(Vector3.zero)) as GameObject;
+            _sceneCameras.Add(_camera); 
         }
 
-        public override void Tick()
+        public override void EventTick()
         {
-
+            switch (GameManager.thisGame.numberPlayers)
+            {
+                case 1:
+                    _player1position = LvlManager.getPlayer1().transform.position;
+                    foreach (GameObject thisCamera in _sceneCameras)
+                    {
+                        thisCamera.GetComponent<CameraComponent>().RefreshCamera(_player1position, _player1position);
+                    }
+                    break;
+                case 2:
+                    _player1position = LvlManager.getPlayer1().transform.position;
+                    _player2position = LvlManager.getPlayer2().transform.position;
+                    foreach (GameObject thisCamera in _sceneCameras)
+                    {
+                        thisCamera.GetComponent<CameraComponent>().RefreshCamera(_player1position, _player2position);
+                    }
+                    break;
+            }
+            
 
         }
 
-        public override void Release()
+        public override void EventRelease()
         {
+            foreach(GameObject thisCamera in _sceneCameras)
+            {
+                GameObject.Destroy(thisCamera);
+            }
+            _sceneCameras = new List<GameObject>();
             IsActivated = false;
         }
     }

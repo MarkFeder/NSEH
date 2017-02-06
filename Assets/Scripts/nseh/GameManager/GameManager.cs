@@ -122,7 +122,6 @@ namespace nseh.GameManager
             Add<MenuManager>();
             Add<LevelManager>();
             Add<LoadingScene>();
-            Add<CameraManager>();
             Find<MenuManager>().Activate();
         }
 

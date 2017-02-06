@@ -78,6 +78,7 @@ namespace nseh.GameManager
             _currentState = States.LevelEvent;
             _isPaused = false;
             Add<Tar_Event>();
+            Add<CameraManager>();
 
 
         }
@@ -96,6 +97,7 @@ namespace nseh.GameManager
             Time.timeScale = 1;
             //Initial event
             Find<Tar_Event>().ActivateEvent();
+            Find<CameraManager>().ActivateEvent();
             Debug.Log("dsasad "+GameManager.thisGame.numberPlayers+" "+ (GameManager.thisGame.characters[0].name));
             switch (GameManager.thisGame.numberPlayers)
             {
@@ -138,10 +140,12 @@ namespace nseh.GameManager
                 {
                     case States.LevelEvent:
                         Find<Tar_Event>().ActivateEvent();
+                        Find<CameraManager>().ActivateEvent();
                         _currentState = nextState;
                         break;
                     case States.Minigame:
                         Find<Tar_Event>().EventRelease();
+                        Find<CameraManager>().EventRelease();
                         _currentState = nextState;
                         break;
                 }
@@ -180,12 +184,20 @@ namespace nseh.GameManager
             _canvasIsPaused.gameObject.SetActive(false);
             Time.timeScale = 1;
             Find<Tar_Event>().ActivateEvent();
+            Find<CameraManager>().EventRelease();
             switch (GameManager.thisGame.numberPlayers)
             {
                 case 1:
 
                     GameObject.Destroy(_player1);
                     _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
+                    //INTERFAZ
+                    _player1_HUD.gameObject.SetActive(true);
+                    _player2_HUD.gameObject.SetActive(false);
+                    //CAMBIAR 
+                    _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
+                    //_camera.GetComponent<Camera>.
+
                     break;
 
                 case 2:
@@ -193,14 +205,31 @@ namespace nseh.GameManager
                     GameObject.Destroy(_player2);
                     _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
                     _player2 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+                    _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
+                    _player2.GetComponent<CharacterMovement>().useGamepad = true;
+                    _player2.GetComponent<CharacterMovement>().GamepadIndex = 2;
+                    //INTERFAZ
+                    _player1_HUD.gameObject.SetActive(true);
+                    _player2_HUD.gameObject.SetActive(true);
                     break;
             }
+            Find<CameraManager>().ActivateEvent();
         }
 
         public void GoToMainMenu()
         {
             MyGame.ChangeState(GameManager.States.MainMenu);
 
+        }
+
+        public GameObject getPlayer1()
+        {
+            return _player1;
+        }
+
+        public GameObject getPlayer2()
+        {
+            return _player2;
         }
 
         //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
