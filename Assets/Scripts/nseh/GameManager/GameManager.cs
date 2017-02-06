@@ -8,44 +8,104 @@ namespace nseh.GameManager
 {
     public class GameManager : MonoBehaviour
     {
+        #region Singleton Pattern
 
-        static public GameManager thisGame;
+        private static GameManager _instance;
+        public static GameManager Instance
+        {
+            get
+            {
+                if (_instance != null)
+                {
+                    return _instance;
+                }
+
+                return null;
+            }
+        }
+        #endregion
 
         //Properties
         public enum States { MainMenu, Playing, Loading };
         private States _currentState;
-        public States nextState;
-        public int numberPlayers = 0;
-        public List<GameObject> characters;
+        public States _nextState;
+        public int _numberPlayers = 0;
+        public List<GameObject> _characters;
 
         //List of all services (E.g: EventManager, LightManager...) 
         private List<Service> _servicesList;
 
-        //Adds the specified service to the services list
-        void Add<T>() where T : new()
+        #region Initialization
+
+        //Managers should be initialised here
+        public void Start()
         {
-
-            Service serviceToAdd = new T() as Service;
-            serviceToAdd.Setup(this);
-            _servicesList.Add(serviceToAdd);
-
+            Add<MenuManager>();
+            Add<LevelManager>();
+            Add<LoadingScene>();
+            Find<MenuManager>().Activate();
         }
 
-       public void AddCharacter(GameObject character)
+
+        public void Awake()
         {
-            characters.Add(character);
-            
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+                DontDestroyOnLoad(this);
+
+                // Initiate other properties here
+                _servicesList = new List<Service>();
+                _characters = new List<GameObject>();
+                _currentState = States.MainMenu;
+            }
         }
 
-       public GameObject InstantiateCharacter(GameObject Object,Vector3 pos, Vector3 rot)
+        #endregion
+
+        //Here is where the different game services are triggered in a similar way to a state machine
+        public void Update()
+        {
+            //State execution
+            foreach (Service thisService in _servicesList)
+            {
+                if (thisService.IsActivated)
+                {
+                    thisService.Tick();
+                }
+            }
+            //End of state execution
+        }
+
+        #region Characters Management
+
+        public void AddCharacter(GameObject character)
+        {
+            _characters.Add(character);
+        }
+
+        public GameObject InstantiateCharacter(GameObject Object,Vector3 pos, Vector3 rot)
         {
             return Instantiate(Object, pos, Quaternion.Euler(rot));
         }
 
         public void RestartList()
         {
-            characters = new List<GameObject>();
+            _characters.Clear();
         }
+
+        public void ChangePlayers(int number)
+        {
+            _numberPlayers = number;
+        }
+
+        #endregion
+
+        #region Service Management
 
         //Finds the specified service in the services list
         public T Find<T>() where T : class
@@ -58,11 +118,17 @@ namespace nseh.GameManager
             return null;
         }
 
-        public void ChangePlayers(int number)
+        //Adds the specified service to the services list
+        public void Add<T>() where T : new()
         {
-            numberPlayers = number;
-
+            Service serviceToAdd = new T() as Service;
+            serviceToAdd.Setup(this);
+            _servicesList.Add(serviceToAdd);
         }
+
+        #endregion
+
+        #region Components Management
 
         public static MainMenuComponent CreateComponent(GameObject where, int parameter)
         {
@@ -72,34 +138,37 @@ namespace nseh.GameManager
             return myC;
         }
 
+        #endregion
+
+        #region State Management
+
         public void ChangeState(States newState)
         {
+            _nextState = newState;
 
-            nextState = newState;
-
-            if (nextState != _currentState)
+            if (_nextState != _currentState)
             {
                 switch (_currentState)
                 {
                     case States.MainMenu:
                         _currentState = States.Loading;
-                        nextState = States.Playing;
+                        _nextState = States.Playing;
                         Find<MenuManager>().Release();
                         SceneManager.LoadScene(Constants.Scenes.SCENE_01);
                         Find<LoadingScene>().Activate();
                         break;
 
                     case States.Loading:
-                        if (nextState == States.MainMenu)
+                        if (_nextState == States.MainMenu)
                         {
                             Time.timeScale = 1;
-                            _currentState = nextState;
+                            _currentState = _nextState;
                             Find<LoadingScene>().Release();
                             Find<MenuManager>().Activate();
                         }
-                        else if (nextState == States.Playing)
+                        else if (_nextState == States.Playing)
                         {
-                            _currentState = nextState;
+                            _currentState = _nextState;
                             Find<LoadingScene>().Release();
                             Find<LevelManager>().Activate();
                         }
@@ -107,7 +176,7 @@ namespace nseh.GameManager
 
                     case States.Playing:
                         _currentState = States.Loading;
-                        nextState = States.MainMenu;
+                        _nextState = States.MainMenu;
                         Find<LevelManager>().Release();
                         SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
                         Find<LoadingScene>().Activate();
@@ -116,47 +185,11 @@ namespace nseh.GameManager
             }
         }
 
-        //Managers should be initialised here
-        void Start()
-        {
-            Add<MenuManager>();
-            Add<LevelManager>();
-            Add<LoadingScene>();
-            Find<MenuManager>().Activate();
-        }
-
-
-        void Awake()
-        {
-            thisGame = this;
-            DontDestroyOnLoad(this);
-            _servicesList = new List<Service>();
-            characters = new List<GameObject>();
-            _currentState = States.MainMenu;
-
-
-        }
-
-        
-
-        //Here is where the different game services are triggered in a similar way to a state machine
-        void Update()
-        {
-
-            //State execution
-            foreach (Service thisService in _servicesList)
-            {
-                if (thisService.IsActivated)
-                    thisService.Tick();
-            }
-            //End of state execution
-        }
-
         public void ExitGame()
         {
             Application.Quit();
         }
+
+        #endregion
     }
-
-
 }

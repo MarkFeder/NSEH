@@ -19,7 +19,7 @@ public class MainMenuComponent : MonoBehaviour
 
     void Start()
     {
-        _MenuManager = GameManager.thisGame.Find<MenuManager>();
+        _MenuManager = GameManager.Instance.Find<MenuManager>();
         adding = 0;
         _playerTurnText.text = "PLAYER "+ (adding+1).ToString()+ " TURN!";
     }
@@ -59,7 +59,7 @@ public class MainMenuComponent : MonoBehaviour
         _MenuManager.Adding(_paladin);
         adding++;
 
-        if(adding == GameManager.thisGame.numberPlayers)
+        if(adding == GameManager.Instance._numberPlayers)
         {
             _playerTurnText.text = "READY?";
             paladin.interactable=false;
@@ -79,7 +79,7 @@ public class MainMenuComponent : MonoBehaviour
         _MenuManager.Adding(_demon);
         adding++;
         
-        if (adding == GameManager.thisGame.numberPlayers)
+        if (adding == GameManager.Instance._numberPlayers)
         {
             _playerTurnText.text = "READY?";
             paladin.interactable = false;
@@ -107,13 +107,11 @@ public class MainMenuComponent : MonoBehaviour
     {
     //ChangeCanvas(newCanvas);
         _MenuManager.ChangeStates();
-
     }
         
     public void Exit()
     {
         _MenuManager.ExitGame();
-      
     }
 }
 

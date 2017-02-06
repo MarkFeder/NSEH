@@ -17,13 +17,14 @@ namespace nseh.GameManager
         //Level game flow
         public enum States { LevelEvent, Minigame };
         public States _currentState;
-        private States nextState;
+
+        private States _nextState;
         private bool _isPaused;
         private Canvas _canvasIsPaused = null;
         private Canvas _canvasGameOver = null;
         private Text _Clock = null;
         private Text _gameOverText = null;
-        private float timeRemaining;
+        private float _timeRemaining;
         private GameObject _player1;
         private GameObject _player2;
         private Image _player1_HUD;
@@ -38,7 +39,6 @@ namespace nseh.GameManager
             LevelEvent serviceToAdd = new T() as LevelEvent;
             serviceToAdd.Setup(this);
             _eventsList.Add(serviceToAdd);
-
         }
 
         public void PauseGame()
@@ -46,7 +46,6 @@ namespace nseh.GameManager
             _isPaused = !_isPaused;
             if (_isPaused)
             {
-
                 _canvasIsPaused.gameObject.SetActive(true);
                 Time.timeScale = 0;
 
@@ -55,7 +54,6 @@ namespace nseh.GameManager
             {
                 _canvasIsPaused.gameObject.SetActive(false);
                 Time.timeScale = 1;
-
             }
         }
 
@@ -79,47 +77,50 @@ namespace nseh.GameManager
             _isPaused = false;
             Add<Tar_Event>();
             Add<CameraManager>();
-
-
         }
 
         override public void Activate()
         {
-            timeRemaining = Constants.LevelManager.TIME_REMAINING;
+            _timeRemaining = Constants.LevelManager.TIME_REMAINING;
             _canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
             _Clock = GameObject.Find("CanvasClock/TextClock").GetComponent<Text>();
             _canvasIsPaused.gameObject.SetActive(false);
+
             _canvasGameOver = GameObject.Find("CanvasGameOver").GetComponent<Canvas>();
             _canvasGameOver.gameObject.SetActive(false);
+
             _player1_HUD = GameObject.Find("CanvasPlayersHUD/Player1_HUD").GetComponent<Image>();
             _player2_HUD = GameObject.Find("CanvasPlayersHUD/Player2_HUD").GetComponent<Image>();
+
             IsActivated = true;
             Time.timeScale = 1;
+
             //Initial event
             Find<Tar_Event>().ActivateEvent();
             Find<CameraManager>().ActivateEvent();
-            Debug.Log("dsasad "+GameManager.thisGame.numberPlayers+" "+ (GameManager.thisGame.characters[0].name));
-            switch (GameManager.thisGame.numberPlayers)
+
+            Debug.Log("dsasad "+GameManager.Instance._numberPlayers+" "+ (GameManager.Instance._characters[0].name));
+
+            switch (GameManager.Instance._numberPlayers)
             {
                 case 1:
-
-                    _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
+                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
                     _player2_HUD.gameObject.SetActive(false);
                     //CAMBIAR 
                     _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
-                    //_camera.GetComponent<Camera>.
-
-
                     break;
 
                 case 2:
-                    _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
-                    _player2 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
+                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+
                     _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
                     _player2.GetComponent<CharacterMovement>().useGamepad = true;
+
                     _player2.GetComponent<CharacterMovement>().GamepadIndex = 2;
+                    
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
                     _player2_HUD.gameObject.SetActive(true);
@@ -131,22 +132,21 @@ namespace nseh.GameManager
 
         public void ChangeState(States newState)
         {
-
-            nextState = newState;
+            _nextState = newState;
             //Transitions
-            if (nextState != _currentState)
+            if (_nextState != _currentState)
             {
-                switch (nextState)
+                switch (_nextState)
                 {
                     case States.LevelEvent:
                         Find<Tar_Event>().ActivateEvent();
                         Find<CameraManager>().ActivateEvent();
-                        _currentState = nextState;
+                        _currentState = _nextState;
                         break;
                     case States.Minigame:
                         Find<Tar_Event>().EventRelease();
                         Find<CameraManager>().EventRelease();
-                        _currentState = nextState;
+                        _currentState = _nextState;
                         break;
                 }
             }
@@ -155,15 +155,15 @@ namespace nseh.GameManager
 
         public void Clock()
         {
-            timeRemaining -= Time.deltaTime;
-            if (timeRemaining > 0 && timeRemaining > 10)
+            _timeRemaining -= Time.deltaTime;
+            if (_timeRemaining > 0 && _timeRemaining > 10)
             {
-                _Clock.text = timeRemaining.ToString("f0");
+                _Clock.text = _timeRemaining.ToString("f0");
             }
 
-            else if (timeRemaining > 0 && timeRemaining < 10)
+            else if (_timeRemaining > 0 && _timeRemaining < 10)
             {
-                _Clock.text = timeRemaining.ToString("f2");
+                _Clock.text = _timeRemaining.ToString("f2");
             }
             else
             {
@@ -179,35 +179,41 @@ namespace nseh.GameManager
 
         public void Restart()
         {
-            timeRemaining = Constants.LevelManager.TIME_REMAINING;
+            _timeRemaining = Constants.LevelManager.TIME_REMAINING;
             _canvasGameOver.gameObject.SetActive(false);
             _canvasIsPaused.gameObject.SetActive(false);
+
             Time.timeScale = 1;
+
             Find<Tar_Event>().ActivateEvent();
             Find<CameraManager>().EventRelease();
-            switch (GameManager.thisGame.numberPlayers)
+
+            switch (GameManager.Instance._numberPlayers)
             {
                 case 1:
 
                     GameObject.Destroy(_player1);
-                    _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
+                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
+                    
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
                     _player2_HUD.gameObject.SetActive(false);
+                    
                     //CAMBIAR 
                     _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
-                    //_camera.GetComponent<Camera>.
-
                     break;
 
                 case 2:
                     GameObject.Destroy(_player1);
                     GameObject.Destroy(_player2);
-                    _player1 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[0], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
-                    _player2 = GameManager.thisGame.InstantiateCharacter(GameManager.thisGame.characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+
+                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
+                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+
                     _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
                     _player2.GetComponent<CharacterMovement>().useGamepad = true;
                     _player2.GetComponent<CharacterMovement>().GamepadIndex = 2;
+                    
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
                     _player2_HUD.gameObject.SetActive(true);
@@ -219,7 +225,6 @@ namespace nseh.GameManager
         public void GoToMainMenu()
         {
             MyGame.ChangeState(GameManager.States.MainMenu);
-
         }
 
         public GameObject getPlayer1()
@@ -236,10 +241,11 @@ namespace nseh.GameManager
         override public void Tick()
         {
        
-                if (timeRemaining > 0)
+                if (_timeRemaining > 0)
                 {
                     Clock();
                 }
+                
                 //
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {

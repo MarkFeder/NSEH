@@ -8,8 +8,6 @@ namespace nseh.GameManager
 
     public class LoadingScene : Service
     {
-
-
         string aux;
         GameManager.States state;
 
@@ -22,7 +20,7 @@ namespace nseh.GameManager
         public override void Activate()
         {
             IsActivated = true;
-            state = MyGame.nextState;
+            state = MyGame._nextState;
             aux = SceneManager.GetActiveScene().name;
         }
 
@@ -41,11 +39,11 @@ namespace nseh.GameManager
            
             if (state == GameManager.States.Playing)
             {
-                GameManager.thisGame.ChangeState(GameManager.States.Playing);
+                GameManager.Instance.ChangeState(GameManager.States.Playing);
             }
             else if (state == GameManager.States.MainMenu)
             {
-                GameManager.thisGame.ChangeState(GameManager.States.MainMenu);
+                GameManager.Instance.ChangeState(GameManager.States.MainMenu);
             }
             IsActivated = false;
         }

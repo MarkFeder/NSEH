@@ -7,12 +7,12 @@ using UnityEngine;
 namespace nseh.GameManager
 {
     public class CameraManager : LevelEvent
-
     {
         List<GameObject> _sceneCameras;
         Vector3 _player1position;
         Vector3 _player2position;
         GameObject _camera;
+
         // Use this for initialization
         public override void Setup(LevelManager lvlManager)
         {
@@ -30,7 +30,7 @@ namespace nseh.GameManager
 
         public override void EventTick()
         {
-            switch (GameManager.thisGame.numberPlayers)
+            switch (GameManager.Instance._numberPlayers)
             {
                 case 1:
                     _player1position = LvlManager.getPlayer1().transform.position;
@@ -39,6 +39,7 @@ namespace nseh.GameManager
                         thisCamera.GetComponent<CameraComponent>().RefreshCamera(_player1position, _player1position);
                     }
                     break;
+
                 case 2:
                     _player1position = LvlManager.getPlayer1().transform.position;
                     _player2position = LvlManager.getPlayer2().transform.position;
@@ -48,8 +49,6 @@ namespace nseh.GameManager
                     }
                     break;
             }
-            
-
         }
 
         public override void EventRelease()

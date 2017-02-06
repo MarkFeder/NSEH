@@ -19,17 +19,17 @@ namespace nseh.GameManager
 
         public void ChangePlayers(int number)
         {
-            GameManager.thisGame.ChangePlayers(number);
+            GameManager.Instance.ChangePlayers(number);
         }
 
         public void ChangeStates()
         {
-            GameManager.thisGame.ChangeState(GameManager.States.Playing);
+            GameManager.Instance.ChangeState(GameManager.States.Playing);
         }
 
         public void ExitGame()
         {
-            GameManager.thisGame.ExitGame();
+            GameManager.Instance.ExitGame();
         }
 
         public override void Tick()
@@ -40,12 +40,12 @@ namespace nseh.GameManager
 
         public void RestartingCharacters()
         {
-            GameManager.thisGame.RestartList();
+            GameManager.Instance.RestartList();
         }
 
         public void Adding(GameObject Character)
         {
-            GameManager.thisGame.AddCharacter(Character);
+            GameManager.Instance.AddCharacter(Character);
         }
 
         public override void Release()

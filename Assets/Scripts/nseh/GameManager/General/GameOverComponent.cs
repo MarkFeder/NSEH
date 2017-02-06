@@ -19,7 +19,7 @@ public class GameOverComponent : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-		_LevelManager = GameManager.thisGame.Find<LevelManager>();
+		_LevelManager = GameManager.Instance.Find<LevelManager>();
 	}
 	
 	// Update is called once per frame

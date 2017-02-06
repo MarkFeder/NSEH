@@ -7,7 +7,6 @@ namespace nseh.Gameplay.Base.Abstract.Gameflow
 {
     public abstract class LevelEvent
     {
-
         //public GameManager MyGame;
         public LevelManager LvlManager;
         public bool IsActivated;
