@@ -15,58 +15,58 @@ namespace nseh.Gameplay.Combat.System
 
         private static int ConvertAttackTypeToIndex(AttackType attackType)
         {
-            int toReturn = -1;
+            int index = -1;
 
             switch (attackType)
             {
                 // None
                 case AttackType.None:
-                    toReturn = -1;
+                    index = -1;
                     break;
                 // A
                 case AttackType.CharacterAttackAStep1:
-                    toReturn = 1;
+                    index = 1;
                     break;
                 // B
                 case AttackType.CharacterAttackBStep1:
-                    toReturn = 2;
+                    index = 2;
                     break;
                 // Combo B#
                 case AttackType.CharacterAttackBSharp:
-                    toReturn = 3;
+                    index = 3;
                     break;
                 // Combo AAA
                 case AttackType.CharacterAttackAStep2:
-                    toReturn = 4;
+                    index = 4;
                     break;
                 case AttackType.CharacterAttackAStep3:
-                    toReturn = 4;
+                    index = 4;
                     break;
                 // Combo BB
                 case AttackType.CharacterAttackBStep2:
-                    toReturn = 5;
+                    index = 5;
                     break;
                 // Hability
                 case AttackType.CharacterHability:
-                    toReturn = 6;
+                    index = 6;
                     break;
                 // Definitive
                 case AttackType.CharacterDefinitive:
-                    toReturn = 7;
+                    index = 7;
                     break;
             }
 
-            if (!(toReturn >= -1 && toReturn <= 7))
+            if (!(index >= -1 && index <= 7))
             {
                 // Defense
-                toReturn = 8;
+                index = 8;
             }
 
-            return toReturn;
+            return index;
         }
 
         // See GDD Documentation to understand conflictsTable
-        // ** Ignore index of first column and row
+        // ** Ignore index of first column and row (99)
         // -1: Cancel; both attacks do not take effect
         //  0: None; both attacks take effect without interrumption
         //  1: Attack a wins and cancels b
@@ -104,12 +104,12 @@ namespace nseh.Gameplay.Combat.System
             Debug.Log(String.Format("<color={0}> The conflict is: \"{1}\" between {2} and {3} </color>", color, conflictToStr[conflict], senderName, enemyName));
         }
 
-        public static int CompareAttacks(ref HandledAction attackA, ref HandledAction attackB)
+        public static int CompareActions(ref HandledAction senderAction, ref HandledAction enemyAction)
         {
-            if (attackA is CharacterAttack && attackB is CharacterAttack)
+            if (senderAction is CharacterAttack && enemyAction is CharacterAttack)
             {
-                CharacterAttack a = attackA as CharacterAttack;
-                CharacterAttack b = attackB as CharacterAttack;
+                CharacterAttack a = senderAction as CharacterAttack;
+                CharacterAttack b = enemyAction as CharacterAttack;
 
                 int a_int = CombatRules.ConvertAttackTypeToIndex(a.AttackType);
                 int b_int = CombatRules.ConvertAttackTypeToIndex(b.AttackType);
@@ -117,23 +117,23 @@ namespace nseh.Gameplay.Combat.System
                 // Access conflict inside the table - O(1) complexity
                 return conflictsTable[a_int, b_int];
             }
-            else if (attackA is CharacterAttack && attackB is CharacterDefense)
+            else if (senderAction is CharacterAttack && enemyAction is CharacterDefense)
             {
-                CharacterAttack a = attackA as CharacterAttack;
+                CharacterAttack a = senderAction as CharacterAttack;
 
                 int a_int = CombatRules.ConvertAttackTypeToIndex(a.AttackType);
 
                 return conflictsTable[a_int, 8];
             }
-            else if (attackA is CharacterDefense && attackB is CharacterAttack)
+            else if (senderAction is CharacterDefense && enemyAction is CharacterAttack)
             {
-                CharacterAttack b = attackB as CharacterAttack;
+                CharacterAttack b = enemyAction as CharacterAttack;
 
                 int b_int = CombatRules.ConvertAttackTypeToIndex(b.AttackType);
 
                 return conflictsTable[8, b_int];
             }
-            else if (attackA is CharacterDefense && attackB is CharacterDefense)
+            else if (senderAction is CharacterDefense && enemyAction is CharacterDefense)
             {
                 return conflictsTable[8, 8];
             }

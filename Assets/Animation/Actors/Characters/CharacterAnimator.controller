@@ -162,6 +162,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fb00dbeccda5f4ba0e9309f62d2dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114369844602276324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd6cb255258afd4986e2f3b21bfa9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114663981014309542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a805e6386a180f14a8b1579c9ddef478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114742868503353236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0bd8a61bd5afe840916266701b3ed4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114836511137744668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88bcf82e7c985d74ba6eb32db64980d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114968338145464902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b10ffa25d96dd84bb7a872845356ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!206 &206000013791049578
 BlendTree:
   m_ObjectHideFlags: 1
@@ -1028,9 +1083,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Grounded
     m_EventTreshold: 0
-  - m_ConditionMode: 4
-    m_ConditionEvent: Speed
-    m_EventTreshold: 0.05
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102000011229573374}
   m_Solo: 0
@@ -1111,7 +1163,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101000010561912366}
   m_StateMachineBehaviours:
-  - {fileID: 0}
+  - {fileID: 114968338145464902}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1138,7 +1190,7 @@ AnimatorState:
   - {fileID: 1101000012475878586}
   - {fileID: 1101000012687136326}
   m_StateMachineBehaviours:
-  - {fileID: 0}
+  - {fileID: 114742868503353236}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1194,7 +1246,7 @@ AnimatorState:
   - {fileID: 1101000010478742866}
   - {fileID: 1101000012661805848}
   m_StateMachineBehaviours:
-  - {fileID: 0}
+  - {fileID: 114836511137744668}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1291,7 +1343,7 @@ AnimatorState:
   - {fileID: 1101000010077985520}
   - {fileID: 1101000013374930294}
   m_StateMachineBehaviours:
-  - {fileID: 0}
+  - {fileID: 114663981014309542}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1366,7 +1418,7 @@ AnimatorState:
   - {fileID: 1101000014059051442}
   - {fileID: 1101000011947227876}
   m_StateMachineBehaviours:
-  - {fileID: 0}
+  - {fileID: 114369844602276324}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

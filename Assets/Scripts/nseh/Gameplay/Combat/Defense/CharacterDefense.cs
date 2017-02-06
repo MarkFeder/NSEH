@@ -33,12 +33,10 @@ namespace nseh.Gameplay.Combat.Defense
         {
             if (!this.IsInDefenseMode())
             {
-                Debug.Log("Put in defense mode");
                 this.PutInDefendMode();
             }
             else
             {
-                Debug.Log("Release from defense mode");
                 this.DeclineDefendMode();
             }
         }
