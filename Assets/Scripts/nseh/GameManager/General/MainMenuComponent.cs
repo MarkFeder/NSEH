@@ -11,11 +11,13 @@ public class MainMenuComponent : MonoBehaviour
     MenuManager _MenuManager;
     GameObject _paladin;
     GameObject _demon;
+    GameObject _prospector;
     int adding;
     public Text _playerTurnText;
     public Button play;
     public Button paladin;
     public Button demon;
+    public Button prospector;
 
     void Start()
     {
@@ -43,6 +45,7 @@ public class MainMenuComponent : MonoBehaviour
             _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
             paladin.interactable = true;
             demon.interactable = true;
+            prospector.interactable = true;
             play.interactable = false;
             _MenuManager.RestartingCharacters();
         }
@@ -64,6 +67,7 @@ public class MainMenuComponent : MonoBehaviour
             _playerTurnText.text = "READY?";
             paladin.interactable=false;
             demon.interactable = false;
+            prospector.interactable = false;
             play.interactable = true;
            // 
         }
@@ -84,6 +88,7 @@ public class MainMenuComponent : MonoBehaviour
             _playerTurnText.text = "READY?";
             paladin.interactable = false;
             demon.interactable = false;
+            prospector.interactable = false;
             play.interactable = true;
 
         }
@@ -92,6 +97,28 @@ public class MainMenuComponent : MonoBehaviour
             _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
         }
     }
+
+    public void AddingProspector()
+    {
+        _prospector = Resources.Load("SirProspector") as GameObject;
+        _MenuManager.Adding(_prospector);
+        adding++;
+
+        if (adding == GameManager.Instance._numberPlayers)
+        {
+            _playerTurnText.text = "READY?";
+            paladin.interactable = false;
+            demon.interactable = false;
+            prospector.interactable = false;
+            play.interactable = true;
+
+        }
+        else
+        {
+            _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+        }
+    }
+
 
     public void SaveChanges()
     {
