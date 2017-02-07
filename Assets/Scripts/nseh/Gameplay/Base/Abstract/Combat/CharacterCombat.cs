@@ -18,7 +18,7 @@ namespace nseh.Gameplay.Base.Abstract
     public abstract class CharacterCombat : MonoBehaviour
     {
         // Properties
-
+        
         protected CharacterMovement characterMovement;
         protected Animator anim;
         protected Dictionary<string, int> animParameters;
