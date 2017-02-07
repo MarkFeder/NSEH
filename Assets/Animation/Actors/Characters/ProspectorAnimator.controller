@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Prospector Animator
+  m_Name: ProspectorAnimator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Speed
@@ -225,7 +225,7 @@ BlendTree:
   m_Name: Locomotion
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 2eca1a9888fa258409cb5cdf90710314, type: 3}
+    m_Motion: {fileID: 7400000, guid: 35e85ac7e84e64a499486ad10bdfd6f2, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -1489,7 +1489,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102000011229573374}
-    m_Position: {x: 120, y: 240, z: 0}
+    m_Position: {x: 84, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102000013043205126}
     m_Position: {x: 120, y: 360, z: 0}
