@@ -22,6 +22,11 @@ namespace nseh.GameManager
             GameManager.Instance.ChangePlayers(number);
         }
 
+        public void SetPlayerChoice(string choice, int player)
+        {
+            GameManager.Instance.SetPlayersChoice(choice, player);
+        }
+
         public void ChangeStates()
         {
             GameManager.Instance.ChangeState(GameManager.States.Playing);

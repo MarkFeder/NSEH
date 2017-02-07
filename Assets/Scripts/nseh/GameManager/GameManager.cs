@@ -31,6 +31,8 @@ namespace nseh.GameManager
         public States _nextState;
         public int _numberPlayers = 0;
         public List<GameObject> _characters;
+        public string player1character;
+        public string player2character;
 
         //List of all services (E.g: EventManager, LightManager...) 
         private List<Service> _servicesList;
@@ -86,6 +88,19 @@ namespace nseh.GameManager
         public void AddCharacter(GameObject character)
         {
             _characters.Add(character);
+        }
+
+        public void SetPlayersChoice(string choice, int player)
+        {
+            switch (player)
+            {
+                case 1:
+                    player1character = choice;
+                    break;
+                case 2:
+                    player2character = choice;
+                    break;
+            }
         }
 
         public GameObject InstantiateCharacter(GameObject Object,Vector3 pos, Vector3 rot)

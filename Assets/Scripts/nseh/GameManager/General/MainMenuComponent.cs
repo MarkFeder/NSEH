@@ -62,7 +62,9 @@ public class MainMenuComponent : MonoBehaviour
         _MenuManager.Adding(_paladin);
         adding++;
 
-        if(adding == GameManager.Instance._numberPlayers)
+        _MenuManager.SetPlayerChoice("Paladin", adding);
+
+        if (adding == GameManager.Instance._numberPlayers)
         {
             _playerTurnText.text = "READY?";
             paladin.interactable=false;
@@ -82,7 +84,9 @@ public class MainMenuComponent : MonoBehaviour
         _demon = Resources.Load("Demon") as GameObject;
         _MenuManager.Adding(_demon);
         adding++;
-        
+
+        _MenuManager.SetPlayerChoice("Demon", adding);
+
         if (adding == GameManager.Instance._numberPlayers)
         {
             _playerTurnText.text = "READY?";
@@ -103,6 +107,8 @@ public class MainMenuComponent : MonoBehaviour
         _prospector = Resources.Load("SirProspector") as GameObject;
         _MenuManager.Adding(_prospector);
         adding++;
+
+        _MenuManager.SetPlayerChoice("SirProspector", adding);
 
         if (adding == GameManager.Instance._numberPlayers)
         {
