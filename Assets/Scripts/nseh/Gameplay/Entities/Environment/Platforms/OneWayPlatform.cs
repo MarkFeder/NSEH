@@ -26,7 +26,7 @@ namespace nseh.Gameplay.Entities.Environment.Platforms
                 var body = other.gameObject.GetComponent<Rigidbody>();
                 var movement = other.gameObject.GetSafeComponent<CharacterMovement>();
 
-                if (movement != null && movement.IsRaisingUp())
+                if (movement != null && !movement.IsGrounded())
                 {
                     Debug.Log("y > 0 -> Trigger collider");
                     other.isTrigger = true;
