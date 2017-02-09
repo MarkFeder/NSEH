@@ -11,7 +11,8 @@ namespace nseh.GameManager
         List<GameObject> _sceneCameras;
         Vector3 _player1position;
         Vector3 _player2position;
-        GameObject _camera;
+        GameObject _environmentCamera;
+        GameObject _characterCamera;
 
         // Use this for initialization
         public override void Setup(LevelManager lvlManager)
@@ -24,8 +25,10 @@ namespace nseh.GameManager
             IsActivated = true;
             _sceneCameras = new List<GameObject>();
             //reminder: it would be nice to add a switch which controls the camera instantiation depending on LevelManager states.
-            _camera = Object.Instantiate(Resources.Load("LevelCamera"), Vector3.zero, Quaternion.Euler(Vector3.zero)) as GameObject;
-            _sceneCameras.Add(_camera); 
+            _environmentCamera = Object.Instantiate(Resources.Load("LevelCamera"), Vector3.zero, Quaternion.Euler(Vector3.zero)) as GameObject;
+            _characterCamera = Object.Instantiate(Resources.Load("CharacterCamera"), Vector3.zero, Quaternion.Euler(Vector3.zero)) as GameObject;
+            _sceneCameras.Add(_environmentCamera);
+            _sceneCameras.Add(_characterCamera);
         }
 
         public override void EventTick()
