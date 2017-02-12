@@ -25,8 +25,8 @@ namespace nseh.GameManager
             IsActivated = true;
             _sceneCameras = new List<GameObject>();
             //reminder: it would be nice to add a switch which controls the camera instantiation depending on LevelManager states.
-            _environmentCamera = Object.Instantiate(Resources.Load("LevelCamera"), Vector3.zero, Quaternion.Euler(Vector3.zero)) as GameObject;
-            _characterCamera = Object.Instantiate(Resources.Load("CharacterCamera"), Vector3.zero, Quaternion.Euler(Vector3.zero)) as GameObject;
+            _environmentCamera = Object.Instantiate(Resources.Load("LevelCamera"), Vector3.zero, Quaternion.Euler(0,180,0)) as GameObject;
+            _characterCamera = Object.Instantiate(Resources.Load("CharacterCamera"), Vector3.zero, Quaternion.Euler(0, 180, 0)) as GameObject;
             _sceneCameras.Add(_environmentCamera);
             _sceneCameras.Add(_characterCamera);
         }

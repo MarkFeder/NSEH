@@ -109,7 +109,7 @@ namespace nseh.GameManager
             switch (GameManager.Instance._numberPlayers)
             {
                 case 1:
-                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
+                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(0, 1, 2), new Vector3(0, -90, 0));
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
                     if (GameManager.Instance.player1character == "Paladin" || GameManager.Instance.player1character == "SirProspector")
@@ -131,8 +131,8 @@ namespace nseh.GameManager
                     break;
 
                 case 2:
-                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
-                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(-10, 1, 2), new Vector3(0, -90, 0));
+                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(10, 1, 2), new Vector3(0, 90, 0));
 
                     _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
                     _player2.GetComponent<CharacterMovement>().useGamepad = true;
@@ -236,7 +236,7 @@ namespace nseh.GameManager
                 case 1:
 
                     GameObject.Destroy(_player1);
-                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(0, 1, 2), new Vector3(0, 90, 0));
+                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(0, 1, 2), new Vector3(0, -90, 0));
                     
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
@@ -250,8 +250,8 @@ namespace nseh.GameManager
                     GameObject.Destroy(_player1);
                     GameObject.Destroy(_player2);
 
-                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
-                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
+                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(-10, 1, 2), new Vector3(0, -90, 0));
+                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(10, 1, 2), new Vector3(0, 90, 0));
 
                     _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
                     _player2.GetComponent<CharacterMovement>().useGamepad = true;

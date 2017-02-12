@@ -1,92 +1,107 @@
 fileFormatVersion: 2
-guid: e27b14a9826e4c445b282eb5c413f882
-timeCreated: 1485949744
+guid: f33641b3633c5574c92b2fa2501284ec
+timeCreated: 1486920153
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Central
-    100002: Conic House
-    100004: Ground
-    100006: Left_Down
-    100008: Left_Stone
-    100010: Left_Up
-    100012: Picapiedra's House
-    100014: Right_Down
-    100016: Right_Stone
-    100018: Right_Up
-    100020: Sand House
-    100022: //RootNode
-    100024: Stage_Left
-    100026: Stage_Right
-    100028: Straw House
-    100030: Tunnel
-    100032: Volcano House
-    400000: Central
-    400002: Conic House
-    400004: Ground
-    400006: Left_Down
-    400008: Left_Stone
-    400010: Left_Up
-    400012: Picapiedra's House
-    400014: Right_Down
-    400016: Right_Stone
-    400018: Right_Up
-    400020: Sand House
-    400022: //RootNode
-    400024: Stage_Left
-    400026: Stage_Right
-    400028: Straw House
-    400030: Tunnel
-    400032: Volcano House
-    2300000: Central
-    2300002: Conic House
-    2300004: Ground
-    2300006: Left_Down
-    2300008: Left_Stone
-    2300010: Left_Up
-    2300012: Picapiedra's House
-    2300014: Right_Down
-    2300016: Right_Stone
-    2300018: Right_Up
-    2300020: Sand House
-    2300022: Stage_Left
-    2300024: Stage_Right
-    2300026: Straw House
-    2300028: Tunnel
-    2300030: Volcano House
-    3300000: Central
-    3300002: Conic House
-    3300004: Ground
-    3300006: Left_Down
-    3300008: Left_Stone
-    3300010: Left_Up
-    3300012: Picapiedra's House
-    3300014: Right_Down
-    3300016: Right_Stone
-    3300018: Right_Up
-    3300020: Sand House
-    3300022: Stage_Left
-    3300024: Stage_Right
-    3300026: Straw House
-    3300028: Tunnel
-    3300030: Volcano House
-    4300000: Stage_Right
-    4300002: Tunnel
-    4300004: Right_Down
-    4300006: Right_Up
-    4300008: Central
-    4300010: Left_Down
-    4300012: Left_Up
-    4300014: Ground
-    4300016: Straw House
-    4300018: Sand House
-    4300020: Conic House
-    4300022: Picapiedra's House
-    4300024: Left_Stone
-    4300026: Stage_Left
-    4300028: Right_Stone
-    4300030: Volcano House
+    100000: Central_Down
+    100002: Central_Up
+    100004: Conic House
+    100006: Ground
+    100008: Left_Down
+    100010: Left_Stone
+    100012: Left_Up
+    100014: Object001
+    100016: Picapiedra's House
+    100018: platform-problem
+    100020: Right_Down
+    100022: Right_Stone
+    100024: Right_Up
+    100026: Sand House
+    100028: //RootNode
+    100030: Stage_Left
+    100032: Stage_Right
+    100034: Straw House
+    100036: Tunnel
+    100038: Volcano House
+    400000: Central_Down
+    400002: Central_Up
+    400004: Conic House
+    400006: Ground
+    400008: Left_Down
+    400010: Left_Stone
+    400012: Left_Up
+    400014: Object001
+    400016: Picapiedra's House
+    400018: platform-problem
+    400020: Right_Down
+    400022: Right_Stone
+    400024: Right_Up
+    400026: Sand House
+    400028: //RootNode
+    400030: Stage_Left
+    400032: Stage_Right
+    400034: Straw House
+    400036: Tunnel
+    400038: Volcano House
+    2300000: Central_Down
+    2300002: Central_Up
+    2300004: Conic House
+    2300006: Ground
+    2300008: Left_Down
+    2300010: Left_Stone
+    2300012: Left_Up
+    2300014: Object001
+    2300016: Picapiedra's House
+    2300018: platform-problem
+    2300020: Right_Down
+    2300022: Right_Stone
+    2300024: Right_Up
+    2300026: Sand House
+    2300028: Stage_Left
+    2300030: Stage_Right
+    2300032: Straw House
+    2300034: Tunnel
+    2300036: Volcano House
+    3300000: Central_Down
+    3300002: Central_Up
+    3300004: Conic House
+    3300006: Ground
+    3300008: Left_Down
+    3300010: Left_Stone
+    3300012: Left_Up
+    3300014: Object001
+    3300016: Picapiedra's House
+    3300018: platform-problem
+    3300020: Right_Down
+    3300022: Right_Stone
+    3300024: Right_Up
+    3300026: Sand House
+    3300028: Stage_Left
+    3300030: Stage_Right
+    3300032: Straw House
+    3300034: Tunnel
+    3300036: Volcano House
+    4300000: Ground
+    4300002: Stage_Right
+    4300004: Left_Stone
+    4300006: Central_Up
+    4300008: Right_Down
+    4300010: Conic House
+    4300012: Central_Down
+    4300014: Right_Stone
+    4300016: Left_Up
+    4300018: Right_Up
+    4300020: Tunnel
+    4300022: Sand House
+    4300024: Object001
+    4300026: Volcano House
+    4300028: Picapiedra's House
+    4300030: Left_Down
+    4300032: Straw House
+    4300034: Stage_Left
+    4300036: platform-problem
     9500000: //RootNode
   materials:
     importMaterials: 1
