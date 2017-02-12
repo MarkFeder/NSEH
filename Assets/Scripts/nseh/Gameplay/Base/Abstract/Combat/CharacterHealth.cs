@@ -1,6 +1,7 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
 using System;
 using UnityEngine;
+using nseh.GameManager.General;
 using Constants = nseh.Utils.Constants;
 
 namespace nseh.Gameplay.Base.Abstract
@@ -9,16 +10,56 @@ namespace nseh.Gameplay.Base.Abstract
     [RequireComponent(typeof(Animator))]
     public abstract class CharacterHealth : MonoBehaviour, IHealth
     {
+        private BarComponent healthBar;
+
+        public BarComponent HealthBar
+        {
+            set
+            {
+                healthBar = value;
+            }
+        }
+
         [SerializeField]
         protected int startingHealth = 100;
         [SerializeField]
-        protected int maxHealth = 100;
-        protected int currentHealth;
+        private int maxHealth = 100;
+        private int currentHealth;
+
+        protected int CurrentHealth
+        {
+            get
+            {
+                return currentHealth;
+            }
+
+            set
+            {
+                currentHealth = value;
+                //healthBar.Value = currentHealth;
+            }
+        }
+
+        protected int MaxHealth
+        {
+            get
+            {
+                return maxHealth;
+            }
+
+            set
+            {
+                maxHealth = value;
+                //healthBar.MaxValue = maxHealth;
+            }
+        }
 
         private Animator anim;
         protected CharacterMovement characterMovement;
         protected bool isDead;
         protected int animDead;
+
+
 
         protected virtual void Awake()
         {
@@ -27,21 +68,22 @@ namespace nseh.Gameplay.Base.Abstract
             this.animDead = Animator.StringToHash(Constants.Animations.Combat.CHARACTER_DEAD);
 
             // Set initial health
-            this.currentHealth = startingHealth;
+            this.CurrentHealth = startingHealth;
+            this.MaxHealth = maxHealth;
         }
 
         protected virtual void Update()
         {
-            Debug.Log("Current health of " + this.gameObject.name + " is " + this.currentHealth);
+            Debug.Log("Current health of " + this.gameObject.name + " is " + this.CurrentHealth);
         }
 
         public virtual void TakeDamage(int amount)
         {
             // Reduce current health
-            this.currentHealth -= amount;
-            this.currentHealth = (int)Mathf.Clamp(this.currentHealth, 0.0f, this.maxHealth);
+            this.CurrentHealth -= amount;
+            this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.MaxHealth);
 
-            if (this.currentHealth == 0.0f && !this.isDead)
+            if (this.CurrentHealth == 0.0f && !this.isDead)
             {
                 this.Death();
             }

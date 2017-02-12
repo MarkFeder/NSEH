@@ -91,6 +91,7 @@ namespace nseh.GameManager
             _canvasGameOver = GameObject.Find("CanvasGameOver").GetComponent<Canvas>();
             _canvasGameOver.gameObject.SetActive(false);
 
+            //Encapsular en metodo
             _player1_HUD = GameObject.Find("CanvasPlayersHUD/Player1_HUD").GetComponent<Image>();
             _player2_HUD = GameObject.Find("CanvasPlayersHUD/Player2_HUD").GetComponent<Image>();
 
@@ -112,6 +113,8 @@ namespace nseh.GameManager
                     _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(0, 1, 2), new Vector3(0, -90, 0));
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
+                    //_player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.GetComponent<BarComponent>(); Example of Bar assignation
+                    //Encapsular en metodo
                     if (GameManager.Instance.player1character == "Paladin" || GameManager.Instance.player1character == "SirProspector")
                     {
                         Debug.Log("Deberia mostrar a prospector");
@@ -141,6 +144,8 @@ namespace nseh.GameManager
                     
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
+                    //_player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.GetComponent<BarComponent>(); Example of Bar assignation
+                    //Encapsular en metodo
                     if (GameManager.Instance.player1character == "Paladin" || GameManager.Instance.player1character == "SirProspector")
                     {
                         Debug.Log("Deberia mostrar a prospector");
@@ -154,6 +159,7 @@ namespace nseh.GameManager
                         _player1_portrait.sprite = Resources.Load<Sprite>("wrarr_portrait");
                     }
                     _player2_HUD.gameObject.SetActive(true);
+                    //_player2.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.GetComponent<BarComponent>(); Example of Bar assignation
                     if (GameManager.Instance.player2character == "Paladin" || GameManager.Instance.player2character == "SirProspector")
                     {
                         Debug.Log("Deberia mostrar a prospector");
