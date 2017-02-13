@@ -9,6 +9,8 @@ namespace nseh.GameManager
         private GameObject sender;
         private GameObject enemy;
 
+        #region Public Properties
+
         public GameObject Sender
         {
             get
@@ -24,6 +26,8 @@ namespace nseh.GameManager
                 return this.enemy;
             }
         }
+
+        #endregion
 
         public Conflict(GameObject sender, GameObject enemy)
         {

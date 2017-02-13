@@ -1,42 +1,67 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
 using System;
+using System.Collections;
 using UnityEngine;
 using nseh.GameManager.General;
 using Constants = nseh.Utils.Constants;
 
 namespace nseh.Gameplay.Base.Abstract
 {
-    [Serializable]
+    public enum HealthMode
+    {
+        Normal = 0,
+        Invulnerability = 1
+    }
+
     [RequireComponent(typeof(Animator))]
     public abstract class CharacterHealth : MonoBehaviour, IHealth
     {
+        public int startingHealth = 100;
+        public int maxHealth = 100;
+
+        private Animator anim;
         private BarComponent healthBar;
+
+        protected CharacterMovement characterMovement;
+        protected HealthMode healthMode;
+
+        protected float currentHealth;
+        protected bool isDead;
+        protected int animDead;
+
+        #region Public Properties
+
+        public float CurrentHealth
+        {
+            get
+            {
+                return this.currentHealth;
+            }
+
+            set
+            {
+                this.currentHealth = value;
+            }
+        }
+
+        public HealthMode HealthMode
+        {
+            get
+            {
+                return this.healthMode;
+            }
+
+            set
+            {
+                this.healthMode = value;
+            }
+        }
 
         public BarComponent HealthBar
         {
             set
             {
-                healthBar = value;
-            }
-        }
-
-        [SerializeField]
-        protected int startingHealth = 100;
-        [SerializeField]
-        private int maxHealth = 100;
-        private int currentHealth;
-
-        protected int CurrentHealth
-        {
-            get
-            {
-                return currentHealth;
-            }
-
-            set
-            {
-                currentHealth = value;
-                //healthBar.Value = currentHealth;
+                this.healthBar = value;
             }
         }
 
@@ -54,12 +79,7 @@ namespace nseh.Gameplay.Base.Abstract
             }
         }
 
-        private Animator anim;
-        protected CharacterMovement characterMovement;
-        protected bool isDead;
-        protected int animDead;
-
-
+        #endregion
 
         protected virtual void Awake()
         {
@@ -68,28 +88,95 @@ namespace nseh.Gameplay.Base.Abstract
             this.animDead = Animator.StringToHash(Constants.Animations.Combat.CHARACTER_DEAD);
 
             // Set initial health
-            this.CurrentHealth = startingHealth;
-            this.MaxHealth = maxHealth;
+            this.currentHealth = this.startingHealth;
         }
 
         protected virtual void Update()
         {
-            Debug.Log("Current health of " + this.gameObject.name + " is " + this.CurrentHealth);
+            Debug.Log("Current health of " + this.gameObject.name + " is " + this.currentHealth);
         }
 
-        public virtual void TakeDamage(int amount)
-        {
-            // Reduce current health
-            this.CurrentHealth -= amount;
-            this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.MaxHealth);
+        #region Public Methods
 
-            if (this.CurrentHealth == 0.0f && !this.isDead)
+        public void IncreaseHealth(float percent)
+        {
+            if (percent > 0.0f)
             {
-                this.Death();
+                var oldHealth = this.currentHealth;
+
+                this.currentHealth += (this.currentHealth * percent);
+
+                Debug.Log(String.Format("Health of {0} is: {1} and applying {2}% more has changed to: {3}", this.gameObject.name, oldHealth, percent * 100.0f, this.currentHealth));
             }
         }
 
-        protected virtual void Death()
+        public void DecreaseHealth(float percent)
+        {
+            if (percent > 0.0f)
+            {
+                var oldHealth = this.currentHealth;
+
+                this.currentHealth -= (this.currentHealth * percent);
+
+                Debug.Log(String.Format("Health of {0} is: {1} and reducing {2}% has changed to: {3}", this.gameObject.name, oldHealth, percent * 100.0f, this.currentHealth));
+            }
+        }
+
+        public void DecreaseHealthForSeconds(float percent, float seconds)
+        {
+            StartCoroutine(this.DecreaseHealthForSecondsInternal(percent, seconds));
+        }
+
+        public void InvulnerabilityModeForSeconds(float seconds)
+        {
+            StartCoroutine(this.InvulnerabilityModeForSecondsInternal(seconds));
+        }
+
+        public void TakeDamage(int amount)
+        {
+            if (this.healthMode == HealthMode.Normal)
+            {
+                // Reduce current health
+                this.currentHealth -= amount;
+                this.currentHealth = (int)Mathf.Clamp(this.currentHealth, 0.0f, this.maxHealth);
+
+                if (this.currentHealth == 0.0f && !this.isDead)
+                {
+                    this.Death();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private IEnumerator DecreaseHealthForSecondsInternal(float percent, float seconds)
+        {
+            float currentTime = 0;
+
+            while (currentTime <= seconds)
+            {
+                currentTime += Time.deltaTime;
+
+                this.DecreaseHealth(percent);
+
+                yield return null;
+            }
+        }
+
+        private IEnumerator InvulnerabilityModeForSecondsInternal(float seconds)
+        {
+            this.healthMode = HealthMode.Invulnerability;
+
+            yield return new WaitForSeconds(seconds);
+
+            this.healthMode = HealthMode.Normal;
+        }
+
+        #endregion
+
+        protected void Death()
         {
             this.isDead = true;
 
