@@ -1,10 +1,7 @@
 ﻿using nseh.Gameplay.Base.Abstract;
-using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace nseh.Gameplay.Combat.System

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace nseh.Utils.Helpers
 {
@@ -67,6 +69,17 @@ namespace nseh.Utils.Helpers
         public static bool AnimatorIsPlaying(this Animator animator, string stateName)
         {
             return animator.AnimatorIsPlaying() && animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        }
+    }
+
+    public static class LINQExtensions
+    {
+        public static void ForEach<T>(this IEnumerable<T> enumeration, Action<T> action)
+        {
+            foreach(T item in enumeration)
+            {
+                action(item);
+            }
         }
     }
 }

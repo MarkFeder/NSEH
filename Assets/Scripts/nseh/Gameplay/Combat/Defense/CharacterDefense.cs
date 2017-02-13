@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using nseh.Gameplay.Base.Abstract;
+﻿using nseh.Gameplay.Base.Abstract;
 using UnityEngine;
 
 namespace nseh.Gameplay.Combat.Defense

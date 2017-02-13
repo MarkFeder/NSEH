@@ -50,39 +50,19 @@ namespace nseh.Gameplay.Base.Abstract
             }
         }
 
-        public CharacterAttack CurrentAttack
-        {
-            get
-            {
-                return (this.actions.Where(act => act.HashAnimation == this.CurrentHashAnimation)).FirstOrDefault() as CharacterAttack;
-            }
-        }
-
         public IAction CurrentAction
         {
             get
             {
-                return (this.actions.Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault());
+                return this.actions.Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault();
             }
         }
 
-        public IAction CurrentCharacterAction
-        {
-            get { return this.currentAction; }
-        }
-
-        public CharacterAttack CurrentCharacterAttackAction
+        public IAction CurrentDefenseAction
         {
             get
             {
-                if (this.actions != null && this.actions.Count > 0)
-                {
-                    return this.actions.OfType<CharacterAttack>().Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault();
-                }
-                else
-                {
-                    return null;
-                }
+                return this.actions.OfType<CharacterDefense>().Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault();
             }
         }
 
@@ -105,11 +85,6 @@ namespace nseh.Gameplay.Base.Abstract
         }
 
         #region Actions 
-
-        public CharacterAttack GetCharacterAttack(int hashAnimation)
-        {
-            return this.actions.Where(a => a.GetType() == typeof(CharacterAttack)).Where(a => (a as CharacterAttack).HashAnimation == hashAnimation).FirstOrDefault() as CharacterAttack;
-        }
 
         private List<IAction> FillCharacterActions()
         {

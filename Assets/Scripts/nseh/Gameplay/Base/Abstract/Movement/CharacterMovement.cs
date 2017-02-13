@@ -6,6 +6,7 @@ using nseh.Utils;
 using Constants = nseh.Utils.Constants.Animations.Movement;
 using SceneObjects = nseh.Utils.Constants.Scenes;
 using Inputs = nseh.Utils.Constants.Input;
+using System.Collections;
 
 namespace nseh.Gameplay.Base.Abstract
 {
@@ -47,6 +48,8 @@ namespace nseh.Gameplay.Base.Abstract
 
         // C# Properties 
 
+        #region Public Properties
+
         public bool IsFacingRight
         {
             get
@@ -71,6 +74,21 @@ namespace nseh.Gameplay.Base.Abstract
                 }
             }
         }
+
+        public float Speed
+        {
+            get
+            {
+                return this.speed;
+            }
+
+            set
+            {
+                this.speed = value;
+            }
+        }
+
+        #endregion
 
         #region State Properties
 
@@ -211,6 +229,42 @@ namespace nseh.Gameplay.Base.Abstract
 
         #endregion
 
+        #region Public Jump Methods
+
+        public void IncreaseJumpForSeconds(float percent, float seconds)
+        {
+            StartCoroutine(this.IncreaseJumpForSecondsInternal(percent, seconds));
+        }
+
+        private IEnumerator IncreaseJumpForSecondsInternal(float percent, float seconds)
+        {
+            float currentTime = 0;
+
+            while (currentTime <= seconds)
+            {
+                currentTime += Time.deltaTime;
+
+                this.IncreaseJump(percent);
+
+                yield return null;
+            }
+        }
+
+        public void IncreaseJump(float percent)
+        {
+            if (percent > 0.0f)
+            {
+                var oldJumpHeight = this.jumpHeight;
+
+                this.jumpHeight += (this.jumpHeight * percent);
+
+                Debug.Log(String.Format("Jump of {1} is: {2} and applying {3}% more has changed to: {4}",
+                        this.gameObject.name, oldJumpHeight, percent * 100.0f, this.jumpHeight));
+            }
+        }
+
+        #endregion
+
         #region Movement Logic
 
         public virtual void Move()
@@ -252,6 +306,42 @@ namespace nseh.Gameplay.Base.Abstract
         public virtual bool IsGrounded()
         {
             return Physics.CheckSphere(this.transform.position, this.radius, this.layerMask);
+        }
+
+        #endregion
+
+        #region Public Movement Methods
+
+        public void IncreaseSpeedForSeconds(float percent, float seconds)
+        {
+            StartCoroutine(this.IncreaseSpeedForSecondsInternal(percent, seconds));
+        }
+
+        private IEnumerator IncreaseSpeedForSecondsInternal(float percent, float seconds)
+        {
+            float currentTime = 0;
+
+            while (currentTime <= seconds)
+            {
+                currentTime += Time.deltaTime;
+
+                this.IncreaseSpeed(percent);
+
+                yield return null;
+            }
+        }
+
+        public void IncreaseSpeed(float percent)
+        {
+            if (percent > 0.0f)
+            {
+                var oldSpeed = this.speed;
+
+                this.speed += (this.speed * percent);
+
+                Debug.Log(String.Format("Speed of {1} is: {2} and applying {3}% more has changed to: {4}",
+                        this.gameObject.name, oldSpeed, percent * 100.0f, this.speed));
+            }
         }
 
         #endregion

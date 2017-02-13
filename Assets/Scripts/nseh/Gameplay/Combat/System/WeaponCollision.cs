@@ -1,16 +1,14 @@
-﻿using nseh.Utils.Helpers;
-using System;
-using UnityEngine;
-using System.Collections.Generic;
-using nseh.Gameplay.Base.Abstract;
-using System.Linq;
-using Constants = nseh.Utils.Constants;
-using Colors = nseh.Utils.Constants.Colors;
-using Tags = nseh.Utils.Constants.Tags;
-using Actions = nseh.Utils.Constants.Animations.Combat;
-using Movements = nseh.Utils.Constants.Animations.Movement;
-using SystemObject = System.Object;
+﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Gameplay.Combat.Defense;
+using nseh.Utils.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using Actions = nseh.Utils.Constants.Animations.Combat;
+using Colors = nseh.Utils.Constants.Colors;
+using SystemObject = System.Object;
+using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Combat.System
 {
@@ -33,10 +31,10 @@ namespace nseh.Gameplay.Combat.System
         public float offset;
 
         protected string parentObjName;
-
+         
         private int layerMask;
 
-        public void Awake()
+        protected void Awake()
         {
             this.enemyType = Tags.PLAYER;
             
@@ -124,7 +122,7 @@ namespace nseh.Gameplay.Combat.System
         {
             if (sender != null && enemy != null)
             {
-                int amountDamage = (int)(senderAction as CharacterAttack).Damage;
+                int amountDamage = (int)(senderAction as CharacterAttack).CurrentDamage;
 
                 enemy.GetSafeComponent<CharacterHealth>().TakeDamage(amountDamage);
             }
@@ -157,7 +155,7 @@ namespace nseh.Gameplay.Combat.System
                         else
                         {
                             // Enemy is not taking any action
-                            int amountDamage = (int)(senderAction as CharacterAttack).Damage;
+                            int amountDamage = (int)(senderAction as CharacterAttack).CurrentDamage;
 
                             enemy.GetSafeComponent<CharacterHealth>().TakeDamage(amountDamage);
                         }
@@ -206,13 +204,13 @@ namespace nseh.Gameplay.Combat.System
             {
                 if (senderAttack.AttackType == AttackType.CharacterAttackBSharp)
                 {
-                    enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAttack.Damage / 2);
+                    enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAttack.CurrentDamage / 2);
                     enemyDefense.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
                 }
                 else if (senderAttack.AttackType == AttackType.CharacterAttackBStep2 
                         || senderAttack.AttackType == AttackType.CharacterDefinitive)
                 {
-                    enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAttack.Damage);
+                    enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAttack.CurrentDamage);
                     enemyDefense.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
                 }
             }
@@ -237,18 +235,18 @@ namespace nseh.Gameplay.Combat.System
             else if (conflict == 0)
             {
                 // Both attacks take effect normally without interrumption
-                enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAction.Damage);
-                sender.GetSafeComponent<CharacterHealth>().TakeDamage((int)enemyAction.Damage);
+                enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAction.CurrentDamage);
+                sender.GetSafeComponent<CharacterHealth>().TakeDamage((int)enemyAction.CurrentDamage);
             }
             else if (conflict == 1)
             {
-                enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAction.Damage);
+                enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAction.CurrentDamage);
                 // Cancel a's action
                 senderAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
             }
             else if (conflict == 2)
             {
-                sender.GetSafeComponent<CharacterHealth>().TakeDamage((int)enemyAction.Damage);
+                sender.GetSafeComponent<CharacterHealth>().TakeDamage((int)enemyAction.CurrentDamage);
                 // Cancel b's action
                 // It should be sth related to CharacterCombat but we have the animator itself there
                 enemyAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
@@ -256,8 +254,8 @@ namespace nseh.Gameplay.Combat.System
             else if (conflict == 3)
             {
                 // Both receives action's damage
-                sender.GetSafeComponent<CharacterHealth>().TakeDamage((int)enemyAction.Damage);
-                enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAction.Damage);
+                sender.GetSafeComponent<CharacterHealth>().TakeDamage((int)enemyAction.CurrentDamage);
+                enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAction.CurrentDamage);
 
                 // Cancel both a and b
                 senderAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
