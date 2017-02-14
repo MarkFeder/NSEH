@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace nseh.GameManager.General
 {
     public class CameraComponent : MonoBehaviour
     {
-       
+        public Transform Player1;
+        public Transform Player2;
+
         public Vector3 DebugPlayer1;
         public Vector3 DebugPlayer2;
 
@@ -31,8 +32,10 @@ namespace nseh.GameManager.General
         // Update is called once per frame
         void Update()
         {
-           /* PositionPlayer1 = Player1.position;
-            PositionPlayer2 = Player2.position;*/
+            /* PositionPlayer1 = Player1.position;
+             PositionPlayer2 = Player2.position;*/
+
+            this.RefreshCamera(Player1.position, Player2.position);
         }
 
         public void RefreshCamera(Vector3 PositionPlayer1, Vector3 PositionPlayer2)

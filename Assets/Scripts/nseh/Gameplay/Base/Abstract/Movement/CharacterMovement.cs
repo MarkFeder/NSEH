@@ -1,12 +1,10 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using nseh.Utils;
 using Constants = nseh.Utils.Constants.Animations.Movement;
-using SceneObjects = nseh.Utils.Constants.Scenes;
 using Inputs = nseh.Utils.Constants.Input;
-using System.Collections;
 
 namespace nseh.Gameplay.Base.Abstract
 {
@@ -174,6 +172,7 @@ namespace nseh.Gameplay.Base.Abstract
             // Fix to let the character moves on the ground
             // See: http://answers.unity3d.com/questions/468709/no-gravity-with-mecanim.html for more details
             this.anim.applyRootMotion = this.IsGrounded();
+            this.ResetZPosition();
 
             this.anim.SetFloat(this.animParameters[Constants.H], this.horizontal);
             this.anim.SetBool(this.animParameters[Constants.GROUNDED], this.IsGrounded());
@@ -269,10 +268,10 @@ namespace nseh.Gameplay.Base.Abstract
 
         public virtual void Move()
         {
-            this.FlipCharacter(horizontal);
-
             if (this.IsGrounded())
             {
+                this.FlipCharacter(horizontal);
+
                 if (this.isMoving)
                 {
                     this.speed = this.runSpeed;
@@ -294,7 +293,30 @@ namespace nseh.Gameplay.Base.Abstract
         {
             if (this.IsIdleJumpState)
             {
-                this.body.velocity = new Vector3(this.horizontal * this.jumpInAirForce, this.body.velocity.y, this.body.velocity.z);
+                var localForward = this.transform.InverseTransformDirection(this.transform.forward);
+
+                if (this.IsFacingRight)
+                {
+                    if (this.horizontal > 0.0f)
+                    {
+                        this.body.AddRelativeForce(-localForward * this.jumpInAirForce);
+                    }
+                    else
+                    {
+                        this.body.AddRelativeForce(localForward * this.jumpInAirForce);
+                    }
+                }
+                else
+                {
+                    if (this.horizontal > 0.0f)
+                    {
+                        this.body.AddRelativeForce(localForward * this.jumpInAirForce);
+                    }
+                    else
+                    {
+                        this.body.AddRelativeForce(-localForward * this.jumpInAirForce);
+                    }
+                }
             }
         }
 
@@ -306,6 +328,14 @@ namespace nseh.Gameplay.Base.Abstract
         public virtual bool IsGrounded()
         {
             return Physics.CheckSphere(this.transform.position, this.radius, this.layerMask);
+        }
+
+        private void ResetZPosition()
+        {
+            var pos = this.transform.position;
+            pos.z = 2.0f;
+
+            this.transform.position = pos;
         }
 
         #endregion

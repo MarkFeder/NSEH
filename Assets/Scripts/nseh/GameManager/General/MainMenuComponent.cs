@@ -1,8 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
-using nseh.Utils;
-using nseh.GameManager;
+﻿using nseh.GameManager;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenuComponent : MonoBehaviour

@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Utils.Helpers;
-using nseh.Gameplay.Base.Abstract;
+using UnityEngine;
 using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Entities.Environment.Platforms

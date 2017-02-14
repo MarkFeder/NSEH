@@ -1,12 +1,10 @@
-﻿using System.Collections;
+﻿using nseh.Gameplay.Base.Abstract;
+using nseh.Gameplay.Base.Abstract.Gameflow;
+using nseh.Gameplay.Gameflow;
+using nseh.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using nseh.Gameplay.Gameflow;
-using nseh.Gameplay.Base.Abstract.Gameflow;
-using nseh.Utils;
-using nseh.Gameplay.Base.Abstract;
 
 namespace nseh.GameManager
 {

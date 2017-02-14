@@ -4,7 +4,7 @@ using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Base.Abstract.Entities
 {
-	public abstract class Chest : MonoBehaviour
+    public abstract class Chest : MonoBehaviour
 	{
 		public AnimationClip animation;
 		public AudioClip sound;

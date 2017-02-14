@@ -1,8 +1,7 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
+using System;
 using System.Linq;
 using UnityEngine;
-using System;
-using System.Collections.Generic;
 
 namespace nseh.Gameplay.Base.Abstract
 {

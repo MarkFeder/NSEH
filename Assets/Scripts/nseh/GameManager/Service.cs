@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace nseh.GameManager
+﻿namespace nseh.GameManager
 {
     public abstract class Service
     {

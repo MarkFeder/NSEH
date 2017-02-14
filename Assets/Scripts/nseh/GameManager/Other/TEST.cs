@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using nseh.GameManager;
 using UnityEngine;
-using nseh.GameManager;
 
 public class TEST : MonoBehaviour {
 

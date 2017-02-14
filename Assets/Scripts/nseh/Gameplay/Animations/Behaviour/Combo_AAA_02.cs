@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using nseh.Gameplay.Base.Abstract;
+using nseh.Gameplay.Base.Interfaces;
 using nseh.Utils;
 using nseh.Utils.Helpers;
-using nseh.Gameplay.Base.Abstract;
 using System.Linq;
-using nseh.Gameplay.Base.Interfaces;
+using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {

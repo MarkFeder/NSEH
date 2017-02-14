@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using nseh.Utils;
+﻿using nseh.Utils;
+using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {

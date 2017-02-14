@@ -63,7 +63,18 @@ namespace nseh.GameManager
 
         public override void Tick()
         {
-            throw new NotImplementedException();
+            this.ResolveConflicts();
+        }
+
+        public void ResolveConflicts()
+        {
+            if (this.conflicts.Count > 0)
+            {
+                foreach(Conflict conflict in this.conflicts)
+                {
+                    conflict.ResolveConflict();
+                }
+            }
         }
 
         public void AddConflict(Conflict newConflict)

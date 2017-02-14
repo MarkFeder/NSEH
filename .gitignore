@@ -28,3 +28,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Scripts/nseh/Diagrams.meta
+Assets/Scripts/nseh/Diagrams/ComponentsDiagram.cd
+Assets/Scripts/nseh/Diagrams/ComponentsDiagram.cd.meta
+Assets/Scripts/nseh/Utils/Input.meta
+Assets/Scripts/nseh/Utils/Input/InputManager.cs
+Assets/Scripts/nseh/Utils/Input/InputManager.cs.meta

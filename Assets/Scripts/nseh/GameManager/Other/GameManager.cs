@@ -1,10 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
-using System;
-using UnityEngine.SceneManagement;
-using nseh.Utils;
-
+﻿
 //namespace nseh.GameManager.Other
 //{
 //    public class GameManager : MonoBehaviour
@@ -107,7 +101,7 @@ using nseh.Utils;
 //        private IEnumerator GameLoop()
 //        {
 //            // This is called from start and will run each phrase of the game after another
-            
+
 //            // Run each routine in order
 
 //            yield return StartCoroutine(this.RoundStarting());

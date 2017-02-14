@@ -1,8 +1,8 @@
-﻿using nseh.Gameplay.Base.Interfaces;
+﻿using nseh.GameManager.General;
+using nseh.Gameplay.Base.Interfaces;
 using System;
 using System.Collections;
 using UnityEngine;
-using nseh.GameManager.General;
 using Constants = nseh.Utils.Constants;
 
 namespace nseh.Gameplay.Base.Abstract

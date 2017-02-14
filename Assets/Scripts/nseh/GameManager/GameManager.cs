@@ -1,8 +1,7 @@
-﻿using System.Collections;
+﻿using nseh.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using nseh.Utils;
 
 namespace nseh.GameManager
 {
