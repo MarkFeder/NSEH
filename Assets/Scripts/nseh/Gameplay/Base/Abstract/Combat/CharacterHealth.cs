@@ -41,7 +41,7 @@ namespace nseh.Gameplay.Base.Abstract
             set
             {
                 this.currentHealth = value;
-                //healthBar.Value = currentHealth;
+                healthBar.Value = currentHealth;
             }
         }
 
@@ -76,7 +76,7 @@ namespace nseh.Gameplay.Base.Abstract
             set
             {
                 maxHealth = value;
-                //healthBar.MaxValue = maxHealth;
+                healthBar.MaxValue = maxHealth;
             }
         }
 
