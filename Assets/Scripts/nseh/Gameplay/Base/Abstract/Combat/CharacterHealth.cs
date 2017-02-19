@@ -82,19 +82,20 @@ namespace nseh.Gameplay.Base.Abstract
 
         #endregion
 
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             this.anim = GetComponent<Animator>();
             this.characterMovement = GetComponent<CharacterMovement>();
             this.animDead = Animator.StringToHash(Constants.Animations.Combat.CHARACTER_DEAD);
 
             // Set initial health
+            this.MaxHealth = this.maxHealth;
             this.CurrentHealth = this.startingHealth;
         }
 
         protected virtual void Update()
         {
-            Debug.Log("Current health of " + this.gameObject.name + " is " + this.CurrentHealth);
+           // Debug.Log("Current health of " + this.gameObject.name + " is " + this.CurrentHealth);
         }
 
         #region Public Methods

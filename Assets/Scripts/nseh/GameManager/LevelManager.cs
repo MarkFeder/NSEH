@@ -92,10 +92,10 @@ namespace nseh.GameManager
 
             //Encapsular en metodo
             _player1_HUD = GameObject.Find("CanvasPlayersHUD/p1_mark_hud").GetComponent<Image>();
-            _player2_HUD = GameObject.Find("CanvasPlayersHUD/Player2_HUD").GetComponent<Image>();
+            _player2_HUD = GameObject.Find("CanvasPlayersHUD/p2_mark_hud").GetComponent<Image>();
 
             _player1_portrait = GameObject.Find("CanvasPlayersHUD/p1_mark_hud/portrait_folio/portrait").GetComponent<Image>();
-            _player2_portrait = GameObject.Find("CanvasPlayersHUD/Player2_HUD/Portrait").GetComponent<Image>();
+            _player2_portrait = GameObject.Find("CanvasPlayersHUD/p2_mark_hud/portrait_folio/portrait").GetComponent<Image>();
 
             IsActivated = true;
             Time.timeScale = 1;
@@ -135,7 +135,16 @@ namespace nseh.GameManager
 
                 case 2:
                     _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(-10, 1, 2), new Vector3(0, -90, 0));
+
+                    _player1_HUD.gameObject.SetActive(true);
+                    _player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.transform.GetChild(1).GetComponent<BarComponent>();
+
                     _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(10, 1, 2), new Vector3(0, 90, 0));
+
+                    _player2_HUD.gameObject.SetActive(true);
+                    _player2.GetComponent<CharacterHealth>().HealthBar = _player2_HUD.transform.GetChild(1).GetComponent<BarComponent>();
+
+
 
                     _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
                     _player2.GetComponent<CharacterMovement>().useGamepad = true;
@@ -143,9 +152,6 @@ namespace nseh.GameManager
                     _player2.GetComponent<CharacterMovement>().GamepadIndex = 2;
                     
                     //INTERFAZ
-                    _player1_HUD.gameObject.SetActive(true);
-                    Debug.Log(_player1_HUD.transform.GetChild(1).GetComponent<BarComponent>());
-                    _player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.transform.GetChild(1).GetComponent<BarComponent>();
                     //Encapsular en metodo
                     if (GameManager.Instance.player1character == "Paladin" || GameManager.Instance.player1character == "SirProspector")
                     {
@@ -159,8 +165,7 @@ namespace nseh.GameManager
                         //_player1_HUD.gameObject.GetComponentInChildren<Image>().sprite = Resources.Load("Sprites/wrarr_portrait") as Sprite;
                         _player1_portrait.sprite = Resources.Load<Sprite>("wrarr_portrait");
                     }
-                    _player2_HUD.gameObject.SetActive(true);
-                    //_player2.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.GetComponent<BarComponent>(); Example of Bar assignation
+
                     if (GameManager.Instance.player2character == "Paladin" || GameManager.Instance.player2character == "SirProspector")
                     {
                         Debug.Log("Deberia mostrar a prospector");
@@ -248,6 +253,7 @@ namespace nseh.GameManager
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
                     _player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.transform.GetChild(1).GetComponent<BarComponent>();
+
                     _player2_HUD.gameObject.SetActive(false);
                     
                     //CAMBIAR 
@@ -259,15 +265,23 @@ namespace nseh.GameManager
                     GameObject.Destroy(_player2);
 
                     _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(-10, 1, 2), new Vector3(0, -90, 0));
+
+                    _player1_HUD.gameObject.SetActive(true);
+                    _player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.transform.GetChild(1).GetComponent<BarComponent>();
+
                     _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(10, 1, 2), new Vector3(0, 90, 0));
+
+                    _player2_HUD.gameObject.SetActive(true);
+                    _player2.GetComponent<CharacterHealth>().HealthBar = _player2_HUD.transform.GetChild(1).GetComponent<BarComponent>();
+
 
                     _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
                     _player2.GetComponent<CharacterMovement>().useGamepad = true;
                     _player2.GetComponent<CharacterMovement>().GamepadIndex = 2;
                     
                     //INTERFAZ
-                    _player1_HUD.gameObject.SetActive(true);
-                    _player2_HUD.gameObject.SetActive(true);
+                    
+                    
                     break;
             }
             Find<CameraManager>().ActivateEvent();

@@ -21,6 +21,9 @@ namespace nseh.GameManager.General
         {
             set
             {
+                /*
+                Debug.Log("Salud de la barra " + value);
+                Debug.Log("Maxima salud " + MaxValue.ToString());*/
                 fillAmount = Map(value, 0, MaxValue, 0, 1);
             }
         }
@@ -39,6 +42,7 @@ namespace nseh.GameManager.General
 
         private void HandleBar()
         {
+            //Debug.Log("fillAmount: " + fillAmount.ToString());
             //Bar fill increases or decreases smoothy
             if (fillAmount != content.fillAmount)
             {
