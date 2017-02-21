@@ -29,6 +29,7 @@
             public const string WEAPON = "Weapon";
             public const string CHARACTER = "Character";
             public const string BOSS = "Boss";
+            public const string ONE_WAY_PLATFORM = "OneWayPlatform";
         }
 
         public static class Scenes
@@ -59,12 +60,22 @@
             }
         }
 
+        public static class Layers
+        {
+            public const string PLATFORM = "Platform";
+            public const string PLAYER = "Player";
+            public const string JUMP_LAYER = "PassesPlatform";
+        }
+
         public static class Input
         {
             // Movement
             public const string AXIS_HORIZONTAL_GAMEPAD = "Horizontal_";
+            public const string AXIS_VERTICAL_GAMEPAD = "Vertical_";
+
             public const string AXIS_HORIZONTAL_KEYBOARD = "Horizontal";
-            public const string AXIS_VERTICAL = "Vertical_";
+            public const string AXIS_VERTICAL_KEYBOARD = "Vertical";
+
             public const string JUMP = "Jump_";
 
             // Attacks
