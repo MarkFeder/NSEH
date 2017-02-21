@@ -6,6 +6,7 @@ using nseh.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using nseh.Gameplay.Movement;
 
 namespace nseh.GameManager
 {
@@ -130,7 +131,7 @@ namespace nseh.GameManager
                     }
                     _player2_HUD.gameObject.SetActive(false);
                     //CAMBIAR 
-                    _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
+                    _player1.GetComponent<PlayerMovement>().GamepadIndex = 1;
                     break;
 
                 case 2:
@@ -257,7 +258,7 @@ namespace nseh.GameManager
                     _player2_HUD.gameObject.SetActive(false);
                     
                     //CAMBIAR 
-                    _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
+                    _player1.GetComponent<PlayerMovement>().GamepadIndex = 1;
                     break;
 
                 case 2:
