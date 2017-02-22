@@ -1,5 +1,6 @@
 ﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Gameplay.Base.Abstract.Entities;
+using nseh.Gameplay.Movement;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -16,7 +17,11 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
     public class DisadvantageChest : Chest
     {
-        protected DisadvantageChestType chestType;
+        public DisadvantageChestType chestType;
+
+        [Range(0,1)]
+        public float percent;
+        public float seconds;
 
         protected override void Activate()
         {
@@ -30,19 +35,19 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case DisadvantageChestType.ChestBomb:
 
-                    this.ChestBomb(0.20f);
+                    this.ChestBomb(this.percent);
 
                     break;
 
                 case DisadvantageChestType.PoisonCloud:
 
-                    this.PoisonCloud(0.1f, 20.0f);
+                    this.PoisonCloud(this.percent, this.seconds);
 
                     break;
 
                 case DisadvantageChestType.ConfusedPotion:
 
-                    StartCoroutine(this.ConfusedPotion(20.0f));
+                    this.ConfusedPotion(this.seconds);
 
                     break;
 
@@ -64,13 +69,9 @@ namespace nseh.Gameplay.Entities.Environment.Items
             this.target.GetComponent<CharacterHealth>().DecreaseHealthForSeconds(percent, seconds);
         }
 
-        private IEnumerator ConfusedPotion(float time)
+        private void ConfusedPotion(float time)
         {
-            // TODO: invert character control
-
-            yield return new WaitForSeconds(time);
-
-            // TODO: restore character control
+            this.target.GetComponent<PlayerMovement>().InvertControl(time);
         }
 
         protected override void Deactivate()

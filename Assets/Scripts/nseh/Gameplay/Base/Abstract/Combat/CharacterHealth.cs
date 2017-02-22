@@ -1,5 +1,6 @@
 ﻿using nseh.GameManager.General;
 using nseh.Gameplay.Base.Interfaces;
+using nseh.Gameplay.Movement;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace nseh.Gameplay.Base.Abstract
         private Animator anim;
         private BarComponent healthBar;
 
-        protected CharacterMovement characterMovement;
+        protected PlayerMovement characterMovement;
         protected HealthMode healthMode;
 
         protected float currentHealth;
@@ -41,7 +42,11 @@ namespace nseh.Gameplay.Base.Abstract
             set
             {
                 this.currentHealth = value;
-                healthBar.Value = currentHealth;
+
+                if (healthBar != null)
+                {
+                    healthBar.Value = currentHealth;
+                }
             }
         }
 
@@ -76,7 +81,12 @@ namespace nseh.Gameplay.Base.Abstract
             set
             {
                 maxHealth = value;
-                healthBar.MaxValue = maxHealth;
+
+                if (healthBar != null)
+                {
+                    healthBar.MaxValue = maxHealth;
+
+                }
             }
         }
 
@@ -85,7 +95,7 @@ namespace nseh.Gameplay.Base.Abstract
         protected virtual void Start()
         {
             this.anim = GetComponent<Animator>();
-            this.characterMovement = GetComponent<CharacterMovement>();
+            this.characterMovement = GetComponent<PlayerMovement>();
             this.animDead = Animator.StringToHash(Constants.Animations.Combat.CHARACTER_DEAD);
 
             // Set initial health
@@ -95,7 +105,7 @@ namespace nseh.Gameplay.Base.Abstract
 
         protected virtual void Update()
         {
-           // Debug.Log("Current health of " + this.gameObject.name + " is " + this.CurrentHealth);
+           Debug.Log("Current health of " + this.gameObject.name + " is " + this.CurrentHealth);
         }
 
         #region Public Methods
@@ -122,6 +132,11 @@ namespace nseh.Gameplay.Base.Abstract
 
                 Debug.Log(String.Format("Health of {0} is: {1} and reducing {2}% has changed to: {3}", this.gameObject.name, oldHealth, percent * 100.0f, this.CurrentHealth));
             }
+        }
+
+        public void IncreaseHealthForSeconds(float percent, float seconds)
+        {
+            StartCoroutine(this.IncreaseHealthForSecondsInternal(percent, seconds));
         }
 
         public void DecreaseHealthForSeconds(float percent, float seconds)
@@ -155,15 +170,27 @@ namespace nseh.Gameplay.Base.Abstract
 
         private IEnumerator DecreaseHealthForSecondsInternal(float percent, float seconds)
         {
-            float currentTime = 0;
+            int counterSeconds = 0;
 
-            while (currentTime <= seconds)
+            while (counterSeconds < seconds)
             {
-                currentTime += Time.deltaTime;
-
                 this.DecreaseHealth(percent);
+                counterSeconds++;
 
-                yield return null;
+                yield return new WaitForSeconds(1.0f);
+            }
+        }
+
+        private IEnumerator IncreaseHealthForSecondsInternal(float percent, float seconds)
+        {
+            int counterSeconds = 0;
+
+            while (counterSeconds < seconds)
+            {
+                this.IncreaseHealth(percent);
+                counterSeconds++;
+
+                yield return new WaitForSeconds(1.0f);
             }
         }
 
@@ -171,7 +198,11 @@ namespace nseh.Gameplay.Base.Abstract
         {
             this.healthMode = HealthMode.Invulnerability;
 
+            Debug.Log(string.Format("Character {0} is entering Invulnerability mode", this.gameObject.name));
+
             yield return new WaitForSeconds(seconds);
+
+            Debug.Log(string.Format("Character {0} is exiting Invulnerability mode", this.gameObject.name));
 
             this.healthMode = HealthMode.Normal;
         }

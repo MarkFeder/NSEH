@@ -69,7 +69,7 @@ namespace nseh.Gameplay.Combat.System
         //  1: Attack a wins and cancels b
         //  2: Attack b wins and cancels a
         //  3: Both recieves attack (a or b) and cancel combo
-        private static int[,] conflictsTable = new int[,]
+        public static int[,] conflictsTable = new int[,]
         {
             {99, 0, 1, 2, 3, 4, 5, 6, 7 },
             {0, -1, 2, 1, 3, 3, 0, 0, 0 },

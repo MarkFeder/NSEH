@@ -1,5 +1,6 @@
 ﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Gameplay.Combat.Defense;
+using nseh.Gameplay.Movement;
 using nseh.Utils.Helpers;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace nseh.Gameplay.Combat.System
         // External References
         protected Collider hitBox;
         protected CharacterCombat characterCombat;
-        protected CharacterMovement characterMovement;
+        protected PlayerMovement characterMovement;
         protected Animator anim;
 
         protected List<GameObject> enemyTargets;
@@ -27,8 +28,6 @@ namespace nseh.Gameplay.Combat.System
 
         // Properties
         public string enemyType;
-        public float sphereRadius = 0.2f;
-        public float offset;
 
         protected string parentObjName;
          
@@ -43,7 +42,7 @@ namespace nseh.Gameplay.Combat.System
             this.hitBox.enabled = false;
 
             this.characterCombat = this.transform.root.GetComponent<CharacterCombat>();
-            this.characterMovement = this.transform.root.GetComponent<CharacterMovement>();
+            this.characterMovement = this.transform.root.GetComponent<PlayerMovement>();
             this.anim = this.transform.root.GetComponent<Animator>();
             this.enemyTargets = new List<GameObject>();
 
@@ -57,7 +56,7 @@ namespace nseh.Gameplay.Combat.System
 
         private bool EnemyHasBeenTakenAback(ref GameObject enemy)
         {
-            CharacterMovement enemyMov = enemy.GetComponent<CharacterMovement>();
+            PlayerMovement enemyMov = enemy.GetComponent<PlayerMovement>();
 
             return !(this.characterMovement.IsFacingRight && !enemyMov.IsFacingRight
                     || !this.characterMovement.IsFacingRight && enemyMov.IsFacingRight);

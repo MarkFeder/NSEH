@@ -21,6 +21,9 @@ namespace nseh.Gameplay.Entities.Environment.Items
     {
         protected SpecialChestType chestType;
 
+        public float seconds;
+        public int times;
+
         protected override void Activate()
         {
             switch (this.chestType)
@@ -33,19 +36,19 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case SpecialChestType.Invulnerability:
 
-                    this.Invulnerability(10.0f);
+                    this.Invulnerability(this.seconds);
 
                     break;
 
                 case SpecialChestType.AutomaticAttacks:
 
-                    this.AutomaticAttacks(2);
+                    this.AutomaticAttacks(this.times);
 
                     break;
 
                 case SpecialChestType.CriticalDamage:
 
-                    this.CriticalDamage(2);
+                    this.CriticalDamage(this.times);
 
                     break;
 

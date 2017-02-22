@@ -1,6 +1,7 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
 using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
+using nseh.Gameplay.Movement;
 using nseh.Utils.Helpers;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,12 @@ using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Base.Abstract
 {
-    [Serializable]
     [RequireComponent(typeof(Animator))]
     public abstract class CharacterCombat : MonoBehaviour
     {
         // Properties
         
-        protected CharacterMovement characterMovement;
+        protected PlayerMovement characterMovement;
         protected Animator anim;
         protected Dictionary<string, int> animParameters;
 
@@ -72,7 +72,7 @@ namespace nseh.Gameplay.Base.Abstract
         protected virtual void Awake()
         {
             this.anim = GetComponent<Animator>();
-            this.characterMovement = GetComponent<CharacterMovement>();
+            this.characterMovement = GetComponent<PlayerMovement>();
             this.body = GetComponent<Rigidbody>();
 
             this.gamePadIndex = this.characterMovement.GamepadIndex;

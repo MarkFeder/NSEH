@@ -1,6 +1,7 @@
 ﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Gameplay.Base.Abstract.Entities;
 using nseh.Gameplay.Combat;
+using nseh.Gameplay.Movement;
 using nseh.Utils.Helpers;
 using System;
 using System.Collections;
@@ -23,6 +24,13 @@ namespace nseh.Gameplay.Entities.Environment.Items
     {
         public StandardChestType chestType;
 
+        [Range(0,1)]
+        public float percent;
+        public float time;
+
+        [Range(0,10)]
+        public int hits;
+
         protected override void Start()
         {
             base.Start();
@@ -40,31 +48,31 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case StandardChestType.Health:
 
-                    this.IncreaseHealth(0.15f);
+                    this.IncreaseHealth(this.percent);
 
                     break;
 
                 case StandardChestType.Damage:
 
-                    this.IncreaseDamage(0.25f);
+                    this.IncreaseDamage(this.percent);
 
                     break;
 
                 case StandardChestType.Velocity:
 
-                    this.IncreaseVelocity(0.5f, 4.0f);
+                    this.IncreaseVelocity(this.percent, this.time);
 
                     break;
 
                 case StandardChestType.Jump:
 
-                    this.IncreaseJump(0.5f, 4.0f);
+                    this.IncreaseJump(this.percent, this.time);
 
                     break;
 
                 case StandardChestType.Defense:
 
-                    this.SetUpDefense(15.0f, 5);
+                    this.SetUpDefense(this.time, this.hits);
 
                     break;
 
@@ -88,12 +96,12 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
         private void IncreaseJump(float percent, float time)
         {
-            this.target.GetComponent<CharacterMovement>().IncreaseJumpForSeconds(percent, time);
+            this.target.GetComponent<PlayerMovement>().IncreaseJumpForSeconds(percent, time);
         }
 
         private void IncreaseVelocity(float percent, float time)
         {
-            this.target.GetComponent<CharacterMovement>().IncreaseSpeedForSeconds(percent, time);
+            this.target.GetComponent<PlayerMovement>().IncreaseSpeedForSeconds(percent, time);
         }
 
         private void IncreaseHealth(float percent)

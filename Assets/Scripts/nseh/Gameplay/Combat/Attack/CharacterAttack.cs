@@ -173,29 +173,33 @@ namespace nseh.Gameplay.Combat
 
         private IEnumerator IncreaseDamageForSecondsInternal(float percent, float seconds)
         {
-            float currentTime = 0;
+            int counterSeconds = 0;
+            var oldDamage = this.currentDamage;
 
-            while (currentTime <= seconds)
+            while (counterSeconds < seconds)
             {
-                currentTime += Time.deltaTime;
-
                 this.IncreaseDamage(percent);
+                counterSeconds++;
 
-                yield return null;
+                yield return new WaitForSeconds(1.0f);
             }
+
+            Debug.Log("After " + seconds + " seconds, the damage has been restored to: " + oldDamage);
+
+            this.currentDamage = oldDamage;
         }
 
         private IEnumerator DecreaseDamageForSecondsInternal(float percent, float seconds)
         {
-            float currentTime = 0;
+            int counterSeconds = 0;
+            var oldDamage = this.currentDamage;
 
-            while (currentTime <= seconds)
+            while (counterSeconds < seconds)
             {
-                currentTime += Time.deltaTime;
-
                 this.DecreaseDamage(percent);
+                counterSeconds++;
 
-                yield return null;
+                yield return new WaitForSeconds(1.0f);
             }
         }
 
