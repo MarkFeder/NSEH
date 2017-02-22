@@ -147,10 +147,10 @@ namespace nseh.GameManager
 
 
 
-                    _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
-                    _player2.GetComponent<CharacterMovement>().useGamepad = true;
+                    _player1.GetComponent<PlayerMovement>().GamepadIndex = 1;
+                    _player2.GetComponent<PlayerMovement>().useGamepad = true;
 
-                    _player2.GetComponent<CharacterMovement>().GamepadIndex = 2;
+                    _player2.GetComponent<PlayerMovement>().GamepadIndex = 2;
                     
                     //INTERFAZ
                     //Encapsular en metodo
@@ -276,9 +276,9 @@ namespace nseh.GameManager
                     _player2.GetComponent<CharacterHealth>().HealthBar = _player2_HUD.transform.GetChild(1).GetComponent<BarComponent>();
 
 
-                    _player1.GetComponent<CharacterMovement>().GamepadIndex = 1;
-                    _player2.GetComponent<CharacterMovement>().useGamepad = true;
-                    _player2.GetComponent<CharacterMovement>().GamepadIndex = 2;
+                    _player1.GetComponent<PlayerMovement>().GamepadIndex = 1;
+                    _player2.GetComponent<PlayerMovement>().useGamepad = true;
+                    _player2.GetComponent<PlayerMovement>().GamepadIndex = 2;
                     
                     //INTERFAZ
                     

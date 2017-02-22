@@ -1,5 +1,6 @@
 ﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Utils.Helpers;
+using nseh.Gameplay.Movement;
 using UnityEngine;
 using Tags = nseh.Utils.Constants.Tags;
 
@@ -23,7 +24,7 @@ namespace nseh.Gameplay.Entities.Environment.Platforms
                 Debug.Log("OnTriggerEnter");
 
                 var body = other.gameObject.GetComponent<Rigidbody>();
-                var movement = other.gameObject.GetSafeComponent<CharacterMovement>();
+                var movement = other.gameObject.GetSafeComponent<PlayerMovement>();
 
                 if (movement != null && !movement.IsGrounded())
                 {
