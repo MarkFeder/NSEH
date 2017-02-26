@@ -7,7 +7,14 @@ public class SpawnItemPoint : MonoBehaviour {
 
     // Use this for initialization
 
-    public List<GameObject> Items;
+    [SerializeField]
+    private List<GameObject> StandardItems;
+    [SerializeField]
+    private List<GameObject> SpecialItems;
+    [SerializeField]
+    private List<GameObject> SpecialBuffs;
+    private GameObject instancedItem;
+    
 
 	void Start () {
         GameObject _spawnItemPoint = this.gameObject;
@@ -26,19 +33,26 @@ public class SpawnItemPoint : MonoBehaviour {
 
     void Choose()
     {
-        if(Random.value <= 0.8)
+        float dice = Random.value;
+        if (dice <= 0.8)
         {
             //Standard buffs
+            int randomStandardItem = (int)Random.Range(0, StandardItems.Count);
+            instancedItem = Instantiate(StandardItems[randomStandardItem], this.transform.position, this.transform.rotation);
         }
 
-        if(Random.value <= 0.1)
+        if(0.8f < dice && dice <= 0.9f)
         {
             //Special buffs
+            int randomSpecialItem = (int)Random.Range(0, StandardItems.Count);
+            instancedItem = Instantiate(StandardItems[randomSpecialItem], this.transform.position, this.transform.rotation);
         }
 
-        if(Random.value <= 0.1)
+        if(0.9f < dice && dice <= 1)
         {
             //Debuffs
+            int randomDebuffItem = (int)Random.Range(0, StandardItems.Count);
+            instancedItem = Instantiate(StandardItems[randomDebuffItem], this.transform.position, this.transform.rotation);
         }
     }
 }
