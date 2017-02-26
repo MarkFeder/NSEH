@@ -12,11 +12,11 @@ namespace nseh.GameManager.General
         public Vector3 Position;
         private Vector3 velocity = Vector3.zero;
         //[SerializeField]
-        private float xMin = -40;
+        private float xMin = -20;
         //[SerializeField]
-        private float xMax = 40;
+        private float xMax = 30;
         //[SerializeField]
-        private float yMin = 1.5f;
+        private float yMin = 3.5f;
         //[SerializeField]
         private float yMax = 20;
 
