@@ -5,11 +5,12 @@ using UnityEngine;
 using Constants = nseh.Utils.Constants.Animations.Movement;
 using Inputs = nseh.Utils.Constants.Input;
 using Layers = nseh.Utils.Constants.Layers;
-using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Movement
 {
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(CapsuleCollider))]
     public class PlayerMovement : MonoBehaviour
     {
         private Animator anim;
@@ -22,6 +23,8 @@ namespace nseh.Gameplay.Movement
         private bool facingRight;
         private bool isMoving;
         private bool isJumping;
+        private bool currentIdleJump = false;
+        private bool currentLocoJump = false;
 
         private float horizontal;
         private float vertical;
@@ -156,7 +159,7 @@ namespace nseh.Gameplay.Movement
         private void Update()
         {
             this.horizontal = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_HORIZONTAL_KEYBOARD);
-            this.vertical = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_VERTICAL_KEYBOARD);
+            //this.vertical = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_VERTICAL_KEYBOARD);
 
             //this.anim.applyRootMotion = this.IsGrounded();
             this.isMoving = Mathf.Abs(this.horizontal) > 0.1f;
@@ -168,10 +171,57 @@ namespace nseh.Gameplay.Movement
 
         private void FixedUpdate()
         {
+            this.Move();
+
+            this.Jump();
+        }
+
+        #region Main Logic
+
+        private void Jump()
+        {
+            if (!this.IsGrounded())
+            {
+                // Damp air depends on the type of jump
+                if (this.currentIdleJump && this.body.velocity.y <= 1.0f)
+                {
+                    float velocityY = this.body.velocity.y;
+
+                    // If receiving player's input
+                    if (this.isMoving)
+                    {
+                        var fVelocity = this.transform.forward * this.speed * this.dampAir;
+                        fVelocity.y = velocityY;
+
+                        this.body.velocity = fVelocity;
+                    }
+                }
+                else if (this.currentLocoJump)
+                {
+                    float velocityY = this.body.velocity.y;
+                    var fVelocity = this.transform.forward * this.speed * this.dampAir;
+                    fVelocity.y = velocityY;
+
+                    this.body.velocity = fVelocity;
+                }
+
+                this.StopJumpAnimator();
+            }
+        }
+
+        private void Move()
+        {
             this.FlipCharacter(this.horizontal);
 
             if (this.IsGrounded())
             {
+                this.currentIdleJump = false;
+                this.currentLocoJump = false;
+
+                // TODO: Should our character move like playerController
+                // so as to avoid some obstacles ?
+
+                // Check if player is moving
                 if (this.isMoving)
                 {
                     this.body.velocity = this.transform.forward * this.speed;
@@ -183,33 +233,30 @@ namespace nseh.Gameplay.Movement
                     this.anim.SetFloat(this.animParameters[Constants.SPEED], 0.0f);
                 }
 
+                // Check if player has jumped
                 if (this.isJumping)
                 {
                     if (this.IsIdleState)
                     {
                         this.body.velocity = Vector3.up * this.jumpHeight;
+
+                        this.currentIdleJump = true;
                     }
-                    else
+                    else if (this.IsLocomotionState)
                     {
                         var fVelocity = this.body.velocity;
                         fVelocity.y = this.jumpHeight;
                         this.body.velocity = fVelocity;
+
+                        this.currentLocoJump = true;
                     }
 
                     this.StartJumpAnimator();
                 }
             }
-            else
-            {
-                this.StopJumpAnimator();
-
-                float velocityY = this.body.velocity.y;
-                var fVelocity = this.transform.forward * this.speed * this.dampAir;
-                fVelocity.y = velocityY;
-
-                this.body.velocity = fVelocity;
-            }
         }
+
+        #endregion
 
         #region Helpers
 

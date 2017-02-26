@@ -2264,14 +2264,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1242567597817764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78758c079704d0d4c96faab6415d74cb, type: 3}
+  m_Script: {fileID: 11500000, guid: e245d3be634e89e49975c6e74c26eaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   useGamepad: 0
   gamepadIndex: 1
-  runSpeed: 1
+  speed: 5
   jumpHeight: 10
-  jumpInAirForce: 1.5
+  gravity: 0
+  dampAir: 0.5
 --- !u!114 &114553254140633302
 MonoBehaviour:
   m_ObjectHideFlags: 1
