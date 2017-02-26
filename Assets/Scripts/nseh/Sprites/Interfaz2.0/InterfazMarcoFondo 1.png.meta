@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d680faad4f29ac7478881b0828d89fbf
-timeCreated: 1488115940
+guid: a5128062fd1ef444fa7a4dbf58216d0e
+timeCreated: 1488115227
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: FondoGrisHabilidad1_0
+    21300000: InterfazMarcoFondo 1_0
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -71,13 +71,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FondoGrisHabilidad1_0
+      name: InterfazMarcoFondo 1_0
       rect:
         serializedVersion: 2
-        x: 727
-        y: 175
-        width: 91
-        height: 136
+        x: 249
+        y: 105
+        width: 1137
+        height: 445
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
