@@ -12,9 +12,9 @@ namespace nseh.GameManager.General
         public Vector3 Position;
         private Vector3 velocity = Vector3.zero;
         //[SerializeField]
-        private float xMin = -20;
+        private float xMin = -22;
         //[SerializeField]
-        private float xMax = 30;
+        private float xMax = 22;
         //[SerializeField]
         private float yMin = 3.5f;
         //[SerializeField]
