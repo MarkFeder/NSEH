@@ -159,9 +159,9 @@ namespace nseh.Gameplay.Movement
         private void Update()
         {
             this.horizontal = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_HORIZONTAL_KEYBOARD);
-            //this.vertical = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_VERTICAL_KEYBOARD);
+            this.vertical = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_VERTICAL_KEYBOARD);
 
-            //this.anim.applyRootMotion = this.IsGrounded();
+            this.anim.applyRootMotion = this.IsGrounded();
             this.isMoving = Mathf.Abs(this.horizontal) > 0.1f;
             this.isJumping = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex));
 
@@ -180,7 +180,30 @@ namespace nseh.Gameplay.Movement
 
         private void Jump()
         {
-            if (!this.IsGrounded())
+            if (this.IsGrounded())
+            {
+                // Check if player has jumped
+                if (this.isJumping)
+                {
+                    if (this.IsIdleState)
+                    {
+                        this.body.velocity = Vector3.up * this.jumpHeight;
+
+                        this.currentIdleJump = true;
+                    }
+                    else if (this.IsLocomotionState)
+                    {
+                        var fVelocity = this.body.velocity;
+                        fVelocity.y = this.jumpHeight;
+                        this.body.velocity = fVelocity;
+
+                        this.currentLocoJump = true;
+                    }
+
+                    this.StartJumpAnimator();
+                } 
+            }
+            else
             {
                 // Damp air depends on the type of jump
                 if (this.currentIdleJump && this.body.velocity.y <= 1.0f)
@@ -231,27 +254,6 @@ namespace nseh.Gameplay.Movement
                 {
                     this.body.velocity = Vector3.zero;
                     this.anim.SetFloat(this.animParameters[Constants.SPEED], 0.0f);
-                }
-
-                // Check if player has jumped
-                if (this.isJumping)
-                {
-                    if (this.IsIdleState)
-                    {
-                        this.body.velocity = Vector3.up * this.jumpHeight;
-
-                        this.currentIdleJump = true;
-                    }
-                    else if (this.IsLocomotionState)
-                    {
-                        var fVelocity = this.body.velocity;
-                        fVelocity.y = this.jumpHeight;
-                        this.body.velocity = fVelocity;
-
-                        this.currentLocoJump = true;
-                    }
-
-                    this.StartJumpAnimator();
                 }
             }
         }
