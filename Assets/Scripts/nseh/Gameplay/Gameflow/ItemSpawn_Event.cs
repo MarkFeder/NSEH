@@ -34,18 +34,28 @@ public class ItemSpawn_Event : LevelEvent {
     {
         if (canSpawn)
         {
-            elapsedTime += Time.deltaTime;
-        }
-        //Controls when the tar should go up
-        if (elapsedTime >= Constants.Events.Tar_Event.EVENT_START && canSpawn)
-        {
-            int randomSpawn = (int) Random.Range(0, _spawnItemPoints.Count);
-            canSpawn = _spawnItemPoints[randomSpawn].GetComponent<SpawnItemPoint>().Spawn();
+            ChooseSpawnPoint();
         }
     }
 
     public void RegisterSpawnItemPoint(GameObject lightToRegister)
     {
         _spawnItemPoints.Add(lightToRegister);
+    }
+
+    public void toggleSpawn()
+    {
+        canSpawn = !canSpawn;
+    }
+
+    void ChooseSpawnPoint()
+    {
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime >= Constants.Events.Tar_Event.EVENT_START)
+        {
+            int randomSpawn = (int)Random.Range(0, _spawnItemPoints.Count);
+            _spawnItemPoints[randomSpawn].GetComponent<SpawnItemPoint>().Spawn();
+            elapsedTime = 0;
+        }
     }
 }
