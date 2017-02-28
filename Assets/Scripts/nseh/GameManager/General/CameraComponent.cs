@@ -66,7 +66,7 @@ namespace nseh.GameManager.General
                     transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
                 }
                 else{
-                    xMin = -22;
+                    xMin = -25;
                     xMax = 22;
                     yMin = 2.5f;
                     yMax = 20;
