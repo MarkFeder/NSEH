@@ -135,12 +135,12 @@ namespace nseh.GameManager
                     break;
 
                 case 2:
-                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(-10, 1, 2), new Vector3(0, -90, 0));
+                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(12, 1, 2), new Vector3(0, -90, 0));
 
                     _player1_HUD.gameObject.SetActive(true);
                     _player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.transform.GetChild(1).GetComponent<BarComponent>();
 
-                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(10, 1, 2), new Vector3(0, 90, 0));
+                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(-12, 1, 2), new Vector3(0, 90, 0));
 
                     _player2_HUD.gameObject.SetActive(true);
                     _player2.GetComponent<CharacterHealth>().HealthBar = _player2_HUD.transform.GetChild(1).GetComponent<BarComponent>();
@@ -265,12 +265,12 @@ namespace nseh.GameManager
                     GameObject.Destroy(_player1);
                     GameObject.Destroy(_player2);
 
-                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(-10, 1, 2), new Vector3(0, -90, 0));
+                    _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(10, 1, 2), new Vector3(0, -90, 0));
 
                     _player1_HUD.gameObject.SetActive(true);
                     _player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.transform.GetChild(1).GetComponent<BarComponent>();
 
-                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(10, 1, 2), new Vector3(0, 90, 0));
+                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(-10, 1, 2), new Vector3(0, 90, 0));
 
                     _player2_HUD.gameObject.SetActive(true);
                     _player2.GetComponent<CharacterHealth>().HealthBar = _player2_HUD.transform.GetChild(1).GetComponent<BarComponent>();
