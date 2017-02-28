@@ -1161,7 +1161,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Locomotion
-  m_Speed: 1
+  m_Speed: 1.75
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101000010273887102}
@@ -1393,7 +1393,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: LocomotionJump
-  m_Speed: 1
+  m_Speed: 1.65
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101000010179632420}
@@ -1417,7 +1417,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: IdleJump
-  m_Speed: 1
+  m_Speed: 1.65
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101000014210402114}
