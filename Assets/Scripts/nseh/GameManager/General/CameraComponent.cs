@@ -57,8 +57,8 @@ namespace nseh.GameManager.General
             {
                 if(PositionPlayer1== PositionPlayer2)
                 {
-                    xMin = -30;
-                    xMax = 30;
+                    xMin = -20;
+                    xMax = 10;
                     yMin = 3.5f;
                     yMax = 20;
                     Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), 40);
