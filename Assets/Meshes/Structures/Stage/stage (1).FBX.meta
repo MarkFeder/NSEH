@@ -1,0 +1,206 @@
+fileFormatVersion: 2
+guid: 5a144e523259b6e4eba07027539185e6
+timeCreated: 1488369177
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Box190
+    100002: Box192
+    100004: Box193
+    100006: Box194
+    100008: Box195
+    100010: casaAarena014
+    100012: casaArena
+    100014: casaPicapiedra
+    100016: CasasArenaGeneral001
+    100018: central_base
+    100020: Central_Down
+    100022: Central_Up
+    100024: Escalon003
+    100026: Escalon004
+    100028: EscalonesCasaGrandeArena001
+    100030: "EstructuraCasaArenaPeque\xF1a001"
+    100032: Ground
+    100034: Left_Down
+    100036: Left_Stone
+    100038: Left_Up
+    100040: Object001
+    100042: platform-problem
+    100044: Right_Down
+    100046: Right_pillars
+    100048: Right_Stone
+    100050: Right_Up
+    100052: Sphere219
+    100054: //RootNode
+    100056: Stage_Left
+    100058: Stage_Right
+    100060: "sueloCasaPeque\xF1a001"
+    100062: wall_central
+    400000: Box190
+    400002: Box192
+    400004: Box193
+    400006: Box194
+    400008: Box195
+    400010: casaAarena014
+    400012: casaArena
+    400014: casaPicapiedra
+    400016: CasasArenaGeneral001
+    400018: central_base
+    400020: Central_Down
+    400022: Central_Up
+    400024: Escalon003
+    400026: Escalon004
+    400028: EscalonesCasaGrandeArena001
+    400030: "EstructuraCasaArenaPeque\xF1a001"
+    400032: Ground
+    400034: Left_Down
+    400036: Left_Stone
+    400038: Left_Up
+    400040: Object001
+    400042: platform-problem
+    400044: Right_Down
+    400046: Right_pillars
+    400048: Right_Stone
+    400050: Right_Up
+    400052: Sphere219
+    400054: //RootNode
+    400056: Stage_Left
+    400058: Stage_Right
+    400060: "sueloCasaPeque\xF1a001"
+    400062: wall_central
+    2300000: Box192
+    2300002: Box193
+    2300004: Box194
+    2300006: Box195
+    2300008: casaPicapiedra
+    2300010: central_base
+    2300012: Central_Down
+    2300014: Central_Up
+    2300016: Escalon003
+    2300018: Ground
+    2300020: Left_Down
+    2300022: Left_Stone
+    2300024: Left_Up
+    2300026: Object001
+    2300028: platform-problem
+    2300030: Right_Down
+    2300032: Right_pillars
+    2300034: Right_Stone
+    2300036: Right_Up
+    2300038: Stage_Left
+    2300040: Stage_Right
+    2300042: wall_central
+    3300000: Box192
+    3300002: Box193
+    3300004: Box194
+    3300006: Box195
+    3300008: casaPicapiedra
+    3300010: central_base
+    3300012: Central_Down
+    3300014: Central_Up
+    3300016: Escalon003
+    3300018: Ground
+    3300020: Left_Down
+    3300022: Left_Stone
+    3300024: Left_Up
+    3300026: Object001
+    3300028: platform-problem
+    3300030: Right_Down
+    3300032: Right_pillars
+    3300034: Right_Stone
+    3300036: Right_Up
+    3300038: Stage_Left
+    3300040: Stage_Right
+    3300042: wall_central
+    4300000: Ground
+    4300002: Stage_Right
+    4300004: Left_Stone
+    4300006: Central_Up
+    4300008: Right_Down
+    4300010: Central_Down
+    4300012: Right_Stone
+    4300014: Left_Up
+    4300016: Right_Up
+    4300018: Object001
+    4300020: Left_Down
+    4300022: Stage_Left
+    4300024: platform-problem
+    4300026: casaPicapiedra
+    4300028: Escalon003
+    4300030: Box192
+    4300032: Box193
+    4300034: Box194
+    4300036: Box195
+    4300038: wall_central
+    4300040: central_base
+    4300042: Right_pillars
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

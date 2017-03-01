@@ -61,7 +61,7 @@ namespace nseh.GameManager.General
                     xMax = 10;
                     yMin = 3.5f;
                     yMax = 20;
-                    Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), 40);
+                    Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+1, 40);
                     //Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -20);
                     transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
                 }
@@ -70,7 +70,7 @@ namespace nseh.GameManager.General
                     xMax = 22;
                     yMin = 2.5f;
                     yMax = 20;
-                    Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), 20);
+                    Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+1, 20);
                     transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
                 }
                 
@@ -83,7 +83,7 @@ namespace nseh.GameManager.General
                 yMin = 5f;
                 yMax = 20;
                 //Position = new Vector3(Mathf.Clamp(Midpoint.x,xMin,xMax), Mathf.Clamp(Midpoint.y,yMin,yMax), -100);
-                Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), 40);
+                Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+1, 40);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
 
@@ -93,7 +93,7 @@ namespace nseh.GameManager.General
                 xMax = 10;
                 yMin = 7.5f;
                 yMax = 20;
-                Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), 60);
+                Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+1, 60);
                 //Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -20);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
@@ -104,7 +104,7 @@ namespace nseh.GameManager.General
                 xMax = 6;
                 yMin = 10f;
                 yMax = 20;
-                Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), 80);
+                Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+1, 80);
                 //Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax), -20);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
