@@ -113,5 +113,5 @@ MonoBehaviour:
   displayName: 
   chestType: 2
   percent: 0.2
-  time: 0
+  time: 3
   hits: 2
