@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using nseh.GameManager;
 using nseh.Gameplay.Gameflow;
+using nseh.Gameplay.Entities.Environment.Items;
 using UnityEngine;
 
 namespace nseh.Gameplay.Entities.Environment
@@ -10,13 +11,20 @@ namespace nseh.Gameplay.Entities.Environment
     {
 
         // Use this for initialization
-
+        /*
         [SerializeField]
         private List<GameObject> StandardItems;
         [SerializeField]
         private List<GameObject> SpecialItems;
         [SerializeField]
         private List<GameObject> SpecialBuffs;
+        */
+        [SerializeField]
+        private GameObject standardChest;
+        [SerializeField]
+        private GameObject specialChest;
+        [SerializeField]
+        private GameObject disadvantageChest;
         private GameObject instancedItem;
         private bool instanced;
         private ItemSpawn_Event _itemSpawnEvent;
@@ -34,8 +42,9 @@ namespace nseh.Gameplay.Entities.Environment
         void Update()
         {
 
-            if (instanced = true && instancedItem == null)
+            if (instanced == true && instancedItem == null)
             {
+                Debug.Log("Item catched, another one can be spawned now. Instanced = " + instanced);
                 instanced = false;
                 _itemSpawnEvent.toggleSpawn();
             }
@@ -49,26 +58,47 @@ namespace nseh.Gameplay.Entities.Environment
             if (dice <= 0.8)
             {
                 //Standard buffs
-                int randomStandardItem = (int)Random.Range(0, StandardItems.Count);
-                instancedItem = Instantiate(StandardItems[randomStandardItem], this.transform.position, this.transform.rotation);
+                //int randomStandardItem = (int)Random.Range(0, StandardItems.Count);
+                standardChest.GetComponent<StandardChest>().chestType = GetRandomEnum<StandardChestType>();
+                instancedItem = Instantiate(standardChest, this.transform.position, this.transform.rotation);
+                //instancedItem = Instantiate(StandardItems[randomStandardItem], this.transform.position, this.transform.rotation);
             }
 
             if (0.8f < dice && dice <= 0.9f)
             {
                 //Special buffs
-                int randomSpecialItem = (int)Random.Range(0, StandardItems.Count);
-                instancedItem = Instantiate(StandardItems[randomSpecialItem], this.transform.position, this.transform.rotation);
+                specialChest.GetComponent<SpecialChest>().chestType = GetRandomEnum<SpecialChestType>();
+                instancedItem = Instantiate(specialChest, this.transform.position, this.transform.rotation);
+                //int randomSpecialItem = (int)Random.Range(0, StandardItems.Count);
+                //instancedItem = Instantiate(StandardItems[randomSpecialItem], this.transform.position, this.transform.rotation);
             }
 
             if (0.9f < dice && dice <= 1)
             {
                 //Debuffs
-                int randomDebuffItem = (int)Random.Range(0, StandardItems.Count);
-                instancedItem = Instantiate(StandardItems[randomDebuffItem], this.transform.position, this.transform.rotation);
+                disadvantageChest.GetComponent<DisadvantageChest>().chestType = GetRandomEnum<DisadvantageChestType>();
+                instancedItem = Instantiate(disadvantageChest, this.transform.position, this.transform.rotation);
+                //int randomDebuffItem = (int)Random.Range(0, StandardItems.Count);
+                //instancedItem = Instantiate(StandardItems[randomDebuffItem], this.transform.position, this.transform.rotation);
             }
-
+            Debug.Log("Item spawned");
             _itemSpawnEvent.toggleSpawn();
             instanced = true;
+        }
+
+        public void flushItem()
+        {
+            if(instancedItem != null)
+            {
+                Destroy(instancedItem);
+            }
+        }
+
+        private T GetRandomEnum<T>()
+        {
+            var states = System.Enum.GetValues(typeof(T));
+            T chosenState = (T)states.GetValue(Random.Range(0, states.Length));
+            return chosenState;
         }
     }
 }

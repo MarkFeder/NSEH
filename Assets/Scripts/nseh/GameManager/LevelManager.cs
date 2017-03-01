@@ -79,6 +79,7 @@ namespace nseh.GameManager
             _isPaused = false;
             Add<Tar_Event>();
             Add<CameraManager>();
+            Add<ItemSpawn_Event>();
         }
 
         override public void Activate()
@@ -103,6 +104,7 @@ namespace nseh.GameManager
 
             //Initial event
             Find<Tar_Event>().ActivateEvent();
+            Find<ItemSpawn_Event>().ActivateEvent();
             Find<CameraManager>().ActivateEvent();
 
             Debug.Log("dsasad "+GameManager.Instance._numberPlayers+" "+ (GameManager.Instance._characters[0].name));
@@ -242,6 +244,8 @@ namespace nseh.GameManager
             Time.timeScale = 1;
 
             Find<Tar_Event>().ActivateEvent();
+            Find<ItemSpawn_Event>().EventRelease();
+            Find<ItemSpawn_Event>().ActivateEvent();
             Find<CameraManager>().EventRelease();
 
             switch (GameManager.Instance._numberPlayers)

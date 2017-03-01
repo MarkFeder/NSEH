@@ -12,7 +12,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 {
     public enum StandardChestType
     {
-        None = 0,
+        //None = 0,
         Health = 1,
         Damage = 2,
         Velocity = 3,
@@ -40,11 +40,11 @@ namespace nseh.Gameplay.Entities.Environment.Items
         {
             switch (this.chestType)
             {
-                case StandardChestType.None:
+               /* case StandardChestType.None:
 
                     Debug.Log("None effect");
 
-                    break;
+                    break;*/
 
                 case StandardChestType.Health:
 

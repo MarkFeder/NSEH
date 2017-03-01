@@ -65,7 +65,7 @@ namespace nseh.Gameplay.Gameflow
                     eventDuration += Constants.Events.Tar_Event.EVENT_DURATION_INCREASE;
                 }
                 elapsedTime = 0;
-                Debug.Log("Variables are reset and tar will remain up next time: " + eventDuration + " seconds.");
+                //Debug.Log("Variables are reset and tar will remain up next time: " + eventDuration + " seconds.");
             }
             //LvlManager.ChangeState(LevelManager.States.LevelEvent);
         }

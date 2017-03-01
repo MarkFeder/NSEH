@@ -53,7 +53,7 @@ namespace nseh.Gameplay.Gameflow
             transform.position = Vector3.Lerp(transform.position, targetTarPosition, elapsedTime / 80.0f);
             if (transform.position == targetTarPosition)
             {
-                Debug.Log("Tar is up. " + "(" + elapsedTime + ")");
+                //Debug.Log("Tar is up. " + "(" + elapsedTime + ")");
                 return true;
             }
 
@@ -67,7 +67,7 @@ namespace nseh.Gameplay.Gameflow
             transform.position = Vector3.Lerp(transform.position, initialTarPosition, elapsedTime / 120.0f);
             if (transform.position == initialTarPosition)
             {
-                Debug.Log("Tar is down. " + "(" + elapsedTime + ")");
+                //Debug.Log("Tar is down. " + "(" + elapsedTime + ")");
                 return false;
             }
             return true;

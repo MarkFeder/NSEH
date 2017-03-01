@@ -9,7 +9,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 {
     public enum DisadvantageChestType
     {
-        None = 0,
+        //None = 0,
         ChestBomb = 1,
         PoisonCloud = 2,
         ConfusedPotion = 3
@@ -27,11 +27,11 @@ namespace nseh.Gameplay.Entities.Environment.Items
         {
             switch (this.chestType)
             {
-                case DisadvantageChestType.None:
+               /* case DisadvantageChestType.None:
 
                     Debug.Log("None effect");
 
-                    break;
+                    break;*/
 
                 case DisadvantageChestType.ChestBomb:
 

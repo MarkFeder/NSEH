@@ -11,9 +11,10 @@ namespace nseh.Gameplay.Gameflow
     public class ItemSpawn_Event : LevelEvent
     {
         List<GameObject> _spawnItemPoints;
-        float eventStart = Constants.Events.Tar_Event.EVENT_START;
+        float eventStart = 3.0f;
         private float elapsedTime;
-        public bool canSpawn;
+        private SpawnItemPoint lastSpawnItemPoint;
+        private bool canSpawn;
 
         override public void Setup(LevelManager lvlManager)
         {
@@ -24,11 +25,13 @@ namespace nseh.Gameplay.Gameflow
         public override void ActivateEvent()
         {
             IsActivated = true;
+            elapsedTime = 0;
             canSpawn = true;
         }
 
         public override void EventRelease()
         {
+            lastSpawnItemPoint.flushItem();
             IsActivated = false;
         }
 
@@ -40,9 +43,9 @@ namespace nseh.Gameplay.Gameflow
             }
         }
 
-        public void RegisterSpawnItemPoint(GameObject lightToRegister)
+        public void RegisterSpawnItemPoint(GameObject spawnToRegister)
         {
-            _spawnItemPoints.Add(lightToRegister);
+            _spawnItemPoints.Add(spawnToRegister);
         }
 
         public void toggleSpawn()
@@ -53,10 +56,12 @@ namespace nseh.Gameplay.Gameflow
         void ChooseSpawnPoint()
         {
             elapsedTime += Time.deltaTime;
-            if (elapsedTime >= Constants.Events.Tar_Event.EVENT_START)
+            if (elapsedTime >= eventStart)
             {
+                Debug.Log("Spawn now");
                 int randomSpawn = (int)Random.Range(0, _spawnItemPoints.Count);
                 _spawnItemPoints[randomSpawn].GetComponent<SpawnItemPoint>().Spawn();
+                lastSpawnItemPoint = _spawnItemPoints[randomSpawn].GetComponent<SpawnItemPoint>();
                 elapsedTime = 0;
             }
         }

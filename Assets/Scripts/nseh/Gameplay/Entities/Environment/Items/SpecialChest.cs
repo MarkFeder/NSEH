@@ -10,7 +10,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 {
     public enum SpecialChestType
     {
-        None = 0,
+        //None = 0,
         Invulnerability = 1,
         AutomaticAttacks = 2,
         CriticalDamage = 3,
@@ -19,7 +19,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
     public class SpecialChest : Chest
     {
-        protected SpecialChestType chestType;
+        public SpecialChestType chestType;
 
         public float seconds;
         public int times;
@@ -28,11 +28,11 @@ namespace nseh.Gameplay.Entities.Environment.Items
         {
             switch (this.chestType)
             {
-                case SpecialChestType.None:
+                /*case SpecialChestType.None:
 
                     Debug.Log("None effect");
 
-                    break;
+                    break;*/
 
                 case SpecialChestType.Invulnerability:
 
