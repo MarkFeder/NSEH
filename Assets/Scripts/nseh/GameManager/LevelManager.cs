@@ -31,6 +31,7 @@ namespace nseh.GameManager
         private Image _player2_HUD;
         private Image _player1_portrait;
         private Image _player2_portrait;
+        private bool _isGameOver;
 
         //List of all events (E.g: EventManager, LightManager...) 
         private List<LevelEvent> _eventsList;
@@ -84,6 +85,7 @@ namespace nseh.GameManager
 
         override public void Activate()
         {
+            _isGameOver = false;
             _timeRemaining = Constants.LevelManager.TIME_REMAINING;
             _canvasIsPaused = GameObject.Find("CanvasPaused").GetComponent<Canvas>();
             _Clock = GameObject.Find("CanvasClock/TextClock").GetComponent<Text>();
@@ -230,6 +232,7 @@ namespace nseh.GameManager
                 _canvasGameOver.gameObject.SetActive(true);
                 _gameOverText = GameObject.Find("CanvasGameOver/PanelGameOver/TextGameOver").GetComponent<Text>();
                 _gameOverText.text = "Time's Up";
+                _isGameOver = true;
 
             }
         }
@@ -237,6 +240,7 @@ namespace nseh.GameManager
 
         public void Restart()
         {
+            _isGameOver = false;
             _timeRemaining = Constants.LevelManager.TIME_REMAINING;
             _canvasGameOver.gameObject.SetActive(false);
             _canvasIsPaused.gameObject.SetActive(false);
@@ -317,7 +321,7 @@ namespace nseh.GameManager
                 }
                 
                 //
-                if (Input.GetKeyDown(KeyCode.Escape))
+                if (Input.GetKeyDown(KeyCode.Escape) && !_isGameOver)
                 {
                     PauseGame();
                 }
