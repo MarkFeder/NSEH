@@ -26,12 +26,18 @@ namespace nseh.Gameplay.Gameflow
         {
             IsActivated = true;
             elapsedTime = 0;
+            if(lastSpawnItemPoint != null)
+            {
+                lastSpawnItemPoint.flushItem();
+                lastSpawnItemPoint = null;
+            }
             canSpawn = true;
         }
 
         public override void EventRelease()
         {
-            lastSpawnItemPoint.flushItem();
+            //lastSpawnItemPoint.flushItem();
+            _spawnItemPoints = new List<GameObject>();
             IsActivated = false;
         }
 
@@ -39,6 +45,7 @@ namespace nseh.Gameplay.Gameflow
         {
             if (canSpawn)
             {
+                Debug.Log("Choosing spawn point");
                 ChooseSpawnPoint();
             }
         }

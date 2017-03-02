@@ -201,11 +201,13 @@ namespace nseh.GameManager
                     case States.LevelEvent:
                         Find<Tar_Event>().ActivateEvent();
                         Find<CameraManager>().ActivateEvent();
+                        Find<ItemSpawn_Event>().ActivateEvent();
                         _currentState = _nextState;
                         break;
                     case States.Minigame:
                         Find<Tar_Event>().EventRelease();
                         Find<CameraManager>().EventRelease();
+                        Find<ItemSpawn_Event>().EventRelease();
                         _currentState = _nextState;
                         break;
                 }
@@ -248,7 +250,7 @@ namespace nseh.GameManager
             Time.timeScale = 1;
 
             Find<Tar_Event>().ActivateEvent();
-            Find<ItemSpawn_Event>().EventRelease();
+            //Find<ItemSpawn_Event>().EventRelease();
             Find<ItemSpawn_Event>().ActivateEvent();
             Find<CameraManager>().EventRelease();
 
@@ -342,6 +344,7 @@ namespace nseh.GameManager
         override public void Release()
         {
             IsActivated = false;
+            Find<ItemSpawn_Event>().EventRelease();
             _canvasGameOver.gameObject.SetActive(false);
             _canvasIsPaused.gameObject.SetActive(false);
         }

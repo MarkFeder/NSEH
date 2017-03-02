@@ -91,6 +91,7 @@ namespace nseh.Gameplay.Entities.Environment
             if(instancedItem != null)
             {
                 Destroy(instancedItem);
+                instanced = false;
             }
         }
 
