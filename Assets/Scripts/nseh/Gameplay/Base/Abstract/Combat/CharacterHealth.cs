@@ -171,10 +171,12 @@ namespace nseh.Gameplay.Base.Abstract
         private IEnumerator DecreaseHealthForSecondsInternal(float percent, float seconds)
         {
             int counterSeconds = 0;
+            float totalLifeRemoved = this.currentHealth - (percent * this.currentHealth);
+            float lifeRemovedEverySecond = totalLifeRemoved / seconds;
 
             while (counterSeconds < seconds)
             {
-                this.DecreaseHealth(percent);
+                this.DecreaseHealth(lifeRemovedEverySecond);
                 counterSeconds++;
 
                 yield return new WaitForSeconds(1.0f);

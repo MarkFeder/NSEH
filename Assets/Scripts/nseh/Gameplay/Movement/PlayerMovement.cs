@@ -13,34 +13,41 @@ namespace nseh.Gameplay.Movement
     [RequireComponent(typeof(CapsuleCollider))]
     public class PlayerMovement : MonoBehaviour
     {
+        #region Private Properties
+
         private Animator anim;
         private Rigidbody body;
         private Dictionary<string, int> animParameters;
-        private CapsuleCollider collider;
 
         private int platformMask;
 
         private bool facingRight;
-        private bool isMoving;
-        private bool isJumping;
+        private bool movePressed;
+        private bool jumpPressed;
         private bool currentIdleJump = false;
         private bool currentLocoJump = false;
+        private bool usedExtraJump = false;
 
         private float horizontal;
         private float vertical;
-        private float radius;
+
+        #endregion
+
+        #region Public Properties
 
         public bool useGamepad = false;
         public int gamepadIndex = 1;
         public float speed;
+        public float jumpAirSpeed;
         public float jumpHeight;
         public float gravity;
+
         [Range(0, 1)]
         public float dampAir;
 
-        // C# Properties 
+        #endregion
 
-        #region Public Properties
+        #region Public C# Properties
 
         public bool IsFacingRight
         {
@@ -124,19 +131,25 @@ namespace nseh.Gameplay.Movement
             }
         }
 
+        private bool IsJumpingState
+        {
+            get
+            {
+                return this.IsLocomotionJumpState || this.IsIdleJumpState;
+            }
+        }
+
         #endregion
 
         private void Start()
         {
             this.anim = GetComponent<Animator>();
-            this.body = GetComponent<Rigidbody>();
-            this.collider = GetComponent<CapsuleCollider>();
-            this.body.isKinematic = false;
             this.animParameters = this.FillInAnimParameters();
 
-            this.radius = this.collider.radius;
-            this.facingRight = true;
+            this.body = GetComponent<Rigidbody>();
+            this.body.isKinematic = false;
 
+            this.facingRight = true;
             this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
         }
 
@@ -161,9 +174,8 @@ namespace nseh.Gameplay.Movement
             this.horizontal = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_HORIZONTAL_KEYBOARD);
             this.vertical = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_VERTICAL_KEYBOARD);
 
-            this.anim.applyRootMotion = this.IsGrounded();
-            this.isMoving = Mathf.Abs(this.horizontal) > 0.1f;
-            this.isJumping = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex));
+            this.movePressed = Mathf.Abs(this.horizontal) > 0.1f;
+            this.jumpPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex));
 
             this.anim.SetFloat(this.animParameters[Constants.H], this.horizontal);
             this.anim.SetBool(this.animParameters[Constants.GROUNDED], this.IsGrounded());
@@ -171,6 +183,8 @@ namespace nseh.Gameplay.Movement
 
         private void FixedUpdate()
         {
+            this.FlipCharacter(this.horizontal);
+
             this.Move();
 
             this.Jump();
@@ -178,64 +192,85 @@ namespace nseh.Gameplay.Movement
 
         #region Main Logic
 
-        private void Jump()
+        private void ApplyJump()
         {
-            if (this.IsGrounded())
+            // Depending on the current state, jump vector will be different
+            if (this.IsIdleState)
             {
-                // Check if player has jumped
-                if (this.isJumping)
-                {
-                    if (this.IsIdleState)
-                    {
-                        this.body.velocity = Vector3.up * this.jumpHeight;
+                this.body.velocity = Vector3.up * this.jumpHeight;
 
-                        this.currentIdleJump = true;
-                    }
-                    else if (this.IsLocomotionState)
-                    {
-                        var fVelocity = this.body.velocity;
-                        fVelocity.y = this.jumpHeight;
-                        this.body.velocity = fVelocity;
+                this.currentIdleJump = true;
+            }
+            else if (this.IsLocomotionState)
+            {
+                var vVelocity = this.body.velocity;
+                vVelocity.y = this.jumpHeight;
+                this.body.velocity = vVelocity;
 
-                        this.currentLocoJump = true;
-                    }
+                this.currentLocoJump = true;
+            }
+            else if (this.IsJumpingState)
+            {
+                var vVelocity = this.body.velocity;
+                vVelocity.y = this.jumpHeight;
+                this.body.velocity = vVelocity;
+            }
 
-                    this.StartJumpAnimator();
-                } 
+            // Start animator
+            this.StartJumpAnimator();
+        }
+
+        private void MotionInTheAir()
+        {
+            // Player is in the air
+            // Double jump
+            if (!this.usedExtraJump && this.jumpPressed)
+            {
+                this.usedExtraJump = true;
+
+                this.ApplyJump();
             }
             else
             {
+                // Should gravity be updated here to support customization
                 // Damp air depends on the type of jump
-                if (this.currentIdleJump && this.body.velocity.y <= 1.0f)
+                if (this.currentIdleJump && this.body.velocity.y <= 1f)
                 {
-                    float velocityY = this.body.velocity.y;
-
-                    // If receiving player's input
-                    if (this.isMoving)
+                    // If player is moving in the air
+                    if (this.movePressed)
                     {
-                        var fVelocity = this.transform.forward * this.speed * this.dampAir;
-                        fVelocity.y = velocityY;
-
-                        this.body.velocity = fVelocity;
+                        Vector3 vLocalDirection = new Vector3(0.0f, this.body.velocity.y, this.jumpAirSpeed);
+                        this.body.velocity = vLocalDirection;
                     }
                 }
                 else if (this.currentLocoJump)
                 {
-                    float velocityY = this.body.velocity.y;
-                    var fVelocity = this.transform.forward * this.speed * this.dampAir;
-                    fVelocity.y = velocityY;
-
-                    this.body.velocity = fVelocity;
+                    Vector3 vLocalDirection = new Vector3(0.0f, this.body.velocity.y, this.jumpAirSpeed);
+                    this.body.velocity = this.transform.TransformDirection(vLocalDirection);
                 }
 
+                // Stop animator
                 this.StopJumpAnimator();
+            }
+        }
+
+        private void Jump()
+        {
+            // Player's first jump
+            if (this.IsGrounded() && this.jumpPressed)
+            {
+                this.usedExtraJump = false;
+
+                this.ApplyJump();
+            }
+            else
+            {
+                this.MotionInTheAir();
             }
         }
 
         private void Move()
         {
-            this.FlipCharacter(this.horizontal);
-
             if (this.IsGrounded())
             {
                 this.currentIdleJump = false;
@@ -245,7 +280,7 @@ namespace nseh.Gameplay.Movement
                 // so as to avoid some obstacles ?
 
                 // Check if player is moving
-                if (this.isMoving)
+                if (this.movePressed)
                 {
                     this.body.velocity = this.transform.forward * this.speed;
                     this.anim.SetFloat(this.animParameters[Constants.SPEED], this.speed);
@@ -265,22 +300,12 @@ namespace nseh.Gameplay.Movement
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(this.transform.position, 0.2f);
+            Gizmos.DrawWireSphere(this.transform.position, 0.3f);
         }
 
         public bool IsGrounded()
         {
-            return Physics.CheckSphere(this.transform.position, 0.2f, this.platformMask);
-        }
-
-        public bool CanMove()
-        {
-            return this.IsGrounded() && (Mathf.Abs(this.horizontal) > 0.1f);
-        }
-
-        public bool CanJump()
-        {
-            return this.IsGrounded() && (Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex)));
+            return Physics.CheckSphere(this.transform.position, 0.3f, this.platformMask) && this.body.velocity.y <= 0.0f;
         }
 
         private void StopJumpAnimator()
@@ -298,6 +323,8 @@ namespace nseh.Gameplay.Movement
 
         private void StartJumpAnimator()
         {
+            this.anim.SetBool(this.animParameters[Constants.GROUNDED], false);
+
             if (IsLocomotionState)
             {
                 this.anim.SetBool(this.animParameters[Constants.LOCOMOTION_JUMP], true);
@@ -307,32 +334,6 @@ namespace nseh.Gameplay.Movement
             {
                 this.anim.SetBool(this.animParameters[Constants.IDLE_JUMP], true);
             }
-        }
-
-        #endregion
-
-        #region Jump Events
-
-        public void OnReduceCollider()
-        {
-            Debug.Log("OnReduceCollider");
-
-            //Vector3 center = this.playerController.center;
-            //center.y += 1.10f;
-
-            //this.playerController.center = center;
-            //this.playerController.height = 1.21f;
-        }
-
-        public void OnResetCollider()
-        {
-            Debug.Log("OnResetCollider");
-
-            //Vector3 center = this.playerController.center;
-            //center.y = 0.74f;
-
-            //this.playerController.center = center;
-            //this.playerController.height = 1.63f;
         }
 
         #endregion
