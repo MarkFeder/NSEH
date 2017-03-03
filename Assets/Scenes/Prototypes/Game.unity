@@ -1505,6 +1505,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 114061127179759988, guid: c8d9f56b3277516469fc6f773473d732,
+        type: 2}
+      propertyPath: platformTarget
+      value: 
+      objectReference: {fileID: 1454545524}
     - target: {fileID: 114430637140126432, guid: c8d9f56b3277516469fc6f773473d732,
         type: 2}
       propertyPath: platformTarget
@@ -1513,19 +1518,6 @@ Prefab:
     - target: {fileID: 1240652984345010, guid: c8d9f56b3277516469fc6f773473d732, type: 2}
       propertyPath: m_Name
       value: Stage
-      objectReference: {fileID: 0}
-    - target: {fileID: 114061127179759988, guid: c8d9f56b3277516469fc6f773473d732,
-        type: 2}
-      propertyPath: platformTarget
-      value: 
-      objectReference: {fileID: 1454545524}
-    - target: {fileID: 4823693189661884, guid: c8d9f56b3277516469fc6f773473d732, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -22.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4823693189661884, guid: c8d9f56b3277516469fc6f773473d732, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c8d9f56b3277516469fc6f773473d732, type: 2}

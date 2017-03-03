@@ -712,7 +712,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1500866810947454}
   m_LocalRotation: {x: 0.00000008146034, y: 0.00000023841858, z: -1.9421659e-14, w: 1}
-  m_LocalPosition: {x: -20.373816, y: 5.232822, z: -0.036679983}
+  m_LocalPosition: {x: -22.1, y: 5.232822, z: -0.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4080076375069884}
@@ -1641,12 +1641,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e0acba7cfa6c42896fc1c0e407dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standardChest: {fileID: 1909943378841928, guid: d03dd17c71aff11438607b662cf14f1c,
-    type: 2}
-  specialChest: {fileID: 1521921138799182, guid: 316599dec4ac94c4fb0cd22f660b26ae,
-    type: 2}
-  disadvantageChest: {fileID: 1283185562428452, guid: fabbb0427ee05db4faafc58265b0bada,
-    type: 2}
+  StandardItems:
+  - {fileID: 1909943378841928, guid: d03dd17c71aff11438607b662cf14f1c, type: 2}
+  - {fileID: 1909943378841928, guid: bc040045ccc0bc949b51a87e13c0f1a1, type: 2}
+  - {fileID: 1909943378841928, guid: fafb32c7629f4ac458f6440a4eee16fe, type: 2}
+  - {fileID: 1909943378841928, guid: 8e2e1db1e9bad21469e40965c8a95fd7, type: 2}
+  - {fileID: 1909943378841928, guid: 3536f71320251df46ae3a6dee69c3875, type: 2}
+  SpecialItems:
+  - {fileID: 1521921138799182, guid: fe42a5010b8465a4da740eed85c7c864, type: 2}
+  - {fileID: 1521921138799182, guid: 1ba2e0a93cf4a2e4c9f14ccc644d3b37, type: 2}
+  - {fileID: 1521921138799182, guid: 316599dec4ac94c4fb0cd22f660b26ae, type: 2}
+  - {fileID: 1521921138799182, guid: c59260962d688db4b8dae4cc3655815f, type: 2}
+  DisadvantageItems:
+  - {fileID: 1283185562428452, guid: fabbb0427ee05db4faafc58265b0bada, type: 2}
+  - {fileID: 1283185562428452, guid: ed3d36608113782478bb45bda4e408f7, type: 2}
+  - {fileID: 1283185562428452, guid: d91b03886bd7e924196b00cd5c28204b, type: 2}
 --- !u!114 &114430637140126432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1673,12 +1682,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e0acba7cfa6c42896fc1c0e407dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standardChest: {fileID: 1909943378841928, guid: d03dd17c71aff11438607b662cf14f1c,
-    type: 2}
-  specialChest: {fileID: 1521921138799182, guid: 316599dec4ac94c4fb0cd22f660b26ae,
-    type: 2}
-  disadvantageChest: {fileID: 1283185562428452, guid: fabbb0427ee05db4faafc58265b0bada,
-    type: 2}
+  StandardItems:
+  - {fileID: 1909943378841928, guid: d03dd17c71aff11438607b662cf14f1c, type: 2}
+  - {fileID: 1909943378841928, guid: bc040045ccc0bc949b51a87e13c0f1a1, type: 2}
+  - {fileID: 1909943378841928, guid: fafb32c7629f4ac458f6440a4eee16fe, type: 2}
+  - {fileID: 1909943378841928, guid: 8e2e1db1e9bad21469e40965c8a95fd7, type: 2}
+  - {fileID: 1909943378841928, guid: 3536f71320251df46ae3a6dee69c3875, type: 2}
+  SpecialItems:
+  - {fileID: 1521921138799182, guid: fe42a5010b8465a4da740eed85c7c864, type: 2}
+  - {fileID: 1521921138799182, guid: 1ba2e0a93cf4a2e4c9f14ccc644d3b37, type: 2}
+  - {fileID: 1521921138799182, guid: 316599dec4ac94c4fb0cd22f660b26ae, type: 2}
+  - {fileID: 1521921138799182, guid: c59260962d688db4b8dae4cc3655815f, type: 2}
+  DisadvantageItems:
+  - {fileID: 1283185562428452, guid: fabbb0427ee05db4faafc58265b0bada, type: 2}
+  - {fileID: 1283185562428452, guid: ed3d36608113782478bb45bda4e408f7, type: 2}
+  - {fileID: 1283185562428452, guid: d91b03886bd7e924196b00cd5c28204b, type: 2}
 --- !u!114 &114930730504255582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1690,9 +1708,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e0acba7cfa6c42896fc1c0e407dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standardChest: {fileID: 1909943378841928, guid: d03dd17c71aff11438607b662cf14f1c,
-    type: 2}
-  specialChest: {fileID: 1521921138799182, guid: 316599dec4ac94c4fb0cd22f660b26ae,
-    type: 2}
-  disadvantageChest: {fileID: 1283185562428452, guid: fabbb0427ee05db4faafc58265b0bada,
-    type: 2}
+  StandardItems:
+  - {fileID: 1909943378841928, guid: d03dd17c71aff11438607b662cf14f1c, type: 2}
+  - {fileID: 1909943378841928, guid: bc040045ccc0bc949b51a87e13c0f1a1, type: 2}
+  - {fileID: 1909943378841928, guid: fafb32c7629f4ac458f6440a4eee16fe, type: 2}
+  - {fileID: 1909943378841928, guid: 8e2e1db1e9bad21469e40965c8a95fd7, type: 2}
+  - {fileID: 1909943378841928, guid: 3536f71320251df46ae3a6dee69c3875, type: 2}
+  SpecialItems:
+  - {fileID: 1521921138799182, guid: fe42a5010b8465a4da740eed85c7c864, type: 2}
+  - {fileID: 1521921138799182, guid: 1ba2e0a93cf4a2e4c9f14ccc644d3b37, type: 2}
+  - {fileID: 1521921138799182, guid: 316599dec4ac94c4fb0cd22f660b26ae, type: 2}
+  - {fileID: 1521921138799182, guid: c59260962d688db4b8dae4cc3655815f, type: 2}
+  DisadvantageItems:
+  - {fileID: 1283185562428452, guid: fabbb0427ee05db4faafc58265b0bada, type: 2}
+  - {fileID: 1283185562428452, guid: ed3d36608113782478bb45bda4e408f7, type: 2}
+  - {fileID: 1283185562428452, guid: d91b03886bd7e924196b00cd5c28204b, type: 2}

@@ -11,20 +11,22 @@ namespace nseh.Gameplay.Entities.Environment
     {
 
         // Use this for initialization
-        /*
+        
         [SerializeField]
         private List<GameObject> StandardItems;
         [SerializeField]
         private List<GameObject> SpecialItems;
         [SerializeField]
-        private List<GameObject> SpecialBuffs;
-        */
+        private List<GameObject> DisadvantageItems;
+        
+        /*
         [SerializeField]
         private GameObject standardChest;
         [SerializeField]
         private GameObject specialChest;
         [SerializeField]
         private GameObject disadvantageChest;
+        */
         private GameObject instancedItem;
         private bool instanced;
         private ItemSpawn_Event _itemSpawnEvent;
@@ -58,28 +60,28 @@ namespace nseh.Gameplay.Entities.Environment
             if (dice <= 0.8)
             {
                 //Standard buffs
-                //int randomStandardItem = (int)Random.Range(0, StandardItems.Count);
-                standardChest.GetComponent<StandardChest>().chestType = GetRandomEnum<StandardChestType>();
-                instancedItem = Instantiate(standardChest, this.transform.position, this.transform.rotation);
-                //instancedItem = Instantiate(StandardItems[randomStandardItem], this.transform.position, this.transform.rotation);
+                //standardChest.GetComponent<StandardChest>().chestType = GetRandomEnum<StandardChestType>();
+                //instancedItem = Instantiate(standardChest, this.transform.position, this.transform.rotation);
+                int randomStandardItem = (int)Random.Range(0, StandardItems.Count);
+                instancedItem = Instantiate(StandardItems[randomStandardItem], this.transform.position, this.transform.rotation);
             }
 
             if (0.8f < dice && dice <= 0.9f)
             {
                 //Special buffs
-                specialChest.GetComponent<SpecialChest>().chestType = GetRandomEnum<SpecialChestType>();
-                instancedItem = Instantiate(specialChest, this.transform.position, this.transform.rotation);
-                //int randomSpecialItem = (int)Random.Range(0, StandardItems.Count);
-                //instancedItem = Instantiate(StandardItems[randomSpecialItem], this.transform.position, this.transform.rotation);
+                //specialChest.GetComponent<SpecialChest>().chestType = GetRandomEnum<SpecialChestType>();
+                //instancedItem = Instantiate(specialChest, this.transform.position, this.transform.rotation);
+                int randomSpecialItem = (int)Random.Range(0, SpecialItems.Count);
+                instancedItem = Instantiate(SpecialItems[randomSpecialItem], this.transform.position, this.transform.rotation);
             }
 
             if (0.9f < dice && dice <= 1)
             {
                 //Debuffs
-                disadvantageChest.GetComponent<DisadvantageChest>().chestType = GetRandomEnum<DisadvantageChestType>();
-                instancedItem = Instantiate(disadvantageChest, this.transform.position, this.transform.rotation);
-                //int randomDebuffItem = (int)Random.Range(0, StandardItems.Count);
-                //instancedItem = Instantiate(StandardItems[randomDebuffItem], this.transform.position, this.transform.rotation);
+                //disadvantageChest.GetComponent<DisadvantageChest>().chestType = GetRandomEnum<DisadvantageChestType>();
+                //instancedItem = Instantiate(disadvantageChest, this.transform.position, this.transform.rotation);
+                int randomDisadvantageItem = (int)Random.Range(0, DisadvantageItems.Count);
+                instancedItem = Instantiate(DisadvantageItems[randomDisadvantageItem], this.transform.position, this.transform.rotation);
             }
             Debug.Log("Item spawned");
             _itemSpawnEvent.toggleSpawn();
