@@ -173,13 +173,13 @@ namespace nseh.Gameplay.Base.Abstract
             int counterSeconds = 0;
             float totalLifeRemoved = this.currentHealth - (percent * this.currentHealth);
             float lifeRemovedEverySecond = totalLifeRemoved / seconds;
-
             while (counterSeconds < seconds)
             {
-                this.DecreaseHealth(lifeRemovedEverySecond);
+                this.DecreaseHealth(lifeRemovedEverySecond/100);
                 counterSeconds++;
 
                 yield return new WaitForSeconds(1.0f);
+                
             }
         }
 
