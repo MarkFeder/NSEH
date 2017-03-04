@@ -38,7 +38,7 @@ namespace nseh.Gameplay.Combat.System
             this.enemyType = Tags.PLAYER;
             
             this.hitBox = GetComponent<Collider>();
-            this.hitBox.isTrigger = true;
+            //this.hitBox.isTrigger = true;
             this.hitBox.enabled = false;
 
             this.characterCombat = this.transform.root.GetComponent<CharacterCombat>();
@@ -66,11 +66,17 @@ namespace nseh.Gameplay.Combat.System
 
         #region Trigger Methods
 
-        protected void OnTriggerEnter(Collider other)
+        protected void OnCollisionEnter(Collision collision)
         {
-            GameObject enemy = other.gameObject;
+            GameObject enemy = collision.gameObject;
 
-            if (enemy.CompareTag(this.enemyType) 
+            //// For Debugging
+            //foreach (ContactPoint contact in collision.contacts)
+            //{
+            //    Debug.DrawRay(contact.point, contact.normal, Color.red, 5.0f);
+            //}
+
+            if (enemy.CompareTag(this.enemyType)
                 && this.parentObjName != enemy.name)
             {
                 bool enemyTakenAback = this.EnemyHasBeenTakenAback(ref enemy);
@@ -78,7 +84,7 @@ namespace nseh.Gameplay.Combat.System
                 if (enemyTakenAback)
                 {
                     var attack = this.characterCombat.CurrentAction as HandledAction;
-                        
+
                     if (!SystemObject.ReferenceEquals(null, attack))
                     {
                         Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
@@ -103,15 +109,15 @@ namespace nseh.Gameplay.Combat.System
             }
         }
 
-        protected void OnTriggerExit(Collider other)
+        protected void OnCollisionExit(Collision collision)
         {
-            GameObject enemy = other.gameObject;
+            GameObject enemy = collision.gameObject;
 
             if (enemy.CompareTag(this.enemyType) && this.parentObjName != enemy.name)
             {
                 this.enemyTargets.Remove(enemy);
             }
-        }
+        } 
 
         #endregion
 
@@ -157,6 +163,7 @@ namespace nseh.Gameplay.Combat.System
                             int amountDamage = (int)(senderAction as CharacterAttack).CurrentDamage;
 
                             enemy.GetSafeComponent<CharacterHealth>().TakeDamage(amountDamage);
+                            enemy.GetSafeComponent<Rigidbody>().AddForce(-enemy.transform.forward * 100.0f);
                         }
                     }
                 }

@@ -107,10 +107,9 @@ MonoBehaviour:
   animation: {fileID: 0}
   sound: {fileID: 0}
   particle: {fileID: 0}
-  lifeTime: 0
   destructionTime: 0
   uses: 1
   displayName: 
   chestType: 1
-  percent: 0.3
-  seconds: 3
+  percent: 30
+  seconds: 0

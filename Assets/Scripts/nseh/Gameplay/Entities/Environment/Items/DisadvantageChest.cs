@@ -17,11 +17,14 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
     public class DisadvantageChest : Chest
     {
+        #region Public Properties
+
         public DisadvantageChestType chestType;
 
-        [Range(0,1)]
         public float percent;
         public float seconds;
+
+        #endregion
 
         protected override void Activate()
         {
@@ -57,6 +60,13 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     break;
             }
+
+            this.Deactivate();
+        }
+
+        protected override void Deactivate()
+        {
+            Destroy(this.gameObject, this.destructionTime);
         }
 
         private void ChestBomb(float percent)
@@ -66,17 +76,12 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
         private void PoisonCloud(float percent, float seconds)
         {
-            this.target.GetComponent<CharacterHealth>().DecreaseHealthForSeconds(percent, seconds);
+            this.target.GetComponent<CharacterHealth>().DecreaseHealthForEverySecond(percent, seconds);
         }
 
         private void ConfusedPotion(float time)
         {
             this.target.GetComponent<PlayerMovement>().InvertControl(time);
-        }
-
-        protected override void Deactivate()
-        {
-            throw new NotImplementedException();
         }
     }
 }

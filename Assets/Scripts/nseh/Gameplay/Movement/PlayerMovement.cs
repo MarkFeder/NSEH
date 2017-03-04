@@ -36,14 +36,14 @@ namespace nseh.Gameplay.Movement
         #region Public Properties
 
         public bool useGamepad = false;
-        public int gamepadIndex = 1;
-        public float speed;
-        public float jumpAirSpeed;
-        public float jumpHeight;
-        public float gravity;
+        public int gamepadIndex;
 
         [Range(0, 1)]
         public float dampAir;
+        public float jumpAirSpeed;
+        public float jumpHeight;
+        public float gravity;
+        public float speed;
 
         #endregion
 
@@ -211,6 +211,7 @@ namespace nseh.Gameplay.Movement
             }
             else if (this.IsJumpingState)
             {
+                // For double jump
                 var vVelocity = this.body.velocity;
                 vVelocity.y = this.jumpHeight;
                 this.body.velocity = vVelocity;
@@ -234,13 +235,13 @@ namespace nseh.Gameplay.Movement
             {
                 // Should gravity be updated here to support customization
                 // Damp air depends on the type of jump
-                if (this.currentIdleJump && this.body.velocity.y <= 1f)
+                if (this.currentIdleJump && this.body.velocity.y <= 0.5f)
                 {
                     // If player is moving in the air
                     if (this.movePressed)
                     {
                         Vector3 vLocalDirection = new Vector3(0.0f, this.body.velocity.y, this.jumpAirSpeed);
-                        this.body.velocity = vLocalDirection;
+                        this.body.velocity = this.transform.TransformDirection(vLocalDirection);
                     }
                 }
                 else if (this.currentLocoJump)
@@ -363,13 +364,82 @@ namespace nseh.Gameplay.Movement
 
         #endregion
 
-        #region Items Events
+        #region Public Items Methods
 
+        /// <summary>
+        /// Invert input control
+        /// </summary>
+        /// <param name="seconds"></param>
         public void InvertControl(float seconds)
         {
             var waitSeconds = new WaitForSeconds(seconds);
 
             this.StartCoroutine(this.InvertControlForSeconds(waitSeconds));
+        }
+
+        /// <summary>
+        /// Increase jump by percent for a total of seconds
+        /// </summary>
+        /// <param name="percent"></param>
+        /// <param name="seconds"></param>
+        public void IncreaseJumpForSeconds(float percent, float seconds)
+        {
+            StartCoroutine(this.IncreaseJumpForSecondsInternal(percent, seconds));
+        }
+
+        /// <summary>
+        /// Increase speed by percent for a total of seconds
+        /// </summary>
+        /// <param name="percent"></param>
+        /// <param name="seconds"></param>
+        public void IncreaseSpeedForSeconds(float percent, float seconds)
+        {
+            StartCoroutine(this.IncreaseSpeedForSecondsInternal(percent, seconds));
+        }
+
+        /// <summary>
+        /// Increase speed by percent
+        /// </summary>
+        /// <param name="percent"></param>
+        public void IncreaseSpeed(float percent)
+        {
+            if (percent > 0.0f)
+            {
+                var oldSpeed = this.speed;
+
+                this.speed += (this.speed * percent/100.0f);
+
+                Debug.Log(String.Format("Speed of {0} is: {1} and applying {2}% more has changed to: {3}",
+                        this.gameObject.name, oldSpeed, percent, this.speed));
+            }
+        }
+
+        /// <summary>
+        /// Increase speed by percent
+        /// </summary>
+        /// <param name="percent"></param>
+        public void IncreaseJump(float percent)
+        {
+            if (percent > 0.0f)
+            {
+                var oldJumpHeight = this.jumpHeight;
+
+                this.jumpHeight += (this.jumpHeight * percent / 100.0f);
+
+                Debug.Log(String.Format("Jump of {0} is: {1} and applying {2}% more has changed to: {3}",
+                        this.gameObject.name, oldJumpHeight, percent, this.jumpHeight));
+            }
+        }
+
+        #endregion
+
+        #region Private Item Methods
+
+        private void TransformLocalRotation()
+        {
+            var rotation = this.transform.localRotation;
+            rotation.y = -rotation.y;
+            this.transform.localRotation = rotation;
         }
 
         private IEnumerator InvertControlForSeconds(WaitForSeconds waitSeconds)
@@ -385,83 +455,30 @@ namespace nseh.Gameplay.Movement
             Debug.Log("Character " + this.transform.root.name + " control has been restablished");
         }
 
-        private void TransformLocalRotation()
-        {
-            var rotation = this.transform.localRotation;
-            rotation.y = -rotation.y;
-            this.transform.localRotation = rotation;
-        }
-
-        public void IncreaseJumpForSeconds(float percent, float seconds)
-        {
-            StartCoroutine(this.IncreaseJumpForSecondsInternal(percent, seconds));
-        }
-
         private IEnumerator IncreaseJumpForSecondsInternal(float percent, float seconds)
         {
-            int counterSeconds = 0;
             var oldJumpHeight = this.jumpHeight;
 
-            while (counterSeconds < seconds)
-            {
-                this.IncreaseJump(percent);
-                counterSeconds++;
+            this.IncreaseJump(percent);
 
-                yield return new WaitForSeconds(1.0f);
-            }
+            yield return new WaitForSeconds(seconds);
 
-            Debug.Log("After " + seconds + " seconds, the jump height has been restored to: " + oldJumpHeight);
+            Debug.Log(string.Format("Jump of {0} has been restored to: {1}", this.gameObject.name, oldJumpHeight));
 
             this.jumpHeight = oldJumpHeight;
         }
 
-        public void IncreaseJump(float percent)
-        {
-            if (percent > 0.0f)
-            {
-                var oldJumpHeight = this.jumpHeight;
-
-                this.jumpHeight += (this.jumpHeight * percent);
-
-                Debug.Log(String.Format("Jump of {0} is: {1} and applying {2}% more has changed to: {3}",
-                        this.gameObject.name, oldJumpHeight, percent * 100.0f, this.jumpHeight));
-            }
-        }
-
-        public void IncreaseSpeedForSeconds(float percent, float seconds)
-        {
-            StartCoroutine(this.IncreaseSpeedForSecondsInternal(percent, seconds));
-        }
-
         private IEnumerator IncreaseSpeedForSecondsInternal(float percent, float seconds)
         {
-            int counterSeconds = 0;
             var oldSpeed = this.speed;
 
-            while (counterSeconds < seconds)
-            {
-                this.IncreaseSpeed(percent);
-                counterSeconds++;
+            this.IncreaseSpeed(percent);
 
-                yield return new WaitForSeconds(1.0f);
-            }
+            yield return new WaitForSeconds(seconds);
 
-            Debug.Log("After " + seconds + " seconds, the speed has been restored to: " + oldSpeed);
+            Debug.Log(string.Format("Speed of {0} has been restored to: {1}", this.gameObject.name, oldSpeed));
 
             this.speed = oldSpeed;
-        }
-
-        public void IncreaseSpeed(float percent)
-        {
-            if (percent > 0.0f)
-            {
-                var oldSpeed = this.speed;
-
-                this.speed += (this.speed * percent);
-
-                Debug.Log(String.Format("Speed of {0} is: {1} and applying {2}% more has changed to: {3}",
-                        this.gameObject.name, oldSpeed, percent * 100.0f, this.speed));
-            }
         }
 
         #endregion

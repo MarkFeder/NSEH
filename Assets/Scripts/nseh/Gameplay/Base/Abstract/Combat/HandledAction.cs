@@ -7,7 +7,7 @@ namespace nseh.Gameplay.Base.Abstract
 {
     public abstract class HandledAction : MonoBehaviour, IAction
     {
-        // Public properties
+        #region Public Properties
 
         public int HashAnimation { get; set; }
         public string StateName { get; set; }
@@ -15,9 +15,13 @@ namespace nseh.Gameplay.Base.Abstract
         public string ButtonToPress { get; set; }
         public Animator Animator { get; set; }
 
-        // Private properties
+        #endregion
+
+        #region Private Properties
 
         private AnimatorControllerParameterType ParameterType { get; set; }
+
+        #endregion
 
         public HandledAction(int hashAnimation, string stateName, Animator animator,
             KeyCode keyToPress = KeyCode.None, 
@@ -35,12 +39,16 @@ namespace nseh.Gameplay.Base.Abstract
             }
         }
 
+        #region Protected Methods
+
         protected AnimatorControllerParameterType TypeOfParamAnimator(int hashAnimation)
         {
             AnimatorControllerParameter[] parameters = this.Animator.parameters;
             var animatorController = parameters.Where(p => p.nameHash == hashAnimation).FirstOrDefault();
             return animatorController.type;
-        }
+        } 
+
+        #endregion
 
         #region Input Support
 

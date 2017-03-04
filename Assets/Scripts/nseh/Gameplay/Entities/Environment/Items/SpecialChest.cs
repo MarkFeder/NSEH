@@ -19,10 +19,14 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
     public class SpecialChest : Chest
     {
+        #region Public Properties
+
         public SpecialChestType chestType;
 
         public float seconds;
-        public int times;
+        public int times; 
+
+        #endregion
 
         protected override void Activate()
         {
@@ -64,6 +68,13 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     break;
             }
+
+            this.Deactivate();
+        }
+
+        protected override void Deactivate()
+        {
+            Destroy(this.gameObject, this.destructionTime);
         }
 
         private void Invulnerability(float time)
@@ -106,11 +117,6 @@ namespace nseh.Gameplay.Entities.Environment.Items
             {
                 definitiveAttack.EnabledAttack = true;
             }
-        }
-
-        protected override void Deactivate()
-        {
-            throw new NotImplementedException();
         }
     }
 

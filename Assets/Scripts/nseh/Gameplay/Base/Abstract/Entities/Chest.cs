@@ -6,21 +6,28 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 {
 	public abstract class Chest : MonoBehaviour
 	{
+		#region Public Properties
+
 		public AnimationClip animation;
 		public AudioClip sound;
 		public ParticleSystem particle;
+
+		public float destructionTime;
+		public int uses;
+		public string displayName;
+
+		#endregion
+
+		#region Protected Properties
+
+		protected bool isVisible = false;
+		protected int currentUses;
 
 		protected GameObject target;
 		protected Collider collider;
 		protected Renderer renderer;
 
-		public float lifeTime;
-		public float destructionTime;
-		public int uses;
-		public string displayName;
-
-		protected bool isVisible = false;
-		protected int currentUses;
+		#endregion
 
 		#region Protected Methods
 
@@ -59,14 +66,13 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		{
 			if (other.CompareTag(Tags.PLAYER))
 			{
-				if (this.currentUses <= this.uses)
+				if (this.currentUses < this.uses)
 				{
 					this.currentUses++;
 					this.target = other.gameObject;
 					this.Activate();
 
 					// TODO: activate other properties
-					Destroy(this.gameObject, this.destructionTime);
 				}
 				else
 				{

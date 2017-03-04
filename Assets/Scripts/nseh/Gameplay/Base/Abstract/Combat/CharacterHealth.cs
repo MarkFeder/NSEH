@@ -17,11 +17,21 @@ namespace nseh.Gameplay.Base.Abstract
     [RequireComponent(typeof(Animator))]
     public abstract class CharacterHealth : MonoBehaviour, IHealth
     {
+        #region Public Properties
+
         public int startingHealth = 100;
         public int maxHealth = 100;
 
+        #endregion
+
+        #region Private Properties
+
         private Animator anim;
         private BarComponent healthBar;
+
+        #endregion
+
+        #region Protected Properties
 
         protected PlayerMovement characterMovement;
         protected HealthMode healthMode;
@@ -30,7 +40,9 @@ namespace nseh.Gameplay.Base.Abstract
         protected bool isDead;
         protected int animDead;
 
-        #region Public Properties
+        #endregion
+
+        #region Public C# Properties
 
         public float CurrentHealth
         {
@@ -71,7 +83,7 @@ namespace nseh.Gameplay.Base.Abstract
             }
         }
 
-        protected int MaxHealth
+        public int MaxHealth
         {
             get
             {
@@ -110,45 +122,75 @@ namespace nseh.Gameplay.Base.Abstract
 
         #region Public Methods
 
+        /// <summary>
+        /// Increase health by percent every second for a total of seconds
+        /// </summary>
+        /// <param name="percent"></param>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
+        public void IncreaseHealthForEverySecond(float percent, float totalSeconds)
+        {
+            StartCoroutine(this.IncreaseHealthForEverySecondInternal(percent, totalSeconds));
+        }
+
+        /// <summary>
+        /// Decrease health by percent every second for a total of seconds
+        /// </summary>
+        /// <param name="percent"></param>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
+        public void DecreaseHealthForEverySecond(float percent, float totalSeconds)
+        {
+            StartCoroutine(this.DecreaseHealthForEverySecondInternal(percent, totalSeconds));
+        }
+
+        /// <summary>
+        /// Activate invulnerability mode for a total of seconds
+        /// </summary>
+        /// <param name="percent"></param>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
+        public void InvulnerabilityModeForSeconds(float seconds)
+        {
+            StartCoroutine(this.InvulnerabilityModeForSecondsInternal(seconds));
+        }
+
+        /// <summary>
+        /// Increase health by percent
+        /// </summary>
+        /// <param name="percent"></param>
         public void IncreaseHealth(float percent)
         {
             if (percent > 0.0f)
             {
                 var oldHealth = this.CurrentHealth;
 
-                this.CurrentHealth += (this.CurrentHealth * percent);
+                this.CurrentHealth += (this.CurrentHealth * percent / 100.0f);
 
-                Debug.Log(String.Format("Health of {0} is: {1} and applying {2}% more has changed to: {3}", this.gameObject.name, oldHealth, percent * 100.0f, this.CurrentHealth));
+                Debug.Log(String.Format("Health of {0} is: {1} and applying {2}% more has changed to: {3}", this.gameObject.name, oldHealth, percent, this.CurrentHealth));
             }
         }
 
+        /// <summary>
+        /// Decrease health by percent
+        /// </summary>
+        /// <param name="percent"></param>
         public void DecreaseHealth(float percent)
         {
             if (percent > 0.0f)
             {
                 var oldHealth = this.CurrentHealth;
 
-                this.CurrentHealth -= (this.CurrentHealth * percent);
+                this.CurrentHealth -= (this.CurrentHealth * percent / 100.0f);
 
-                Debug.Log(String.Format("Health of {0} is: {1} and reducing {2}% has changed to: {3}", this.gameObject.name, oldHealth, percent * 100.0f, this.CurrentHealth));
+                Debug.Log(String.Format("Health of {0} is: {1} and reducing {2}% has changed to: {3}", this.gameObject.name, oldHealth, percent, this.CurrentHealth));
             }
         }
 
-        public void IncreaseHealthForSeconds(float percent, float seconds)
-        {
-            StartCoroutine(this.IncreaseHealthForSecondsInternal(percent, seconds));
-        }
-
-        public void DecreaseHealthForSeconds(float percent, float seconds)
-        {
-            StartCoroutine(this.DecreaseHealthForSecondsInternal(percent, seconds));
-        }
-
-        public void InvulnerabilityModeForSeconds(float seconds)
-        {
-            StartCoroutine(this.InvulnerabilityModeForSecondsInternal(seconds));
-        }
-
+        /// <summary>
+        /// Character takes an amount of damage
+        /// </summary>
+        /// <param name="amount"></param>
         public void TakeDamage(int amount)
         {
             if (this.healthMode == HealthMode.Normal)
@@ -168,22 +210,20 @@ namespace nseh.Gameplay.Base.Abstract
 
         #region Private Methods
 
-        private IEnumerator DecreaseHealthForSecondsInternal(float percent, float seconds)
+        private IEnumerator DecreaseHealthForEverySecondInternal(float percent, float seconds)
         {
             int counterSeconds = 0;
-            float totalLifeRemoved = this.currentHealth - (percent * this.currentHealth);
-            float lifeRemovedEverySecond = totalLifeRemoved / seconds;
+
             while (counterSeconds < seconds)
             {
-                this.DecreaseHealth(lifeRemovedEverySecond/100);
+                this.DecreaseHealth(percent);
                 counterSeconds++;
 
                 yield return new WaitForSeconds(1.0f);
-                
             }
         }
 
-        private IEnumerator IncreaseHealthForSecondsInternal(float percent, float seconds)
+        private IEnumerator IncreaseHealthForEverySecondInternal(float percent, float seconds)
         {
             int counterSeconds = 0;
 

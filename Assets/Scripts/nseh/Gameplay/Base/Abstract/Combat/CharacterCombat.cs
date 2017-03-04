@@ -16,11 +16,15 @@ namespace nseh.Gameplay.Base.Abstract
     [RequireComponent(typeof(Animator))]
     public abstract class CharacterCombat : MonoBehaviour
     {
-        // Properties
-        
+        #region Protected Properties
+
         protected PlayerMovement characterMovement;
         protected Animator anim;
-        protected Dictionary<string, int> animParameters;
+        protected Dictionary<string, int> animParameters; 
+
+        #endregion
+
+        #region Private Properties
 
         private Collider weaponCollision;
         private Rigidbody body;
@@ -31,7 +35,9 @@ namespace nseh.Gameplay.Base.Abstract
 
         private List<IAction> actions;
 
-        #region Public Properties
+        #endregion
+
+        #region Public C# Properties
 
         public List<IAction> Actions
         {

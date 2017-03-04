@@ -20,11 +20,21 @@ namespace nseh.Gameplay.Combat
 
     public class CharacterAttack : HandledAction
     {
+        #region Public Properties
+
+        public GameObject particlePrefab;
+
+        #endregion
+
+        #region Private Properties
+
         private float initialDamage;
         private float currentDamage;
         private bool critical;
 
-        #region Public Properties
+        #endregion
+
+        #region Public C# Properties
 
         public float InitialDamage
         {
@@ -113,6 +123,17 @@ namespace nseh.Gameplay.Combat
 
         #region Public Methods
 
+        public void PlayParticleAtPosition(Vector3 posParticle)
+        {
+            GameObject particleObj = Instantiate(this.particlePrefab, posParticle, Quaternion.identity);
+            ParticleSystem particleComponent = particleObj.GetComponent<ParticleSystem>();
+
+            if (particleComponent != null)
+            {
+                particleComponent.Play();
+            }
+        }
+
         public override void DoAction()
         {
             if (this.EnabledAttack)
@@ -131,39 +152,57 @@ namespace nseh.Gameplay.Combat
             }
         }
 
+        /// <summary>
+        /// Increase damage by percent for a total of seconds
+        /// </summary>
+        /// <param name="percent"></param>
+        /// <param name="seconds"></param>
         public void IncreaseDamageForSeconds(float percent, float seconds)
         {
             StartCoroutine(this.IncreaseDamageForSecondsInternal(percent, seconds));
         }
 
+        /// <summary>
+        /// Decrease damage by percent for a total of seconds
+        /// </summary>
+        /// <param name="percent"></param>
+        /// <param name="seconds"></param>
+        public void DecreaseDamageForSeconds(float percent, float seconds)
+        {
+            StartCoroutine(this.DecreaseDamageForSecondsInternal(percent, seconds));
+        }
+
+        /// <summary>
+        /// Increase Damage
+        /// </summary>
+        /// <param name="percent"></param>
         public void IncreaseDamage(float percent)
         {
             if (percent > 0.0f)
             {
                 var oldDamage = this.currentDamage;
 
-                this.currentDamage += (this.currentDamage * percent);
+                this.currentDamage += (this.currentDamage * percent / 100.0f);
 
                 Debug.Log(String.Format("[{0}] damage of {1} is: {2} and applying {3}% more has changed to: {4}",
-                    this.AttackType.ToString(), this.gameObject.name, oldDamage, percent * 100.0f, this.currentDamage));
+                    this.AttackType.ToString(), this.Animator.gameObject.name, oldDamage, percent, this.currentDamage));
             }
         }
 
-        public void DecreaseDamageForSeconds(float percent, float seconds)
-        {
-            StartCoroutine(this.DecreaseDamageForSecondsInternal(percent, seconds));
-        }
-
+        /// <summary>
+        /// Decrease damage
+        /// </summary>
+        /// <param name="percent"></param>
         public void DecreaseDamage(float percent)
         {
             if (percent > 0.0f)
             {
                 var oldDamage = this.currentDamage;
 
-                this.currentDamage -= (this.currentDamage * percent);
+                this.currentDamage -= (this.currentDamage * percent/100.0f);
 
                 Debug.Log(String.Format("[{0}] damage of {1} is: {2} and reducing {3}% has changed to: {4}",
-                    this.AttackType.ToString(), this.gameObject.name, oldDamage, percent * 100.0f, this.currentDamage));
+                    this.AttackType.ToString(), this.gameObject.name, oldDamage, percent, this.currentDamage));
             }
         }
 
@@ -173,18 +212,13 @@ namespace nseh.Gameplay.Combat
 
         private IEnumerator IncreaseDamageForSecondsInternal(float percent, float seconds)
         {
-            int counterSeconds = 0;
             var oldDamage = this.currentDamage;
 
-            while (counterSeconds < seconds)
-            {
-                this.IncreaseDamage(percent);
-                counterSeconds++;
+            this.IncreaseDamage(percent);
 
-                yield return new WaitForSeconds(1.0f);
-            }
+            yield return new WaitForSeconds(seconds);
 
-            Debug.Log("After " + seconds + " seconds, the damage has been restored to: " + oldDamage);
+            Debug.Log(string.Format("[{0}] damage of {1} has been restored to: {2}", this.AttackType.ToString(), this.gameObject.name, oldDamage));
 
             this.currentDamage = oldDamage;
         }
