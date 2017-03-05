@@ -232,7 +232,7 @@ namespace nseh.GameManager
                 _Clock.text = "";
                 Time.timeScale = 0;
                 _canvasGameOver.gameObject.SetActive(true);
-                _gameOverText = GameObject.Find("CanvasGameOver/PanelGameOver/TextGameOver").GetComponent<Text>();
+                _gameOverText = GameObject.Find("CanvasGameOver/ImageGameOver/TextGameOver").GetComponent<Text>();
                 _gameOverText.text = "Time's Up";
                 _isGameOver = true;
 

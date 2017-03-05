@@ -1,6 +1,8 @@
 ﻿using nseh.GameManager;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 public class MainMenuComponent : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class MainMenuComponent : MonoBehaviour
     public Button paladin;
     public Button demon;
     public Button prospector;
+    public EventSystem eventSystem;
+    public GameObject selectedGameObject;
 
     void Start()
     {
@@ -68,7 +72,8 @@ public class MainMenuComponent : MonoBehaviour
             demon.interactable = false;
             prospector.interactable = false;
             play.interactable = true;
-           // 
+            eventSystem.SetSelectedGameObject(selectedGameObject);
+            // 
         }
         else
         {
@@ -91,6 +96,7 @@ public class MainMenuComponent : MonoBehaviour
             demon.interactable = false;
             prospector.interactable = false;
             play.interactable = true;
+            eventSystem.SetSelectedGameObject(selectedGameObject);
 
         }
         else
@@ -114,6 +120,7 @@ public class MainMenuComponent : MonoBehaviour
             demon.interactable = false;
             prospector.interactable = false;
             play.interactable = true;
+            eventSystem.SetSelectedGameObject(selectedGameObject);
 
         }
         else
