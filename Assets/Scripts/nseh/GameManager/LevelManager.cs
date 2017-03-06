@@ -243,6 +243,7 @@ namespace nseh.GameManager
         public void Restart()
         {
             _isGameOver = false;
+            _isPaused = false;
             _timeRemaining = Constants.LevelManager.TIME_REMAINING;
             _canvasGameOver.gameObject.SetActive(false);
             _canvasIsPaused.gameObject.SetActive(false);
@@ -300,6 +301,7 @@ namespace nseh.GameManager
 
         public void GoToMainMenu()
         {
+            _isPaused = false;
             MyGame.ChangeState(GameManager.States.MainMenu);
         }
 

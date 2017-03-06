@@ -15,8 +15,9 @@ public class GameOverComponent : MonoBehaviour
 		_LevelManager.GoToMainMenu();
 	}
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
 		_LevelManager = GameManager.Instance.Find<LevelManager>();
 	}
 	
