@@ -179,15 +179,19 @@ namespace nseh.Gameplay.Movement
 
             this.anim.SetFloat(this.animParameters[Constants.H], this.horizontal);
             this.anim.SetBool(this.animParameters[Constants.GROUNDED], this.IsGrounded());
+
+            this.FlipCharacter(this.horizontal);
+            this.Move();
+            this.Jump();
         }
 
         private void FixedUpdate()
         {
-            this.FlipCharacter(this.horizontal);
+            //this.FlipCharacter(this.horizontal);
 
-            this.Move();
+            //this.Move();
 
-            this.Jump();
+            //this.Jump();
         }
 
         #region Main Logic
@@ -249,9 +253,6 @@ namespace nseh.Gameplay.Movement
                     Vector3 vLocalDirection = new Vector3(0.0f, this.body.velocity.y, this.jumpAirSpeed);
                     this.body.velocity = this.transform.TransformDirection(vLocalDirection);
                 }
-
-                // Stop animator
-                this.StopJumpAnimator();
             }
         }
 
@@ -274,6 +275,8 @@ namespace nseh.Gameplay.Movement
         {
             if (this.IsGrounded())
             {
+                // Stop jump animator when grounded
+                this.StopJumpAnimator();
                 this.currentIdleJump = false;
                 this.currentLocoJump = false;
 
@@ -301,12 +304,12 @@ namespace nseh.Gameplay.Movement
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(this.transform.position, 0.3f);
+            Gizmos.DrawWireSphere(this.transform.position, 0.35f);
         }
 
         public bool IsGrounded()
         {
-            return Physics.CheckSphere(this.transform.position, 0.3f, this.platformMask) && this.body.velocity.y <= 0.0f;
+            return Physics.CheckSphere(this.transform.position, 0.35f, this.platformMask) && this.body.velocity.y <= 0.1f;
         }
 
         private void StopJumpAnimator()
@@ -324,8 +327,6 @@ namespace nseh.Gameplay.Movement
 
         private void StartJumpAnimator()
         {
-            this.anim.SetBool(this.animParameters[Constants.GROUNDED], false);
-
             if (IsLocomotionState)
             {
                 this.anim.SetBool(this.animParameters[Constants.LOCOMOTION_JUMP], true);
