@@ -2,9 +2,12 @@
 using nseh.Gameplay.Base.Abstract.Entities;
 using nseh.Gameplay.Combat;
 using nseh.Utils.Helpers;
+using SpecialItems = nseh.Utils.Constants.Items.SpecialItems;
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace nseh.Gameplay.Entities.Environment.Items
 {
@@ -41,25 +44,25 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.Invulnerability:
 
                     this.Invulnerability(this.seconds);
-
+                    StartCoroutine(DisplayText(itemText, SpecialItems.INVULNERABILITY, 3));
                     break;
 
                 case SpecialChestType.AutomaticAttacks:
 
                     this.AutomaticAttacks(this.times);
-
+                    StartCoroutine(DisplayText(itemText, SpecialItems.AUTOATTACKS, 3));
                     break;
 
                 case SpecialChestType.CriticalDamage:
 
                     this.CriticalDamage(this.times);
-
+                    StartCoroutine(DisplayText(itemText, SpecialItems.CRITICAL, 3));
                     break;
 
                 case SpecialChestType.UnlockDefinitiveMode:
 
                     this.UnlockDefinitiveMode();
-
+                    StartCoroutine(DisplayText(itemText, SpecialItems.ULTIMATE, 3));
                     break;
 
                 default:

@@ -3,11 +3,13 @@ using nseh.Gameplay.Base.Abstract.Entities;
 using nseh.Gameplay.Combat;
 using nseh.Gameplay.Movement;
 using nseh.Utils.Helpers;
+using StandardItems = nseh.Utils.Constants.Items.StandardItems;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace nseh.Gameplay.Entities.Environment.Items
 {
@@ -55,31 +57,31 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Health:
 
                     this.IncreaseHealth(this.percent);
-
+                    StartCoroutine(DisplayText(itemText, StandardItems.HEALTH, 3));
                     break;
 
                 case StandardChestType.Damage:
 
                     this.IncreaseDamage(this.percent, this.time);
-
+                    StartCoroutine(DisplayText(itemText, StandardItems.DAMAGE, 3));
                     break;
 
                 case StandardChestType.Velocity:
 
                     this.IncreaseVelocity(this.percent, this.time);
-
+                    StartCoroutine(DisplayText(itemText, StandardItems.SPEED, 3));
                     break;
 
                 case StandardChestType.Jump:
 
                     this.IncreaseJump(this.percent, this.time);
-
+                    StartCoroutine(DisplayText(itemText, StandardItems.JUMP, 3));
                     break;
 
                 case StandardChestType.Defense:
 
                     this.SetUpDefense(this.time, this.hits);
-
+                    StartCoroutine(DisplayText(itemText, StandardItems.DEFENSE, 3));
                     break;
 
                 default:

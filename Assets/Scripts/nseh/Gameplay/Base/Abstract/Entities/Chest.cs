@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Base.Abstract.Entities
@@ -26,6 +28,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected GameObject target;
 		protected Collider collider;
 		protected Renderer renderer;
+        protected Text itemText;
 
 		#endregion
 
@@ -35,7 +38,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		{
 			this.collider = this.GetComponent<Collider>();
 			this.renderer = this.GetComponent<Renderer>();
-
+            this.itemText = GameObject.Find("CanvasItems/Text").GetComponent<Text>();
 			this.ResetUses();
 		}
 
@@ -101,6 +104,13 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 			this.transform.position = position;
 		}
 
-		#endregion
-	}
+        public IEnumerator DisplayText(Text text, string content, float time)
+        {
+            text.gameObject.SetActive(true);
+            text.text = content;
+            yield return new WaitForSeconds(time);
+            text.gameObject.SetActive(false);
+        }
+        #endregion
+    }
 }

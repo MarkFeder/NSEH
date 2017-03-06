@@ -1,9 +1,11 @@
 ﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Gameplay.Base.Abstract.Entities;
 using nseh.Gameplay.Movement;
+using DisadvantageItems = nseh.Utils.Constants.Items.DisadvantageItems;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace nseh.Gameplay.Entities.Environment.Items
 {
@@ -39,24 +41,24 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case DisadvantageChestType.ChestBomb:
 
                     this.ChestBomb(this.percent);
-
+                    StartCoroutine(DisplayText(itemText, DisadvantageItems.BOMBCHEST, 3));
                     break;
 
                 case DisadvantageChestType.PoisonCloud:
 
                     this.PoisonCloud(this.percent, this.seconds);
-
+                    StartCoroutine(DisplayText(itemText, DisadvantageItems.POISONCLOUD, 3));
                     break;
 
                 case DisadvantageChestType.ConfusedPotion:
 
                     this.ConfusedPotion(this.seconds);
-
+                    StartCoroutine(DisplayText(itemText, DisadvantageItems.CONFUSION, 3));
                     break;
 
                 default:
 
-                    Debug.Log("No StandardChestType is detected");
+                    Debug.Log("No DisadvantageChestType is detected");
 
                     break;
             }

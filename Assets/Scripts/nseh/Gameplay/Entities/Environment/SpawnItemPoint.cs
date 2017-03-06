@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using nseh.GameManager;
 using nseh.Gameplay.Gameflow;
 using nseh.Gameplay.Entities.Environment.Items;
+using nseh.Utils;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace nseh.Gameplay.Entities.Environment
 {
@@ -18,6 +20,8 @@ namespace nseh.Gameplay.Entities.Environment
         private List<GameObject> SpecialItems;
         [SerializeField]
         private List<GameObject> DisadvantageItems;
+        [SerializeField]
+        private Text spawnText;
         
         /*
         [SerializeField]
@@ -36,6 +40,7 @@ namespace nseh.Gameplay.Entities.Environment
         {
             instanced = false;
             GameObject _spawnItemPoint = this.gameObject;
+            spawnText.gameObject.SetActive(false);
             _itemSpawnEvent = GameManager.GameManager.Instance.Find<LevelManager>().Find<ItemSpawn_Event>();
             _itemSpawnEvent.RegisterSpawnItemPoint(_spawnItemPoint);
         }
@@ -84,6 +89,7 @@ namespace nseh.Gameplay.Entities.Environment
                 instancedItem = Instantiate(DisadvantageItems[randomDisadvantageItem], this.transform.position, this.transform.rotation);
             }
             Debug.Log("Item spawned");
+            StartCoroutine(DisplayText(spawnText, Constants.Items.SPAWN_ALERT, 2));
             _itemSpawnEvent.toggleSpawn();
             instanced = true;
         }
@@ -102,6 +108,14 @@ namespace nseh.Gameplay.Entities.Environment
             var states = System.Enum.GetValues(typeof(T));
             T chosenState = (T)states.GetValue(Random.Range(0, states.Length));
             return chosenState;
+        }
+
+        private IEnumerator DisplayText(Text text, string content, float time)
+        {
+            text.gameObject.SetActive(true);
+            text.text = content;
+            yield return new WaitForSeconds(time);
+            text.gameObject.SetActive(false);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace nseh.Gameplay.Gameflow
     public class ItemSpawn_Event : LevelEvent
     {
         List<GameObject> _spawnItemPoints;
-        float eventStart = 3.0f;
+        float eventStart = Constants.Events.ItemSpawn_Event.EVENT_START;
         private float elapsedTime;
         private SpawnItemPoint lastSpawnItemPoint;
         private bool canSpawn;

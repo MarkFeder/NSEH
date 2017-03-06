@@ -58,6 +58,40 @@
                 public const float EVENT_DURATION_INCREASE = 5.0f;
                 public const float EVENT_DURATION_MAX = 45.0f;
             }
+
+            public static class ItemSpawn_Event
+            {
+                public const float EVENT_START = 3.0f;
+            }
+        }
+
+        public static class Items
+        {
+            public const string SPAWN_ALERT = "A WILD ITEM APPEARED!!";
+
+            public static class StandardItems
+            {
+                public const string HEALTH = "HEAL ME PLS!";
+                public const string DAMAGE = "Sharp Pointy Things";
+                public const string JUMP = "Fly! Or try it at least…";
+                public const string SPEED = "Run, Forest, run!";
+                public const string DEFENSE = "Harder skin!";
+            }
+
+            public static class SpecialItems
+            {
+                public const string INVULNERABILITY = "INSERT STAR MUSIC HERE";
+                public const string AUTOATTACKS = "Why do you punch yourself?";
+                public const string CRITICAL = "This hurts you way more than it hurts me.";
+                public const string ULTIMATE = "NEW TOY!";
+            }
+
+            public static class DisadvantageItems
+            {
+                public const string BOMBCHEST = "BOOOOOM!";
+                public const string POISONCLOUD = "Why did it have to be snakes?!";
+                public const string CONFUSION = "Dyslexia topion";
+            }
         }
 
         public static class Layers
