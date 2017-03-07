@@ -29,6 +29,7 @@ namespace nseh.Gameplay.Gameflow
             if(lastSpawnItemPoint != null)
             {
                 lastSpawnItemPoint.flushItem();
+                lastSpawnItemPoint.flushText();
                 lastSpawnItemPoint = null;
             }
             canSpawn = true;

@@ -103,6 +103,14 @@ namespace nseh.Gameplay.Entities.Environment
             }
         }
 
+        public void flushText()
+        {
+            if (spawnText.gameObject.activeSelf)
+            {
+                spawnText.gameObject.SetActive(false);
+            }
+        }
+
         private T GetRandomEnum<T>()
         {
             var states = System.Enum.GetValues(typeof(T));
