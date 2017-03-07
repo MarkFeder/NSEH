@@ -516,13 +516,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1921041047189448}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -23.65, y: 15.6, z: 0.252}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -22.41, y: 15.03, z: 0.252}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4080076375069884}
   m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4291867105117920
 Transform:
   m_ObjectHideFlags: 1
@@ -594,13 +594,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011737526515982}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.65, y: 17.32, z: 0.029}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 10.05, y: 16.87, z: 0.029}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4080076375069884}
   m_RootOrder: 18
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4510496971925222
 Transform:
   m_ObjectHideFlags: 1
@@ -750,13 +750,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1566385431063008}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.34, y: 6.7, z: -0.102}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -3.14, y: 6.25, z: -0.102}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4080076375069884}
   m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4924796480214038
 Transform:
   m_ObjectHideFlags: 1
@@ -1642,20 +1642,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StandardItems:
-  - {fileID: 1909943378841928, guid: d03dd17c71aff11438607b662cf14f1c, type: 2}
-  - {fileID: 1909943378841928, guid: bc040045ccc0bc949b51a87e13c0f1a1, type: 2}
-  - {fileID: 1909943378841928, guid: fafb32c7629f4ac458f6440a4eee16fe, type: 2}
-  - {fileID: 1909943378841928, guid: 8e2e1db1e9bad21469e40965c8a95fd7, type: 2}
-  - {fileID: 1909943378841928, guid: 3536f71320251df46ae3a6dee69c3875, type: 2}
+  - {fileID: 1319342106009346, guid: 62d963c44344cd4499821d0ef5816a66, type: 2}
+  - {fileID: 1319342106009346, guid: 86cb3f819af7027498ea5614923eafc0, type: 2}
+  - {fileID: 1319342106009346, guid: 5855c595db8ef2f46b10b54cdc7e9d5b, type: 2}
+  - {fileID: 1319342106009346, guid: 76924fcf2683fa64f9a4ddbb39a2f728, type: 2}
+  - {fileID: 1319342106009346, guid: 052a899e83b01a94eba08c3c18f7fba4, type: 2}
   SpecialItems:
-  - {fileID: 1521921138799182, guid: fe42a5010b8465a4da740eed85c7c864, type: 2}
-  - {fileID: 1521921138799182, guid: 1ba2e0a93cf4a2e4c9f14ccc644d3b37, type: 2}
-  - {fileID: 1521921138799182, guid: 316599dec4ac94c4fb0cd22f660b26ae, type: 2}
-  - {fileID: 1521921138799182, guid: c59260962d688db4b8dae4cc3655815f, type: 2}
+  - {fileID: 1942850695741932, guid: f7fcf50b142cc114caadc9502181da89, type: 2}
+  - {fileID: 1942850695741932, guid: 2ee30f23ab4560540b8949d44de347f2, type: 2}
+  - {fileID: 1942850695741932, guid: 25ceab6b0a347d646a0aac2b8a360ce3, type: 2}
+  - {fileID: 1942850695741932, guid: e15568a159b64b040ab28bace4199098, type: 2}
   DisadvantageItems:
-  - {fileID: 1283185562428452, guid: fabbb0427ee05db4faafc58265b0bada, type: 2}
-  - {fileID: 1283185562428452, guid: ed3d36608113782478bb45bda4e408f7, type: 2}
-  - {fileID: 1283185562428452, guid: d91b03886bd7e924196b00cd5c28204b, type: 2}
+  - {fileID: 1942850695741932, guid: f37fb0e778fecbd4bbd6c15314e3d8b3, type: 2}
+  - {fileID: 1942850695741932, guid: b980c511a69174f4d8e94aee6d9f5685, type: 2}
+  - {fileID: 1942850695741932, guid: 37593a5daa5d5954da3aa427846c1fb8, type: 2}
   spawnText: {fileID: 0}
 --- !u!114 &114430637140126432
 MonoBehaviour:
@@ -1684,20 +1684,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StandardItems:
-  - {fileID: 1909943378841928, guid: d03dd17c71aff11438607b662cf14f1c, type: 2}
-  - {fileID: 1909943378841928, guid: bc040045ccc0bc949b51a87e13c0f1a1, type: 2}
-  - {fileID: 1909943378841928, guid: fafb32c7629f4ac458f6440a4eee16fe, type: 2}
-  - {fileID: 1909943378841928, guid: 8e2e1db1e9bad21469e40965c8a95fd7, type: 2}
-  - {fileID: 1909943378841928, guid: 3536f71320251df46ae3a6dee69c3875, type: 2}
+  - {fileID: 1319342106009346, guid: 62d963c44344cd4499821d0ef5816a66, type: 2}
+  - {fileID: 1319342106009346, guid: 86cb3f819af7027498ea5614923eafc0, type: 2}
+  - {fileID: 1319342106009346, guid: 5855c595db8ef2f46b10b54cdc7e9d5b, type: 2}
+  - {fileID: 1319342106009346, guid: 76924fcf2683fa64f9a4ddbb39a2f728, type: 2}
+  - {fileID: 1319342106009346, guid: 052a899e83b01a94eba08c3c18f7fba4, type: 2}
   SpecialItems:
-  - {fileID: 1521921138799182, guid: fe42a5010b8465a4da740eed85c7c864, type: 2}
-  - {fileID: 1521921138799182, guid: 1ba2e0a93cf4a2e4c9f14ccc644d3b37, type: 2}
-  - {fileID: 1521921138799182, guid: 316599dec4ac94c4fb0cd22f660b26ae, type: 2}
-  - {fileID: 1521921138799182, guid: c59260962d688db4b8dae4cc3655815f, type: 2}
+  - {fileID: 1942850695741932, guid: f7fcf50b142cc114caadc9502181da89, type: 2}
+  - {fileID: 1942850695741932, guid: 2ee30f23ab4560540b8949d44de347f2, type: 2}
+  - {fileID: 1942850695741932, guid: 25ceab6b0a347d646a0aac2b8a360ce3, type: 2}
+  - {fileID: 1942850695741932, guid: e15568a159b64b040ab28bace4199098, type: 2}
   DisadvantageItems:
-  - {fileID: 1283185562428452, guid: fabbb0427ee05db4faafc58265b0bada, type: 2}
-  - {fileID: 1283185562428452, guid: ed3d36608113782478bb45bda4e408f7, type: 2}
-  - {fileID: 1283185562428452, guid: d91b03886bd7e924196b00cd5c28204b, type: 2}
+  - {fileID: 1942850695741932, guid: f37fb0e778fecbd4bbd6c15314e3d8b3, type: 2}
+  - {fileID: 1942850695741932, guid: b980c511a69174f4d8e94aee6d9f5685, type: 2}
+  - {fileID: 1942850695741932, guid: 37593a5daa5d5954da3aa427846c1fb8, type: 2}
   spawnText: {fileID: 0}
 --- !u!114 &114930730504255582
 MonoBehaviour:
@@ -1711,18 +1711,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StandardItems:
-  - {fileID: 1909943378841928, guid: d03dd17c71aff11438607b662cf14f1c, type: 2}
-  - {fileID: 1909943378841928, guid: bc040045ccc0bc949b51a87e13c0f1a1, type: 2}
-  - {fileID: 1909943378841928, guid: fafb32c7629f4ac458f6440a4eee16fe, type: 2}
-  - {fileID: 1909943378841928, guid: 8e2e1db1e9bad21469e40965c8a95fd7, type: 2}
-  - {fileID: 1909943378841928, guid: 3536f71320251df46ae3a6dee69c3875, type: 2}
+  - {fileID: 1319342106009346, guid: 62d963c44344cd4499821d0ef5816a66, type: 2}
+  - {fileID: 1319342106009346, guid: 86cb3f819af7027498ea5614923eafc0, type: 2}
+  - {fileID: 1319342106009346, guid: 5855c595db8ef2f46b10b54cdc7e9d5b, type: 2}
+  - {fileID: 1319342106009346, guid: 76924fcf2683fa64f9a4ddbb39a2f728, type: 2}
+  - {fileID: 1319342106009346, guid: 052a899e83b01a94eba08c3c18f7fba4, type: 2}
   SpecialItems:
-  - {fileID: 1521921138799182, guid: fe42a5010b8465a4da740eed85c7c864, type: 2}
-  - {fileID: 1521921138799182, guid: 1ba2e0a93cf4a2e4c9f14ccc644d3b37, type: 2}
-  - {fileID: 1521921138799182, guid: 316599dec4ac94c4fb0cd22f660b26ae, type: 2}
-  - {fileID: 1521921138799182, guid: c59260962d688db4b8dae4cc3655815f, type: 2}
+  - {fileID: 1942850695741932, guid: f7fcf50b142cc114caadc9502181da89, type: 2}
+  - {fileID: 1942850695741932, guid: 2ee30f23ab4560540b8949d44de347f2, type: 2}
+  - {fileID: 1942850695741932, guid: 25ceab6b0a347d646a0aac2b8a360ce3, type: 2}
+  - {fileID: 1942850695741932, guid: e15568a159b64b040ab28bace4199098, type: 2}
   DisadvantageItems:
-  - {fileID: 1283185562428452, guid: fabbb0427ee05db4faafc58265b0bada, type: 2}
-  - {fileID: 1283185562428452, guid: ed3d36608113782478bb45bda4e408f7, type: 2}
-  - {fileID: 1283185562428452, guid: d91b03886bd7e924196b00cd5c28204b, type: 2}
+  - {fileID: 1942850695741932, guid: f37fb0e778fecbd4bbd6c15314e3d8b3, type: 2}
+  - {fileID: 1942850695741932, guid: b980c511a69174f4d8e94aee6d9f5685, type: 2}
+  - {fileID: 1942850695741932, guid: 37593a5daa5d5954da3aa427846c1fb8, type: 2}
   spawnText: {fileID: 0}

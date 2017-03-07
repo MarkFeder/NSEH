@@ -1788,9 +1788,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useGamepad: 0
   gamepadIndex: 1
-  dampAir: 0.5
-  jumpAirSpeed: 2
-  jumpHeight: 10
+  dampAir: 0.75
+  jumpAirSpeed: 5
+  jumpHeight: 8
   gravity: 0
   speed: 5
 --- !u!114 &114381858855819798
