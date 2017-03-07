@@ -37,6 +37,7 @@ namespace nseh.Gameplay.Movement
 
         public bool useGamepad = false;
         public int gamepadIndex;
+        public bool teletrasported = false;
 
         [Range(0, 1)]
         public float dampAir;
