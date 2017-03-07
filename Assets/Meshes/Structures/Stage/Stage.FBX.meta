@@ -1,106 +1,112 @@
 fileFormatVersion: 2
-guid: 5b11b3685b4ee124e8c5d900060cb427
-timeCreated: 1487634970
+guid: 80f9e9ae63f2c3144b7fc3bd5cf0cb8c
+timeCreated: 1488911352
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Box190
-    100002: Box192
-    100004: Box193
-    100006: Box194
-    100008: Box195
-    100010: casaAarena014
-    100012: casaArena
-    100014: casaPicapiedra
-    100016: CasasArenaGeneral001
-    100018: Central_Down
-    100020: Central_Up
-    100022: Escalon003
-    100024: Escalon004
-    100026: EscalonesCasaGrandeArena001
-    100028: "EstructuraCasaArenaPeque\xF1a001"
-    100030: Ground
-    100032: Left_Down
-    100034: Left_Stone
-    100036: Left_Up
-    100038: Object001
-    100040: platform-problem
-    100042: Right_Down
-    100044: Right_Stone
-    100046: Right_Up
-    100048: Sphere219
-    100050: //RootNode
-    100052: Stage_Left
-    100054: Stage_Right
-    100056: "sueloCasaPeque\xF1a001"
-    400000: Box190
-    400002: Box192
-    400004: Box193
-    400006: Box194
-    400008: Box195
-    400010: casaAarena014
-    400012: casaArena
-    400014: casaPicapiedra
-    400016: CasasArenaGeneral001
-    400018: Central_Down
-    400020: Central_Up
-    400022: Escalon003
-    400024: Escalon004
-    400026: EscalonesCasaGrandeArena001
-    400028: "EstructuraCasaArenaPeque\xF1a001"
-    400030: Ground
-    400032: Left_Down
-    400034: Left_Stone
-    400036: Left_Up
-    400038: Object001
-    400040: platform-problem
-    400042: Right_Down
-    400044: Right_Stone
-    400046: Right_Up
-    400048: Sphere219
-    400050: //RootNode
-    400052: Stage_Left
-    400054: Stage_Right
-    400056: "sueloCasaPeque\xF1a001"
-    2300000: Box192
-    2300002: Box193
-    2300004: Box194
-    2300006: Box195
-    2300008: casaPicapiedra
-    2300010: Central_Down
-    2300012: Central_Up
-    2300014: Escalon003
-    2300016: Ground
-    2300018: Left_Down
-    2300020: Left_Stone
-    2300022: Left_Up
-    2300024: Object001
-    2300026: platform-problem
-    2300028: Right_Down
-    2300030: Right_Stone
-    2300032: Right_Up
-    2300034: Stage_Left
-    2300036: Stage_Right
-    3300000: Box192
-    3300002: Box193
-    3300004: Box194
-    3300006: Box195
-    3300008: casaPicapiedra
-    3300010: Central_Down
-    3300012: Central_Up
-    3300014: Escalon003
-    3300016: Ground
-    3300018: Left_Down
-    3300020: Left_Stone
-    3300022: Left_Up
-    3300024: Object001
-    3300026: platform-problem
-    3300028: Right_Down
-    3300030: Right_Stone
-    3300032: Right_Up
-    3300034: Stage_Left
-    3300036: Stage_Right
+    100000: central_base
+    100002: Central_Down
+    100004: Central_Up
+    100006: Door_Cone
+    100008: Door_Flintstones
+    100010: Door_Sand
+    100012: Door_Shack
+    100014: Ground
+    100016: House_Cone
+    100018: House_Flintstones
+    100020: House_Sand
+    100022: House_Shack
+    100024: Left_Down
+    100026: Left_Stone
+    100028: Left_Up
+    100030: Right_Down
+    100032: Right_pillars
+    100034: Right_Stone
+    100036: Right_Up
+    100038: Right_Up 2
+    100040: //RootNode
+    100042: Stage_Left
+    100044: Stage_Right
+    100046: Tar
+    100048: Tunnel
+    100050: wall_central
+    400000: central_base
+    400002: Central_Down
+    400004: Central_Up
+    400006: Door_Cone
+    400008: Door_Flintstones
+    400010: Door_Sand
+    400012: Door_Shack
+    400014: Ground
+    400016: House_Cone
+    400018: House_Flintstones
+    400020: House_Sand
+    400022: House_Shack
+    400024: Left_Down
+    400026: Left_Stone
+    400028: Left_Up
+    400030: Right_Down
+    400032: Right_pillars
+    400034: Right_Stone
+    400036: Right_Up
+    400038: Right_Up 2
+    400040: //RootNode
+    400042: Stage_Left
+    400044: Stage_Right
+    400046: Tar
+    400048: Tunnel
+    400050: wall_central
+    2300000: central_base
+    2300002: Central_Down
+    2300004: Central_Up
+    2300006: Door_Cone
+    2300008: Door_Flintstones
+    2300010: Door_Sand
+    2300012: Door_Shack
+    2300014: Ground
+    2300016: House_Cone
+    2300018: House_Flintstones
+    2300020: House_Sand
+    2300022: House_Shack
+    2300024: Left_Down
+    2300026: Left_Stone
+    2300028: Left_Up
+    2300030: Right_Down
+    2300032: Right_pillars
+    2300034: Right_Stone
+    2300036: Right_Up
+    2300038: Right_Up 2
+    2300040: Stage_Left
+    2300042: Stage_Right
+    2300044: Tar
+    2300046: Tunnel
+    2300048: wall_central
+    3300000: central_base
+    3300002: Central_Down
+    3300004: Central_Up
+    3300006: Door_Cone
+    3300008: Door_Flintstones
+    3300010: Door_Sand
+    3300012: Door_Shack
+    3300014: Ground
+    3300016: House_Cone
+    3300018: House_Flintstones
+    3300020: House_Sand
+    3300022: House_Shack
+    3300024: Left_Down
+    3300026: Left_Stone
+    3300028: Left_Up
+    3300030: Right_Down
+    3300032: Right_pillars
+    3300034: Right_Stone
+    3300036: Right_Up
+    3300038: Right_Up 2
+    3300040: Stage_Left
+    3300042: Stage_Right
+    3300044: Tar
+    3300046: Tunnel
+    3300048: wall_central
     4300000: Ground
     4300002: Stage_Right
     4300004: Left_Stone
@@ -108,18 +114,24 @@ ModelImporter:
     4300008: Right_Down
     4300010: Central_Down
     4300012: Right_Stone
-    4300014: Left_Up
-    4300016: Right_Up
-    4300018: Object001
-    4300020: Left_Down
-    4300022: Stage_Left
-    4300024: platform-problem
-    4300026: casaPicapiedra
-    4300028: Escalon003
-    4300030: Box192
-    4300032: Box193
-    4300034: Box194
-    4300036: Box195
+    4300014: Right_Up
+    4300016: Left_Up
+    4300018: Left_Down
+    4300020: Stage_Left
+    4300022: House_Flintstones
+    4300024: House_Shack
+    4300026: House_Sand
+    4300028: House_Cone
+    4300030: wall_central
+    4300032: central_base
+    4300034: Right_pillars
+    4300036: Tunnel
+    4300038: Door_Shack
+    4300040: Door_Flintstones
+    4300042: Door_Cone
+    4300044: Door_Sand
+    4300046: Tar
+    4300048: Right_Up 2
     9500000: //RootNode
   materials:
     importMaterials: 1
