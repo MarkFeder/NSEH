@@ -41,7 +41,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
         {
             base.Start();
 
-            //this.CheckTimes();
+            this.CheckTimes();
         }
 
         protected override void Activate()
@@ -100,14 +100,14 @@ namespace nseh.Gameplay.Entities.Environment.Items
         }
 
         #region Private Methods
-        /*
+        
         private void CheckTimes()
         {
             if (this.chestType == StandardChestType.Damage && this.time >= this.destructionTime)
             {
                 Debug.LogError("Error, time must be less than destruction time");
             }
-        }*/
+        }
 
         private IEnumerator SetUpDefense(float time, int hits)
         {

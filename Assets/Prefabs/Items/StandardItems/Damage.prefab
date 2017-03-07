@@ -109,7 +109,7 @@ MonoBehaviour:
   animation: {fileID: 0}
   sound: {fileID: 0}
   particle: {fileID: 0}
-  destructionTime: 0
+  destructionTime: 4
   uses: 1
   displayName: 
   chestType: 2
