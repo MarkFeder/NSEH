@@ -107,8 +107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animation: {fileID: 0}
-  sound: {fileID: 0}
-  particle: {fileID: 0}
+  sound: {fileID: 8300000, guid: a4a9327e98855524c846cc8e2f559e96, type: 3}
+  particlePrefab: {fileID: 1071934384311410, guid: a335bf16348b3ce4e93a0ec4967e2c4e,
+    type: 2}
   destructionTime: 0
   uses: 1
   displayName: 

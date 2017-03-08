@@ -45,29 +45,37 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.Invulnerability(this.seconds);
                     StartCoroutine(DisplayText(itemText, SpecialItems.INVULNERABILITY, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, this.seconds));
+                    ParticleAnimation(particlePrefab, this.seconds);
                     break;
 
                 case SpecialChestType.AutomaticAttacks:
 
                     this.AutomaticAttacks(this.times);
                     StartCoroutine(DisplayText(itemText, SpecialItems.AUTOATTACKS, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, 3));
+                    ParticleAnimation(particlePrefab, 3);
                     break;
 
                 case SpecialChestType.CriticalDamage:
 
                     this.CriticalDamage(this.times);
                     StartCoroutine(DisplayText(itemText, SpecialItems.CRITICAL, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, 3));
+                    ParticleAnimation(particlePrefab, 3);
                     break;
 
                 case SpecialChestType.UnlockDefinitiveMode:
 
                     this.UnlockDefinitiveMode();
                     StartCoroutine(DisplayText(itemText, SpecialItems.ULTIMATE, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, 1));
+                    ParticleAnimation(particlePrefab, 1);
                     break;
 
                 default:
 
-                    Debug.Log("No StandardChestType is detected");
+                    Debug.Log("No SpecialChestType is detected");
 
                     break;
             }

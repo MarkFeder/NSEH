@@ -42,18 +42,24 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.ChestBomb(this.percent);
                     StartCoroutine(DisplayText(itemText, DisadvantageItems.BOMBCHEST, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, 1));
+                    ParticleAnimation(particlePrefab, 1);
                     break;
 
                 case DisadvantageChestType.PoisonCloud:
 
                     this.PoisonCloud(this.percent, this.seconds);
                     StartCoroutine(DisplayText(itemText, DisadvantageItems.POISONCLOUD, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, this.seconds));
+                    ParticleAnimation(particlePrefab, this.seconds);
                     break;
 
                 case DisadvantageChestType.ConfusedPotion:
 
                     this.ConfusedPotion(this.seconds);
                     StartCoroutine(DisplayText(itemText, DisadvantageItems.CONFUSION, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, this.seconds));
+                    ParticleAnimation(particlePrefab, this.seconds);
                     break;
 
                 default:

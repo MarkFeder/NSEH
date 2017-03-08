@@ -58,30 +58,40 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.IncreaseHealth(this.percent);
                     StartCoroutine(DisplayText(itemText, StandardItems.HEALTH, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, 1.5f));
+                    ParticleAnimation(particlePrefab, 1.5f);
                     break;
 
                 case StandardChestType.Damage:
 
                     this.IncreaseDamage(this.percent, this.time);
                     StartCoroutine(DisplayText(itemText, StandardItems.DAMAGE, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, this.time));
+                    ParticleAnimation(particlePrefab, this.time);
                     break;
 
                 case StandardChestType.Velocity:
 
                     this.IncreaseVelocity(this.percent, this.time);
                     StartCoroutine(DisplayText(itemText, StandardItems.SPEED, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, this.time));
+                    ParticleAnimation(particlePrefab, this.time);
                     break;
 
                 case StandardChestType.Jump:
 
                     this.IncreaseJump(this.percent, this.time);
                     StartCoroutine(DisplayText(itemText, StandardItems.JUMP, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, this.time));
+                    ParticleAnimation(particlePrefab, this.time);
                     break;
 
                 case StandardChestType.Defense:
 
                     this.SetUpDefense(this.time, this.hits);
                     StartCoroutine(DisplayText(itemText, StandardItems.DEFENSE, 3));
+                    //StartCoroutine(ParticleAnimation(particlePrefab, this.time));
+                    ParticleAnimation(particlePrefab, this.time);
                     break;
 
                 default:
