@@ -12,6 +12,7 @@ namespace nseh.Gameplay.Movement
 
         [SerializeField]
         private List<GameObject> TeleportPoints;
+        private bool m_isAxisInUse = false;
         // Use this for initialization
         void Start()
         {
@@ -31,13 +32,14 @@ namespace nseh.Gameplay.Movement
 
         private void OnTriggerStay(Collider other)
         {
-            Debug.Log("dsadas"+ other.GetComponent<PlayerMovement>().teletrasported);
-            if (Input.GetAxis("Vertical") > 0 && other.GetComponent<PlayerMovement>().teletrasported == false)
+           
+            if ((Input.GetKeyDown(KeyCode.W)|| Input.GetKeyDown(KeyCode.UpArrow)) && other.GetComponent<PlayerMovement>().teletrasported == false)
             {
-                other.GetComponent<PlayerMovement>().teletrasported = true;
-                Debug.Log(Input.GetAxis("Vertical"));
-                int randomStandardItem = (int)Random.Range(0, TeleportPoints.Count);
-                other.transform.position = new Vector3(TeleportPoints[randomStandardItem].transform.position.x, TeleportPoints[randomStandardItem].transform.position.y, other.transform.position.z);
+                    other.GetComponent<PlayerMovement>().teletrasported = true;
+                    int randomTeleportPoint = (int)Random.Range(0, TeleportPoints.Count);
+                    Debug.Log(TeleportPoints[randomTeleportPoint].name);
+                    other.transform.position = new Vector3(TeleportPoints[randomTeleportPoint].transform.position.x, TeleportPoints[randomTeleportPoint].transform.position.y, other.transform.position.z);    
+                 
             }
 
             
@@ -45,9 +47,10 @@ namespace nseh.Gameplay.Movement
 
         private void OnTriggerExit(Collider other)
         {
-            if (Input.GetAxis("Horizontal") !=0 || other.GetComponent<Rigidbody>().velocity.y!=0)
+            if (Input.GetAxis("Horizontal") !=0 || other.GetComponent<Rigidbody>().velocity.y>0)
             {
                 other.GetComponent<PlayerMovement>().teletrasported = false;
+
             }
         }
     }
