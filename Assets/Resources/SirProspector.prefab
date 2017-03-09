@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 4821269731056822}
   - component: {fileID: 33219398352838832}
   - component: {fileID: 23363563109989742}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pala
   m_TagString: Weapon
   m_Icon: {fileID: 0}
