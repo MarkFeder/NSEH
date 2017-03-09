@@ -45,7 +45,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.Invulnerability(this.seconds);
                     StartCoroutine(this.DisplayText(itemText, SpecialItems.INVULNERABILITY));
-                    this.ParticleAnimation(this.particlePrefab, this.seconds);
+                    this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -53,7 +53,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.AutomaticAttacks(this.times);
                     StartCoroutine(this.DisplayText(itemText, SpecialItems.AUTOATTACKS));
-                    this.ParticleAnimation(particlePrefab, 3.0f);
+                    this.ParticleAnimation(particlePrefab, 3.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -61,7 +61,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.CriticalDamage(this.times);
                     StartCoroutine(this.DisplayText(itemText, SpecialItems.CRITICAL));
-                    this.ParticleAnimation(this.particlePrefab, 3.0f);
+                    this.ParticleAnimation(this.particlePrefab, 3.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -69,7 +69,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.UnlockDefinitiveMode();
                     StartCoroutine(this.DisplayText(itemText, SpecialItems.ULTIMATE));
-                    this.ParticleAnimation(this.particlePrefab, 1.0f);
+                    this.ParticleAnimation(this.particlePrefab, 1.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 

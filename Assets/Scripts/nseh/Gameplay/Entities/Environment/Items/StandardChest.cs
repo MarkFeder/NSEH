@@ -56,7 +56,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.IncreaseHealth(this.percent);
                     StartCoroutine(this.DisplayText(this.itemText, StandardItems.HEALTH));
-                    this.ParticleAnimation(particlePrefab, 1.5f);
+                    this.ParticleAnimation(particlePrefab, 1.5f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -64,7 +64,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.IncreaseDamage(this.percent, this.time);
                     StartCoroutine(this.DisplayText(this.itemText, StandardItems.DAMAGE));
-                    this.ParticleAnimation(particlePrefab, this.time);
+                    this.ParticleAnimation(particlePrefab, this.time, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -72,7 +72,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.IncreaseVelocity(this.percent, this.time);
                     StartCoroutine(this.DisplayText(this.itemText, StandardItems.SPEED));
-                    this.ParticleAnimation(particlePrefab, this.time);
+                    this.ParticleAnimation(particlePrefab, this.time, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -80,7 +80,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.IncreaseJump(this.percent, this.time);
                     StartCoroutine(this.DisplayText(this.itemText, StandardItems.JUMP));
-                    this.ParticleAnimation(particlePrefab, this.time);
+                    this.ParticleAnimation(particlePrefab, this.time, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -88,7 +88,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.SetUpDefense(this.time, this.hits);
                     StartCoroutine(this.DisplayText(this.itemText, StandardItems.DEFENSE));
-                    this.ParticleAnimation(particlePrefab, this.time);
+                    this.ParticleAnimation(particlePrefab, this.time, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 

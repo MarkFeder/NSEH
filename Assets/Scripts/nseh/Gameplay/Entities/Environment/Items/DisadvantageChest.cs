@@ -42,7 +42,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.ChestBomb(this.percent);
                     StartCoroutine(this.DisplayText(itemText, DisadvantageItems.BOMBCHEST));
-                    this.ParticleAnimation(this.particlePrefab, 1.0f);
+                    this.ParticleAnimation(this.particlePrefab, 1.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -50,7 +50,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.PoisonCloud(this.percent, this.seconds);
                     StartCoroutine(this.DisplayText(itemText, DisadvantageItems.POISONCLOUD));
-                    ParticleAnimation(this.particlePrefab, this.seconds);
+                    ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -58,7 +58,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     this.ConfusedPotion(this.seconds);
                     StartCoroutine(this.DisplayText(itemText, DisadvantageItems.CONFUSION));
-                    this.ParticleAnimation(this.particlePrefab, this.seconds);
+                    this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleHeadPos);
 
                     break;
 

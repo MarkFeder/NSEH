@@ -111,6 +111,7 @@ MonoBehaviour:
   particlePrefab: {fileID: 1757706213660700, guid: 973b3c99c8a133d4fa6a96744a4681c4,
     type: 2}
   destructionTime: 4
+  timeToDisplayText: 3
   uses: 1
   displayName: 
   chestType: 2

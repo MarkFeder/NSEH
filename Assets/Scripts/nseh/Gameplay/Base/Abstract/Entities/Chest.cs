@@ -28,6 +28,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected int currentUses;
 
 		protected GameObject target;
+        protected PlayerEffects particlesSpawnPoints;
 		protected Collider collider;
 		protected Renderer renderer;
 		protected Text itemText;
@@ -76,6 +77,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 				{
 					this.currentUses++;
 					this.target = other.gameObject;
+                    this.particlesSpawnPoints = target.GetComponent<PlayerEffects>();
 
 					this.PlaySoundAtPlayer(this.sound);
 					this.Activate();
@@ -89,12 +91,12 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 			}
 		}
 
-		protected void ParticleAnimation(GameObject particle, float time)
+		protected void ParticleAnimation(GameObject particle, float timeToDisplayParticles, Transform particlesPos)
 		{
-			GameObject particleGameObject = Instantiate(particle, this.target.transform.position, this.target.transform.rotation, this.target.transform);
+			GameObject particleGameObject = Instantiate(particle, particlesPos.position, particlesPos.rotation, this.target.transform);
 			particleGameObject.GetComponent<ParticleSystem>().Play();
 
-			Destroy(particleGameObject, time);
+			Destroy(particleGameObject, timeToDisplayParticles);
 		}
 
 		protected void PlaySoundAtPlayer(AudioClip clip)
