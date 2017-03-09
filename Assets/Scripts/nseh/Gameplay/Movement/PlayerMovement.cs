@@ -30,20 +30,18 @@ namespace nseh.Gameplay.Movement
 
         private float horizontal;
         private float vertical;
+        private float gravity;
 
         #endregion
 
         #region Public Properties
 
-        public bool useGamepad = false;
         public int gamepadIndex;
-        public bool teletrasported = false;
 
         [Range(0, 1)]
         public float dampAir;
         public float jumpAirSpeed;
         public float jumpHeight;
-        public float gravity;
         public float speed;
 
         #endregion
@@ -95,6 +93,8 @@ namespace nseh.Gameplay.Movement
                 return this.body.velocity.y < 0.0f;
             }
         }
+
+        public bool Teletransported { get; set; }
 
         #endregion
 
@@ -151,6 +151,7 @@ namespace nseh.Gameplay.Movement
             this.body.isKinematic = false;
 
             this.facingRight = true;
+            this.Teletransported = false;
             this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
         }
 
@@ -172,8 +173,8 @@ namespace nseh.Gameplay.Movement
 
         private void Update()
         {
-            this.horizontal = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_HORIZONTAL_KEYBOARD);
-            this.vertical = (this.useGamepad) ? Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex)) : Input.GetAxis(Inputs.AXIS_VERTICAL_KEYBOARD);
+            this.horizontal = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex));
+            this.vertical = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex));
 
             this.movePressed = Mathf.Abs(this.horizontal) > 0.1f;
             this.jumpPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex));
@@ -184,15 +185,6 @@ namespace nseh.Gameplay.Movement
             this.FlipCharacter(this.horizontal);
             this.Move();
             this.Jump();
-        }
-
-        private void FixedUpdate()
-        {
-            //this.FlipCharacter(this.horizontal);
-
-            //this.Move();
-
-            //this.Jump();
         }
 
         #region Main Logic
@@ -240,7 +232,7 @@ namespace nseh.Gameplay.Movement
             {
                 // Should gravity be updated here to support customization
                 // Damp air depends on the type of jump
-                if (this.currentIdleJump && this.body.velocity.y <= 0.5f)
+                if (this.currentIdleJump && this.body.velocity.y <= 0.1f)
                 {
                     // If player is moving in the air
                     if (this.movePressed)

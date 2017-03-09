@@ -494,9 +494,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4419993842234952}
+  - component: {fileID: 54663399936470148}
+  - component: {fileID: 135507281005106592}
+  - component: {fileID: 114165359726011616}
   m_Layer: 8
   m_Name: Bip001 R Hand
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -572,9 +575,9 @@ GameObject:
   - component: {fileID: 4821269731056822}
   - component: {fileID: 33219398352838832}
   - component: {fileID: 23363563109989742}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Pala
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1478,7 +1481,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1465964625706236}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.263, y: 0.36, z: 1.57}
+  m_LocalPosition: {x: -1.263, y: 0, z: 1.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4469430025671760}
@@ -1726,6 +1729,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1043612080491062}
   m_Mesh: {fileID: 4300000, guid: 227e16a89e27cb449a42d547bf572256, type: 3}
+--- !u!54 &54663399936470148
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1568230795669172}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!54 &54829734913519676
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1775,6 +1793,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114165359726011616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1568230795669172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114315910237949066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1786,13 +1815,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e245d3be634e89e49975c6e74c26eaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useGamepad: 0
   gamepadIndex: 1
-  dampAir: 0.75
-  jumpAirSpeed: 5
-  jumpHeight: 8
-  gravity: 0
-  speed: 5
+  dampAir: 0.5
+  jumpAirSpeed: 4
+  jumpHeight: 15
+  speed: 6
 --- !u!114 &114381858855819798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1817,6 +1844,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   maxHealth: 100
+--- !u!135 &135507281005106592
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1568230795669172}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136239545167055366
 CapsuleCollider:
   m_ObjectHideFlags: 1

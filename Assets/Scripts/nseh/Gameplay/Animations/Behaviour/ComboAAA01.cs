@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class Combo_AAA_01 : StateMachineBehaviour
+    public class ComboAAA01 : StateMachineBehaviour
     {
         private CharacterCombat component;
         private IAction action;
@@ -29,20 +29,6 @@ namespace nseh.Gameplay.Animations.Behaviour
                 animator.SetBool(Animator.StringToHash(Constants.Animations.Combat.CHARACTER_COMBO_AAA_02), true);
             }
         }
-
-        //public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        //{
-        //    var step1 = animator.gameObject.GetComponent<PaladinComboAAAStep1>();
-        //    var step2 = animator.gameObject.GetComponent<PaladinComboAAAStep2>();
-        //    var step3 = animator.gameObject.GetComponent<PaladinComboAAAStep3>();
-
-        //    if ((step1 != null && step2 != null && step3 != null) && (step2.KeyHasBeenPressed() || step2.ButtonHasBeenPressed()))
-        //    {
-        //        step2.DoAction();
-        //        step1.StopAction();
-        //        step3.StopAction();
-        //    }
-        //}
 
         // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

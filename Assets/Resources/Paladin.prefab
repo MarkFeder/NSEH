@@ -1311,14 +1311,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1242567597817764}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -10.1, y: 0.22, z: 2.09}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -4.795, y: 0.22, z: 2.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4027993090446496}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4214563601949188
 Transform:
   m_ObjectHideFlags: 1
@@ -2227,7 +2227,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 08547f305fee0ca4ebce4c6990a864db, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2253,9 +2253,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1558962473073024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 
 --- !u!114 &114338546881271554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2268,11 +2269,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useGamepad: 0
-  gamepadIndex: 1
-  speed: 5
+  gamepadIndex: 2
+  dampAir: 0.5
+  jumpAirSpeed: 2
   jumpHeight: 10
   gravity: 0
-  dampAir: 0.5
+  speed: 6
 --- !u!114 &114553254140633302
 MonoBehaviour:
   m_ObjectHideFlags: 1

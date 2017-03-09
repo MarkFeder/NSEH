@@ -152,7 +152,6 @@ namespace nseh.GameManager
 
 
                     _player1.GetComponent<PlayerMovement>().GamepadIndex = 1;
-                    _player2.GetComponent<PlayerMovement>().useGamepad = true;
 
                     _player2.GetComponent<PlayerMovement>().GamepadIndex = 2;
                     
@@ -288,7 +287,6 @@ namespace nseh.GameManager
 
 
                     _player1.GetComponent<PlayerMovement>().GamepadIndex = 1;
-                    _player2.GetComponent<PlayerMovement>().useGamepad = true;
                     _player2.GetComponent<PlayerMovement>().GamepadIndex = 2;
                     
                     //INTERFAZ

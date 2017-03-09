@@ -44,33 +44,33 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.Invulnerability:
 
                     this.Invulnerability(this.seconds);
-                    StartCoroutine(DisplayText(itemText, SpecialItems.INVULNERABILITY, 3));
-                    //StartCoroutine(ParticleAnimation(particlePrefab, this.seconds));
-                    ParticleAnimation(particlePrefab, this.seconds);
+                    StartCoroutine(this.DisplayText(itemText, SpecialItems.INVULNERABILITY));
+                    this.ParticleAnimation(this.particlePrefab, this.seconds);
+
                     break;
 
                 case SpecialChestType.AutomaticAttacks:
 
                     this.AutomaticAttacks(this.times);
-                    StartCoroutine(DisplayText(itemText, SpecialItems.AUTOATTACKS, 3));
-                    //StartCoroutine(ParticleAnimation(particlePrefab, 3));
-                    ParticleAnimation(particlePrefab, 3);
+                    StartCoroutine(this.DisplayText(itemText, SpecialItems.AUTOATTACKS));
+                    this.ParticleAnimation(particlePrefab, 3.0f);
+
                     break;
 
                 case SpecialChestType.CriticalDamage:
 
                     this.CriticalDamage(this.times);
-                    StartCoroutine(DisplayText(itemText, SpecialItems.CRITICAL, 3));
-                    //StartCoroutine(ParticleAnimation(particlePrefab, 3));
-                    ParticleAnimation(particlePrefab, 3);
+                    StartCoroutine(this.DisplayText(itemText, SpecialItems.CRITICAL));
+                    this.ParticleAnimation(this.particlePrefab, 3.0f);
+
                     break;
 
                 case SpecialChestType.UnlockDefinitiveMode:
 
                     this.UnlockDefinitiveMode();
-                    StartCoroutine(DisplayText(itemText, SpecialItems.ULTIMATE, 3));
-                    //StartCoroutine(ParticleAnimation(particlePrefab, 1));
-                    ParticleAnimation(particlePrefab, 1);
+                    StartCoroutine(this.DisplayText(itemText, SpecialItems.ULTIMATE));
+                    this.ParticleAnimation(this.particlePrefab, 1.0f);
+
                     break;
 
                 default:

@@ -3,13 +3,11 @@ using nseh.Gameplay.Base.Abstract.Entities;
 using nseh.Gameplay.Combat;
 using nseh.Gameplay.Movement;
 using nseh.Utils.Helpers;
-using StandardItems = nseh.Utils.Constants.Items.StandardItems;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+using StandardItems = nseh.Utils.Constants.Items.StandardItems;
 
 namespace nseh.Gameplay.Entities.Environment.Items
 {
@@ -57,41 +55,41 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Health:
 
                     this.IncreaseHealth(this.percent);
-                    StartCoroutine(DisplayText(itemText, StandardItems.HEALTH, 3));
-                    //StartCoroutine(ParticleAnimation(particlePrefab, 1.5f));
-                    ParticleAnimation(particlePrefab, 1.5f);
+                    StartCoroutine(this.DisplayText(this.itemText, StandardItems.HEALTH));
+                    this.ParticleAnimation(particlePrefab, 1.5f);
+
                     break;
 
                 case StandardChestType.Damage:
 
                     this.IncreaseDamage(this.percent, this.time);
-                    StartCoroutine(DisplayText(itemText, StandardItems.DAMAGE, 3));
-                    //StartCoroutine(ParticleAnimation(particlePrefab, this.time));
-                    ParticleAnimation(particlePrefab, this.time);
+                    StartCoroutine(this.DisplayText(this.itemText, StandardItems.DAMAGE));
+                    this.ParticleAnimation(particlePrefab, this.time);
+
                     break;
 
                 case StandardChestType.Velocity:
 
                     this.IncreaseVelocity(this.percent, this.time);
-                    StartCoroutine(DisplayText(itemText, StandardItems.SPEED, 3));
-                    //StartCoroutine(ParticleAnimation(particlePrefab, this.time));
-                    ParticleAnimation(particlePrefab, this.time);
+                    StartCoroutine(this.DisplayText(this.itemText, StandardItems.SPEED));
+                    this.ParticleAnimation(particlePrefab, this.time);
+
                     break;
 
                 case StandardChestType.Jump:
 
                     this.IncreaseJump(this.percent, this.time);
-                    StartCoroutine(DisplayText(itemText, StandardItems.JUMP, 3));
-                    //StartCoroutine(ParticleAnimation(particlePrefab, this.time));
-                    ParticleAnimation(particlePrefab, this.time);
+                    StartCoroutine(this.DisplayText(this.itemText, StandardItems.JUMP));
+                    this.ParticleAnimation(particlePrefab, this.time);
+
                     break;
 
                 case StandardChestType.Defense:
 
                     this.SetUpDefense(this.time, this.hits);
-                    StartCoroutine(DisplayText(itemText, StandardItems.DEFENSE, 3));
-                    //StartCoroutine(ParticleAnimation(particlePrefab, this.time));
-                    ParticleAnimation(particlePrefab, this.time);
+                    StartCoroutine(this.DisplayText(this.itemText, StandardItems.DEFENSE));
+                    this.ParticleAnimation(particlePrefab, this.time);
+
                     break;
 
                 default:

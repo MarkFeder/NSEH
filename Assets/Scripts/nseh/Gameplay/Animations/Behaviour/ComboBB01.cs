@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class Combo_BB_01 : StateMachineBehaviour
+    public class ComboBB01 : StateMachineBehaviour
     {
         private CharacterCombat component;
         private IAction action;

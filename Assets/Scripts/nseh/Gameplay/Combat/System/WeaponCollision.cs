@@ -17,7 +17,8 @@ namespace nseh.Gameplay.Combat.System
     [RequireComponent(typeof(Collider))]
     public class WeaponCollision : MonoBehaviour
     {
-        // External References
+        #region Protected Properties
+
         protected Collider hitBox;
         protected CharacterCombat characterCombat;
         protected PlayerMovement characterMovement;
@@ -26,19 +27,19 @@ namespace nseh.Gameplay.Combat.System
         protected List<GameObject> enemyTargets;
         protected GameObject rootCharacter;
 
-        // Properties
-        public string enemyType;
-
         protected string parentObjName;
-         
+
+        #endregion
+
+        #region Private Properties
+
         private int layerMask;
 
+        #endregion
+
         protected void Awake()
-        {
-            this.enemyType = Tags.PLAYER;
-            
+        {            
             this.hitBox = GetComponent<Collider>();
-            //this.hitBox.isTrigger = true;
             this.hitBox.enabled = false;
 
             this.characterCombat = this.transform.root.GetComponent<CharacterCombat>();
@@ -66,17 +67,18 @@ namespace nseh.Gameplay.Combat.System
 
         #region Trigger Methods
 
-        protected void OnCollisionEnter(Collision collision)
+        protected void OnCollisionEnter(Collision collider)
         {
-            GameObject enemy = collision.gameObject;
+            GameObject enemy = collider.gameObject;
 
             //// For Debugging
             //foreach (ContactPoint contact in collision.contacts)
             //{
             //    Debug.DrawRay(contact.point, contact.normal, Color.red, 5.0f);
             //}
+            Debug.Log(enemy.name + " was hit");
 
-            if (enemy.CompareTag(this.enemyType)
+            if (enemy.CompareTag(Tags.PLAYER)
                 && this.parentObjName != enemy.name)
             {
                 bool enemyTakenAback = this.EnemyHasBeenTakenAback(ref enemy);
@@ -109,15 +111,15 @@ namespace nseh.Gameplay.Combat.System
             }
         }
 
-        protected void OnCollisionExit(Collision collision)
+        protected void OnCollisionExit(Collision collider)
         {
-            GameObject enemy = collision.gameObject;
+            GameObject enemy = collider.gameObject;
 
-            if (enemy.CompareTag(this.enemyType) && this.parentObjName != enemy.name)
+            if (enemy.CompareTag(Tags.PLAYER) && this.parentObjName != enemy.name)
             {
                 this.enemyTargets.Remove(enemy);
             }
-        } 
+        }
 
         #endregion
 

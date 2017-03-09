@@ -15,6 +15,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		public GameObject particlePrefab;
 
 		public float destructionTime;
+		public float timeToDisplayText;
+
 		public int uses;
 		public string displayName;
 
@@ -28,7 +30,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected GameObject target;
 		protected Collider collider;
 		protected Renderer renderer;
-        protected Text itemText;
+		protected Text itemText;
 
 		#endregion
 
@@ -38,7 +40,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		{
 			this.collider = this.GetComponent<Collider>();
 			this.renderer = this.GetComponent<Renderer>();
-            this.itemText = GameObject.Find("CanvasItems/Text").GetComponent<Text>();
+			this.itemText = GameObject.Find("CanvasItems/Text").GetComponent<Text>();
+
 			this.ResetUses();
 		}
 
@@ -73,7 +76,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 				{
 					this.currentUses++;
 					this.target = other.gameObject;
-                    PlaySoundAtPlayer(sound); //PLACEHOLDER SOUND
+
+					this.PlaySoundAtPlayer(this.sound);
 					this.Activate();
 
 					// TODO: activate other properties
@@ -83,6 +87,29 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 					Debug.Log(String.Format("The number of uses is more than or equal to {0}", this.uses));
 				}
 			}
+		}
+
+		protected void ParticleAnimation(GameObject particle, float time)
+		{
+			GameObject particleGameObject = Instantiate(particle, this.target.transform.position, this.target.transform.rotation, this.target.transform);
+			particleGameObject.GetComponent<ParticleSystem>().Play();
+
+			Destroy(particleGameObject, time);
+		}
+
+		protected void PlaySoundAtPlayer(AudioClip clip)
+		{
+			AudioSource.PlayClipAtPoint(clip, this.target.transform.position, 1);
+		}
+
+		protected IEnumerator DisplayText(Text text, string content)
+		{
+			text.gameObject.SetActive(true);
+			text.text = content;
+
+			yield return new WaitForSeconds(this.timeToDisplayText);
+
+			text.gameObject.SetActive(false);
 		}
 
 		#endregion
@@ -105,38 +132,6 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 			this.transform.position = position;
 		}
 
-        public void PlaySoundAtPlayer(AudioClip clip)
-        {
-            AudioSource.PlayClipAtPoint(clip, target.transform.position, 1);
-        }
-
-        public IEnumerator DisplayText(Text text, string content, float time)
-        {
-            text.gameObject.SetActive(true);
-            text.text = content;
-            yield return new WaitForSeconds(time);
-            text.gameObject.SetActive(false);
-        }
-        /*
-        public IEnumerator ParticleAnimation(GameObject particle, float time)
-        {
-            GameObject particleGameObject = Instantiate(particle, target.transform.position, target.transform.rotation, target.transform);
-            particleGameObject.GetComponent<ParticleSystem>().Play();
-            yield return new WaitForSeconds(time);
-            Debug.Log("Particles must be destroyed now");
-            particleGameObject.GetComponent<ParticleSystem>().Stop();
-            particleGameObject.transform.parent = null;
-            Destroy(particleGameObject);
-        }*/
-
-        public void ParticleAnimation(GameObject particle, float time)
-        {
-            GameObject particleGameObject = Instantiate(particle, target.transform.position, target.transform.rotation, target.transform);
-            particleGameObject.GetComponent<ParticleSystem>().Play();
-            Destroy(particleGameObject, time);
-        }
-
-        //TODO: Maybe it will be worth to do a overload on ParticleAnimation for items based on "times".
-        #endregion
-    }
+		#endregion
+	}
 }

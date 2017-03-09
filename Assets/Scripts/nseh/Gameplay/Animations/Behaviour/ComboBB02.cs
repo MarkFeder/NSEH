@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class Combo_BB_02 : StateMachineBehaviour
+    public class ComboBB02 : StateMachineBehaviour
     {
         // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

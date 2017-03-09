@@ -28,11 +28,12 @@ namespace nseh.Gameplay.Base.Abstract
 
         private Collider weaponCollision;
         private Rigidbody body;
+
         private int gamePadIndex;
         private string targetType;
+
         private IAction currentAction;
         private IAction currentDefenseAction;
-
         private List<IAction> actions;
 
         #endregion
@@ -147,7 +148,7 @@ namespace nseh.Gameplay.Base.Abstract
 
         private void ActivateCollider(string stateName)
         {
-            if (!String.IsNullOrEmpty(stateName) && !this.weaponCollision.enabled)
+            if (this.weaponCollision != null && !this.weaponCollision.enabled)
             {
                 this.weaponCollision.enabled = true;
             }
@@ -155,34 +156,10 @@ namespace nseh.Gameplay.Base.Abstract
 
         private void DeactivateCollider(string stateName)
         {
-            if (!String.IsNullOrEmpty(stateName) && this.weaponCollision.enabled)
+            if (this.weaponCollision != null && this.weaponCollision.enabled)
             {
                 this.weaponCollision.enabled = false;
             }
-        }
-
-        private void EventDamage(string stateName)
-        {
-            //weaponCollision collision = this.gameObject.GetSafeComponentInChildren<IWeapon>() as weaponCollision;
-
-            //if (!String.IsNullOrEmpty(stateName) && this.weaponCollision.enabled && collision != null)
-            //{
-            //    var attack = this.Actions.OfType<CharacterAttack>().Where(at => at.HashAnimation == CurrentHashAnimation).FirstOrDefault();
-            //    if (attack != null)
-            //    {
-            //        Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.gameObject.name, attack.StateName));
-
-            //        attack.PerformDamage(this.gameObject, collision.EnemyTargets);
-            //    }
-            //    else
-            //    {
-            //        Debug.LogError("Attack is null when it should not!");
-            //    }
-            //}
-            //else
-            //{
-            //    Debug.Log("weaponCollision is null");
-            //}
         }
 
         #endregion
