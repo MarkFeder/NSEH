@@ -34,7 +34,7 @@ namespace nseh.Gameplay.Movement
         private void OnTriggerStay(Collider other)
         {
 
-            if ((other.GetComponent<PlayerInfo>().vertical > 0 && other.GetComponent<PlayerInfo>().horizontal == 0 && other.GetComponent<PlayerInfo>().Teletransported == false))
+            if ((other.GetComponent<PlayerInfo>().Vertical > 0 && other.GetComponent<PlayerInfo>().Horizontal == 0 && other.GetComponent<PlayerInfo>().Teletransported == false))
             {
                 other.GetComponent<PlayerInfo>().Teletransported = true;
                 StartCoroutine(Teleport(other));
@@ -47,7 +47,7 @@ namespace nseh.Gameplay.Movement
         private void OnTriggerExit(Collider other)
         {
             
-            if ((other.GetComponent<PlayerInfo>().vertical == 0))
+            if ((other.GetComponent<PlayerInfo>().Vertical == 0))
             {
                 Debug.Log("Exit");
                 other.GetComponent<PlayerInfo>().Teletransported = false;
