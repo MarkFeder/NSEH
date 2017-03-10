@@ -94,8 +94,6 @@ namespace nseh.Gameplay.Movement
             }
         }
 
-        public bool Teletransported { get; set; }
-
         #endregion
 
         #region State Properties
@@ -151,7 +149,6 @@ namespace nseh.Gameplay.Movement
             this.body.isKinematic = false;
 
             this.facingRight = true;
-            this.Teletransported = false;
             this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
         }
 

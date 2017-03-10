@@ -449,6 +449,7 @@ GameObject:
   - component: {fileID: 114381858855819798}
   - component: {fileID: 114639215768562480}
   - component: {fileID: 114485069567125496}
+  - component: {fileID: 114791447168658806}
   m_Layer: 8
   m_Name: SirProspector
   m_TagString: Player
@@ -1918,6 +1919,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   maxHealth: 100
+--- !u!114 &114791447168658806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1465964625706236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1dcb7a16b2f29245b088aef352f4ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135507281005106592
 SphereCollider:
   m_ObjectHideFlags: 1
