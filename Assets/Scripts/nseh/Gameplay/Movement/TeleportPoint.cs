@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using nseh.Gameplay.Gameflow;
 using nseh.Gameplay.Movement;
+using Constants = nseh.Utils.Constants.Animations.Movement;
+using Inputs = nseh.Utils.Constants.Input;
+using Layers = nseh.Utils.Constants.Layers;
 
 namespace nseh.Gameplay.Movement
 {
@@ -11,12 +14,10 @@ namespace nseh.Gameplay.Movement
     {
         [SerializeField]
         private List<GameObject> TeleportPoints;
-        private bool m_isAxisInUse = false;
 
         // Use this for initialization
         void Start()
         {
-
         }
 
         // Update is called once per frame
@@ -32,25 +33,35 @@ namespace nseh.Gameplay.Movement
 
         private void OnTriggerStay(Collider other)
         {
-           
-            if ((Input.GetKeyDown(KeyCode.W)|| Input.GetKeyDown(KeyCode.UpArrow)) && other.GetComponent<PlayerMovement>().Teletransported == false)
+
+            if ((other.GetComponent<PlayerInfo>().vertical > 0 && other.GetComponent<PlayerInfo>().horizontal == 0 && other.GetComponent<PlayerInfo>().Teletransported == false))
             {
-                other.GetComponent<PlayerMovement>().Teletransported = true;
-                int randomTeleportPoint = (int)Random.Range(0, TeleportPoints.Count);
-                Debug.Log(TeleportPoints[randomTeleportPoint].name);
-                other.transform.position = new Vector3(TeleportPoints[randomTeleportPoint].transform.position.x, TeleportPoints[randomTeleportPoint].transform.position.y, other.transform.position.z);    
+                other.GetComponent<PlayerInfo>().Teletransported = true;
+                StartCoroutine(Teleport(other));
+
             }
 
-            
+
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (Input.GetAxis("Horizontal") !=0 || other.GetComponent<Rigidbody>().velocity.y>0)
+            
+            if ((other.GetComponent<PlayerInfo>().vertical == 0))
             {
-                other.GetComponent<PlayerMovement>().Teletransported = false;
+                Debug.Log("Exit");
+                other.GetComponent<PlayerInfo>().Teletransported = false;
 
             }
         }
+
+
+        IEnumerator Teleport(Collider other)
+        {
+            yield return new WaitForSeconds(0.05f);
+            int randomTeleportPoint = UnityEngine.Random.Range(0, TeleportPoints.Count);
+            other.transform.position = new Vector3(TeleportPoints[randomTeleportPoint].transform.position.x, TeleportPoints[randomTeleportPoint].transform.position.y, other.transform.position.z);
+        }
+
     }
 }
