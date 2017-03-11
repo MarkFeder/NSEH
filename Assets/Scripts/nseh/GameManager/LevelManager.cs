@@ -119,20 +119,8 @@ namespace nseh.GameManager
                     _player1_HUD.gameObject.SetActive(true);
                     Debug.Log(_player1_HUD.transform.GetChild(1).GetComponent<BarComponent>());
                     _player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.transform.GetChild(1).GetComponent<BarComponent>();
-                    //Encapsular en metodo
-                    if (GameManager.Instance.player1character == "Paladin" || GameManager.Instance.player1character == "SirProspector")
-                    {
-                        Debug.Log("Deberia mostrar a prospector");
-                        //_player1_HUD.gameObject.GetComponentInChildren<Image>().sprite = Resources.Load("Sprites/sirprospector_portrait") as Sprite;
-                        _player1_portrait.sprite = Resources.Load<Sprite>("sirprospector_portrait");
-                        Debug.Log(_player1_portrait.sprite);
-                    }
-                    else if (GameManager.Instance.player1character == "Demon")
-                    {
-                        Debug.Log("Deberia mostrar a wrarr");
-                        //_player1_HUD.gameObject.GetComponentInChildren<Image>().sprite = Resources.Load("Sprites/wrarr_portrait") as Sprite;
-                        _player1_portrait.sprite = Resources.Load<Sprite>("wrarr_portrait");
-                    }
+                    _player1.GetComponent<PlayerInfo>().Player = 1;
+                    _player1_portrait.sprite = _player1.GetComponent<PlayerInfo>().CharacterPortrait;
                     _player2_HUD.gameObject.SetActive(false);
                     //CAMBIAR 
                     _player1.GetComponent<PlayerMovement>().GamepadIndex = 1;
@@ -143,46 +131,19 @@ namespace nseh.GameManager
 
                     _player1_HUD.gameObject.SetActive(true);
                     _player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.transform.GetChild(1).GetComponent<BarComponent>();
+                    _player1.GetComponent<PlayerInfo>().Player = 1;
+                    _player1_portrait.sprite = _player1.GetComponent<PlayerInfo>().CharacterPortrait;
 
                     _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(-12, 1, 2), new Vector3(0, 90, 0));
-
+      
                     _player2_HUD.gameObject.SetActive(true);
                     _player2.GetComponent<CharacterHealth>().HealthBar = _player2_HUD.transform.GetChild(1).GetComponent<BarComponent>();
-
-
+                    _player2.GetComponent<PlayerInfo>().Player = 2;
+                    _player1_portrait.sprite = _player1.GetComponent<PlayerInfo>().CharacterPortrait;
 
                     _player1.GetComponent<PlayerMovement>().GamepadIndex = 1;
 
                     _player2.GetComponent<PlayerMovement>().GamepadIndex = 2;
-                    
-                    //INTERFAZ
-                    //Encapsular en metodo
-                    if (GameManager.Instance.player1character == "Paladin" || GameManager.Instance.player1character == "SirProspector")
-                    {
-                        Debug.Log("Deberia mostrar a prospector");
-                        //_player1_HUD.gameObject.GetComponentInChildren<Image>().sprite = Resources.Load("Sprites/sirprospector_portrait") as Sprite;
-                        _player1_portrait.sprite = Resources.Load<Sprite>("sirprospector_portrait");
-                    }
-                    else if (GameManager.Instance.player1character == "Demon")
-                    {
-                        Debug.Log("Deberia mostrar a wrarr");
-                        //_player1_HUD.gameObject.GetComponentInChildren<Image>().sprite = Resources.Load("Sprites/wrarr_portrait") as Sprite;
-                        _player1_portrait.sprite = Resources.Load<Sprite>("wrarr_portrait");
-                    }
-
-                    if (GameManager.Instance.player2character == "Paladin" || GameManager.Instance.player2character == "SirProspector")
-                    {
-                        Debug.Log("Deberia mostrar a prospector");
-                        //_player2_HUD.gameObject.GetComponentInChildren<Image>().sprite = Resources.Load("Sprites/sirprospector_portrait") as Sprite;
-                        _player2_portrait.sprite = Resources.Load<Sprite>("sirprospector_portrait");
-
-                    }
-                    else if (GameManager.Instance.player2character == "Demon")
-                    {
-                        Debug.Log("Deberia mostrar a wrarr");
-                        //_player2_HUD.gameObject.GetComponentInChildren<Image>().sprite = Resources.Load("Sprites/wrarr_portrait") as Sprite;
-                        _player2_portrait.sprite = Resources.Load<Sprite>("wrarr_portrait");
-                    }
                     break;
             }
         }

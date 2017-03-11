@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 114553254140633302}
   - component: {fileID: 114031105954856666}
   - component: {fileID: 114338546881271554}
+  - component: {fileID: 114125256669223284}
   m_Layer: 8
   m_Name: Paladin
   m_TagString: Player
@@ -2256,7 +2257,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 
+--- !u!114 &114125256669223284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1242567597817764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1dcb7a16b2f29245b088aef352f4ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterPortrait: {fileID: 21300000, guid: b4a4511072c69eb479fb2a02d69c562b, type: 3}
 --- !u!114 &114338546881271554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2268,12 +2280,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e245d3be634e89e49975c6e74c26eaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useGamepad: 0
   gamepadIndex: 2
   dampAir: 0.5
   jumpAirSpeed: 2
   jumpHeight: 10
-  gravity: 0
   speed: 6
 --- !u!114 &114553254140633302
 MonoBehaviour:

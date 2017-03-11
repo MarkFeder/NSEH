@@ -10,11 +10,14 @@ namespace nseh.Gameplay.Gameflow
 {
     public class ItemSpawn_Event : LevelEvent
     {
-        List<GameObject> _spawnItemPoints;
-        float eventStart = Constants.Events.ItemSpawn_Event.EVENT_START;
-        private float elapsedTime;
-        private SpawnItemPoint lastSpawnItemPoint;
-        private bool canSpawn;
+        #region Private Properties
+
+        private List<GameObject> _spawnItemPoints;
+        private float _spawnPeriod = Constants.Events.ItemSpawn_Event.SPAWN_PERIOD;
+        private float _elapsedTime;
+        private SpawnItemPoint _lastSpawnItemPoint;
+
+        #endregion
 
         override public void Setup(LevelManager lvlManager)
         {
@@ -25,53 +28,64 @@ namespace nseh.Gameplay.Gameflow
         public override void ActivateEvent()
         {
             IsActivated = true;
-            elapsedTime = 0;
-            if(lastSpawnItemPoint != null)
+            _elapsedTime = 0;
+
+            if(_lastSpawnItemPoint != null)
             {
-                lastSpawnItemPoint.flushItem();
-                lastSpawnItemPoint.flushText();
-                lastSpawnItemPoint = null;
+                _lastSpawnItemPoint.flushText();
+                _lastSpawnItemPoint = null;
             }
-            canSpawn = true;
+
+            foreach(GameObject _spawnItemPoint in _spawnItemPoints){
+                _spawnItemPoint.GetComponent<SpawnItemPoint>().flushItem(); 
+            }
         }
 
         public override void EventRelease()
         {
-            //lastSpawnItemPoint.flushItem();
             _spawnItemPoints = new List<GameObject>();
             IsActivated = false;
         }
 
         public override void EventTick()
         {
-            if (canSpawn)
-            {
-                Debug.Log("Choosing spawn point");
-                ChooseSpawnPoint();
-            }
+            ChooseSpawnPoint();
         }
+
+        #region Public Methods
 
         public void RegisterSpawnItemPoint(GameObject spawnToRegister)
         {
             _spawnItemPoints.Add(spawnToRegister);
         }
 
-        public void toggleSpawn()
-        {
-            canSpawn = !canSpawn;
-        }
+        #endregion
 
-        void ChooseSpawnPoint()
+        #region Private Methods
+
+        private void ChooseSpawnPoint()
         {
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= eventStart)
+            _elapsedTime += Time.deltaTime;
+            List<GameObject> _freeSpawnItemPoints;
+            if (_elapsedTime >= _spawnPeriod)
             {
-                Debug.Log("Spawn now");
-                int randomSpawn = (int)Random.Range(0, _spawnItemPoints.Count);
-                _spawnItemPoints[randomSpawn].GetComponent<SpawnItemPoint>().Spawn();
-                lastSpawnItemPoint = _spawnItemPoints[randomSpawn].GetComponent<SpawnItemPoint>();
-                elapsedTime = 0;
+                Debug.Log("Choosing spawn point and spawning");
+                _freeSpawnItemPoints = _spawnItemPoints.FindAll(FindFreeSpawnPoint);
+                if (_freeSpawnItemPoints.Count != 0)
+                {
+                    int randomSpawn = (int)Random.Range(0, _freeSpawnItemPoints.Count);
+                    _lastSpawnItemPoint = _freeSpawnItemPoints[randomSpawn].GetComponent<SpawnItemPoint>();
+                    _lastSpawnItemPoint.Spawn();
+                }
+                _elapsedTime = 0;
             }
         }
+
+        private bool FindFreeSpawnPoint(GameObject spawnPoint)
+        {
+            return !spawnPoint.GetComponent<SpawnItemPoint>().hasItem;
+        }
+
+        #endregion
     }
 }

@@ -14,6 +14,8 @@ public class PlayerInfo : MonoBehaviour {
     [Range(1, 4)]
     private int player;
     private bool teletransported;
+    [SerializeField]
+    private Sprite characterPortrait;
 
     public float Horizontal
     {
@@ -77,6 +79,14 @@ public class PlayerInfo : MonoBehaviour {
         set
         {
             teletransported = value;
+        }
+    }
+
+    public Sprite CharacterPortrait
+    {
+        get
+        {
+            return (this.characterPortrait) ? this.characterPortrait : null;
         }
     }
 

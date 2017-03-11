@@ -61,14 +61,14 @@
 
             public static class ItemSpawn_Event
             {
-                public const float EVENT_START = 3.0f;
+                public const float SPAWN_PERIOD = 3.0f;
+                public const float SPAWNPOINT_INTERNALCD = 1.5f;
+                public const string SPAWN_ALERT = "A WILD ITEM APPEARED!!";
             }
         }
 
         public static class Items
         {
-            public const string SPAWN_ALERT = "A WILD ITEM APPEARED!!";
-
             public static class StandardItems
             {
                 public const string HEALTH = "HEAL ME PLS!";

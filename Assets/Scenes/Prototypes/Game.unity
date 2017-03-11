@@ -2025,22 +2025,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e0acba7cfa6c42896fc1c0e407dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StandardItems:
+  _standardItems:
   - {fileID: 1319342106009346, guid: 62d963c44344cd4499821d0ef5816a66, type: 2}
   - {fileID: 1319342106009346, guid: 86cb3f819af7027498ea5614923eafc0, type: 2}
   - {fileID: 1319342106009346, guid: 5855c595db8ef2f46b10b54cdc7e9d5b, type: 2}
   - {fileID: 1319342106009346, guid: 76924fcf2683fa64f9a4ddbb39a2f728, type: 2}
   - {fileID: 1319342106009346, guid: 052a899e83b01a94eba08c3c18f7fba4, type: 2}
-  SpecialItems:
+  _specialItems:
   - {fileID: 1942850695741932, guid: f7fcf50b142cc114caadc9502181da89, type: 2}
   - {fileID: 1942850695741932, guid: 2ee30f23ab4560540b8949d44de347f2, type: 2}
   - {fileID: 1942850695741932, guid: 25ceab6b0a347d646a0aac2b8a360ce3, type: 2}
   - {fileID: 1942850695741932, guid: e15568a159b64b040ab28bace4199098, type: 2}
-  DisadvantageItems:
+  _disadvantageItems:
   - {fileID: 1942850695741932, guid: f37fb0e778fecbd4bbd6c15314e3d8b3, type: 2}
   - {fileID: 1942850695741932, guid: b980c511a69174f4d8e94aee6d9f5685, type: 2}
   - {fileID: 1942850695741932, guid: 37593a5daa5d5954da3aa427846c1fb8, type: 2}
-  spawnText: {fileID: 1160729}
+  _spawnText: {fileID: 1160729}
 --- !u!1 &337388682
 GameObject:
   m_ObjectHideFlags: 0
@@ -3232,22 +3232,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e0acba7cfa6c42896fc1c0e407dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StandardItems:
+  _standardItems:
   - {fileID: 1319342106009346, guid: 62d963c44344cd4499821d0ef5816a66, type: 2}
   - {fileID: 1319342106009346, guid: 86cb3f819af7027498ea5614923eafc0, type: 2}
   - {fileID: 1319342106009346, guid: 5855c595db8ef2f46b10b54cdc7e9d5b, type: 2}
   - {fileID: 1319342106009346, guid: 76924fcf2683fa64f9a4ddbb39a2f728, type: 2}
   - {fileID: 1319342106009346, guid: 052a899e83b01a94eba08c3c18f7fba4, type: 2}
-  SpecialItems:
+  _specialItems:
   - {fileID: 1942850695741932, guid: f7fcf50b142cc114caadc9502181da89, type: 2}
   - {fileID: 1942850695741932, guid: 2ee30f23ab4560540b8949d44de347f2, type: 2}
   - {fileID: 1942850695741932, guid: 25ceab6b0a347d646a0aac2b8a360ce3, type: 2}
   - {fileID: 1942850695741932, guid: e15568a159b64b040ab28bace4199098, type: 2}
-  DisadvantageItems:
+  _disadvantageItems:
   - {fileID: 1942850695741932, guid: f37fb0e778fecbd4bbd6c15314e3d8b3, type: 2}
   - {fileID: 1942850695741932, guid: b980c511a69174f4d8e94aee6d9f5685, type: 2}
   - {fileID: 1942850695741932, guid: 37593a5daa5d5954da3aa427846c1fb8, type: 2}
-  spawnText: {fileID: 1160729}
+  _spawnText: {fileID: 1160729}
 --- !u!1 &581328729
 GameObject:
   m_ObjectHideFlags: 0
@@ -3288,22 +3288,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e0acba7cfa6c42896fc1c0e407dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StandardItems:
+  _standardItems:
   - {fileID: 1319342106009346, guid: 62d963c44344cd4499821d0ef5816a66, type: 2}
   - {fileID: 1319342106009346, guid: 86cb3f819af7027498ea5614923eafc0, type: 2}
   - {fileID: 1319342106009346, guid: 5855c595db8ef2f46b10b54cdc7e9d5b, type: 2}
   - {fileID: 1319342106009346, guid: 76924fcf2683fa64f9a4ddbb39a2f728, type: 2}
   - {fileID: 1319342106009346, guid: 052a899e83b01a94eba08c3c18f7fba4, type: 2}
-  SpecialItems:
+  _specialItems:
   - {fileID: 1942850695741932, guid: f7fcf50b142cc114caadc9502181da89, type: 2}
   - {fileID: 1942850695741932, guid: 2ee30f23ab4560540b8949d44de347f2, type: 2}
   - {fileID: 1942850695741932, guid: 25ceab6b0a347d646a0aac2b8a360ce3, type: 2}
   - {fileID: 1942850695741932, guid: e15568a159b64b040ab28bace4199098, type: 2}
-  DisadvantageItems:
+  _disadvantageItems:
   - {fileID: 1942850695741932, guid: f37fb0e778fecbd4bbd6c15314e3d8b3, type: 2}
   - {fileID: 1942850695741932, guid: b980c511a69174f4d8e94aee6d9f5685, type: 2}
   - {fileID: 1942850695741932, guid: 37593a5daa5d5954da3aa427846c1fb8, type: 2}
-  spawnText: {fileID: 1160729}
+  _spawnText: {fileID: 1160729}
 --- !u!1 &601172870
 GameObject:
   m_ObjectHideFlags: 0
@@ -7585,22 +7585,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e0acba7cfa6c42896fc1c0e407dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StandardItems:
+  _standardItems:
   - {fileID: 1319342106009346, guid: 62d963c44344cd4499821d0ef5816a66, type: 2}
   - {fileID: 1319342106009346, guid: 86cb3f819af7027498ea5614923eafc0, type: 2}
   - {fileID: 1319342106009346, guid: 5855c595db8ef2f46b10b54cdc7e9d5b, type: 2}
   - {fileID: 1319342106009346, guid: 76924fcf2683fa64f9a4ddbb39a2f728, type: 2}
   - {fileID: 1319342106009346, guid: 052a899e83b01a94eba08c3c18f7fba4, type: 2}
-  SpecialItems:
+  _specialItems:
   - {fileID: 1942850695741932, guid: f7fcf50b142cc114caadc9502181da89, type: 2}
   - {fileID: 1942850695741932, guid: 2ee30f23ab4560540b8949d44de347f2, type: 2}
   - {fileID: 1942850695741932, guid: 25ceab6b0a347d646a0aac2b8a360ce3, type: 2}
   - {fileID: 1942850695741932, guid: e15568a159b64b040ab28bace4199098, type: 2}
-  DisadvantageItems:
+  _disadvantageItems:
   - {fileID: 1942850695741932, guid: f37fb0e778fecbd4bbd6c15314e3d8b3, type: 2}
   - {fileID: 1942850695741932, guid: b980c511a69174f4d8e94aee6d9f5685, type: 2}
   - {fileID: 1942850695741932, guid: 37593a5daa5d5954da3aa427846c1fb8, type: 2}
-  spawnText: {fileID: 1160729}
+  _spawnText: {fileID: 1160729}
 --- !u!1 &1260773838
 GameObject:
   m_ObjectHideFlags: 0
@@ -8000,22 +8000,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e0acba7cfa6c42896fc1c0e407dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StandardItems:
+  _standardItems:
   - {fileID: 1319342106009346, guid: 62d963c44344cd4499821d0ef5816a66, type: 2}
   - {fileID: 1319342106009346, guid: 86cb3f819af7027498ea5614923eafc0, type: 2}
   - {fileID: 1319342106009346, guid: 5855c595db8ef2f46b10b54cdc7e9d5b, type: 2}
   - {fileID: 1319342106009346, guid: 76924fcf2683fa64f9a4ddbb39a2f728, type: 2}
   - {fileID: 1319342106009346, guid: 052a899e83b01a94eba08c3c18f7fba4, type: 2}
-  SpecialItems:
+  _specialItems:
   - {fileID: 1942850695741932, guid: f7fcf50b142cc114caadc9502181da89, type: 2}
   - {fileID: 1942850695741932, guid: 2ee30f23ab4560540b8949d44de347f2, type: 2}
   - {fileID: 1942850695741932, guid: 25ceab6b0a347d646a0aac2b8a360ce3, type: 2}
   - {fileID: 1942850695741932, guid: e15568a159b64b040ab28bace4199098, type: 2}
-  DisadvantageItems:
+  _disadvantageItems:
   - {fileID: 1942850695741932, guid: f37fb0e778fecbd4bbd6c15314e3d8b3, type: 2}
   - {fileID: 1942850695741932, guid: b980c511a69174f4d8e94aee6d9f5685, type: 2}
   - {fileID: 1942850695741932, guid: 37593a5daa5d5954da3aa427846c1fb8, type: 2}
-  spawnText: {fileID: 1160729}
+  _spawnText: {fileID: 1160729}
 --- !u!1 &1352154137
 GameObject:
   m_ObjectHideFlags: 0
@@ -8325,22 +8325,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e0acba7cfa6c42896fc1c0e407dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StandardItems:
+  _standardItems:
   - {fileID: 1319342106009346, guid: 62d963c44344cd4499821d0ef5816a66, type: 2}
   - {fileID: 1319342106009346, guid: 86cb3f819af7027498ea5614923eafc0, type: 2}
   - {fileID: 1319342106009346, guid: 5855c595db8ef2f46b10b54cdc7e9d5b, type: 2}
   - {fileID: 1319342106009346, guid: 76924fcf2683fa64f9a4ddbb39a2f728, type: 2}
   - {fileID: 1319342106009346, guid: 052a899e83b01a94eba08c3c18f7fba4, type: 2}
-  SpecialItems:
+  _specialItems:
   - {fileID: 1942850695741932, guid: f7fcf50b142cc114caadc9502181da89, type: 2}
   - {fileID: 1942850695741932, guid: 2ee30f23ab4560540b8949d44de347f2, type: 2}
   - {fileID: 1942850695741932, guid: 25ceab6b0a347d646a0aac2b8a360ce3, type: 2}
   - {fileID: 1942850695741932, guid: e15568a159b64b040ab28bace4199098, type: 2}
-  DisadvantageItems:
+  _disadvantageItems:
   - {fileID: 1942850695741932, guid: f37fb0e778fecbd4bbd6c15314e3d8b3, type: 2}
   - {fileID: 1942850695741932, guid: b980c511a69174f4d8e94aee6d9f5685, type: 2}
   - {fileID: 1942850695741932, guid: 37593a5daa5d5954da3aa427846c1fb8, type: 2}
-  spawnText: {fileID: 1160729}
+  _spawnText: {fileID: 1160729}
 --- !u!1001 &1391129370
 Prefab:
   m_ObjectHideFlags: 0

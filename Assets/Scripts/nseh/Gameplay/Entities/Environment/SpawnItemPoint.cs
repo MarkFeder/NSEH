@@ -13,50 +13,53 @@ namespace nseh.Gameplay.Entities.Environment
     {
 
         // Use this for initialization
-        
+        #region Private Properties
+
         [SerializeField]
-        private List<GameObject> StandardItems;
+        private List<GameObject> _standardItems;
         [SerializeField]
-        private List<GameObject> SpecialItems;
+        private List<GameObject> _specialItems;
         [SerializeField]
-        private List<GameObject> DisadvantageItems;
+        private List<GameObject> _disadvantageItems;
         [SerializeField]
-        private Text spawnText;
-        
-        /*
-        [SerializeField]
-        private GameObject standardChest;
-        [SerializeField]
-        private GameObject specialChest;
-        [SerializeField]
-        private GameObject disadvantageChest;
-        */
-        private GameObject instancedItem;
-        private bool instanced;
+        private Text _spawnText;
+        private GameObject _instancedItem;
         private ItemSpawn_Event _itemSpawnEvent;
+        private float _elapsedTime;
+        private float _internalCD;
+
+        #endregion
+
+        #region Public Properties
+
+        [System.NonSerialized]
+        public bool hasItem;
+
+        #endregion
 
 
         void Start()
         {
-            instanced = false;
-            GameObject _spawnItemPoint = this.gameObject;
-            spawnText.gameObject.SetActive(false);
+            hasItem = false;
+            _elapsedTime = 0;
+            _internalCD = Constants.Events.ItemSpawn_Event.SPAWNPOINT_INTERNALCD;
+            _spawnText.gameObject.SetActive(false);
             _itemSpawnEvent = GameManager.GameManager.Instance.Find<LevelManager>().Find<ItemSpawn_Event>();
-            _itemSpawnEvent.RegisterSpawnItemPoint(_spawnItemPoint);
+            _itemSpawnEvent.RegisterSpawnItemPoint(this.gameObject);
         }
 
         // Update is called once per frame
         void Update()
         {
 
-            if (instanced == true && instancedItem == null)
+            if (hasItem == true && _instancedItem == null)
             {
-                Debug.Log("Item catched, another one can be spawned now. Instanced = " + instanced);
-                instanced = false;
-                _itemSpawnEvent.toggleSpawn();
+                SetSpawnItemPointFree();
             }
 
         }
+
+        #region Public Methods
 
         public void Spawn()
         {
@@ -65,51 +68,49 @@ namespace nseh.Gameplay.Entities.Environment
             if (dice <= 0.8)
             {
                 //Standard buffs
-                //standardChest.GetComponent<StandardChest>().chestType = GetRandomEnum<StandardChestType>();
-                //instancedItem = Instantiate(standardChest, this.transform.position, this.transform.rotation);
-                int randomStandardItem = (int)Random.Range(0, StandardItems.Count);
-                instancedItem = Instantiate(StandardItems[randomStandardItem], this.transform.position, this.transform.rotation);
+                int randomStandardItem = (int)Random.Range(0, _standardItems.Count);
+                _instancedItem = Instantiate(_standardItems[randomStandardItem], this.transform.position, this.transform.rotation);
             }
 
             if (0.8f < dice && dice <= 0.9f)
             {
                 //Special buffs
-                //specialChest.GetComponent<SpecialChest>().chestType = GetRandomEnum<SpecialChestType>();
-                //instancedItem = Instantiate(specialChest, this.transform.position, this.transform.rotation);
-                int randomSpecialItem = (int)Random.Range(0, SpecialItems.Count);
-                instancedItem = Instantiate(SpecialItems[randomSpecialItem], this.transform.position, this.transform.rotation);
+                int randomSpecialItem = (int)Random.Range(0, _specialItems.Count);
+                _instancedItem = Instantiate(_specialItems[randomSpecialItem], this.transform.position, this.transform.rotation);
             }
 
             if (0.9f < dice && dice <= 1)
             {
                 //Debuffs
-                //disadvantageChest.GetComponent<DisadvantageChest>().chestType = GetRandomEnum<DisadvantageChestType>();
-                //instancedItem = Instantiate(disadvantageChest, this.transform.position, this.transform.rotation);
-                int randomDisadvantageItem = (int)Random.Range(0, DisadvantageItems.Count);
-                instancedItem = Instantiate(DisadvantageItems[randomDisadvantageItem], this.transform.position, this.transform.rotation);
+                int randomDisadvantageItem = (int)Random.Range(0, _disadvantageItems.Count);
+                _instancedItem = Instantiate(_disadvantageItems[randomDisadvantageItem], this.transform.position, this.transform.rotation);
             }
             Debug.Log("Item spawned");
-            StartCoroutine(DisplayText(spawnText, Constants.Items.SPAWN_ALERT, 2));
-            _itemSpawnEvent.toggleSpawn();
-            instanced = true;
+            StartCoroutine(DisplayText(_spawnText, Constants.Events.ItemSpawn_Event.SPAWN_ALERT, 2));
+            hasItem = true;
         }
 
+        
         public void flushItem()
         {
-            if(instancedItem != null)
+            if(_instancedItem != null)
             {
-                Destroy(instancedItem);
-                instanced = false;
+                Destroy(_instancedItem);
+                hasItem = false;
             }
         }
 
         public void flushText()
         {
-            if (spawnText.gameObject.activeSelf)
+            if (_spawnText.gameObject.activeSelf)
             {
-                spawnText.gameObject.SetActive(false);
+                _spawnText.gameObject.SetActive(false);
             }
         }
+
+        #endregion
+
+        #region Private Methods
 
         private T GetRandomEnum<T>()
         {
@@ -125,5 +126,18 @@ namespace nseh.Gameplay.Entities.Environment
             yield return new WaitForSeconds(time);
             text.gameObject.SetActive(false);
         }
+        
+
+        private void SetSpawnItemPointFree()
+        {
+            _elapsedTime += Time.deltaTime;
+            if (_elapsedTime >= _internalCD)
+            {
+                Debug.Log("Spawn Point Free. Has item = " + hasItem);
+                hasItem = false;
+            }
+        }
+
+        #endregion
     }
 }
