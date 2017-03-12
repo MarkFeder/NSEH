@@ -110,8 +110,9 @@ MonoBehaviour:
   sound: {fileID: 8300000, guid: a4a9327e98855524c846cc8e2f559e96, type: 3}
   particlePrefab: {fileID: 1838578500101708, guid: a0d162cca5439074da8d3d8cdd8e7d79,
     type: 2}
+  canvasItemText: {fileID: 0}
   destructionTime: 0
-  timeToDisplayText: 3
+  timeToDisplayText: 2
   uses: 1
   displayName: 
   chestType: 4

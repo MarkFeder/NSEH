@@ -14,6 +14,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		public AnimationClip animation;
 		public AudioClip sound;
 		public GameObject particlePrefab;
+        [NonSerialized]
+        public GameObject canvasItemText;
 
 		public float destructionTime;
 		public float timeToDisplayText;
@@ -42,7 +44,6 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		{
 			this.collider = this.GetComponent<Collider>();
 			this.renderer = this.GetComponent<Renderer>();
-			this.itemText = GameObject.Find("CanvasItems/Text").GetComponent<Text>();
 
 			this.ResetUses();
 		}
@@ -79,6 +80,15 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 					this.currentUses++;
 					this.target = other.gameObject;
 					this.particlesSpawnPoints = this.target.GetComponent<PlayerInfo>();
+                    switch (this.particlesSpawnPoints.Player)
+                    {
+                        case 1:
+                            itemText = canvasItemText.transform.GetChild(1).GetComponent<Text>();
+                            break;
+                        case 2:
+                            itemText = canvasItemText.transform.GetChild(2).GetComponent<Text>();
+                            break;
+                    }
 
 					this.PlaySoundAtPlayer(this.sound);
 					this.Activate();
@@ -111,7 +121,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 			text.text = content;
 
 			yield return new WaitForSeconds(this.timeToDisplayText);
-
+            Debug.Log("Item text goes off");
 			text.gameObject.SetActive(false);
 		}
 
