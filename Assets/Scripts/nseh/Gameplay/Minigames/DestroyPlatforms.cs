@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyPlatforms : MonoBehaviour {
+namespace nseh.Gameplay.Minigames
+{
+    public class DestroyPlatforms : MonoBehaviour
+    {
 
-    public GameObject destructionPoint;
+        public GameObject destructionPoint;
 
-    // Use this for initialization
-    void Start () {
-        destructionPoint = GameObject.Find("PlatformDestructionPoint");
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if(transform.position.x < destructionPoint.transform.position.x)
+        // Use this for initialization
+        void Start()
         {
-            Destroy(gameObject);
+            destructionPoint = GameObject.Find("PlatformDestructionPoint");
+
         }
-	}
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (transform.position.x < destructionPoint.transform.position.x)
+            {
+                Destroy(gameObject);
+            }
+        }
+    } 
 }

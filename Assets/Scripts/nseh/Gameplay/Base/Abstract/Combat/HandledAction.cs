@@ -85,7 +85,7 @@ namespace nseh.Gameplay.Base.Abstract
         public bool ReceiveInput()
         {
             return this.KeyHasBeenPressed() || this.ButtonHasBeenPressed() ||
-                   this.KeyHasBeenReleased() || this.KeyIsHoldDown();
+                   this.KeyHasBeenReleased() || this.KeyIsHoldDown() || this.ButtonIsHoldDown() || this.ButtonHasBeenReleased();
         }
 
         #endregion

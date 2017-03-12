@@ -448,7 +448,6 @@ GameObject:
   - component: {fileID: 114315910237949066}
   - component: {fileID: 114381858855819798}
   - component: {fileID: 114639215768562480}
-  - component: {fileID: 114485069567125496}
   - component: {fileID: 114791447168658806}
   m_Layer: 8
   m_Name: SirProspector
@@ -1539,7 +1538,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1465964625706236}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -19.904089, y: 3.424553, z: 2.826}
+  m_LocalPosition: {x: -0.65, y: 3.424553, z: 2.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4469430025671760}
@@ -1875,7 +1874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e245d3be634e89e49975c6e74c26eaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamepadIndex: 1
   dampAir: 0.5
   jumpAirSpeed: 5
   jumpHeight: 13.5
@@ -1888,24 +1886,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1465964625706236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e49bfb05fbbe7eb41960faa0239a5e67, type: 3}
+  m_Script: {fileID: 11500000, guid: b49dc322c55b6f045aea34963a8f5455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114485069567125496
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1465964625706236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26d146fe628be994ba710a9e32159b87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particleBodyPos: {fileID: 4159333914064240}
-  particleHeadPos: {fileID: 4352122147377990}
-  particleFootPos: {fileID: 0}
-  particleWeaponPos: {fileID: 0}
 --- !u!114 &114639215768562480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1930,6 +1913,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1dcb7a16b2f29245b088aef352f4ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamepadIndex: 1
+  damageAttackA: 5
+  damageAttackB: 10
+  damageComboAAA01: 5
+  damageComboAAA02: 10
+  damageComboBB01: 10
+  damageComboBSharp: 15
+  damageDefinitive: 20
+  damnageHability: 5
+  particleBodyPos: {fileID: 4159333914064240}
+  particleHeadPos: {fileID: 4352122147377990}
+  particleFootPos: {fileID: 0}
+  particleWeaponPos: {fileID: 0}
+  particleDestructionTime: 1
+  particleAttackA: {fileID: 0}
+  particleAttackB: {fileID: 0}
+  particleComboAAA: {fileID: 0}
+  particleComboBB: {fileID: 0}
+  particleComboBSharp: {fileID: 0}
+  particleDefinitive: {fileID: 0}
+  particleHability: {fileID: 0}
+  particleDefense: {fileID: 0}
   characterPortrait: {fileID: 21300000, guid: b4a4511072c69eb479fb2a02d69c562b, type: 3}
 --- !u!135 &135507281005106592
 SphereCollider:

@@ -1,5 +1,5 @@
-﻿using nseh.Gameplay.Base.Abstract;
-using nseh.Gameplay.Base.Interfaces;
+﻿using nseh.Gameplay.Base.Interfaces;
+using nseh.Gameplay.Combat;
 using nseh.Utils;
 using nseh.Utils.Helpers;
 using System.Linq;
@@ -9,13 +9,13 @@ namespace nseh.Gameplay.Animations.Behaviour
 {
     public class ComboAAA02 : StateMachineBehaviour
     {
-        private CharacterCombat component;
+        private PlayerCombat component;
         private IAction action;
 
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            this.component = animator.gameObject.GetSafeComponent<CharacterCombat>();
+            this.component = animator.gameObject.GetSafeComponent<PlayerCombat>();
             this.action = component.Actions.Where(act => act.HashAnimation == stateInfo.shortNameHash).FirstOrDefault();
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using nseh.Gameplay.Entities.Player;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace nseh.Gameplay.Movement
         private Animator anim;
         private Rigidbody body;
         private Dictionary<string, int> animParameters;
+        private PlayerInfo playerInfo;
 
         private int platformMask;
 
@@ -36,8 +38,6 @@ namespace nseh.Gameplay.Movement
 
         #region Public Properties
 
-        public int gamepadIndex;
-
         [Range(0, 1)]
         public float dampAir;
         public float jumpAirSpeed;
@@ -53,23 +53,6 @@ namespace nseh.Gameplay.Movement
             get
             {
                 return this.transform.root.transform.forward.x > 0.0f;
-            }
-        }
-
-        public int GamepadIndex
-        {
-            get
-            {
-                return this.gamepadIndex;
-
-            }
-
-            set
-            {
-                if (value != 0)
-                {
-                    this.gamepadIndex = value;
-                }
             }
         }
 
@@ -148,6 +131,8 @@ namespace nseh.Gameplay.Movement
             this.body = GetComponent<Rigidbody>();
             this.body.isKinematic = false;
 
+            this.playerInfo = GetComponent<PlayerInfo>();
+
             this.facingRight = true;
             this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
         }
@@ -170,11 +155,11 @@ namespace nseh.Gameplay.Movement
 
         private void Update()
         {
-            this.horizontal = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex));
-            this.vertical = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex));
+            this.horizontal = this.playerInfo.Horizontal;
+            this.vertical = this.playerInfo.Vertical;
 
             this.movePressed = Mathf.Abs(this.horizontal) > 0.1f;
-            this.jumpPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex));
+            this.jumpPressed = this.playerInfo.JumpPressed;
 
             this.anim.SetFloat(this.animParameters[Constants.H], this.horizontal);
             this.anim.SetBool(this.animParameters[Constants.GROUNDED], this.IsGrounded());

@@ -141,7 +141,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
         private void IncreaseDamage(float percent)
         {
-            this.target.GetComponent<CharacterCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamage(percent));
+            this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamage(percent));
         }
 
         private void IncreaseDamage(float percent, float time)
@@ -154,7 +154,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
             // Save old values
 
             Dictionary<AttackType, float> oldDamages = new Dictionary<AttackType, float>();
-            var actions = this.target.GetComponent<CharacterCombat>().Actions.OfType<CharacterAttack>();
+            var actions = this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>();
 
             actions.ForEach(act =>
             {

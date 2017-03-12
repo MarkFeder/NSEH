@@ -1,4 +1,5 @@
-﻿using System;
+﻿using nseh.Gameplay.Entities.Player;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +29,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected int currentUses;
 
 		protected GameObject target;
-        protected PlayerEffects particlesSpawnPoints;
+		protected PlayerInfo particlesSpawnPoints;
 		protected Collider collider;
 		protected Renderer renderer;
 		protected Text itemText;
@@ -77,7 +78,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 				{
 					this.currentUses++;
 					this.target = other.gameObject;
-                    this.particlesSpawnPoints = target.GetComponent<PlayerEffects>();
+					this.particlesSpawnPoints = this.target.GetComponent<PlayerInfo>();
 
 					this.PlaySoundAtPlayer(this.sound);
 					this.Activate();

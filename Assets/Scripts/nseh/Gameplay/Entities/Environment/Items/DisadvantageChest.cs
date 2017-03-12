@@ -1,11 +1,8 @@
 ﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Gameplay.Base.Abstract.Entities;
 using nseh.Gameplay.Movement;
-using DisadvantageItems = nseh.Utils.Constants.Items.DisadvantageItems;
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using DisadvantageItems = nseh.Utils.Constants.Items.DisadvantageItems;
 
 namespace nseh.Gameplay.Entities.Environment.Items
 {

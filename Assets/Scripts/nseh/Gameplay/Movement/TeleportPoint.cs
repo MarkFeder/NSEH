@@ -6,6 +6,7 @@ using nseh.Gameplay.Movement;
 using Constants = nseh.Utils.Constants.Animations.Movement;
 using Inputs = nseh.Utils.Constants.Input;
 using Layers = nseh.Utils.Constants.Layers;
+using nseh.Gameplay.Entities.Player;
 
 namespace nseh.Gameplay.Movement
 {

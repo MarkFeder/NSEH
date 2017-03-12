@@ -11,9 +11,11 @@ namespace nseh.Gameplay.Combat.Defense
 
     public class CharacterDefense : HandledAction
     {
-        // Properties
+        #region Public C# Properties
 
-        private DefenseType CurrentMode { get; set; }
+        public DefenseType CurrentMode { get; private set; }
+
+        #endregion
 
         public CharacterDefense(DefenseType defenseType, int hashAnimation, string stateName, Animator animator,
             KeyCode keyToPress = KeyCode.None,

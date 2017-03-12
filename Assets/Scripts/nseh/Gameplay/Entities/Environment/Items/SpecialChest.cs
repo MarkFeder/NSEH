@@ -103,7 +103,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
             // For each action of type CharacterAttack which is not of CharacterHability or CharacterDefinitive type,
             // increase its damage by (x) times.
 
-            this.target.GetComponent<CharacterCombat>().Actions.OfType<CharacterAttack>().Where(act => act.IsSimpleAttack).ForEach(act =>
+            this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().Where(act => act.IsSimpleAttack).ForEach(act =>
             {
                 string log = "the attack of type: " + act.AttackType.ToString() + " changed its damage from (" + act.CurrentDamage + ")";
 
@@ -118,7 +118,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
         private void UnlockDefinitiveMode()
         {
-            var definitiveAttack = this.target.GetComponent<CharacterCombat>().Actions.OfType<CharacterAttack>().Where(act =>
+            var definitiveAttack = this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().Where(act =>
             {
                 return act.AttackType == AttackType.CharacterDefinitive;
 

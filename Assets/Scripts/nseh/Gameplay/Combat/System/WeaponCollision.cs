@@ -1,5 +1,6 @@
 ﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Gameplay.Combat.Defense;
+using nseh.Gameplay.Entities.Player;
 using nseh.Gameplay.Movement;
 using nseh.Utils.Helpers;
 using System;
@@ -20,7 +21,7 @@ namespace nseh.Gameplay.Combat.System
         #region Protected Properties
 
         protected Collider hitBox;
-        protected CharacterCombat characterCombat;
+        protected PlayerCombat characterCombat;
         protected PlayerMovement characterMovement;
         protected Animator anim;
 
@@ -37,22 +38,6 @@ namespace nseh.Gameplay.Combat.System
 
         #endregion
 
-        protected void Awake()
-        {            
-            this.hitBox = GetComponent<Collider>();
-            this.hitBox.enabled = false;
-
-            this.characterCombat = this.transform.root.GetComponent<CharacterCombat>();
-            this.characterMovement = this.transform.root.GetComponent<PlayerMovement>();
-            this.anim = this.transform.root.GetComponent<Animator>();
-            this.enemyTargets = new List<GameObject>();
-
-            this.parentObjName = this.transform.root.name;
-            this.rootCharacter = this.transform.root.gameObject;
-
-            this.layerMask = LayerMask.GetMask("Player");
-        }
-
         #region Private Methods
 
         private bool EnemyHasBeenTakenAback(ref GameObject enemy)
@@ -61,6 +46,22 @@ namespace nseh.Gameplay.Combat.System
 
             return !(this.characterMovement.IsFacingRight && !enemyMov.IsFacingRight
                     || !this.characterMovement.IsFacingRight && enemyMov.IsFacingRight);
+        }
+
+        private void Awake()
+        {
+            this.hitBox = GetComponent<Collider>();
+            this.hitBox.enabled = false;
+
+            this.characterCombat = this.transform.root.GetComponent<PlayerCombat>();
+            this.characterMovement = this.transform.root.GetComponent<PlayerMovement>();
+            this.anim = this.transform.root.GetComponent<Animator>();
+            this.enemyTargets = new List<GameObject>();
+
+            this.parentObjName = this.transform.root.name;
+            this.rootCharacter = this.transform.root.gameObject;
+
+            this.layerMask = LayerMask.GetMask("Player");
         }
 
         #endregion
@@ -76,7 +77,6 @@ namespace nseh.Gameplay.Combat.System
             //{
             //    Debug.DrawRay(contact.point, contact.normal, Color.red, 5.0f);
             //}
-            Debug.Log(enemy.name + " was hit");
 
             if (enemy.CompareTag(Tags.PLAYER)
                 && this.parentObjName != enemy.name)
@@ -108,30 +108,42 @@ namespace nseh.Gameplay.Combat.System
                         this.PerformDamage(ref this.rootCharacter, ref attack, ref this.enemyTargets);
                     }
                 }
+
+                this.enemyTargets.Clear();
             }
         }
 
-        protected void OnCollisionExit(Collision collider)
-        {
-            GameObject enemy = collider.gameObject;
+        //protected void OnCollisionExit(Collision collider)
+        //{
+        //    GameObject enemy = collider.gameObject;
 
-            if (enemy.CompareTag(Tags.PLAYER) && this.parentObjName != enemy.name)
-            {
-                this.enemyTargets.Remove(enemy);
-            }
-        }
+        //    if (enemy.CompareTag(Tags.PLAYER) && this.parentObjName != enemy.name)
+        //    {
+        //        Debug.Log("OnCollisionExit");
+        //        this.enemyTargets.Remove(enemy);
+        //    }
+        //}
 
         #endregion
 
         #region Combat System
 
+        // Enemy is taken aback
         public void PerformDamage(ref GameObject sender, ref HandledAction senderAction, ref GameObject enemy)
         {
             if (sender != null && enemy != null)
             {
-                int amountDamage = (int)(senderAction as CharacterAttack).CurrentDamage;
+                CharacterAttack senderAttack = (senderAction as CharacterAttack);
+                int amountDamage = (int)senderAttack.CurrentDamage;
 
+                // Reduce health
                 enemy.GetSafeComponent<CharacterHealth>().TakeDamage(amountDamage);
+
+                // Display effects
+                PlayerInfo enemyInfo = enemy.GetSafeComponent<PlayerInfo>();
+                PlayerInfo senderInfo = enemy.GetSafeComponent<PlayerInfo>();
+
+                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
             }
             else
             {
@@ -139,6 +151,7 @@ namespace nseh.Gameplay.Combat.System
             }
         }
 
+        // Enemy are facing each other
         public void PerformDamage(ref GameObject sender, ref HandledAction senderAction, ref List<GameObject> targetEnemies)
         {
             if (targetEnemies != null && targetEnemies.Count > 0)
@@ -151,7 +164,7 @@ namespace nseh.Gameplay.Combat.System
                     if (!sender.name.Equals(enemy.name))
                     {
                         // Check combat system rules
-                        var enemyAction = enemy.GetSafeComponent<CharacterCombat>().CurrentAction as HandledAction;
+                        var enemyAction = enemy.GetSafeComponent<PlayerCombat>().CurrentAction as HandledAction;
 
                         if (!SystemObject.ReferenceEquals(null, enemyAction))
                         {
@@ -162,10 +175,17 @@ namespace nseh.Gameplay.Combat.System
                         else
                         {
                             // Enemy is not taking any action
-                            int amountDamage = (int)(senderAction as CharacterAttack).CurrentDamage;
+                            CharacterAttack senderAttack = (senderAction as CharacterAttack);
+                            int amountDamage = (int)senderAttack.CurrentDamage;
 
+                            // Reduce health
                             enemy.GetSafeComponent<CharacterHealth>().TakeDamage(amountDamage);
-                            enemy.GetSafeComponent<Rigidbody>().AddForce(-enemy.transform.forward * 100.0f);
+
+                            // Display effects
+                            PlayerInfo enemyInfo = enemy.GetSafeComponent<PlayerInfo>();
+                            PlayerInfo senderInfo = enemy.GetSafeComponent<PlayerInfo>();
+
+                            enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleHeadPos.position);
                         }
                     }
                 }
@@ -208,23 +228,35 @@ namespace nseh.Gameplay.Combat.System
 
         private void ResolveConflict(int conflict, ref GameObject sender, ref CharacterAttack senderAttack, ref GameObject enemy, ref CharacterDefense enemyDefense)
         {
+            PlayerInfo senderInfo = sender.GetSafeComponent<PlayerInfo>();
+            PlayerInfo enemyInfo = enemy.GetSafeComponent<PlayerInfo>();
+
             if (conflict == -1)
             {
                 if (senderAttack.AttackType == AttackType.CharacterAttackBSharp)
                 {
                     enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAttack.CurrentDamage / 2);
                     enemyDefense.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+
+                    // Display effects
+                    enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
                 }
                 else if (senderAttack.AttackType == AttackType.CharacterAttackBStep2 
                         || senderAttack.AttackType == AttackType.CharacterDefinitive)
                 {
                     enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAttack.CurrentDamage);
                     enemyDefense.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+
+                    // Display effects
+                    enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
                 }
             }
             else if (conflict == 0)
             {
                 senderAttack.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+
+                // Display effects
+                senderInfo.PlayParticleAtPosition(senderInfo.GetParticleDefense(enemyDefense.CurrentMode), senderInfo.ParticleBodyPos.position);
             }
             else
             {
@@ -234,23 +266,37 @@ namespace nseh.Gameplay.Combat.System
 
         private void ResolveConflict(int conflict, ref GameObject sender, ref CharacterAttack senderAction, ref GameObject enemy, ref CharacterAttack enemyAction)
         {
+            PlayerInfo senderInfo = sender.GetSafeComponent<PlayerInfo>();
+            PlayerInfo enemyInfo = enemy.GetSafeComponent<PlayerInfo>();
+
             if (conflict == -1)
             {
                 // Cancel both attacks; do not take any damage effect
                 enemyAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
                 senderAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+
+                // Display effects
+                senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
+                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
             }
             else if (conflict == 0)
             {
                 // Both attacks take effect normally without interrumption
                 enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAction.CurrentDamage);
                 sender.GetSafeComponent<CharacterHealth>().TakeDamage((int)enemyAction.CurrentDamage);
+
+                // Display effects
+                senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
+                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
             }
             else if (conflict == 1)
             {
                 enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAction.CurrentDamage);
                 // Cancel a's action
                 senderAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+
+                // Display effects
+                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
             }
             else if (conflict == 2)
             {
@@ -258,6 +304,9 @@ namespace nseh.Gameplay.Combat.System
                 // Cancel b's action
                 // It should be sth related to CharacterCombat but we have the animator itself there
                 enemyAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+
+                // Display effects
+                senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
             }
             else if (conflict == 3)
             {
@@ -267,13 +316,16 @@ namespace nseh.Gameplay.Combat.System
 
                 // Cancel both a and b
                 senderAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+
+                // Display effects
+                senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
+                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
             }
             else
             {
                 Debug.Log(string.Format("No conflict for characters: {0} and {1}", enemy.name, sender.name));
             }
 
-            // TODO: Apply force to gameobject
             // TODO: We should store hashAnimations somewhere
         }
 
