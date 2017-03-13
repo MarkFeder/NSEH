@@ -1,5 +1,4 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
 using nseh.Gameplay.Entities.Player;
 using nseh.Gameplay.Movement;
@@ -21,7 +20,6 @@ namespace nseh.Gameplay.Combat
 
         protected PlayerMovement characterMovement;
         protected Animator anim;
-        protected Dictionary<string, int> animParameters; 
 
         #endregion
 
@@ -94,14 +92,14 @@ namespace nseh.Gameplay.Combat
         {
             var list = new List<IAction>()
             {
-                new CharacterAttack(AttackType.CharacterAttackAStep1, Animator.StringToHash(Constants.CHARACTER_COMBO_AAA_01), Constants.CHARACTER_COMBO_AAA_01, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.playerInfo.GamepadIndex), this.playerInfo.DamageAttackA),
-                new CharacterAttack(AttackType.CharacterAttackAStep2, Animator.StringToHash(Constants.CHARACTER_COMBO_AAA_02), Constants.CHARACTER_COMBO_AAA_02, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.playerInfo.GamepadIndex), this.playerInfo.DamageComboAAA01),
-                new CharacterAttack(AttackType.CharacterAttackAStep3, Animator.StringToHash(Constants.CHARACTER_COMBO_AAA_03), Constants.CHARACTER_COMBO_AAA_03, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.playerInfo.GamepadIndex), this.playerInfo.DamageComboAAA01),
-                new CharacterAttack(AttackType.CharacterAttackBStep1, Animator.StringToHash(Constants.CHARACTER_COMBO_BB_01), Constants.CHARACTER_COMBO_BB_01, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.B, this.playerInfo.GamepadIndex), this.playerInfo.DamageAttackB),
-                new CharacterAttack(AttackType.CharacterAttackBStep2, Animator.StringToHash(Constants.CHARACTER_COMBO_BB_02), Constants.CHARACTER_COMBO_BB_02, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.B, this.playerInfo.GamepadIndex), this.playerInfo.DamageComboBB01),
-                new CharacterAttack(AttackType.CharacterDefinitive, Animator.StringToHash(Constants.CHARACTER_DEFINITIVE), Constants.CHARACTER_DEFINITIVE, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.DEFINITIVE, this.playerInfo.GamepadIndex), this.playerInfo.DamageDefinitive),
-                new CharacterAttack(AttackType.CharacterHability, Animator.StringToHash(Constants.CHARACTER_HABILITY), Constants.CHARACTER_HABILITY, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.HABILITY, this.playerInfo.GamepadIndex), this.playerInfo.DamageHability),
-                new CharacterDefense(DefenseType.NormalDefense, Animator.StringToHash(Constants.CHARACTER_DEFENSE), Constants.CHARACTER_DEFENSE, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.DEFENSE, this.playerInfo.GamepadIndex))
+                new CharacterAttack(AttackType.CharacterAttackAStep1, this.playerInfo.ComboAAA01Hash, this.playerInfo.ComboAAA01StateName, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.playerInfo.GamepadIndex), this.playerInfo.DamageAttackA),
+                new CharacterAttack(AttackType.CharacterAttackAStep2, this.playerInfo.ComboAAA02Hash, this.playerInfo.ComboAAA02StateName, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.playerInfo.GamepadIndex), this.playerInfo.DamageComboAAA01),
+                new CharacterAttack(AttackType.CharacterAttackAStep3, this.playerInfo.ComboAAA03Hash, this.playerInfo.ComboAAA03StateName, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.playerInfo.GamepadIndex), this.playerInfo.DamageComboAAA01),
+                new CharacterAttack(AttackType.CharacterAttackBStep1, this.playerInfo.ComboBB01Hash, this.playerInfo.ComboBB01StateName, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.B, this.playerInfo.GamepadIndex), this.playerInfo.DamageAttackB),
+                new CharacterAttack(AttackType.CharacterAttackBStep2, this.playerInfo.ComboBB02Hash, this.playerInfo.ComboBB02StateName, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.B, this.playerInfo.GamepadIndex), this.playerInfo.DamageComboBB01),
+                new CharacterAttack(AttackType.CharacterDefinitive, this.playerInfo.DefinitiveHash, this.playerInfo.DefinitiveStateName, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.DEFINITIVE, this.playerInfo.GamepadIndex), this.playerInfo.DamageDefinitive),
+                new CharacterAttack(AttackType.CharacterHability, this.playerInfo.HabilityHash, this.playerInfo.HabilityStateName, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.HABILITY, this.playerInfo.GamepadIndex), this.playerInfo.DamageHability),
+                new CharacterDefense(DefenseType.NormalDefense, this.playerInfo.DefenseHash, this.playerInfo.DefenseStateName, this.anim, KeyCode.None, String.Format("{0}{1}", Inputs.DEFENSE, this.playerInfo.GamepadIndex))
             };
 
             return list;

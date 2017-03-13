@@ -18,7 +18,6 @@ namespace nseh.Gameplay.Movement
 
         private Animator anim;
         private Rigidbody body;
-        private Dictionary<string, int> animParameters;
         private PlayerInfo playerInfo;
 
         private int platformMask;
@@ -85,7 +84,7 @@ namespace nseh.Gameplay.Movement
         {
             get
             {
-                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.animParameters[Constants.IDLE];
+                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.playerInfo.IdleHash;
             }
         }
 
@@ -93,7 +92,7 @@ namespace nseh.Gameplay.Movement
         {
             get
             {
-                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.animParameters[Constants.LOCOMOTION];
+                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.playerInfo.LocomotionHash;
             }
         }
 
@@ -101,7 +100,7 @@ namespace nseh.Gameplay.Movement
         {
             get
             {
-                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.animParameters[Constants.IDLE_JUMP];
+                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.playerInfo.IdleJumpHash;
             }
         }
 
@@ -109,7 +108,7 @@ namespace nseh.Gameplay.Movement
         {
             get
             {
-                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.animParameters[Constants.LOCOMOTION_JUMP];
+                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.playerInfo.LocomotionJumpHash;
             }
         }
 
@@ -126,31 +125,13 @@ namespace nseh.Gameplay.Movement
         private void Start()
         {
             this.anim = GetComponent<Animator>();
-            this.animParameters = this.FillInAnimParameters();
+            this.playerInfo = GetComponent<PlayerInfo>();
 
             this.body = GetComponent<Rigidbody>();
             this.body.isKinematic = false;
 
-            this.playerInfo = GetComponent<PlayerInfo>();
-
             this.facingRight = true;
             this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
-        }
-
-        private Dictionary<string, int> FillInAnimParameters()
-        {
-            Dictionary<string, int> dict = new Dictionary<string, int>();
-
-            dict.Add(Constants.H, Animator.StringToHash(Constants.H));
-            dict.Add(Constants.GROUNDED, Animator.StringToHash(Constants.GROUNDED));
-            dict.Add(Constants.SPEED, Animator.StringToHash(Constants.SPEED));
-            dict.Add(Constants.LOCOMOTION, Animator.StringToHash(Constants.LOCOMOTION));
-            dict.Add(Constants.IDLE, Animator.StringToHash(Constants.IDLE));
-
-            dict.Add(Constants.IDLE_JUMP, Animator.StringToHash(Constants.IDLE_JUMP));
-            dict.Add(Constants.LOCOMOTION_JUMP, Animator.StringToHash(Constants.LOCOMOTION_JUMP));
-
-            return dict;
         }
 
         private void Update()
@@ -161,8 +142,8 @@ namespace nseh.Gameplay.Movement
             this.movePressed = Mathf.Abs(this.horizontal) > 0.1f;
             this.jumpPressed = this.playerInfo.JumpPressed;
 
-            this.anim.SetFloat(this.animParameters[Constants.H], this.horizontal);
-            this.anim.SetBool(this.animParameters[Constants.GROUNDED], this.IsGrounded());
+            this.anim.SetFloat(this.playerInfo.HorizontalStateName, this.horizontal);
+            this.anim.SetBool(this.playerInfo.GroundedStateName, this.IsGrounded());
 
             this.FlipCharacter(this.horizontal);
             this.Move();
@@ -262,12 +243,12 @@ namespace nseh.Gameplay.Movement
                 if (this.movePressed)
                 {
                     this.body.velocity = this.transform.forward * this.speed;
-                    this.anim.SetFloat(this.animParameters[Constants.SPEED], this.speed);
+                    this.anim.SetFloat(this.playerInfo.SpeedStateName, this.speed);
                 }
                 else
                 {
                     this.body.velocity = Vector3.zero;
-                    this.anim.SetFloat(this.animParameters[Constants.SPEED], 0.0f);
+                    this.anim.SetFloat(this.playerInfo.SpeedStateName, 0.0f);
                 }
             }
         }
@@ -289,14 +270,14 @@ namespace nseh.Gameplay.Movement
 
         private void StopJumpAnimator()
         {
-            if (this.anim.GetBool(this.animParameters[Constants.LOCOMOTION_JUMP]))
+            if (this.anim.GetBool(this.playerInfo.LocomotionJumpStateName))
             {
-                this.anim.SetBool(this.animParameters[Constants.LOCOMOTION_JUMP], false);
+                this.anim.SetBool(this.playerInfo.LocomotionJumpStateName, false);
             }
 
-            if (this.anim.GetBool(this.animParameters[Constants.IDLE_JUMP]))
+            if (this.anim.GetBool(this.playerInfo.IdleJumpStateName))
             {
-                this.anim.SetBool(this.animParameters[Constants.IDLE_JUMP], false);
+                this.anim.SetBool(this.playerInfo.IdleJumpStateName, false);
             }
         }
 
@@ -304,12 +285,12 @@ namespace nseh.Gameplay.Movement
         {
             if (IsLocomotionState)
             {
-                this.anim.SetBool(this.animParameters[Constants.LOCOMOTION_JUMP], true);
+                this.anim.SetBool(this.playerInfo.LocomotionJumpStateName, true);
             }
 
             if (IsIdleState)
             {
-                this.anim.SetBool(this.animParameters[Constants.IDLE_JUMP], true);
+                this.anim.SetBool(this.playerInfo.IdleJumpStateName, true);
             }
         }
 
