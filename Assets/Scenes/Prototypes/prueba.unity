@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platform: {fileID: 1060786691161902, guid: 18c46eb526bc6a144949c7f3c2b09503, type: 2}
+  platformChest: {fileID: 1060786691161902, guid: e6499055abae8524bbd53ce1b26c18a2,
+    type: 2}
   platformInitial: {fileID: 997767136}
   generationPoint: {fileID: 798807408}
   SpecialPlatforms: []
@@ -242,13 +244,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platform: {fileID: 1060786691161902, guid: 18c46eb526bc6a144949c7f3c2b09503, type: 2}
+  platformChest: {fileID: 1060786691161902, guid: e6499055abae8524bbd53ce1b26c18a2,
+    type: 2}
   platformInitial: {fileID: 993876937}
   generationPoint: {fileID: 798807408}
   SpecialPlatforms:
   - {fileID: 1303643239806086, guid: b7f12bd6cd9ed1343af62ef4b7f03ee3, type: 2}
   - {fileID: 1416979426599536, guid: 42d1dd575222cd042bef441bb21c698f, type: 2}
   - {fileID: 1519622572021944, guid: ce1750ad2b451e646957dc21e1713707, type: 2}
-  - {fileID: 1060786691161902, guid: e6499055abae8524bbd53ce1b26c18a2, type: 2}
 --- !u!4 &320675292
 Transform:
   m_ObjectHideFlags: 0
@@ -569,6 +572,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platform: {fileID: 1165418387271792, guid: 344db11ef01342d49bdea0acc4e8ca37, type: 2}
+  platformChest: {fileID: 1060786691161902, guid: e6499055abae8524bbd53ce1b26c18a2,
+    type: 2}
   platformInitial: {fileID: 1753345370}
   generationPoint: {fileID: 798807408}
   SpecialPlatforms: []
@@ -646,13 +651,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platform: {fileID: 1060786691161902, guid: 18c46eb526bc6a144949c7f3c2b09503, type: 2}
+  platformChest: {fileID: 1060786691161902, guid: e6499055abae8524bbd53ce1b26c18a2,
+    type: 2}
   platformInitial: {fileID: 808391156}
   generationPoint: {fileID: 798807408}
   SpecialPlatforms:
   - {fileID: 1303643239806086, guid: b7f12bd6cd9ed1343af62ef4b7f03ee3, type: 2}
   - {fileID: 1416979426599536, guid: 42d1dd575222cd042bef441bb21c698f, type: 2}
   - {fileID: 1519622572021944, guid: ce1750ad2b451e646957dc21e1713707, type: 2}
-  - {fileID: 1060786691161902, guid: e6499055abae8524bbd53ce1b26c18a2, type: 2}
 --- !u!1001 &1519418952
 Prefab:
   m_ObjectHideFlags: 0
@@ -760,13 +766,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platform: {fileID: 1060786691161902, guid: 18c46eb526bc6a144949c7f3c2b09503, type: 2}
+  platformChest: {fileID: 1060786691161902, guid: e6499055abae8524bbd53ce1b26c18a2,
+    type: 2}
   platformInitial: {fileID: 1310095457}
   generationPoint: {fileID: 798807408}
   SpecialPlatforms:
   - {fileID: 1303643239806086, guid: b7f12bd6cd9ed1343af62ef4b7f03ee3, type: 2}
   - {fileID: 1416979426599536, guid: 42d1dd575222cd042bef441bb21c698f, type: 2}
   - {fileID: 1519622572021944, guid: ce1750ad2b451e646957dc21e1713707, type: 2}
-  - {fileID: 1060786691161902, guid: e6499055abae8524bbd53ce1b26c18a2, type: 2}
 --- !u!4 &1576450962
 Transform:
   m_ObjectHideFlags: 0
@@ -808,13 +815,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platform: {fileID: 1060786691161902, guid: 18c46eb526bc6a144949c7f3c2b09503, type: 2}
+  platformChest: {fileID: 1060786691161902, guid: e6499055abae8524bbd53ce1b26c18a2,
+    type: 2}
   platformInitial: {fileID: 960068358}
   generationPoint: {fileID: 798807408}
   SpecialPlatforms:
   - {fileID: 1303643239806086, guid: b7f12bd6cd9ed1343af62ef4b7f03ee3, type: 2}
   - {fileID: 1416979426599536, guid: 42d1dd575222cd042bef441bb21c698f, type: 2}
   - {fileID: 1519622572021944, guid: ce1750ad2b451e646957dc21e1713707, type: 2}
-  - {fileID: 1060786691161902, guid: e6499055abae8524bbd53ce1b26c18a2, type: 2}
 --- !u!4 &1659324297
 Transform:
   m_ObjectHideFlags: 0
