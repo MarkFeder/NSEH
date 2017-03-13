@@ -13,7 +13,7 @@ namespace nseh.Gameplay.Movement
 
         public float speed;
         public float jumpForce;
-        public int velocityCube;
+        public float velocityCube;
         private Rigidbody myRigidBody;
 
         public int gamepadIndex;
