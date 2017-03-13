@@ -73,7 +73,7 @@ namespace nseh.Gameplay.Combat
 
         #endregion
 
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             this.anim = GetComponent<Animator>();
             this.characterMovement = GetComponent<PlayerMovement>();

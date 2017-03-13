@@ -23,6 +23,7 @@ namespace nseh.Gameplay.Combat.System
         protected Collider hitBox;
         protected PlayerCombat characterCombat;
         protected PlayerMovement characterMovement;
+        protected PlayerInfo playerInfo;
         protected Animator anim;
 
         protected List<GameObject> enemyTargets;
@@ -55,6 +56,7 @@ namespace nseh.Gameplay.Combat.System
 
             this.characterCombat = this.transform.root.GetComponent<PlayerCombat>();
             this.characterMovement = this.transform.root.GetComponent<PlayerMovement>();
+            this.playerInfo = this.transform.root.GetComponent<PlayerInfo>();
             this.anim = this.transform.root.GetComponent<Animator>();
             this.enemyTargets = new List<GameObject>();
 
@@ -78,38 +80,42 @@ namespace nseh.Gameplay.Combat.System
             //    Debug.DrawRay(contact.point, contact.normal, Color.red, 5.0f);
             //}
 
-            if (enemy.CompareTag(Tags.PLAYER)
-                && this.parentObjName != enemy.name)
+            if (enemy.CompareTag(Tags.PLAYER))
             {
-                bool enemyTakenAback = this.EnemyHasBeenTakenAback(ref enemy);
+                PlayerInfo enemyInfo = enemy.GetComponent<PlayerInfo>();
 
-                if (enemyTakenAback)
+                if (enemyInfo.Player != this.playerInfo.Player)
                 {
-                    var attack = this.characterCombat.CurrentAction as HandledAction;
+                    bool enemyTakenAback = this.EnemyHasBeenTakenAback(ref enemy);
 
-                    if (!SystemObject.ReferenceEquals(null, attack))
+                    if (enemyTakenAback)
                     {
-                        Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
+                        var attack = this.characterCombat.CurrentAction as HandledAction;
 
-                        this.PerformDamage(ref this.rootCharacter, ref attack, ref enemy);
+                        if (!SystemObject.ReferenceEquals(null, attack))
+                        {
+                            Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
+
+                            this.PerformDamage(ref this.rootCharacter, ref attack, ref enemy);
+                        }
                     }
-                }
-                else
-                {
-                    // enemies are watching each other
-                    this.enemyTargets.Add(enemy);
-
-                    var attack = this.characterCombat.CurrentAction as HandledAction;
-
-                    if (!SystemObject.ReferenceEquals(null, attack))
+                    else
                     {
-                        Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
+                        // enemies are watching each other
+                        this.enemyTargets.Add(enemy);
 
-                        this.PerformDamage(ref this.rootCharacter, ref attack, ref this.enemyTargets);
+                        var attack = this.characterCombat.CurrentAction as HandledAction;
+
+                        if (!SystemObject.ReferenceEquals(null, attack))
+                        {
+                            Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
+
+                            this.PerformDamage(ref this.rootCharacter, ref attack, this.enemyTargets);
+                        }
                     }
-                }
 
-                this.enemyTargets.Clear();
+                    this.enemyTargets.Clear(); 
+                }
             }
         }
 
@@ -152,16 +158,20 @@ namespace nseh.Gameplay.Combat.System
         }
 
         // Enemy are facing each other
-        public void PerformDamage(ref GameObject sender, ref HandledAction senderAction, ref List<GameObject> targetEnemies)
+        public void PerformDamage(ref GameObject sender, ref HandledAction senderAction, List<GameObject> targetEnemies)
         {
+            PlayerInfo senderInfo = sender.GetComponent<PlayerInfo>();
+
             if (targetEnemies != null && targetEnemies.Count > 0)
             {
                 for (int i = 0; i < targetEnemies.Count(); i++)
                 {
                     var enemy = targetEnemies[i];
 
+                    PlayerInfo enemyInfo = enemy.GetComponent<PlayerInfo>();
+                    
                     // Check if sender is not the enemy
-                    if (!sender.name.Equals(enemy.name))
+                    if (senderInfo.Player != enemyInfo.Player)
                     {
                         // Check combat system rules
                         var enemyAction = enemy.GetSafeComponent<PlayerCombat>().CurrentAction as HandledAction;
@@ -182,9 +192,6 @@ namespace nseh.Gameplay.Combat.System
                             enemy.GetSafeComponent<CharacterHealth>().TakeDamage(amountDamage);
 
                             // Display effects
-                            PlayerInfo enemyInfo = enemy.GetSafeComponent<PlayerInfo>();
-                            PlayerInfo senderInfo = enemy.GetSafeComponent<PlayerInfo>();
-
                             enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleHeadPos.position);
                         }
                     }

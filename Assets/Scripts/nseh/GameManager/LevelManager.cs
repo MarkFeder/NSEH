@@ -116,6 +116,8 @@ namespace nseh.GameManager
             {
                 case 1:
                     _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(0, 1, 2), new Vector3(0, -90, 0));
+                    _player1.GetComponent<PlayerInfo>().GamepadIndex = 1;
+
                     //INTERFAZ
                     _player1_HUD.gameObject.SetActive(true);
                     Debug.Log(_player1_HUD.transform.GetChild(1).GetComponent<BarComponent>());
@@ -124,27 +126,26 @@ namespace nseh.GameManager
                     _player1_portrait.sprite = _player1.GetComponent<PlayerInfo>().CharacterPortrait;
                     _player2_HUD.gameObject.SetActive(false);
                     //CAMBIAR 
-                    _player1.GetComponent<PlayerInfo>().GamepadIndex = 1;
                     break;
 
                 case 2:
                     _player1 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[0], new Vector3(12, 1, 2), new Vector3(0, -90, 0));
+                    _player1.GetComponent<PlayerInfo>().GamepadIndex = 1;
 
                     _player1_HUD.gameObject.SetActive(true);
                     _player1.GetComponent<CharacterHealth>().HealthBar = _player1_HUD.transform.GetChild(1).GetComponent<BarComponent>();
                     _player1.GetComponent<PlayerInfo>().Player = 1;
                     _player1_portrait.sprite = _player1.GetComponent<PlayerInfo>().CharacterPortrait;
 
-                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(-12, 1, 2), new Vector3(0, 90, 0));
-      
+                    _player2 = GameManager.Instance.InstantiateCharacter(GameManager.Instance._characters[1], new Vector3(-12, 1, 2), new Vector3(0, -90, 0));
+                    _player2.GetComponent<PlayerInfo>().GamepadIndex = 2;
+
                     _player2_HUD.gameObject.SetActive(true);
                     _player2.GetComponent<CharacterHealth>().HealthBar = _player2_HUD.transform.GetChild(1).GetComponent<BarComponent>();
                     _player2.GetComponent<PlayerInfo>().Player = 2;
-                    _player1_portrait.sprite = _player1.GetComponent<PlayerInfo>().CharacterPortrait;
+                    _player2_portrait.sprite = _player2.GetComponent<PlayerInfo>().CharacterPortrait;
 
-                    _player1.GetComponent<PlayerInfo>().GamepadIndex = 1;
 
-                    _player2.GetComponent<PlayerInfo>().GamepadIndex = 2;
                     break;
             }
         }
