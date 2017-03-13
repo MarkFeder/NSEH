@@ -1,17 +1,40 @@
-﻿using System;
+﻿using nseh.Gameplay.Movement;
+using System;
 using UnityEngine;
 using Inputs = nseh.Utils.Constants.Input;
 
 namespace nseh.Gameplay.Entities.Player
 {
-    public partial class PlayerInfo : MonoBehaviour
+    public class PlayerInfo : MonoBehaviour
     {
+
+<<<<<<< Updated upstream
+    //Container class: Contains properties about players choices and level logic variables related to prefab
+    private float horizontal;
+    private float vertical;
+    private int gamepadIndex;
+    [Range(1, 4)]
+    private int player;
+    private bool teletransported;
+    [SerializeField]
+    private Sprite characterPortrait;
+=======
+        //Container class: Contains properties about players choices and level logic variables related to prefab
+>>>>>>> Stashed changes
+
         #region Public Properties
 
-        [Header("Input properties")]
         public int gamepadIndex;
 
-        [Space(20)]
+        [Header("Damages of attacks")]
+        public float damageAttackA;
+        public float damageAttackB;
+        public float damageComboAAA01;
+        public float damageComboAAA02;
+        public float damageComboBB01;
+        public float damageComboBSharp;
+        public float damageDefinitive;
+        public float damnageHability;
 
         #endregion
 
@@ -25,8 +48,6 @@ namespace nseh.Gameplay.Entities.Player
 
         private bool teletransported;
         private bool jumpPressed;
-
-        public Sprite characterPortrait;
 
         #endregion
 
@@ -95,7 +116,7 @@ namespace nseh.Gameplay.Entities.Player
             {
                 this.teletransported = value;
             }
-        }
+        } 
 
         public bool JumpPressed
         {
@@ -105,28 +126,46 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
-        public Sprite CharacterPortrait
-        {
-            get
-            {
-                return (this.characterPortrait) ? this.characterPortrait : null;
-            }
-        }
+        public float DamageAttackA { get { return this.damageAttackA; } }
+        public float DamageAttackB { get { return this.damageAttackB; } }
+        public float DamageComboAAA01 { get { return this.damageComboAAA01; } }
+        public float DamageComboAAA02 { get { return this.damageComboAAA02; } }
+        public float DamageComboBB01 { get { return this.damageComboBB01; } }
+        public float DamageComboBSharp { get { return this.damageComboBSharp; } }
+        public float DamageDefinitive { get { return this.damageDefinitive; } }
+        public float DamnageHability { get { return this.damnageHability; } }
 
         #endregion
 
-        private void Start()
+        void Start()
         {
-            this.teletransported = false;
+            this.Teletransported = false;
+
             this.jumpPressed = false;
         }
 
-        private void Update()
+<<<<<<< Updated upstream
+    public Sprite CharacterPortrait
+    {
+        get
+        {
+            return (this.characterPortrait) ? this.characterPortrait : null;
+        }
+    }
+
+    void Start()
+    {
+        this.GamepadIndex = this.gameObject.GetComponent<PlayerMovement>().gamepadIndex;
+        this.Teletransported = false;
+    }
+=======
+        void Update()
         {
             this.horizontal = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex));
             this.vertical = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex));
+>>>>>>> Stashed changes
 
             this.jumpPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex));
         }
-    }
+    } 
 }
