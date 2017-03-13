@@ -28,6 +28,7 @@ namespace nseh.Gameplay.Entities.Player
         public string DefinitiveStateName { get { return CombatAnimParameters.CHARACTER_COMBO_BB_02; } }
         public string HabilityStateName { get { return CombatAnimParameters.CHARACTER_COMBO_BB_02; } }
         public string DefenseStateName { get { return CombatAnimParameters.CHARACTER_COMBO_BB_02; } }
+        public string ImpactStateName { get { return CombatAnimParameters.CHARACTER_IMPACT; } }
 
         // Movement - Hash
 
@@ -49,6 +50,7 @@ namespace nseh.Gameplay.Entities.Player
         public int DefinitiveHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_02); } }
         public int HabilityHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_02); } }
         public int DefenseHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_02); } }
+        public int ImpactHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_IMPACT); } }
 
         #endregion
     }

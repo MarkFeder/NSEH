@@ -21,7 +21,7 @@ namespace nseh.Gameplay.Entities.Player
         private float vertical;
 
         [Range(1, 4)]
-        private int player;
+        public int player;
 
         private bool teletransported;
         private bool jumpPressed;

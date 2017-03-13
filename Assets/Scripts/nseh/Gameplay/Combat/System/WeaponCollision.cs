@@ -63,7 +63,7 @@ namespace nseh.Gameplay.Combat.System
             this.parentObjName = this.transform.root.name;
             this.rootCharacter = this.transform.root.gameObject;
 
-            this.layerMask = LayerMask.GetMask("Player");
+            this.layerMask = LayerMask.GetMask(Tags.PLAYER);
         }
 
         #endregion
@@ -80,7 +80,7 @@ namespace nseh.Gameplay.Combat.System
             //    Debug.DrawRay(contact.point, contact.normal, Color.red, 5.0f);
             //}
 
-            if (enemy.CompareTag(Tags.PLAYER))
+            if (enemy.CompareTag(Tags.PLAYER_BODY))
             {
                 PlayerInfo enemyInfo = enemy.GetComponent<PlayerInfo>();
 
@@ -96,7 +96,7 @@ namespace nseh.Gameplay.Combat.System
                         {
                             Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
 
-                            this.PerformDamage(ref this.rootCharacter, ref attack, ref enemy);
+                            this.PerformDamage(ref this.rootCharacter, ref attack, ref enemy, ref this.playerInfo, ref enemyInfo);
                         }
                     }
                     else
@@ -110,7 +110,7 @@ namespace nseh.Gameplay.Combat.System
                         {
                             Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
 
-                            this.PerformDamage(ref this.rootCharacter, ref attack, this.enemyTargets);
+                            this.PerformDamage(ref this.rootCharacter, ref attack, ref this.playerInfo, ref this.enemyTargets);
                         }
                     }
 
@@ -135,7 +135,7 @@ namespace nseh.Gameplay.Combat.System
         #region Combat System
 
         // Enemy is taken aback
-        public void PerformDamage(ref GameObject sender, ref HandledAction senderAction, ref GameObject enemy)
+        public void PerformDamage(ref GameObject sender, ref HandledAction senderAction, ref GameObject enemy, ref PlayerInfo senderInfo, ref PlayerInfo enemyInfo)
         {
             if (sender != null && enemy != null)
             {
@@ -146,9 +146,6 @@ namespace nseh.Gameplay.Combat.System
                 enemy.GetSafeComponent<CharacterHealth>().TakeDamage(amountDamage);
 
                 // Display effects
-                PlayerInfo enemyInfo = enemy.GetSafeComponent<PlayerInfo>();
-                PlayerInfo senderInfo = enemy.GetSafeComponent<PlayerInfo>();
-
                 enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
             }
             else
@@ -158,10 +155,8 @@ namespace nseh.Gameplay.Combat.System
         }
 
         // Enemy are facing each other
-        public void PerformDamage(ref GameObject sender, ref HandledAction senderAction, List<GameObject> targetEnemies)
+        public void PerformDamage(ref GameObject sender, ref HandledAction senderAction, ref PlayerInfo senderInfo, ref List<GameObject> targetEnemies)
         {
-            PlayerInfo senderInfo = sender.GetComponent<PlayerInfo>();
-
             if (targetEnemies != null && targetEnemies.Count > 0)
             {
                 for (int i = 0; i < targetEnemies.Count(); i++)
@@ -180,7 +175,7 @@ namespace nseh.Gameplay.Combat.System
                         {
                             int conflict = CombatRules.CompareActions(ref senderAction, ref enemyAction);
 
-                            this.ResolveConflict(conflict, ref sender, ref senderAction, ref enemy, ref enemyAction);
+                            this.ResolveConflict(conflict, ref sender, ref senderAction, ref senderInfo, ref enemy, ref enemyAction, ref enemyInfo);
                         }
                         else
                         {
@@ -203,7 +198,7 @@ namespace nseh.Gameplay.Combat.System
             }
         }
 
-        private void ResolveConflict(int conflict, ref GameObject sender, ref HandledAction senderAction, ref GameObject enemy, ref HandledAction enemyAction)
+        private void ResolveConflict(int conflict, ref GameObject sender, ref HandledAction senderAction, ref PlayerInfo senderInfo, ref GameObject enemy, ref HandledAction enemyAction, ref PlayerInfo enemyInfo)
         {
             // Print debug info to log
             // See: http://stackoverflow.com/questions/1810785/why-cant-i-pass-a-property-or-indexer-as-a-ref-parameter-when-net-reflector-sh
@@ -218,14 +213,14 @@ namespace nseh.Gameplay.Combat.System
                 CharacterAttack enemyAttack = enemyAction as CharacterAttack;
                 CharacterAttack senderAttack = senderAction as CharacterAttack;
 
-                this.ResolveConflict(conflict, ref sender, ref senderAttack, ref enemy, ref enemyAttack);
+                this.ResolveConflict(conflict, ref sender, ref senderAttack, ref senderInfo, ref enemy, ref enemyAttack, ref enemyInfo);
             }
             else if (senderAction is CharacterAttack && enemyAction is CharacterDefense)
             {
                 CharacterAttack senderAttack = senderAction as CharacterAttack;
                 CharacterDefense enemyDefense = enemyAction as CharacterDefense;
 
-                this.ResolveConflict(conflict, ref sender, ref senderAttack, ref enemy, ref enemyDefense);
+                this.ResolveConflict(conflict, ref sender, ref senderAttack, ref senderInfo, ref enemy, ref enemyDefense, ref enemyInfo);
             }
             else
             {
@@ -233,11 +228,8 @@ namespace nseh.Gameplay.Combat.System
             }
         }
 
-        private void ResolveConflict(int conflict, ref GameObject sender, ref CharacterAttack senderAttack, ref GameObject enemy, ref CharacterDefense enemyDefense)
+        private void ResolveConflict(int conflict, ref GameObject sender, ref CharacterAttack senderAttack, ref PlayerInfo senderInfo, ref GameObject enemy, ref CharacterDefense enemyDefense, ref PlayerInfo enemyInfo)
         {
-            PlayerInfo senderInfo = sender.GetSafeComponent<PlayerInfo>();
-            PlayerInfo enemyInfo = enemy.GetSafeComponent<PlayerInfo>();
-
             if (conflict == -1)
             {
                 if (senderAttack.AttackType == AttackType.CharacterAttackBSharp)
@@ -271,16 +263,13 @@ namespace nseh.Gameplay.Combat.System
             }
         }
 
-        private void ResolveConflict(int conflict, ref GameObject sender, ref CharacterAttack senderAction, ref GameObject enemy, ref CharacterAttack enemyAction)
+        private void ResolveConflict(int conflict, ref GameObject sender, ref CharacterAttack senderAction, ref PlayerInfo senderInfo, ref GameObject enemy, ref CharacterAttack enemyAction, ref PlayerInfo enemyInfo)
         {
-            PlayerInfo senderInfo = sender.GetSafeComponent<PlayerInfo>();
-            PlayerInfo enemyInfo = enemy.GetSafeComponent<PlayerInfo>();
-
             if (conflict == -1)
             {
                 // Cancel both attacks; do not take any damage effect
-                enemyAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
-                senderAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+                enemyAction.Animator.SetTrigger(enemyInfo.ImpactHash);
+                senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
 
                 // Display effects
                 senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
@@ -300,7 +289,7 @@ namespace nseh.Gameplay.Combat.System
             {
                 enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAction.CurrentDamage);
                 // Cancel a's action
-                senderAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+                senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
 
                 // Display effects
                 enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
@@ -310,7 +299,7 @@ namespace nseh.Gameplay.Combat.System
                 sender.GetSafeComponent<CharacterHealth>().TakeDamage((int)enemyAction.CurrentDamage);
                 // Cancel b's action
                 // It should be sth related to CharacterCombat but we have the animator itself there
-                enemyAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+                enemyAction.Animator.SetTrigger(enemyInfo.ImpactHash);
 
                 // Display effects
                 senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
@@ -322,7 +311,7 @@ namespace nseh.Gameplay.Combat.System
                 enemy.GetSafeComponent<CharacterHealth>().TakeDamage((int)senderAction.CurrentDamage);
 
                 // Cancel both a and b
-                senderAction.Animator.SetTrigger(Animator.StringToHash(Actions.CHARACTER_IMPACT));
+                senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
 
                 // Display effects
                 senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
