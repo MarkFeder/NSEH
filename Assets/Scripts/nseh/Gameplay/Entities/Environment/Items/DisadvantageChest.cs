@@ -38,7 +38,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case DisadvantageChestType.ChestBomb:
 
                     this.ChestBomb(this.percent);
-                    StartCoroutine(this.DisplayText(itemText, DisadvantageItems.BOMBCHEST));
+                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.BOMBCHEST, timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, 1.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -46,15 +46,15 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case DisadvantageChestType.PoisonCloud:
 
                     this.PoisonCloud(this.percent, this.seconds);
-                    StartCoroutine(this.DisplayText(itemText, DisadvantageItems.POISONCLOUD));
-                    ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleBodyPos);
+                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.POISONCLOUD, timeToDisplayText);
+                    this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
                 case DisadvantageChestType.ConfusedPotion:
 
                     this.ConfusedPotion(this.seconds);
-                    StartCoroutine(this.DisplayText(itemText, DisadvantageItems.CONFUSION));
+                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.CONFUSION, timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleHeadPos);
 
                     break;

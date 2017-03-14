@@ -55,7 +55,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Health:
 
                     this.IncreaseHealth(this.percent);
-                    StartCoroutine(this.DisplayText(this.itemText, StandardItems.HEALTH));
+                    this.spawnItemPoint.DisplayText(this.itemText, StandardItems.HEALTH, timeToDisplayText);
                     this.ParticleAnimation(particlePrefab, 1.5f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -63,7 +63,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Damage:
 
                     this.IncreaseDamage(this.percent, this.time);
-                    StartCoroutine(this.DisplayText(this.itemText, StandardItems.DAMAGE));
+                    this.spawnItemPoint.DisplayText(this.itemText, StandardItems.DAMAGE, timeToDisplayText);
                     this.ParticleAnimation(particlePrefab, this.time, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -71,7 +71,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Velocity:
 
                     this.IncreaseVelocity(this.percent, this.time);
-                    StartCoroutine(this.DisplayText(this.itemText, StandardItems.SPEED));
+                    this.spawnItemPoint.DisplayText(this.itemText, StandardItems.SPEED, timeToDisplayText);
                     this.ParticleAnimation(particlePrefab, this.time, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -79,7 +79,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Jump:
 
                     this.IncreaseJump(this.percent, this.time);
-                    StartCoroutine(this.DisplayText(this.itemText, StandardItems.JUMP));
+                    this.spawnItemPoint.DisplayText(this.itemText, StandardItems.JUMP, timeToDisplayText);
                     this.ParticleAnimation(particlePrefab, this.time, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -87,7 +87,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Defense:
 
                     this.SetUpDefense(this.time, this.hits);
-                    StartCoroutine(this.DisplayText(this.itemText, StandardItems.DEFENSE));
+                    this.spawnItemPoint.DisplayText(this.itemText, StandardItems.DEFENSE, timeToDisplayText);
                     this.ParticleAnimation(particlePrefab, this.time, particlesSpawnPoints.ParticleBodyPos);
 
                     break;

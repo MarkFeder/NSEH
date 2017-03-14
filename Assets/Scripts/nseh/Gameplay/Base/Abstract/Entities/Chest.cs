@@ -1,4 +1,5 @@
 ﻿using nseh.Gameplay.Entities.Player;
+using nseh.Gameplay.Entities.Environment;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		public GameObject particlePrefab;
         [NonSerialized]
         public GameObject canvasItemText;
+        [NonSerialized]
+        public SpawnItemPoint spawnItemPoint;
 
 		public float destructionTime;
 		public float timeToDisplayText;
@@ -73,7 +76,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		protected virtual void OnTriggerEnter(Collider other)
 		{
-			if (other.CompareTag(Tags.PLAYER))
+			if (other.CompareTag(Tags.PLAYER_BODY))
 			{
 				if (this.currentUses < this.uses)
 				{
@@ -113,16 +116,6 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected void PlaySoundAtPlayer(AudioClip clip)
 		{
 			AudioSource.PlayClipAtPoint(clip, this.target.transform.position, 1);
-		}
-
-		protected IEnumerator DisplayText(Text text, string content)
-		{
-			text.gameObject.SetActive(true);
-			text.text = content;
-
-			yield return new WaitForSeconds(this.timeToDisplayText);
-            Debug.Log("Item text goes off");
-			text.gameObject.SetActive(false);
 		}
 
 		#endregion

@@ -249,7 +249,7 @@ namespace nseh.GameManager
 
                     _player2_HUD.gameObject.SetActive(true);
                     _player2.GetComponent<CharacterHealth>().HealthBar = _player2_HUD.transform.GetChild(1).GetComponent<BarComponent>();
-                    _player1.GetComponent<PlayerInfo>().Player = 2;
+                    _player2.GetComponent<PlayerInfo>().Player = 2;
 
 
                     _player1.GetComponent<PlayerInfo>().GamepadIndex = 1;

@@ -44,7 +44,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.Invulnerability:
 
                     this.Invulnerability(this.seconds);
-                    StartCoroutine(this.DisplayText(itemText, SpecialItems.INVULNERABILITY));
+                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.INVULNERABILITY, timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -52,7 +52,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.AutomaticAttacks:
 
                     this.AutomaticAttacks(this.times);
-                    StartCoroutine(this.DisplayText(itemText, SpecialItems.AUTOATTACKS));
+                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.AUTOATTACKS, timeToDisplayText);
                     this.ParticleAnimation(particlePrefab, 3.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -60,7 +60,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.CriticalDamage:
 
                     this.CriticalDamage(this.times);
-                    StartCoroutine(this.DisplayText(itemText, SpecialItems.CRITICAL));
+                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.CRITICAL, timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, 3.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -68,7 +68,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.UnlockDefinitiveMode:
 
                     this.UnlockDefinitiveMode();
-                    StartCoroutine(this.DisplayText(itemText, SpecialItems.ULTIMATE));
+                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.ULTIMATE, timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, 1.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
