@@ -7,6 +7,8 @@ using Constants = nseh.Utils.Constants.Animations.Movement;
 using Inputs = nseh.Utils.Constants.Input;
 using Layers = nseh.Utils.Constants.Layers;
 using nseh.Gameplay.Entities.Player;
+using Tags = nseh.Utils.Constants.Tags;
+
 
 namespace nseh.Gameplay.Movement
 {
@@ -35,7 +37,7 @@ namespace nseh.Gameplay.Movement
         private void OnTriggerStay(Collider other)
         {
 
-            if ((other.GetComponent<PlayerInfo>().Vertical > 0 && other.GetComponent<PlayerInfo>().Horizontal == 0 && other.GetComponent<PlayerInfo>().Teletransported == false))
+            if ((other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().Vertical > 0 && other.GetComponent<PlayerInfo>().Horizontal == 0 && other.GetComponent<PlayerInfo>().Teletransported == false))
             {
                 other.GetComponent<PlayerInfo>().Teletransported = true;
                 StartCoroutine(Teleport(other));
@@ -48,7 +50,7 @@ namespace nseh.Gameplay.Movement
         private void OnTriggerExit(Collider other)
         {
             
-            if ((other.GetComponent<PlayerInfo>().Vertical == 0))
+            if ((other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().Vertical == 0))
             {
                 Debug.Log("Exit");
                 other.GetComponent<PlayerInfo>().Teletransported = false;
