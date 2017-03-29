@@ -1,83 +1,112 @@
 ﻿using UnityEngine;
+using System.Linq;
+using System.Collections.Generic;
+using nseh.Utils;
+using nseh.Gameplay.Movement;
+using nseh.Gameplay.Base.Abstract;
+using nseh.Gameplay.Entities.Player;
 
 namespace nseh.Gameplay.Gameflow
 {
-    public class Tar : MonoBehaviour
+    public class Tar : TarComponent
     {
-        public Transform platformTarget;
-        public Vector3 initialTarPosition;
-        public Vector3 platformPosition;
-        public Vector3 targetTarPosition;
-        //private Vector3 velocity = new Vector3(1f,1f,1f);
-        //float GameTime = 0;
-        //int eventStartedAt = 0;
-        //float eventDuration = 10.0f;
-        //bool eventFinished = false;
-        //float elapsedTime;
-        //bool goingUp = true;
+        private float _nextApplyEffect = 0;
+        private List<GameObject> _playersInTar;
 
-        // Use this for initialization
-        void Start()
+        protected override bool TarUp(float elapsedTime)
         {
-            platformPosition = platformTarget.position;
-            initialTarPosition = transform.position;
-        }
-
-        //Component suscribes to event on enable
-        void OnEnable()
-        {
-            Tar_Event.TarUp += TarUp;
-            Tar_Event.TarDown += TarDown;
-            Tar_Event.ResetTarComponents += TarReset;
-        }
-
-        //Component unsuscribes to event on disable
-        void OnDisable()
-        {
-            Tar_Event.TarUp -= TarUp;
-            Tar_Event.TarDown -= TarDown;
-            Tar_Event.ResetTarComponents -= TarReset;
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        bool TarUp(float elapsedTime)
-        {
-            //tar.SetActive(true);
-            targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, targetTarPosition, elapsedTime / 80.0f);
-            if (transform.position == targetTarPosition)
+            this.targetTarPosition = new Vector3(this.transform.position.x, this.platformPosition.y, this.transform.position.z);
+            this.transform.position = Vector3.Lerp(this.transform.position, this.targetTarPosition, elapsedTime / 80.0f);
+            if (this.transform.position == this.targetTarPosition)
             {
                 //Debug.Log("Tar is up. " + "(" + elapsedTime + ")");
                 return true;
             }
 
             return false;
-            //transform.position = Vector3.SmoothDamp(transform.position, targetTarPosition, ref velocity, 0.15f);
         }
 
-        bool TarDown(float elapsedTime)
+        protected override bool TarDown(float elapsedTime)
         {
-            targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, initialTarPosition, elapsedTime / 120.0f);
-            if (transform.position == initialTarPosition)
+            this.targetTarPosition = new Vector3(this.transform.position.x, this.platformPosition.y, this.transform.position.z);
+            this.transform.position = Vector3.Lerp(this.transform.position, this.initialTarPosition, elapsedTime / 120.0f);
+            if (this.transform.position == this.initialTarPosition)
             {
                 //Debug.Log("Tar is down. " + "(" + elapsedTime + ")");
+                _playersInTar = new List<GameObject>();
                 return false;
             }
             return true;
-            //transform.position = Vector3.SmoothDamp(transform.position, initialTarPosition, ref velocity, 0.15f);
-            //tar.SetActive(false);
         }
 
-        void TarReset()
+        protected override void TarReset()
         {
-            transform.position = initialTarPosition;
+            this.transform.position = this.initialTarPosition;
+            _nextApplyEffect = 0;
+            _playersInTar = new List<GameObject>();
         }
-    } 
+
+        void Update()
+        {
+            //There are players in Tar
+            if (_playersInTar.Any())
+            {
+                DealDamagePeriodically();
+            }
+        }
+        /*
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag(Constants.Tags.PLAYER_BODY))
+            {
+                other.GetComponent<PlayerMovement>().DecreaseSpeed(Constants.Events.Tar_Event.TAR_SLOWDOWN);
+            }
+        }*/
+
+        void OnTriggerStay(Collider other)
+        {
+            if(other.CompareTag(Constants.Tags.PLAYER_BODY) && !PlayerListContains(other.gameObject))
+            {
+                _playersInTar.Add(other.gameObject);
+            }
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            /*if (other.CompareTag(Constants.Tags.PLAYER_BODY)){
+                other.GetComponent<PlayerMovement>().IncreaseSpeed(Constants.Events.Tar_Event.TAR_SLOWDOWN);
+            }*/
+            _playersInTar.Remove(other.gameObject);
+        }
+
+        bool PlayerListContains(GameObject playerToRegister)
+        {
+            PlayerInfo player = playerToRegister.GetComponent<PlayerInfo>();
+
+            if (_playersInTar.Any())
+            {
+                foreach (PlayerInfo element in _playersInTar.Select(t => t.GetComponent<PlayerInfo>()))
+                {
+                    if (element.Player == player.Player)
+                    { return true; }
+                }
+            }
+
+            return false;
+        }
+
+        void DealDamagePeriodically()
+        {
+            if(Time.time >= _nextApplyEffect)
+            {
+                _nextApplyEffect = Time.time + Constants.Events.Tar_Event.TAR_TICKDAMAGE;
+                foreach (CharacterHealth element in _playersInTar.Select(t => t.GetComponent<CharacterHealth>()))
+                {
+                    element.DecreaseHealth(Constants.Events.Tar_Event.TAR_DAMAGE);
+                }
+            }
+        }
+
+
+    }
 }

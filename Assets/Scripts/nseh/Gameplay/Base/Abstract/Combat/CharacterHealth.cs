@@ -165,7 +165,8 @@ namespace nseh.Gameplay.Base.Abstract
             {
                 var oldHealth = this.CurrentHealth;
 
-                this.CurrentHealth += (this.CurrentHealth * percent / 100.0f);
+                this.CurrentHealth += (this.MaxHealth * percent / 100.0f);
+                this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
 
                 Debug.Log(String.Format("Health of {0} is: {1} and applying {2}% more has changed to: {3}", this.gameObject.name, oldHealth, percent, this.CurrentHealth));
             }
@@ -177,13 +178,19 @@ namespace nseh.Gameplay.Base.Abstract
         /// <param name="percent"></param>
         public void DecreaseHealth(float percent)
         {
-            if (percent > 0.0f)
+            if (this.healthMode == HealthMode.Normal && percent > 0.0f)
             {
                 var oldHealth = this.CurrentHealth;
 
-                this.CurrentHealth -= (this.CurrentHealth * percent / 100.0f);
+                this.CurrentHealth -= (this.MaxHealth * percent / 100.0f);
+                this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
 
                 Debug.Log(String.Format("Health of {0} is: {1} and reducing {2}% has changed to: {3}", this.gameObject.name, oldHealth, percent, this.CurrentHealth));
+
+                if (this.CurrentHealth == 0.0f && !this.isDead)
+                {
+                    this.Death();
+                }
             }
         }
 

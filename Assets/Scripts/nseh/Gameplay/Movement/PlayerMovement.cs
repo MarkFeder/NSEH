@@ -372,7 +372,24 @@ namespace nseh.Gameplay.Movement
         }
 
         /// <summary>
-        /// Increase speed by percent
+        /// Decrease speed by percent
+        /// </summary>
+        /// <param name="percent"></param>
+        public void DecreaseSpeed(float percent)
+        {
+            if (percent > 0.0f)
+            {
+                var oldSpeed = this.speed;
+
+                this.speed -= (this.speed * percent / 100.0f);
+
+                Debug.Log(String.Format("Speed of {0} is: {1} and applying {2}% less has changed to: {3}",
+                        this.gameObject.name, oldSpeed, percent, this.speed));
+            }
+        }
+
+        /// <summary>
+        /// Increase jump by percent
         /// </summary>
         /// <param name="percent"></param>
         public void IncreaseJump(float percent)
@@ -384,6 +401,23 @@ namespace nseh.Gameplay.Movement
                 this.jumpHeight += (this.jumpHeight * percent / 100.0f);
 
                 Debug.Log(String.Format("Jump of {0} is: {1} and applying {2}% more has changed to: {3}",
+                        this.gameObject.name, oldJumpHeight, percent, this.jumpHeight));
+            }
+        }
+
+        /// <summary>
+        /// Decrease jump by percent
+        /// </summary>
+        /// <param name="percent"></param>
+        public void DecreaseJump(float percent)
+        {
+            if (percent > 0.0f)
+            {
+                var oldJumpHeight = this.jumpHeight;
+
+                this.jumpHeight -= (this.jumpHeight * percent / 100.0f);
+
+                Debug.Log(String.Format("Jump of {0} is: {1} and applying {2}% less has changed to: {3}",
                         this.gameObject.name, oldJumpHeight, percent, this.jumpHeight));
             }
         }

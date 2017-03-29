@@ -8,7 +8,6 @@ namespace nseh.Gameplay.Gameflow
     public class Tar_Event : LevelEvent
     {
 
-        //List<EventComponent> _tarComponents;
         float eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
         //bool eventFinished = false;
         public float elapsedTime;
@@ -25,7 +24,6 @@ namespace nseh.Gameplay.Gameflow
         override public void Setup(LevelManager lvlManager)
         {
             base.Setup(lvlManager);
-            //_tarComponents = new List<EventComponent>();
         }
 
         //Activate the event execution.
@@ -46,10 +44,7 @@ namespace nseh.Gameplay.Gameflow
             //Controls when the tar should go up
             if (elapsedTime >= Constants.Events.Tar_Event.EVENT_START && elapsedTime < (Constants.Events.Tar_Event.EVENT_START + eventDuration) && !isUp)
             {
-                //foreach(EventComponent tarComponent in _tarComponents)
-                //{
                 isUp = TarUp(elapsedTime);
-                //}
 
             }
             //Controls when the tar should go down
@@ -65,7 +60,7 @@ namespace nseh.Gameplay.Gameflow
                     eventDuration += Constants.Events.Tar_Event.EVENT_DURATION_INCREASE;
                 }
                 elapsedTime = 0;
-                //Debug.Log("Variables are reset and tar will remain up next time: " + eventDuration + " seconds.");
+                Debug.Log("Variables are reset and tar will remain up next time: " + eventDuration + " seconds.");
             }
             //LvlManager.ChangeState(LevelManager.States.LevelEvent);
         }
@@ -79,11 +74,5 @@ namespace nseh.Gameplay.Gameflow
             isUp = false;
             IsActivated = false;
         }
-        /*
-            public void RegisterLight(MonoBehaviour componentToRegister)
-            {
-                _tarComponents.Add(componentToRegister);
-            }
-        */
     } 
 }
