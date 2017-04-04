@@ -32,6 +32,7 @@ namespace nseh.Gameplay.Movement
         private float horizontal;
         private float vertical;
         private float gravity;
+        private float currentSpeed;
 
         #endregion
 
@@ -41,7 +42,7 @@ namespace nseh.Gameplay.Movement
         public float dampAir;
         public float jumpAirSpeed;
         public float jumpHeight;
-        public float speed;
+        public float baseSpeed;
 
         #endregion
 
@@ -55,16 +56,29 @@ namespace nseh.Gameplay.Movement
             }
         }
 
-        public float Speed
+        public float CurrentSpeed
         {
             get
             {
-                return this.speed;
+                return this.currentSpeed;
             }
 
             set
             {
-                this.speed = value;
+                this.currentSpeed = value;
+            }
+        }
+
+        public float BaseSpeed
+        {
+            get
+            {
+                return this.baseSpeed;
+            }
+
+            set
+            {
+                this.baseSpeed = value;
             }
         }
 
@@ -132,6 +146,7 @@ namespace nseh.Gameplay.Movement
 
             this.facingRight = true;
             this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
+            this.currentSpeed = this.baseSpeed;
         }
 
         private void Update()
@@ -242,8 +257,8 @@ namespace nseh.Gameplay.Movement
                 // Check if player is moving
                 if (this.movePressed)
                 {
-                    this.body.velocity = this.transform.forward * this.speed;
-                    this.anim.SetFloat(this.playerInfo.SpeedStateName, this.speed);
+                    this.body.velocity = this.transform.forward * this.currentSpeed;
+                    this.anim.SetFloat(this.playerInfo.SpeedStateName, this.currentSpeed);
                 }
                 else
                 {
@@ -362,12 +377,12 @@ namespace nseh.Gameplay.Movement
         {
             if (percent > 0.0f)
             {
-                var oldSpeed = this.speed;
+                var oldSpeed = this.currentSpeed;
 
-                this.speed += (this.speed * percent/100.0f);
+                this.currentSpeed += (this.baseSpeed * percent/100.0f);
 
                 Debug.Log(String.Format("Speed of {0} is: {1} and applying {2}% more has changed to: {3}",
-                        this.gameObject.name, oldSpeed, percent, this.speed));
+                        this.gameObject.name, oldSpeed, percent, this.currentSpeed));
             }
         }
 
@@ -379,12 +394,12 @@ namespace nseh.Gameplay.Movement
         {
             if (percent > 0.0f)
             {
-                var oldSpeed = this.speed;
+                var oldSpeed = this.currentSpeed;
 
-                this.speed -= (this.speed * percent / 100.0f);
+                this.currentSpeed -= (this.baseSpeed * percent / 100.0f);
 
                 Debug.Log(String.Format("Speed of {0} is: {1} and applying {2}% less has changed to: {3}",
-                        this.gameObject.name, oldSpeed, percent, this.speed));
+                        this.gameObject.name, oldSpeed, percent, this.currentSpeed));
             }
         }
 
@@ -420,6 +435,11 @@ namespace nseh.Gameplay.Movement
                 Debug.Log(String.Format("Jump of {0} is: {1} and applying {2}% less has changed to: {3}",
                         this.gameObject.name, oldJumpHeight, percent, this.jumpHeight));
             }
+        }
+
+        public void RestoreBaseSpeed()
+        {
+            this.currentSpeed = this.baseSpeed;
         }
 
         #endregion
@@ -461,7 +481,7 @@ namespace nseh.Gameplay.Movement
 
         private IEnumerator IncreaseSpeedForSecondsInternal(float percent, float seconds)
         {
-            var oldSpeed = this.speed;
+            var oldSpeed = this.currentSpeed;
 
             this.IncreaseSpeed(percent);
 
@@ -469,7 +489,7 @@ namespace nseh.Gameplay.Movement
 
             Debug.Log(string.Format("Speed of {0} has been restored to: {1}", this.gameObject.name, oldSpeed));
 
-            this.speed = oldSpeed;
+            this.currentSpeed = oldSpeed;
         }
 
         #endregion

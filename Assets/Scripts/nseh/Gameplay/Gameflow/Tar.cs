@@ -54,14 +54,14 @@ namespace nseh.Gameplay.Gameflow
                 DealDamagePeriodically();
             }
         }
-        /*
+        
         void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(Constants.Tags.PLAYER_BODY))
             {
                 other.GetComponent<PlayerMovement>().DecreaseSpeed(Constants.Events.Tar_Event.TAR_SLOWDOWN);
             }
-        }*/
+        }
 
         void OnTriggerStay(Collider other)
         {
@@ -73,9 +73,9 @@ namespace nseh.Gameplay.Gameflow
 
         void OnTriggerExit(Collider other)
         {
-            /*if (other.CompareTag(Constants.Tags.PLAYER_BODY)){
-                other.GetComponent<PlayerMovement>().IncreaseSpeed(Constants.Events.Tar_Event.TAR_SLOWDOWN);
-            }*/
+            if (other.CompareTag(Constants.Tags.PLAYER_BODY)){
+                other.GetComponent<PlayerMovement>().RestoreBaseSpeed();
+            }
             _playersInTar.Remove(other.gameObject);
         }
 
