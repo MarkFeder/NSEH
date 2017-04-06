@@ -447,8 +447,8 @@ GameObject:
   - component: {fileID: 95834335119610958}
   - component: {fileID: 114315910237949066}
   - component: {fileID: 114381858855819798}
-  - component: {fileID: 114639215768562480}
   - component: {fileID: 114791447168658806}
+  - component: {fileID: 114821703919560078}
   m_Layer: 8
   m_Name: SirProspector
   m_TagString: PlayerBody
@@ -1889,19 +1889,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49dc322c55b6f045aea34963a8f5455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114639215768562480
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1465964625706236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ab89400382b9db46ad3c9d55ca94930, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 100
-  maxHealth: 100
 --- !u!114 &114791447168658806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1920,7 +1907,7 @@ MonoBehaviour:
   damageComboBB01: 10
   damageComboBSharp: 15
   damageDefinitive: 20
-  damnageHability: 5
+  damageHability: 5
   particleBodyPos: {fileID: 4159333914064240}
   particleHeadPos: {fileID: 4352122147377990}
   particleFootPos: {fileID: 0}
@@ -1937,6 +1924,19 @@ MonoBehaviour:
   gamepadIndex: 1
   player: 0
   characterPortrait: {fileID: 21300000, guid: b4a4511072c69eb479fb2a02d69c562b, type: 3}
+--- !u!114 &114821703919560078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1465964625706236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00a1fd6ca95e1d446bbd022703826d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  maxHealth: 100
 --- !u!135 &135507281005106592
 SphereCollider:
   m_ObjectHideFlags: 1
