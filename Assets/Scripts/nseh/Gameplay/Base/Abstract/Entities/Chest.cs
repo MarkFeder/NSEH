@@ -1,7 +1,8 @@
-﻿using nseh.Gameplay.Entities.Player;
-using nseh.Gameplay.Entities.Environment;
+﻿using nseh.Gameplay.Entities.Environment;
+using nseh.Gameplay.Entities.Player;
+using nseh.Managers.Level;
+using nseh.Managers.Main;
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Tags = nseh.Utils.Constants.Tags;
@@ -15,10 +16,11 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		public AnimationClip animation;
 		public AudioClip sound;
 		public GameObject particlePrefab;
-        [NonSerialized]
-        public GameObject canvasItemText;
-        [NonSerialized]
-        public SpawnItemPoint spawnItemPoint;
+
+		[NonSerialized]
+		public GameObject canvasItemText;
+		[NonSerialized]
+		public SpawnItemPoint spawnItemPoint;
 
 		public float destructionTime;
 		public float timeToDisplayText;
@@ -83,25 +85,32 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 					this.currentUses++;
 					this.target = other.gameObject;
 					this.particlesSpawnPoints = this.target.GetComponent<PlayerInfo>();
-                    switch (this.particlesSpawnPoints.Player)
-                    {
-                        case 1:
-                            itemText = canvasItemText.transform.GetChild(1).GetComponent<Text>();
-                            break;
-                        case 2:
-                            itemText = canvasItemText.transform.GetChild(2).GetComponent<Text>();
-                            break;
-                    }
+
+					switch (this.particlesSpawnPoints.Player)
+					{
+						case 1:
+							itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P1ItemText;
+							break;
+						case 2:
+							itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P2ItemText;
+							break;
+					}
 
 					this.PlaySoundAtPlayer(this.sound);
 					this.Activate();
-
-					// TODO: activate other properties
 				}
 				else
 				{
 					Debug.Log(String.Format("The number of uses is more than or equal to {0}", this.uses));
 				}
+			}
+		}
+
+		protected virtual void OnTriggerExit(Collider other)
+		{
+			if (other.CompareTag(Tags.PLAYER_BODY))
+			{
+				this.SetVisibility(false);
 			}
 		}
 

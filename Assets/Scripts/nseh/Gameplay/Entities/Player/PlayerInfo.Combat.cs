@@ -16,7 +16,7 @@ namespace nseh.Gameplay.Entities.Player
         public float damageComboBB01;
         public float damageComboBSharp;
         public float damageDefinitive;
-        public float damnageHability;
+        public float damageHability;
 
         #endregion
 
@@ -82,7 +82,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.damnageHability;
+                return this.damageHability;
             }
         }
         

@@ -1,15 +1,24 @@
-﻿using nseh.Utils;
+﻿using nseh.Gameplay.Entities.Player;
+using nseh.Utils.Helpers;
 using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
     public class ComboBB02 : StateMachineBehaviour
     {
+        private PlayerInfo playerInfo;
+
+        // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+        {
+            this.playerInfo = animator.gameObject.GetSafeComponent<PlayerInfo>();
+        }
+
         // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.SetBool(Animator.StringToHash(Constants.Animations.Combat.CHARACTER_COMBO_BB_01), false);
-            animator.SetBool(Animator.StringToHash(Constants.Animations.Combat.CHARACTER_COMBO_BB_02), false);
+            animator.SetBool(this.playerInfo.ComboBB01Hash, false);
+            animator.SetBool(this.playerInfo.ComboBB02Hash, false);
         }
     } 
 }

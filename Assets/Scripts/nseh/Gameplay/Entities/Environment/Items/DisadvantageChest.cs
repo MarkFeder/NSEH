@@ -1,6 +1,5 @@
-﻿using nseh.Gameplay.Base.Abstract;
-using nseh.Gameplay.Base.Abstract.Entities;
-using nseh.Gameplay.Movement;
+﻿using nseh.Gameplay.Base.Abstract.Entities;
+using nseh.Gameplay.Entities.Player;
 using UnityEngine;
 using DisadvantageItems = nseh.Utils.Constants.Items.DisadvantageItems;
 
@@ -38,7 +37,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case DisadvantageChestType.ChestBomb:
 
                     this.ChestBomb(this.percent);
-                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.BOMBCHEST, timeToDisplayText);
+                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.BOMBCHEST, this.timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, 1.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -46,7 +45,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case DisadvantageChestType.PoisonCloud:
 
                     this.PoisonCloud(this.percent, this.seconds);
-                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.POISONCLOUD, timeToDisplayText);
+                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.POISONCLOUD, this.timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -54,7 +53,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case DisadvantageChestType.ConfusedPotion:
 
                     this.ConfusedPotion(this.seconds);
-                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.CONFUSION, timeToDisplayText);
+                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.CONFUSION, this.timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleHeadPos);
 
                     break;
@@ -76,12 +75,12 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
         private void ChestBomb(float percent)
         {
-            this.target.GetComponent<CharacterHealth>().DecreaseHealth(percent);
+            this.target.GetComponent<PlayerHealth>().DecreaseHealth(percent);
         }
 
         private void PoisonCloud(float percent, float seconds)
         {
-            this.target.GetComponent<CharacterHealth>().DecreaseHealthForEverySecond(percent, seconds);
+            this.target.GetComponent<PlayerHealth>().DecreaseHealthForEverySecond(percent, seconds);
         }
 
         private void ConfusedPotion(float time)

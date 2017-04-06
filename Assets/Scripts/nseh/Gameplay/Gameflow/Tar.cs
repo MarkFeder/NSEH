@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using System.Linq;
-using System.Collections.Generic;
-using nseh.Utils;
-using nseh.Gameplay.Movement;
-using nseh.Gameplay.Base.Abstract;
+﻿using nseh.Gameplay.Base.Abstract.Gameflow;
 using nseh.Gameplay.Entities.Player;
+using nseh.Utils;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace nseh.Gameplay.Gameflow
 {
@@ -73,7 +72,8 @@ namespace nseh.Gameplay.Gameflow
 
         void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag(Constants.Tags.PLAYER_BODY)){
+            if (other.CompareTag(Constants.Tags.PLAYER_BODY))
+            {
                 other.GetComponent<PlayerMovement>().RestoreBaseSpeed();
             }
             _playersInTar.Remove(other.gameObject);
@@ -100,7 +100,7 @@ namespace nseh.Gameplay.Gameflow
             if(Time.time >= _nextApplyEffect)
             {
                 _nextApplyEffect = Time.time + Constants.Events.Tar_Event.TAR_TICKDAMAGE;
-                foreach (CharacterHealth element in _playersInTar.Select(t => t.GetComponent<CharacterHealth>()))
+                foreach (PlayerHealth element in _playersInTar.Select(t => t.GetComponent<PlayerHealth>()))
                 {
                     element.DecreaseHealth(Constants.Events.Tar_Event.TAR_DAMAGE);
                 }

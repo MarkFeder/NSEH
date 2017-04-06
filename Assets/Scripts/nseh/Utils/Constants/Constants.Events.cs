@@ -18,7 +18,7 @@
             public static class ItemSpawn_Event
             {
                 public const float SPAWN_PERIOD = 3.0f;
-                public const float SPAWNPOINT_INTERNALCD = 1.5f;
+                public const float SPAWNPOINT_INTERNALCD = 3.5f;
                 public const string SPAWN_ALERT = "A WILD ITEM APPEARED!!";
             }
         }

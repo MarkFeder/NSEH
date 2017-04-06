@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using nseh.GameManager;
-using nseh.Gameplay.Base.Abstract.Gameflow;
+﻿using nseh.Gameplay.Base.Abstract.Gameflow;
 using nseh.Gameplay.Entities.Environment;
+using nseh.Managers.Level;
 using nseh.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace nseh.Gameplay.Gameflow

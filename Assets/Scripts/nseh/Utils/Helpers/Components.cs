@@ -82,4 +82,20 @@ namespace nseh.Utils.Helpers
             }
         }
     }
+
+    public static class ListExtensions
+    {
+        public static void AddNotDuplicate<T>(this List<T> list, T element)
+            where T : class
+        {
+            if (!list.Contains(element))
+            {
+                list.Add(element);
+            }
+            else
+            {
+                Debug.Log("The element " + element.ToString() + " is already in the list");
+            }
+        }
+    }
 }

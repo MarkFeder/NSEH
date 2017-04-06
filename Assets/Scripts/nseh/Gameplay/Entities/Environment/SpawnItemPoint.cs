@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using nseh.GameManager;
 using nseh.Gameplay.Gameflow;
 using nseh.Gameplay.Entities.Environment.Items;
 using nseh.Utils;
 using UnityEngine;
 using UnityEngine.UI;
+using nseh.Managers.Level;
+using nseh.Managers.UI;
 
 namespace nseh.Gameplay.Entities.Environment
 {
@@ -38,15 +39,16 @@ namespace nseh.Gameplay.Entities.Environment
 
         #endregion
 
-
         void Start()
         {
             hasItem = false;
             _elapsedTime = 0;
             _internalCD = Constants.Events.ItemSpawn_Event.SPAWNPOINT_INTERNALCD;
-            _spawnText = _canvasItem.transform.GetChild(0).GetComponent<Text>();
+            _spawnText = _canvasItem.GetComponent<CanvasItemsHUDManager>().MainText;
+
+
             flushText();
-            _itemSpawnEvent = GameManager.GameManager.Instance.Find<LevelManager>().Find<ItemSpawn_Event>();
+            _itemSpawnEvent = nseh.Managers.Main.GameManager.Instance.Find<LevelManager>().Find<ItemSpawn_Event>();
             _itemSpawnEvent.RegisterSpawnItemPoint(this.gameObject);
         }
 

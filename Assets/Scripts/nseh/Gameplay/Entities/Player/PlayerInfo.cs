@@ -1,9 +1,15 @@
-﻿using System;
+﻿using nseh.Gameplay.Movement;
+using System;
+using System.Collections;
 using UnityEngine;
 using Inputs = nseh.Utils.Constants.Input;
+using InputUE = UnityEngine.Input;
 
 namespace nseh.Gameplay.Entities.Player
 {
+    [RequireComponent(typeof(PlayerHealth))]
+    [RequireComponent(typeof(PlayerMovement))]
+    [RequireComponent(typeof(PlayerCombat))]
     public partial class PlayerInfo : MonoBehaviour
     {
         #region Public Properties
@@ -11,22 +17,27 @@ namespace nseh.Gameplay.Entities.Player
         [Header("Input properties")]
         public int gamepadIndex;
 
+        [Range(1, 4)]
+        public int player;
+        public Sprite characterPortrait;
+
         [Space(20)]
 
         #endregion
 
         #region Private Properties
 
+        private Rigidbody body;
+        private Animator animator;
+        private PlayerHealth playerHealth;
+        private PlayerMovement playerMovement;
+        private PlayerCombat playerCombat;
+
         private float horizontal;
         private float vertical;
 
-        [Range(1, 4)]
-        public int player;
-
         private bool teletransported;
         private bool jumpPressed;
-
-        public Sprite characterPortrait;
 
         #endregion
 
@@ -113,7 +124,57 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        public Rigidbody Body
+        {
+            get
+            {
+                return (this.body) ? this.body : null;
+            }
+        }
+
+        public Animator Animator
+        {
+            get
+            {
+                return this.animator;
+            }
+        }
+
+        public PlayerHealth PlayerHealth
+        {
+            get
+            {
+                return this.playerHealth;
+            }
+        }
+
+        public PlayerMovement PlayerMovement
+        {
+            get
+            {
+                return this.playerMovement;
+            }
+        }
+
+        public PlayerCombat PlayerCombat
+        {
+            get
+            {
+                return this.playerCombat;
+            }
+        }
+
         #endregion
+
+        private void Awake()
+        {
+            this.body = GetComponent<Rigidbody>();
+            this.animator = GetComponent<Animator>();
+
+            this.playerHealth = GetComponent<PlayerHealth>();
+            this.playerMovement = GetComponent<PlayerMovement>();
+            this.playerCombat = GetComponent<PlayerCombat>();
+        }
 
         private void Start()
         {
@@ -123,10 +184,23 @@ namespace nseh.Gameplay.Entities.Player
 
         private void Update()
         {
-            this.horizontal = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex));
-            this.vertical = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex));
+            this.horizontal = InputUE.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex));
+            this.vertical = InputUE.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex));
 
-            this.jumpPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex));
+            this.jumpPressed = InputUE.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex));
         }
+
+        #region Public Methods
+
+        /// <summary>
+        /// Function for use in the States that have no access to Unity functions. Call an IEnumerator through this GameObject.
+        /// </summary>
+        /// <param name="_coroutine">IEnumerator object.</param>
+        public void StartChildCoroutine(IEnumerator coroutine)
+        {
+            StartCoroutine(coroutine);
+        }
+
+        #endregion
     }
 }

@@ -1,13 +1,10 @@
-﻿using nseh.Gameplay.Base.Abstract;
-using nseh.Gameplay.Base.Abstract.Entities;
+﻿using nseh.Gameplay.Base.Abstract.Entities;
 using nseh.Gameplay.Combat;
+using nseh.Gameplay.Entities.Player;
 using nseh.Utils.Helpers;
-using SpecialItems = nseh.Utils.Constants.Items.SpecialItems;
-using System;
-using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+using SpecialItems = nseh.Utils.Constants.Items.SpecialItems;
 
 namespace nseh.Gameplay.Entities.Environment.Items
 {
@@ -44,7 +41,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.Invulnerability:
 
                     this.Invulnerability(this.seconds);
-                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.INVULNERABILITY, timeToDisplayText);
+                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.INVULNERABILITY, this.timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -52,7 +49,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.AutomaticAttacks:
 
                     this.AutomaticAttacks(this.times);
-                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.AUTOATTACKS, timeToDisplayText);
+                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.AUTOATTACKS, this.timeToDisplayText);
                     this.ParticleAnimation(particlePrefab, 3.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -60,7 +57,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.CriticalDamage:
 
                     this.CriticalDamage(this.times);
-                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.CRITICAL, timeToDisplayText);
+                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.CRITICAL, this.timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, 3.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -68,7 +65,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.UnlockDefinitiveMode:
 
                     this.UnlockDefinitiveMode();
-                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.ULTIMATE, timeToDisplayText);
+                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.ULTIMATE, this.timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, 1.0f, particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -90,7 +87,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
         private void Invulnerability(float time)
         {
-            this.target.GetComponent<CharacterHealth>().InvulnerabilityModeForSeconds(time);
+            this.target.GetComponent<PlayerHealth>().InvulnerabilityModeForSeconds(time);
         }
 
         private void AutomaticAttacks(int times)
