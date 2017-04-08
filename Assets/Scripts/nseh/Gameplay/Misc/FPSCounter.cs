@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace nseh.Gameplay.Misc
 {
-    [RequireComponent(typeof(GUIText))]
+    [RequireComponent(typeof(Text))]
     public class FPSCounter : MonoBehaviour
     {
         public float updateInterval = 0.5F;
@@ -11,15 +12,15 @@ namespace nseh.Gameplay.Misc
         private int frames = 0; // Frames drawn over the interval
         private float timeleft; // Left time for current interval
 
-        private GUIText guiText;
+        private Text guiText;
 
         private void Start()
         {
-            guiText = GetComponent<GUIText>();
+            guiText = GetComponent<Text>();
 
             if (!guiText)
             {
-                Debug.Log("FPSCounter needs a GUIText component!");
+                Debug.Log("FPSCounter needs a Text component!");
                 enabled = false;
                 return;
             }
@@ -43,17 +44,17 @@ namespace nseh.Gameplay.Misc
 
                 if (fps < 30)
                 {
-                    guiText.material.color = Color.yellow;
+                    guiText.color = Color.yellow;
                 }
                 else
                 {
                     if (fps < 10)
                     {
-                        guiText.material.color = Color.red;
+                        guiText.color = Color.red;
                     }
                     else
                     {
-                        guiText.material.color = Color.green;
+                        guiText.color = Color.green;
                     }
                 }
                 
