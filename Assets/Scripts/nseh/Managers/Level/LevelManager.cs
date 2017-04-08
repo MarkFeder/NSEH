@@ -208,6 +208,7 @@ namespace nseh.Managers.Level
         public void GoToMainMenu()
         {
             _isPaused = false;
+            _canvasLoaded = false;
             MyGame.ChangeState(Main.GameManager.States.MainMenu);
         }
 

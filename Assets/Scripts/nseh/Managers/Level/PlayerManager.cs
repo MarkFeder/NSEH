@@ -52,20 +52,23 @@ namespace nseh.Managers.Level
             playerInfo.GamepadIndex = playerNumber;
             playerInfo.Player = playerNumber;
 
-            // Set up UI element
+            // Setup bar component
             playerInfo.PlayerHealth.HealthBar = playerBarComponent;
+
+            // Let the player moves
+            EnableMovement();
         }
 
-        public void EnableControl()
+        public void EnableMovement()
         {
             playerInfo.PlayerMovement.enabled = true;
-            playerInfo.PlayerCombat.enabled = true;
+            playerInfo.Body.isKinematic = false;
         }
 
-        public void DisableControl()
+        public void DisableMovement()
         {
             playerInfo.PlayerMovement.enabled = false;
-            playerInfo.PlayerCombat.enabled = false;
+            playerInfo.Body.isKinematic = true;
         }
 
         public void Reset()
@@ -75,6 +78,8 @@ namespace nseh.Managers.Level
 
             playerPrefab.SetActive(false);
             playerPrefab.SetActive(true);
+
+            EnableMovement();
         }
 
         #endregion

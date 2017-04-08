@@ -14,7 +14,6 @@ namespace nseh.Gameplay.Entities.Player
         Invulnerability = 1
     }
 
-    [RequireComponent(typeof(Animator))]
     public class PlayerHealth : MonoBehaviour, IHealth
     {
         #region Public Properties
@@ -26,14 +25,13 @@ namespace nseh.Gameplay.Entities.Player
 
         #region Private Properties
 
-        private Animator anim;
         private BarComponent healthBar;
 
         #endregion
 
         #region Protected Properties
 
-        protected PlayerMovement characterMovement;
+        protected PlayerInfo playerInfo;
         protected HealthMode healthMode;
 
         protected float currentHealth;
@@ -106,9 +104,7 @@ namespace nseh.Gameplay.Entities.Player
 
         protected virtual void Start()
         {
-            this.anim = GetComponent<Animator>();
-            this.characterMovement = GetComponent<PlayerMovement>();
-            this.animDead = Animator.StringToHash(Constants.Animations.Combat.CHARACTER_DEAD);
+            this.playerInfo = GetComponent<PlayerInfo>();
 
             // Set initial health
             this.MaxHealth = this.maxHealth;
@@ -262,9 +258,10 @@ namespace nseh.Gameplay.Entities.Player
         {
             this.isDead = true;
 
-            this.anim.SetTrigger(animDead);
-
-            this.characterMovement.enabled = false;
+            // Disable player
+            this.playerInfo.Animator.SetTrigger(this.playerInfo.DeadHash);
+            this.playerInfo.Body.isKinematic = true;
+            this.playerInfo.PlayerMovement.enabled = false;
         }
     }
 }
