@@ -1819,8 +1819,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1802298, y: 0.11313707, z: 2}
-  m_Center: {x: 0.00774765, y: -0.0016470484, z: -0.050885826}
+  m_Size: {x: 0.1802298, y: 0.11313707, z: 1}
+  m_Center: {x: 0.00774765, y: -0.0016470484, z: -0.25}
 --- !u!95 &95473474562999980
 Animator:
   serializedVersion: 3
@@ -1912,12 +1912,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1dcb7a16b2f29245b088aef352f4ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAttackA: 5
-  damageAttackB: 10
-  damageComboAAA01: 5
-  damageComboAAA02: 10
-  damageComboBB01: 10
-  damageComboBSharp: 15
+  damageAttackA: 2
+  damageAttackB: 5
+  damageComboAAA01: 2
+  damageComboAAA02: 5
+  damageComboBB01: 5
+  damageComboBSharp: 7
   damageDefinitive: 20
   damageHability: 5
   particleBodyPos: {fileID: 4817425128645374}
@@ -1946,7 +1946,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136276430367340074
 CapsuleCollider:
@@ -1957,7 +1957,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.24
+  m_Radius: 0.35
   m_Height: 1.5730191
   m_Direction: 1
   m_Center: {x: 0, y: 0.61, z: 0.05}
