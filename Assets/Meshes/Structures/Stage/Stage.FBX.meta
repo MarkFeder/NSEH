@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 80f9e9ae63f2c3144b7fc3bd5cf0cb8c
-timeCreated: 1488911352
+guid: e04895545ed6e6e40acac65e7099b56d
+timeCreated: 1491762558
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -130,8 +130,8 @@ ModelImporter:
     4300040: Door_Flintstones
     4300042: Door_Cone
     4300044: Door_Sand
-    4300046: Tar
-    4300048: Right_Up 2
+    4300046: Right_Up 2
+    4300048: Tar
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -143,6 +143,8 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 

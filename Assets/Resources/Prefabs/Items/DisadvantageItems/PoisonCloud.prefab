@@ -73,6 +73,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33878837298377840
 MeshFilter:
@@ -110,11 +111,10 @@ MonoBehaviour:
   sound: {fileID: 8300000, guid: a4a9327e98855524c846cc8e2f559e96, type: 3}
   particlePrefab: {fileID: 1716269738020152, guid: 3029fbedd9c1bf54fa505d0d5ad7c3f8,
     type: 2}
-  canvasItemText: {fileID: 0}
   destructionTime: 0
   timeToDisplayText: 2
   uses: 1
   displayName: 
   chestType: 2
-  percent: 25
+  percent: 8
   seconds: 3
