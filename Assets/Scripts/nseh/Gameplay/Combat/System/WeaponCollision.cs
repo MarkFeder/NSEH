@@ -16,6 +16,12 @@ namespace nseh.Gameplay.Combat.System
     [RequireComponent(typeof(Collider))]
     public class WeaponCollision : MonoBehaviour
     {
+        #region Public Properties
+
+        public int index;
+
+        #endregion
+
         #region Protected Properties
 
         protected Collider hitBox;
@@ -33,6 +39,15 @@ namespace nseh.Gameplay.Combat.System
         #region Private Properties
 
         private int layerMask;
+
+        #endregion
+
+        #region Public C# Properties
+
+        public int Index
+        {
+            get { return this.index; }
+        }
 
         #endregion
 

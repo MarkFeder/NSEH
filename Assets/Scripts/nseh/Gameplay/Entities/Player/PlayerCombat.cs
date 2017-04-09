@@ -1,6 +1,7 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
 using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
+using nseh.Gameplay.Combat.System;
 using nseh.Gameplay.Movement;
 using nseh.Utils.Helpers;
 using System;
@@ -17,7 +18,7 @@ namespace nseh.Gameplay.Entities.Player
     {
         #region Private Properties
 
-        private Collider weaponCollision;
+        private List<Collider> colliders;
         private PlayerInfo playerInfo;
 
         private IAction currentAction;
@@ -66,7 +67,7 @@ namespace nseh.Gameplay.Entities.Player
 
         protected virtual void Awake()
         {
-            this.weaponCollision = this.gameObject.GetSafeComponentsInChildren<Collider>().Where(c => c.tag.Equals(Tags.WEAPON)).FirstOrDefault();
+            this.colliders = this.gameObject.GetSafeComponentsInChildren<Collider>().Where(c => c.tag.Equals(Tags.WEAPON)).ToList();
         }
 
         protected virtual void Start()
@@ -133,19 +134,37 @@ namespace nseh.Gameplay.Entities.Player
 
         #region Animation Events
 
-        private void ActivateCollider(string stateName)
+        private void ActivateCollider(int index)
         {
-            if (this.weaponCollision != null && !this.weaponCollision.enabled)
+            if (this.colliders != null && this.colliders.Count() > 0)
             {
-                this.weaponCollision.enabled = true;
+                Collider collider = this.colliders.Where(c => c.GetComponent<WeaponCollision>().Index == index).FirstOrDefault();
+
+                if (collider && !collider.enabled)
+                {
+                    collider.enabled = true;
+                }
+            }
+            else
+            {
+                Debug.Log(String.Format("ActivateCollider({0}): colliders are 0 or null", index));
             }
         }
 
-        private void DeactivateCollider(string stateName)
+        private void DeactivateCollider(int index)
         {
-            if (this.weaponCollision != null && this.weaponCollision.enabled)
+            if (this.colliders != null && this.colliders.Count() > 0)
             {
-                this.weaponCollision.enabled = false;
+                Collider collider = this.colliders.Where(c => c.GetComponent<WeaponCollision>().Index == index).FirstOrDefault();
+
+                if (collider && collider.enabled)
+                {
+                    collider.enabled = false;
+                }
+            }
+            else
+            {
+                Debug.Log(String.Format("ActivateCollider({0}): colliders are 0 or null", index));
             }
         }
 
