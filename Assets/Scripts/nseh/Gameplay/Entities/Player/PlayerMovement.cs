@@ -134,13 +134,7 @@ namespace nseh.Gameplay.Entities.Player
 
         private void Start()
         {
-            this.playerInfo = GetComponent<PlayerInfo>();
-            this.anim = this.playerInfo.Animator;
-            this.body = this.playerInfo.Body;
-
-            this.facingRight = (this.transform.localEulerAngles.y == 270.0f) ? true : false;
-            this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
-            this.currentSpeed = this.baseSpeed;
+            this.OnSetupPlayerMovement();
         }
 
         private void Update()
@@ -334,9 +328,21 @@ namespace nseh.Gameplay.Entities.Player
         /// </summary>
         private void OnEnable()
         {
+            this.OnSetupPlayerMovement();
+        }
+
+        /// <summary>
+        /// Called when PlayerMovement component is activated
+        /// </summary>
+        private void OnSetupPlayerMovement()
+        {
             this.playerInfo = GetComponent<PlayerInfo>();
             this.anim = this.playerInfo.Animator;
             this.body = this.playerInfo.Body;
+
+            this.facingRight = (this.transform.localEulerAngles.y == 270.0f) ? true : false;
+            this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
+            this.currentSpeed = this.baseSpeed;
         }
 
         #endregion
