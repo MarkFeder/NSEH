@@ -1715,7 +1715,6 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23936483023187762
 MeshRenderer:
@@ -1747,7 +1746,6 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33732648013077212
 MeshFilter:
@@ -1851,6 +1849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: 0
 --- !u!114 &114516132241780238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1870,10 +1869,8 @@ MonoBehaviour:
   damageComboBSharp: 15
   damageDefinitive: 20
   damageHability: 5
-  particleBodyPos: {fileID: 4159333914064240, guid: 93531dff96c2114468bb0d89ded55576,
-    type: 2}
-  particleHeadPos: {fileID: 4352122147377990, guid: 93531dff96c2114468bb0d89ded55576,
-    type: 2}
+  particleBodyPos: {fileID: 4411755607238294}
+  particleHeadPos: {fileID: 4558384382899764}
   particleFootPos: {fileID: 0}
   particleWeaponPos: {fileID: 0}
   particleDestructionTime: 1
@@ -1987,7 +1984,6 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
