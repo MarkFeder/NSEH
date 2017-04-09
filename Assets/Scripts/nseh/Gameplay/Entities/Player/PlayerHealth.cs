@@ -1,10 +1,8 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Movement;
 using nseh.Managers.General;
 using System;
 using System.Collections;
 using UnityEngine;
-using Constants = nseh.Utils.Constants;
 
 namespace nseh.Gameplay.Entities.Player
 {
@@ -27,16 +25,12 @@ namespace nseh.Gameplay.Entities.Player
 
         private BarComponent healthBar;
 
-        #endregion
+        private PlayerInfo playerInfo;
+        private HealthMode healthMode;
 
-        #region Protected Properties
-
-        protected PlayerInfo playerInfo;
-        protected HealthMode healthMode;
-
-        protected float currentHealth;
-        protected bool isDead;
-        protected int animDead;
+        private float currentHealth;
+        private bool isDead;
+        private int animDead;
 
         #endregion
 
@@ -81,6 +75,12 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        public int StartingHealth
+        {
+            get { return this.startingHealth; }
+            set { this.startingHealth = value; }
+        }
+
         public int MaxHealth
         {
             get
@@ -95,7 +95,6 @@ namespace nseh.Gameplay.Entities.Player
                 if (healthBar != null)
                 {
                     healthBar.MaxValue = maxHealth;
-
                 }
             }
         }
@@ -117,6 +116,15 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         #region Public Methods
+
+        /// <summary>
+        /// Restore health values to default
+        /// </summary>
+        public void ResetHealth()
+        {
+            this.MaxHealth = this.maxHealth;
+            this.CurrentHealth = this.startingHealth;
+        }
 
         /// <summary>
         /// Increase health by percent every second for a total of seconds
@@ -252,16 +260,16 @@ namespace nseh.Gameplay.Entities.Player
             this.healthMode = HealthMode.Normal;
         }
 
-        #endregion
-
-        protected void Death()
+        private void Death()
         {
             this.isDead = true;
 
             // Disable player
             this.playerInfo.Animator.SetTrigger(this.playerInfo.DeadHash);
-            this.playerInfo.Body.isKinematic = true;
-            this.playerInfo.PlayerMovement.enabled = false;
+            this.playerInfo.PlayerMovement.DisableMovement();
+            this.playerInfo.PlayerCollider.enabled = false;
         }
+
+        #endregion
     }
 }

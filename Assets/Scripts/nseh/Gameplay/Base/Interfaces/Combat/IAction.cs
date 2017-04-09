@@ -21,5 +21,7 @@
         bool ButtonHasBeenReleased();
 
         bool ButtonIsHoldDown();
+
+        bool ReceiveInput();
     }
 }
