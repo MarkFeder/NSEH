@@ -21,11 +21,9 @@ namespace nseh.Gameplay.Entities.Player
         private List<Collider> colliders;
         private PlayerInfo playerInfo;
 
-        private List<IAction> actions;
         private IAction currentAction;
         private IAction currentDefenseAction;
-
-        private bool onCombo;
+        private List<IAction> actions;
 
         #endregion
 
@@ -45,12 +43,6 @@ namespace nseh.Gameplay.Entities.Player
             {
                 return (this.playerInfo.Animator.GetCurrentAnimatorStateInfo(0).shortNameHash);
             }
-        }
-
-        public bool OnCombo
-        {
-            get { return this.onCombo; }
-            set { this.onCombo = value; }
         }
 
         public IAction CurrentAction
@@ -84,7 +76,6 @@ namespace nseh.Gameplay.Entities.Player
 
             this.actions = this.FillCharacterActions();
             this.currentAction = null;
-            this.onCombo = false;
         }
 
         #region Actions 
@@ -125,8 +116,7 @@ namespace nseh.Gameplay.Entities.Player
 
         protected virtual void Defense()
         {
-            if (this.currentDefenseAction != null &&
-                this.currentDefenseAction.GetType() == typeof(CharacterDefense))
+            if (this.currentDefenseAction != null && this.currentDefenseAction.GetType() == typeof(CharacterDefense))
             {
                 this.currentDefenseAction.DoAction();
             }
@@ -134,10 +124,8 @@ namespace nseh.Gameplay.Entities.Player
 
         protected virtual void Attack()
         {
-            if (this.currentAction != null && !this.onCombo && 
-                this.currentAction.GetType() == typeof(CharacterAttack))
+            if (this.currentAction != null && this.currentAction.GetType() == typeof(CharacterAttack))
             {
-                this.onCombo = true;
                 this.currentAction.DoAction();
             }
         } 
