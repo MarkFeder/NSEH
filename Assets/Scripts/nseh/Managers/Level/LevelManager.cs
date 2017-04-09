@@ -175,7 +175,6 @@ namespace nseh.Managers.Level
                 _canvasGameOverManager.GameOverText.text = "Time's Up";
                 _canvasGameOverManager.EnableCanvas();
                 _isGameOver = true;
-
             }
         }
 
@@ -190,6 +189,9 @@ namespace nseh.Managers.Level
             // Deactivate some canvas
             _canvasGameOverManager.DisableCanvas();
             _canvasPausedManager.DisableCanvas();
+
+            // Activate some canvas
+            _canvasClockManager.EnableCanvas();
 
             // Activate events
             Find<Tar_Event>().ActivateEvent();
@@ -266,7 +268,7 @@ namespace nseh.Managers.Level
             Time.timeScale = 1;
             _timeRemaining = Constants.LevelManager.TIME_REMAINING;
 
-            // Check if canvas were loaded
+            // Check if all canvas were loaded
             if (!_canvasLoaded)
             {
                 SetupLevelCanvas();
@@ -397,7 +399,7 @@ namespace nseh.Managers.Level
 
                 // Add new player manager
                 _players.AddNotDuplicate(new PlayerManager());
-                _players[i].Setup(Main.GameManager.Instance._characters[i], _playersPos[i],
+                _players[i].Setup(GameManager.Instance._characters[i], _playersPos[i],
                                   _playersRots[i], i + 1, _canvasPlayersManager.GetBarComponentForPlayer(i + 1));
 
                 // Change player's portrait from hud manager

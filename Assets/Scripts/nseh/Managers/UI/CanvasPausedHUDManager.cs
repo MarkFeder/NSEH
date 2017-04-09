@@ -1,7 +1,6 @@
 ﻿using nseh.Managers.Level;
 using nseh.Managers.Main;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace nseh.Managers.UI
 {
@@ -9,13 +8,13 @@ namespace nseh.Managers.UI
     {
         #region Private Properties
 
-        private LevelManager levelManager;
+        private LevelManager _levelManager;
 
         #endregion
 
         private void Start()
         {
-            levelManager = GameManager.Instance.Find<LevelManager>();
+            _levelManager = GameManager.Instance.Find<LevelManager>();
         }
 
         #region Public Methods
@@ -36,17 +35,17 @@ namespace nseh.Managers.UI
 
         public void RestartGame()
         {
-            levelManager.Restart();
+            _levelManager.Restart();
         }
 
         public void GoToMainMenu()
         {
-            levelManager.GoToMainMenu();
+            _levelManager.GoToMainMenu();
         }
 
         public void Resume()
         {
-            levelManager.PauseGame();
+            _levelManager.PauseGame();
         }
 
         #endregion

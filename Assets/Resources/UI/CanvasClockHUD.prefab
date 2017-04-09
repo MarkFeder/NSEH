@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c2c1853fa8ee44bbfc268737bcd565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockText: {fileID: 114803141934270456}
+  _clockText: {fileID: 114803141934270456}
 --- !u!114 &114671962339135044
 MonoBehaviour:
   m_ObjectHideFlags: 1

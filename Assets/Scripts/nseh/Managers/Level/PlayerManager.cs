@@ -10,14 +10,13 @@ namespace nseh.Managers.Level
     {
         #region Private Properties
 
-        private GameObject playerPrefab;
+        private GameObject _playerPrefab;
+        private PlayerInfo _playerInfo;
 
-        private int playerNumber;
+        private int _playerNumber;
 
-        private Vector3 spawnPosition;
-        private Vector3 spawnRotation;
-
-        private PlayerInfo playerInfo;
+        private Vector3 _spawnPosition;
+        private Vector3 _spawnRotation;
 
         #endregion
 
@@ -25,12 +24,12 @@ namespace nseh.Managers.Level
 
         public GameObject PlayerRunTime
         {
-            get { return playerPrefab; }
+            get { return _playerPrefab; }
         }
 
         public PlayerInfo PlayerRunTimeInfo
         {
-            get { return playerInfo; }
+            get { return _playerInfo; }
         }
 
         #endregion
@@ -40,46 +39,39 @@ namespace nseh.Managers.Level
         public void Setup(GameObject prefab, Vector3 pos, Vector3 rot, int playerNumber, BarComponent playerBarComponent)
         {
             // Setup prefab
-            playerPrefab = GameObject.Instantiate(prefab, pos, Quaternion.Euler(rot));
-            this.playerNumber = playerNumber;
-            spawnPosition = pos;
-            spawnRotation = rot;
+            _playerPrefab = GameObject.Instantiate(prefab, pos, Quaternion.Euler(rot));
+            _playerNumber = playerNumber;
+            _spawnPosition = pos;
+            _spawnRotation = rot;
 
             // Get references to the components
-            playerInfo = playerPrefab.GetComponent<PlayerInfo>();
+            _playerInfo = _playerPrefab.GetComponent<PlayerInfo>();
 
             // Set player number to be consistent across the scripts
-            playerInfo.GamepadIndex = playerNumber;
-            playerInfo.Player = playerNumber;
+            _playerInfo.GamepadIndex = playerNumber;
+            _playerInfo.Player = playerNumber;
 
             // Setup bar component
-            playerInfo.PlayerHealth.HealthBar = playerBarComponent;
+            _playerInfo.PlayerHealth.HealthBar = playerBarComponent;
 
             // Let the player moves
-            EnableMovement();
-        }
+            _playerInfo.PlayerMovement.EnableMovement();
 
-        public void EnableMovement()
-        {
-            playerInfo.PlayerMovement.enabled = true;
-            playerInfo.Body.isKinematic = false;
-        }
-
-        public void DisableMovement()
-        {
-            playerInfo.PlayerMovement.enabled = false;
-            playerInfo.Body.isKinematic = true;
+            // Activate collider
+            _playerInfo.PlayerCollider.enabled = true;
         }
 
         public void Reset()
         {
-            playerPrefab.transform.position = spawnPosition;
-            playerPrefab.transform.rotation = Quaternion.Euler(spawnRotation);
+            _playerPrefab.transform.position = _spawnPosition;
+            _playerPrefab.transform.rotation = Quaternion.Euler(_spawnRotation);
 
-            playerPrefab.SetActive(false);
-            playerPrefab.SetActive(true);
+            _playerPrefab.SetActive(false);
+            _playerPrefab.SetActive(true);
 
-            EnableMovement();
+            _playerInfo.PlayerMovement.EnableMovement();
+            _playerInfo.PlayerHealth.ResetHealth();
+            _playerInfo.PlayerCollider.enabled = true;
         }
 
         #endregion

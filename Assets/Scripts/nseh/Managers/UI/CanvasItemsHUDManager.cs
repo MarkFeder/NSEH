@@ -8,9 +8,9 @@ namespace nseh.Managers.UI
     {
         #region Public Properties
 
-        public Text mainText;
-        public Text p1ItemText;
-        public Text p2ItemText;
+        public Text _mainText;
+        public Text _p1ItemText;
+        public Text _p2ItemText;
 
         #endregion
 
@@ -18,17 +18,17 @@ namespace nseh.Managers.UI
 
         public Text MainText
         {
-            get { return mainText; }
+            get { return _mainText; }
         }
 
         public Text P1ItemText
         {
-            get { return p1ItemText; }
+            get { return _p1ItemText; }
         }
 
         public Text P2ItemText
         {
-            get { return p2ItemText; }
+            get { return _p2ItemText; }
         }
         #endregion
 
@@ -46,7 +46,7 @@ namespace nseh.Managers.UI
 
         private bool ValidateItems()
         {
-            return mainText && p1ItemText && p2ItemText; // includes p3Portrait and p4Portrait when available
+            return _mainText && _p1ItemText && _p2ItemText; // includes p3Portrait and p4Portrait when available
         }
 
         #endregion
@@ -61,23 +61,6 @@ namespace nseh.Managers.UI
         public void DisableCanvas()
         {
             gameObject.SetActive(false);
-        }
-
-        public void ChangeP1ItemText(string text)
-        {
-            if (!String.IsNullOrEmpty(text))
-            {
-                p1ItemText.text = text;
-            }
-        }
-
-        public void ChangeP2ItemText(string text)
-        {
-            if (!String.IsNullOrEmpty(text))
-            {
-                p2ItemText.text = text;
-
-            }
         }
 
         #endregion

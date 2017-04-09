@@ -8,24 +8,24 @@ namespace nseh.Managers.UI
     {
         #region Public Properties
 
-        public GameObject p1Hud;
-        public GameObject p2Hud;
-        public GameObject p3Hud;
-        public GameObject p4Hud;
+        public GameObject _p1Hud;
+        public GameObject _p2Hud;
+        public GameObject _p3Hud;
+        public GameObject _p4Hud;
 
-        public Image p1Portrait;
-        public Image p2Portrait;
-        public Image p3Portrait;
-        public Image p4Portrait;
+        public Image _p1Portrait;
+        public Image _p2Portrait;
+        public Image _p3Portrait;
+        public Image _p4Portrait;
 
         #endregion
 
         #region Private Properties
 
-        private BarComponent p1BarComponent;
-        private BarComponent p2BarComponent;
-        private BarComponent p3BarComponent;
-        private BarComponent p4BarComponent;
+        private BarComponent _p1BarComponent;
+        private BarComponent _p2BarComponent;
+        private BarComponent _p3BarComponent;
+        private BarComponent _p4BarComponent;
 
         #endregion
 
@@ -33,42 +33,42 @@ namespace nseh.Managers.UI
 
         public BarComponent P1BarComponent
         {
-            get { return p1BarComponent; }
+            get { return _p1BarComponent; }
         }
 
         public BarComponent P2BarComponent
         {
-            get { return p2BarComponent; }
+            get { return _p2BarComponent; }
         }
 
         public BarComponent P3BarComponent
         {
-            get { return p3BarComponent; }
+            get { return _p3BarComponent; }
         }
 
         public BarComponent P4BarComponent
         {
-            get { return p4BarComponent; }
+            get { return _p4BarComponent; }
         }
 
         public Image P1Portrait
         {
-            get { return p1Portrait; }
+            get { return _p1Portrait; }
         }
 
         public Image P2Portrait
         {
-            get { return p2Portrait; }
+            get { return _p2Portrait; }
         }
 
         public Image P3Portrait
         {
-            get { return p3Portrait; }
+            get { return _p3Portrait; }
         }
 
         public Image P4Portrait
         {
-            get { return p4Portrait; }
+            get { return _p4Portrait; }
         }
 
         #endregion
@@ -94,26 +94,22 @@ namespace nseh.Managers.UI
             // DisableAllHuds();
         }
 
-        private void Update()
-        {
-        }
-
         #region Private Methods
 
         private bool ValidatePlayersPortraits()
         {
-            return p1Portrait && p2Portrait; // includes p3Portrait and p4Portrait when available
+            return _p1Portrait && _p2Portrait; // includes p3Portrait and p4Portrait when available
         }
 
         private bool ValidatePlayersHuds()
         {
-            return p1Hud && p2Hud; // includes p3Hud and p4Hud when available
+            return _p1Hud && _p2Hud; // includes p3Hud and p4Hud when available
         }
 
         private void SetupBarComponents()
         {
-            p1BarComponent = p1Hud.GetComponentInChildren<BarComponent>();
-            p2BarComponent = p2Hud.GetComponentInChildren<BarComponent>();
+            _p1BarComponent = _p1Hud.GetComponentInChildren<BarComponent>();
+            _p2BarComponent = _p2Hud.GetComponentInChildren<BarComponent>();
             // p3BarComponent = p3Hud.GetComponentInChildren<BarComponent>();
             // p4BarComponent = p4Hud.GetComponentInChildren<BarComponent>();
         }
@@ -134,16 +130,16 @@ namespace nseh.Managers.UI
             switch(player)
             {
                 case 1:
-                    return p1BarComponent;
+                    return _p1BarComponent;
 
                 case 2:
-                    return p2BarComponent;
+                    return _p2BarComponent;
 
                 case 3:
-                    return p3BarComponent;
+                    return _p3BarComponent;
 
                 case 4:
-                    return p4BarComponent;
+                    return _p4BarComponent;
 
                 default:
                     return null;
@@ -155,16 +151,16 @@ namespace nseh.Managers.UI
             switch (player)
             {
                 case 1:
-                    return p1Portrait;
+                    return _p1Portrait;
 
                 case 2:
-                    return p2Portrait;
+                    return _p2Portrait;
 
                 case 3:
-                    return p3Portrait;
+                    return _p3Portrait;
 
                 case 4:
-                    return p4Portrait;
+                    return _p4Portrait;
 
                 default:
                     return null;
@@ -186,19 +182,19 @@ namespace nseh.Managers.UI
             switch (player)
             {
                 case 1:
-                    EnableP1Hud();
+                    _p1Hud.SetActive(true);
                     break;
 
                 case 2:
-                    EnableP2Hud();
+                    _p2Hud.SetActive(true);
                     break;
 
                 case 3:
-                    EnableP3Hud();
+                    _p3Hud.SetActive(true);
                     break;
 
                 case 4:
-                    EnableP4Hud();
+                    _p4Hud.SetActive(true);
                     break;
 
                 default:
@@ -211,19 +207,19 @@ namespace nseh.Managers.UI
             switch (player)
             {
                 case 1:
-                    DisableP1Hud();
+                    _p1Hud.SetActive(false);
                     break;
 
                 case 2:
-                    DisableP2Hud();
+                    _p2Hud.SetActive(false);
                     break;
 
                 case 3:
-                    DisableP3Hud();
+                    _p3Hud.SetActive(false);
                     break;
 
                 case 4:
-                    DisableP4Hud();
+                    _p4Hud.SetActive(false);
                     break;
 
                 default:
@@ -233,50 +229,10 @@ namespace nseh.Managers.UI
 
         public void DisableAllHuds()
         {
-            DisableP1Hud();
-            DisableP2Hud();
+            _p1Hud.SetActive(false);
+            _p2Hud.SetActive(false);
             // DisableP3Hud();
             // DisableP4Hud();
-        }
-
-        public void EnableP1Hud()
-        {
-            p1Hud.SetActive(true);
-        }
-
-        public void EnableP2Hud()
-        {
-            p2Hud.SetActive(true);
-        }
-
-        public void EnableP3Hud()
-        {
-            p3Hud.SetActive(true);
-        }
-
-        public void EnableP4Hud()
-        {
-            p4Hud.SetActive(true);
-        }
-
-        public void DisableP1Hud()
-        {
-            p1Hud.SetActive(false);
-        }
-
-        public void DisableP2Hud()
-        {
-            p2Hud.SetActive(false);
-        }
-
-        public void DisableP3Hud()
-        {
-            p3Hud.SetActive(false);
-        }
-
-        public void DisableP4Hud()
-        {
-            p4Hud.SetActive(false);
         }
 
         public void ChangePortrait(int player, Sprite sprite)
@@ -284,57 +240,25 @@ namespace nseh.Managers.UI
             switch (player)
             {
                 case 1:
-                    ChangeP1PortraitSprite(sprite);
+                    _p1Portrait.sprite = sprite;
                     break;
 
                 case 2:
-                    ChangeP2PortraitSprite(sprite);
+                    _p2Portrait.sprite = sprite;
                     break;
 
                 case 3:
-                    ChangeP3PortraitSprite(sprite);
+                    _p3Portrait.sprite = sprite;
                     break;
 
                 case 4:
-                    ChangeP4PortraitSprite(sprite);
+                    _p4Portrait.sprite = sprite;
                     break;
 
                 default:
                     return;
             }
         }
-
-        public void ChangeP1PortraitSprite(Sprite sprite)
-        {
-            if (sprite)
-            {
-                p1Portrait.sprite = sprite;
-            }
-        }
-
-        public void ChangeP2PortraitSprite(Sprite sprite)
-        {
-            if (sprite)
-            {
-                p2Portrait.sprite = sprite;
-            }
-        }
-
-        public void ChangeP3PortraitSprite(Sprite sprite)
-        {
-            if (sprite)
-            {
-                p3Portrait.sprite = sprite;
-            }
-        }
-
-        public void ChangeP4PortraitSprite(Sprite sprite)
-        {
-            if (sprite)
-            {
-                p4Portrait.sprite = sprite;
-            }
-        } 
 
         #endregion
     }

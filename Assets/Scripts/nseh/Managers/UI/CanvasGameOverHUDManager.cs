@@ -1,4 +1,5 @@
 ﻿using nseh.Managers.Level;
+using nseh.Managers.Main;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,11 +10,11 @@ namespace nseh.Managers.UI
     {
         #region Public Properties
 
-        public Text gameOverText;
-        public Button mainMenuButton;
-        public Button restartButton;
+        public Text _gameOverText;
+        public Button _mainMenuButton;
+        public Button _restartButton;
 
-        private LevelManager levelManager;
+        private LevelManager _levelManager;
 
         #endregion
 
@@ -21,7 +22,7 @@ namespace nseh.Managers.UI
 
         public Text GameOverText
         {
-            get { return gameOverText; }
+            get { return _gameOverText; }
         }
 
         #endregion
@@ -35,14 +36,14 @@ namespace nseh.Managers.UI
                 return;
             }
 
-            levelManager = nseh.Managers.Main.GameManager.Instance.Find<LevelManager>();
+            _levelManager = GameManager.Instance.Find<LevelManager>();
         }
 
         #region Public Methods
 
         public bool ValidateGameOverText()
         {
-            return gameOverText && mainMenuButton && restartButton;
+            return _gameOverText && _mainMenuButton && _restartButton;
         }
 
         public void EnableCanvas()
@@ -55,26 +56,18 @@ namespace nseh.Managers.UI
             gameObject.SetActive(false);
         }
 
-        public void ChangeGameOverText(string text)
-        {
-            if (!String.IsNullOrEmpty(text))
-            {
-                gameOverText.text = text;
-            }
-        }
-
         #endregion
 
         #region Public Event Methods
 
         public void RestartGame()
         {
-            levelManager.Restart();
+            _levelManager.Restart();
         }
 
         public void GoToMainMenu()
         {
-            levelManager.GoToMainMenu();
+            _levelManager.GoToMainMenu();
         }
 
         #endregion

@@ -29,6 +29,7 @@ namespace nseh.Gameplay.Entities.Player
 
         private Rigidbody body;
         private Animator animator;
+        private Collider playerCollider;
         private PlayerHealth playerHealth;
         private PlayerMovement playerMovement;
         private PlayerCombat playerCombat;
@@ -164,6 +165,11 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        public Collider PlayerCollider
+        {
+            get { return this.playerCollider; }
+        }
+
         #endregion
 
         private void Awake()
@@ -174,6 +180,7 @@ namespace nseh.Gameplay.Entities.Player
             this.playerHealth = GetComponent<PlayerHealth>();
             this.playerMovement = GetComponent<PlayerMovement>();
             this.playerCombat = GetComponent<PlayerCombat>();
+            this.playerCollider = GetComponent<Collider>();
         }
 
         private void Start()

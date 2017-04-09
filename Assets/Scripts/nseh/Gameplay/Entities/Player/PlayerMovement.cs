@@ -134,13 +134,11 @@ namespace nseh.Gameplay.Entities.Player
 
         private void Start()
         {
-            this.anim = GetComponent<Animator>();
             this.playerInfo = GetComponent<PlayerInfo>();
+            this.anim = this.playerInfo.Animator;
+            this.body = this.playerInfo.Body;
 
-            this.body = GetComponent<Rigidbody>();
-            this.body.isKinematic = false;
-
-            this.facingRight = true;
+            this.facingRight = (this.transform.localEulerAngles.y == 270.0f) ? true : false;
             this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
             this.currentSpeed = this.baseSpeed;
         }
@@ -156,7 +154,7 @@ namespace nseh.Gameplay.Entities.Player
             this.anim.SetFloat(this.playerInfo.HorizontalStateName, this.horizontal);
             this.anim.SetBool(this.playerInfo.GroundedStateName, this.IsGrounded());
 
-            this.FlipCharacter(this.horizontal);
+            this.OnFlipPlayer(this.horizontal);
             this.Move();
             this.Jump();
         }
@@ -307,9 +305,49 @@ namespace nseh.Gameplay.Entities.Player
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Enable player's movement
+        /// </summary>
+        public void EnableMovement()
+        {
+            this.enabled = true;
+            this.playerInfo.Body.isKinematic = false;
+        }
+
+        /// <summary>
+        /// Disable player's movement
+        /// </summary>
+        public void DisableMovement()
+        {
+            this.enabled = false;
+            this.playerInfo.Body.isKinematic = true;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Called when PlayerMovement is enabled. Get all references again
+        /// </summary>
+        private void OnEnable()
+        {
+            this.playerInfo = GetComponent<PlayerInfo>();
+            this.anim = this.playerInfo.Animator;
+            this.body = this.playerInfo.Body;
+        }
+
+        #endregion
+
         #region Flip Logic
 
-        private void FlipCharacter(float horizontal)
+        /// <summary>
+        /// Check if player can rotate and do it
+        /// </summary>
+        /// <param name="horizontal"></param>
+        private void OnFlipPlayer(float horizontal)
         {
             if (horizontal > 0.0f && !facingRight)
             {
@@ -321,6 +359,9 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        /// <summary>
+        /// Flip player's rotation
+        /// </summary>
         private void Flip()
         {
             this.facingRight = !this.facingRight;
@@ -433,6 +474,9 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        /// <summary>
+        /// Set current speed to base speed
+        /// </summary>
         public void RestoreBaseSpeed()
         {
             this.currentSpeed = this.baseSpeed;
@@ -442,10 +486,11 @@ namespace nseh.Gameplay.Entities.Player
 
         #region Private Item Methods
 
-        private void TransformLocalRotation()
+        private void InvertPlayerRotation()
         {
-            var rotation = this.transform.localRotation;
+            Quaternion rotation = this.transform.localRotation;
             rotation.y = -rotation.y;
+
             this.transform.localRotation = rotation;
         }
 
@@ -453,11 +498,11 @@ namespace nseh.Gameplay.Entities.Player
         {
             Debug.Log("Character " + this.transform.root.name + " control has been inverted");
 
-            this.TransformLocalRotation();
+            this.InvertPlayerRotation();
 
             yield return waitSeconds;
 
-            this.TransformLocalRotation();
+            this.InvertPlayerRotation();
 
             Debug.Log("Character " + this.transform.root.name + " control has been restablished");
         }
