@@ -8,7 +8,7 @@ namespace nseh.Managers.UI
     {
         #region Public Properties
 
-        public Text clockText;
+        public Text _clockText;
 
         #endregion
 
@@ -16,7 +16,7 @@ namespace nseh.Managers.UI
 
         public Text ClockText
         {
-            get { return clockText; }
+            get { return _clockText; }
         }
 
         #endregion
@@ -35,7 +35,7 @@ namespace nseh.Managers.UI
 
         public bool ValidateTextClock()
         {
-            return clockText;
+            return _clockText;
         }
 
         public void EnableCanvas()
@@ -46,14 +46,6 @@ namespace nseh.Managers.UI
         public void DisableCanvas()
         {
             gameObject.SetActive(false);
-        }
-
-        public void ChangeClockText(string text)
-        {
-            if (!String.IsNullOrEmpty(text))
-            {
-                clockText.text = text;
-            }
         }
 
         #endregion

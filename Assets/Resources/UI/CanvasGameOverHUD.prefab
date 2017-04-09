@@ -572,9 +572,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df09ed56ec29df446a5d2f25dcab2dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverText: {fileID: 114187867262170318}
-  mainMenuButton: {fileID: 114761080303729612}
-  restartButton: {fileID: 114951305407312066}
+  _gameOverText: {fileID: 114187867262170318}
+  _mainMenuButton: {fileID: 114761080303729612}
+  _restartButton: {fileID: 114951305407312066}
 --- !u!114 &114633706621092488
 MonoBehaviour:
   m_ObjectHideFlags: 1
