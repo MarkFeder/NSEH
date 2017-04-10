@@ -146,7 +146,7 @@ ModelImporter:
       name: COMBOAFULL
       takeName: Take 001
       firstFrame: 24
-      lastFrame: 44
+      lastFrame: 39
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -166,14 +166,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.40689632
+      - time: 0.5345559
         functionName: ActivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 0.43361282
+      - time: 0.582549
         functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
