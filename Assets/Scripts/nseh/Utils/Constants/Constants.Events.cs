@@ -10,7 +10,7 @@
                 public const float EVENT_DURATION_MIN = 10f;
                 public const float EVENT_DURATION_INCREASE = 5.0f;
                 public const float EVENT_DURATION_MAX = 45.0f;
-                public const float TAR_DAMAGE = 5.0f;
+                public const float TAR_DAMAGE = 1.0f;
                 public const float TAR_SLOWDOWN = 30.0f;
                 public const float TAR_TICKDAMAGE = 1.0f;
             }

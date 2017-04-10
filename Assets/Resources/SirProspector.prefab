@@ -1946,7 +1946,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.23
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136276430367340074
 CapsuleCollider:
@@ -1954,10 +1954,10 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1196191226483754}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a6f4fff5e90fc7c41ae01fe59e77470b, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.35
+  m_Radius: 0.4
   m_Height: 1.5730191
   m_Direction: 1
   m_Center: {x: 0, y: 0.61, z: 0.05}

@@ -21,7 +21,7 @@ namespace nseh.Gameplay.Animations.Behaviour
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if ((action != null && action.KeyHasBeenPressed() || action.ButtonHasBeenPressed()) && stateInfo.normalizedTime >= 0.8)
+            if (action != null && (action.KeyHasBeenPressed() || action.ButtonHasBeenPressed()) && stateInfo.normalizedTime >= 0.7)
             {
                 animator.SetBool(this.playerInfo.ComboAAA01Hash, false);
                 animator.SetBool(this.playerInfo.ComboAAA03Hash, false);
