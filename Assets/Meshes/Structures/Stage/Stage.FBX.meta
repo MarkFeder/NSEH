@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e04895545ed6e6e40acac65e7099b56d
-timeCreated: 1491762558
+guid: 851ed18b912e15f4c939b34fe2f49099
+timeCreated: 1491912608
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -18,19 +18,16 @@ ModelImporter:
     100020: House_Sand
     100022: House_Shack
     100024: Left_Down
-    100026: Left_Stone
-    100028: Left_Up
-    100030: Right_Down
-    100032: Right_pillars
-    100034: Right_Stone
-    100036: Right_Up
-    100038: Right_Up 2
-    100040: //RootNode
-    100042: Stage_Left
-    100044: Stage_Right
-    100046: Tar
-    100048: Tunnel
-    100050: wall_central
+    100026: Left_Up
+    100028: Right_Down
+    100030: Right_pillars
+    100032: Right_Up
+    100034: Right_Up 2
+    100036: //RootNode
+    100038: Stage_Left
+    100040: Stage_Right
+    100042: Tunnel
+    100044: wall_central
     400000: central_base
     400002: Central_Down
     400004: Central_Up
@@ -44,19 +41,16 @@ ModelImporter:
     400020: House_Sand
     400022: House_Shack
     400024: Left_Down
-    400026: Left_Stone
-    400028: Left_Up
-    400030: Right_Down
-    400032: Right_pillars
-    400034: Right_Stone
-    400036: Right_Up
-    400038: Right_Up 2
-    400040: //RootNode
-    400042: Stage_Left
-    400044: Stage_Right
-    400046: Tar
-    400048: Tunnel
-    400050: wall_central
+    400026: Left_Up
+    400028: Right_Down
+    400030: Right_pillars
+    400032: Right_Up
+    400034: Right_Up 2
+    400036: //RootNode
+    400038: Stage_Left
+    400040: Stage_Right
+    400042: Tunnel
+    400044: wall_central
     2300000: central_base
     2300002: Central_Down
     2300004: Central_Up
@@ -70,18 +64,15 @@ ModelImporter:
     2300020: House_Sand
     2300022: House_Shack
     2300024: Left_Down
-    2300026: Left_Stone
-    2300028: Left_Up
-    2300030: Right_Down
-    2300032: Right_pillars
-    2300034: Right_Stone
-    2300036: Right_Up
-    2300038: Right_Up 2
-    2300040: Stage_Left
-    2300042: Stage_Right
-    2300044: Tar
-    2300046: Tunnel
-    2300048: wall_central
+    2300026: Left_Up
+    2300028: Right_Down
+    2300030: Right_pillars
+    2300032: Right_Up
+    2300034: Right_Up 2
+    2300036: Stage_Left
+    2300038: Stage_Right
+    2300040: Tunnel
+    2300042: wall_central
     3300000: central_base
     3300002: Central_Down
     3300004: Central_Up
@@ -95,44 +86,37 @@ ModelImporter:
     3300020: House_Sand
     3300022: House_Shack
     3300024: Left_Down
-    3300026: Left_Stone
-    3300028: Left_Up
-    3300030: Right_Down
-    3300032: Right_pillars
-    3300034: Right_Stone
-    3300036: Right_Up
-    3300038: Right_Up 2
-    3300040: Stage_Left
-    3300042: Stage_Right
-    3300044: Tar
-    3300046: Tunnel
-    3300048: wall_central
+    3300026: Left_Up
+    3300028: Right_Down
+    3300030: Right_pillars
+    3300032: Right_Up
+    3300034: Right_Up 2
+    3300036: Stage_Left
+    3300038: Stage_Right
+    3300040: Tunnel
+    3300042: wall_central
     4300000: Ground
     4300002: Stage_Right
-    4300004: Left_Stone
-    4300006: Central_Up
-    4300008: Right_Down
-    4300010: Central_Down
-    4300012: Right_Stone
-    4300014: Right_Up
-    4300016: Left_Up
-    4300018: Left_Down
-    4300020: Stage_Left
-    4300022: House_Flintstones
-    4300024: House_Shack
-    4300026: House_Sand
-    4300028: House_Cone
-    4300030: wall_central
-    4300032: central_base
-    4300034: Right_pillars
-    4300036: Tunnel
-    4300038: Door_Shack
-    4300040: Door_Flintstones
-    4300042: Door_Cone
-    4300044: Door_Sand
-    4300046: Right_Up 2
-    4300048: Tar
-    9500000: //RootNode
+    4300004: Central_Up
+    4300006: Right_Down
+    4300008: Central_Down
+    4300010: Right_Up
+    4300012: Left_Up
+    4300014: Left_Down
+    4300016: Stage_Left
+    4300018: House_Flintstones
+    4300020: House_Shack
+    4300022: House_Sand
+    4300024: House_Cone
+    4300026: wall_central
+    4300028: central_base
+    4300030: Right_pillars
+    4300032: Tunnel
+    4300034: Door_Shack
+    4300036: Door_Flintstones
+    4300038: Door_Cone
+    4300040: Door_Sand
+    4300042: Right_Up 2
   materials:
     importMaterials: 1
     materialName: 0
@@ -197,7 +181,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -14,6 +14,10 @@
                 public const string CHARACTER_COMBO_AAA_02 = "Combo_AAA_02";
                 public const string CHARACTER_COMBO_AAA_03 = "Combo_AAA_03";
 
+                public const string CHARACTER_COMBO_AAA_01_TIME = "Time_Combo_AAA_01";
+                public const string CHARACTER_COMBO_AAA_02_TIME = "Time_Combo_AAA_02";
+                public const string CHARACTER_COMBO_BB_01_TIME = "Time_Combo_BB_01";
+
                 public const string CHARACTER_COMBO_BB_01 = "Combo_BB_01";
                 public const string CHARACTER_COMBO_BB_02 = "Combo_BB_02";
 

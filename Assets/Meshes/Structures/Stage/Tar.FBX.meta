@@ -1,15 +1,27 @@
 fileFormatVersion: 2
-guid: 4715b8facb3a3f24b8190f7b85004e95
-timeCreated: 1491762554
+guid: 5ecc6fd580b73074db7537fe8391e6f5
+timeCreated: 1491912605
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
+    100000: Left_Stone
+    100002: Right_Stone
+    100004: Tar
+    100006: //RootNode
+    400000: Left_Stone
+    400002: Right_Stone
+    400004: Tar
+    400006: //RootNode
+    2300000: Left_Stone
+    2300002: Right_Stone
+    2300004: Tar
+    3300000: Left_Stone
+    3300002: Right_Stone
+    3300004: Tar
     4300000: Tar
+    4300002: Left_Stone
+    4300004: Right_Stone
     9500000: //RootNode
   materials:
     importMaterials: 1

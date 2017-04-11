@@ -17,6 +17,8 @@ namespace nseh.Gameplay.Animations.Behaviour
         // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            animator.SetFloat(this.playerInfo.TimeComboAAA01Hash, 0.0F);
+            animator.SetFloat(this.playerInfo.TimeComboAAA02Hash, 0.0F);
             animator.SetBool(this.playerInfo.ComboAAA01Hash, false);
             animator.SetBool(this.playerInfo.ComboAAA02Hash, false);
             animator.SetBool(this.playerInfo.ComboAAA03Hash, false);

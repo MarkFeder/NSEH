@@ -53,6 +53,10 @@ namespace nseh.Gameplay.Entities.Player
         public int DefenseHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_02); } }
         public int ImpactHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_IMPACT); } }
         public int DeadHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_DEAD); } }
+        public int TimeComboAAA01Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_AAA_01_TIME); } }
+        public int TimeComboAAA02Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_AAA_02_TIME); } }
+        public int TimeComboBB01Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_01_TIME); } }
+       
 
         #endregion
     }
