@@ -58,7 +58,7 @@ namespace nseh.Gameplay.Gameflow
         {
             if (other.CompareTag(Constants.Tags.PLAYER_BODY))
             {
-                other.GetComponent<PlayerMovement>().DecreaseSpeed(Constants.Events.Tar_Event.TAR_SLOWDOWN);
+                other.GetComponent<PlayerMovement>().DecreaseSpeedTar(Constants.Events.Tar_Event.TAR_SLOWDOWN);
             }
         }
 

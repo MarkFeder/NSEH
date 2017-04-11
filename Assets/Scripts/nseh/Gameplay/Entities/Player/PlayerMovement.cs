@@ -28,7 +28,9 @@ namespace nseh.Gameplay.Entities.Player
         private float horizontal;
         private float vertical;
         private float gravity;
+        [SerializeField]
         private float currentSpeed;
+        private float oldSpeed;
 
         #endregion
 
@@ -420,7 +422,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             if (percent > 0.0f)
             {
-                var oldSpeed = this.currentSpeed;
+                oldSpeed = this.currentSpeed;
 
                 this.currentSpeed += (this.baseSpeed * percent / 100.0f);
 
@@ -430,14 +432,31 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Decrease speed by percent
+        /// Decrease speed by percent 
         /// </summary>
         /// <param name="percent"></param>
         public void DecreaseSpeed(float percent)
         {
             if (percent > 0.0f)
             {
-                var oldSpeed = this.currentSpeed;
+                oldSpeed = this.currentSpeed;
+
+                this.currentSpeed -= (this.baseSpeed * percent / 100.0f);
+
+                Debug.Log(String.Format("Speed of {0} is: {1} and applying {2}% less has changed to: {3}",
+                        this.gameObject.name, oldSpeed, percent, this.currentSpeed));
+            }
+        }
+
+        /// <summary>
+        /// Decrease speed by percent when a player falls into Tar 
+        /// </summary>
+        /// <param name="percent"></param>
+        public void DecreaseSpeedTar(float percent)
+        {
+            if (percent > 0.0f)
+            {
+                oldSpeed = this.baseSpeed - (this.baseSpeed * percent / 100.0f);
 
                 this.currentSpeed -= (this.baseSpeed * percent / 100.0f);
 
@@ -486,6 +505,7 @@ namespace nseh.Gameplay.Entities.Player
         public void RestoreBaseSpeed()
         {
             this.currentSpeed = this.baseSpeed;
+            this.oldSpeed = this.baseSpeed;
         }
 
         #endregion
@@ -528,7 +548,7 @@ namespace nseh.Gameplay.Entities.Player
 
         private IEnumerator IncreaseSpeedForSecondsInternal(float percent, float seconds)
         {
-            var oldSpeed = this.currentSpeed;
+            oldSpeed = this.currentSpeed;
 
             this.IncreaseSpeed(percent);
 
