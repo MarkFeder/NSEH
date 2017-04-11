@@ -18,9 +18,12 @@ namespace nseh.Gameplay.Movement
         [SerializeField]
         private List<GameObject> TeleportPoints;
 
+        public Animator animator;
+
         // Use this for initialization
         void Start()
         {
+           
         }
 
         // Update is called once per frame
@@ -31,11 +34,16 @@ namespace nseh.Gameplay.Movement
 
         private void OnTriggerEnter(Collider other)
         {
-
+            
         }
 
         private void OnTriggerStay(Collider other)
         {
+            if (animator != null)
+            { 
+                animator.SetBool("Open", true);
+                animator.SetBool("Close", false);
+            }
 
             if ((other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().Vertical > 0 && other.GetComponent<PlayerInfo>().Horizontal == 0 && other.GetComponent<PlayerInfo>().Teletransported == false))
             {
@@ -49,13 +57,22 @@ namespace nseh.Gameplay.Movement
 
         private void OnTriggerExit(Collider other)
         {
-            
+
+            if (animator != null)
+            {
+                animator.SetBool("Open", false);
+                animator.SetBool("Close", true);
+            }
+
+         
             if ((other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().Vertical == 0))
             {
                 Debug.Log("Exit");
                 other.GetComponent<PlayerInfo>().Teletransported = false;
 
             }
+
+            
         }
 
 
