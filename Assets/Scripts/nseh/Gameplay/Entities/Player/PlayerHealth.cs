@@ -1,4 +1,5 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
+using nseh.Gameplay.Gameflow;
 using nseh.Managers.General;
 using System;
 using System.Collections;
@@ -27,6 +28,8 @@ namespace nseh.Gameplay.Entities.Player
 
         private PlayerInfo playerInfo;
         private HealthMode healthMode;
+
+        private LevelProgress lvlProgress;
 
         private float currentHealth;
         private bool isDead;
@@ -72,6 +75,14 @@ namespace nseh.Gameplay.Entities.Player
             set
             {
                 this.healthBar = value;
+            }
+        }
+
+        public LevelProgress LvlProgress
+        {
+            set
+            {
+                this.lvlProgress = value;
             }
         }
 
@@ -169,8 +180,14 @@ namespace nseh.Gameplay.Entities.Player
             {
                 var oldHealth = this.CurrentHealth;
 
-                this.CurrentHealth += (this.MaxHealth * percent / 100.0f);
+                float amount = (this.MaxHealth * percent / 100.0f);
+                this.CurrentHealth += amount;
                 this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
+
+                if (lvlProgress.IsActivated)
+                {
+                    lvlProgress.DecreaseProgress(amount);
+                }
 
                 Debug.Log(String.Format("Health of {0} is: {1} and applying {2}% more has changed to: {3}", this.gameObject.name, oldHealth, percent, this.CurrentHealth));
             }
@@ -186,8 +203,14 @@ namespace nseh.Gameplay.Entities.Player
             {
                 var oldHealth = this.CurrentHealth;
 
-                this.CurrentHealth -= (this.MaxHealth * percent / 100.0f);
+                float amount = (this.MaxHealth * percent / 100.0f);
+                this.CurrentHealth -= amount;
                 this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
+
+                if (lvlProgress.IsActivated)
+                {
+                    lvlProgress.IncreaseProgress(amount);
+                }
 
                 Debug.Log(String.Format("Health of {0} is: {1} and reducing {2}% has changed to: {3}", this.gameObject.name, oldHealth, percent, this.CurrentHealth));
 
@@ -209,6 +232,11 @@ namespace nseh.Gameplay.Entities.Player
                 // Reduce current health
                 this.CurrentHealth -= amount;
                 this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
+
+                if (lvlProgress.IsActivated)
+                {
+                    lvlProgress.IncreaseProgress(amount);
+                }
 
                 if (this.CurrentHealth == 0.0f && !this.isDead)
                 {

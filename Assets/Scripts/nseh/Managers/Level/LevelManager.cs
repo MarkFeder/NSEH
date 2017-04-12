@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using LevelHUDConstants = nseh.Utils.Constants.InLevelHUD;
 
 namespace nseh.Managers.Level
@@ -32,12 +33,14 @@ namespace nseh.Managers.Level
         private GameObject _canvasGameOverObj;
         private GameObject _canvasPlayersHUDObj;
         private GameObject _canvasItemsObj;
+        private GameObject _canvasProgressObj;
 
         private CanvasPausedHUDManager _canvasPausedManager;
         private CanvasClockHUDManager _canvasClockManager;
         private CanvasGameOverHUDManager _canvasGameOverManager;
         private CanvasPlayersHUDManager _canvasPlayersManager;
         private CanvasItemsHUDManager _canvasItemsManager;
+        private CanvasProgressHUDManager _canvasProgressManager;
 
         private List<PlayerManager> _players;
         private List<Vector3> _playersPos;
@@ -79,6 +82,16 @@ namespace nseh.Managers.Level
         public CanvasItemsHUDManager CanvasItemsManager
         {
             get { return _canvasItemsManager; }
+        }
+
+        public CanvasProgressHUDManager CanvasProgressManager
+        {
+            get { return _canvasProgressManager; }
+        }
+
+        public List<PlayerManager> Players
+        {
+            get { return _players; }
         }
 
         #endregion
@@ -135,6 +148,7 @@ namespace nseh.Managers.Level
                         Find<Tar_Event>().ActivateEvent();
                         Find<CameraManager>().ActivateEvent();
                         Find<ItemSpawn_Event>().ActivateEvent();
+                        Find<LevelProgress>().ActivateEvent();
 
                         _currentState = _nextState;
 
@@ -145,6 +159,9 @@ namespace nseh.Managers.Level
                         Find<Tar_Event>().EventRelease();
                         Find<CameraManager>().EventRelease();
                         Find<ItemSpawn_Event>().EventRelease();
+                        Find<LevelProgress>().EventRelease();
+                        SceneManager.LoadScene("prueba");
+                        
 
                         _currentState = _nextState;
 
@@ -199,6 +216,7 @@ namespace nseh.Managers.Level
 
             // Release managers
             Find<CameraManager>().EventRelease();
+            Find<LevelProgress>().EventRelease();
 
             // Respawn all the players again without loading prefabs again
             RespawnAllPlayers();
@@ -256,6 +274,7 @@ namespace nseh.Managers.Level
             Add<Tar_Event>();
             Add<CameraManager>();
             Add<ItemSpawn_Event>();
+            Add<LevelProgress>();
         }
 
         public override void Activate()
@@ -279,13 +298,6 @@ namespace nseh.Managers.Level
             _canvasGameOverManager.DisableCanvas();
             _clock = _canvasClockManager.ClockText;
 
-            // Activate events
-            Find<Tar_Event>().ActivateEvent();
-            Find<ItemSpawn_Event>().ActivateEvent();
-            Find<CameraManager>().ActivateEvent();
-
-            Debug.Log("The number of players is: " + Main.GameManager.Instance._numberPlayers + " " + (Main.GameManager.Instance._characters[0].name));
-
             // Activate some canvas
             _canvasPlayersManager.EnableCanvas();
             _canvasPlayersManager.DisableAllHuds();
@@ -295,6 +307,14 @@ namespace nseh.Managers.Level
             // Setup players on screen
             SetupPlayersTransforms();
             SpawnAllPlayers();
+
+            Debug.Log("The number of players is: " + Main.GameManager.Instance._numberPlayers + " " + (Main.GameManager.Instance._characters[0].name));
+
+            // Activate events
+            Find<Tar_Event>().ActivateEvent();
+            Find<ItemSpawn_Event>().ActivateEvent();
+            Find<CameraManager>().ActivateEvent();
+            Find<LevelProgress>().ActivateEvent();    
         }
 
         //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
@@ -324,6 +344,8 @@ namespace nseh.Managers.Level
         {
             IsActivated = false;
             Find<ItemSpawn_Event>().EventRelease();
+            Find<LevelProgress>().EventRelease();
+            _players = new List<PlayerManager>(); //When player goes to main menu from game scene the player list must be restarted to avoid conflicts when a new game scene is created.
 
             _canvasGameOverManager.DisableCanvas();
             _canvasPausedManager.DisableCanvas();
@@ -343,6 +365,7 @@ namespace nseh.Managers.Level
             _canvasGameOverObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_GAME_OVER_HUD), Vector3.zero, Quaternion.identity) as GameObject;
             _canvasPlayersHUDObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PLAYERS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
             _canvasItemsObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_ITEMS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
+            _canvasProgressObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PROGRESS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
 
             // Load canvas managers
             _canvasPausedManager = _canvasPausedObj.GetComponent<CanvasPausedHUDManager>();
@@ -350,6 +373,7 @@ namespace nseh.Managers.Level
             _canvasGameOverManager = _canvasGameOverObj.GetComponent<CanvasGameOverHUDManager>();
             _canvasPlayersManager = _canvasPlayersHUDObj.GetComponent<CanvasPlayersHUDManager>();
             _canvasItemsManager = _canvasItemsObj.GetComponent<CanvasItemsHUDManager>();
+            _canvasProgressManager = _canvasProgressObj.GetComponent<CanvasProgressHUDManager>();
         }
 
         private void SetupPlayersTransforms()
@@ -400,7 +424,7 @@ namespace nseh.Managers.Level
                 // Add new player manager
                 _players.AddNotDuplicate(new PlayerManager());
                 _players[i].Setup(GameManager.Instance._characters[i], _playersPos[i],
-                                  _playersRots[i], i + 1, _canvasPlayersManager.GetBarComponentForPlayer(i + 1));
+                                  _playersRots[i], i + 1, _canvasPlayersManager.GetBarComponentForPlayer(i + 1), Find<LevelProgress>());
 
                 // Change player's portrait from hud manager
                 _canvasPlayersManager.ChangePortrait(i + 1, _players[i].PlayerRunTimeInfo.CharacterPortrait);

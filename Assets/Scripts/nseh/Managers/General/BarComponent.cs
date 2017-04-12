@@ -22,9 +22,6 @@ namespace nseh.Managers.General
         {
             set
             {
-                /*
-                Debug.Log("Salud de la barra " + value);
-                Debug.Log("Maxima salud " + MaxValue.ToString());*/
                 fillAmount = Map(value, 0, MaxValue, 0, 1);
             }
         }
@@ -43,11 +40,9 @@ namespace nseh.Managers.General
 
         private void HandleBar()
         {
-            //Debug.Log("fillAmount: " + fillAmount.ToString());
-            //Bar fill increases or decreases smoothy
+            //Bar fill increases or decreases in a smooth way
             if (fillAmount != content.fillAmount)
             {
-                //content.fillAmount = fillAmount;
                 content.fillAmount = Mathf.Lerp(content.fillAmount,fillAmount,Time.deltaTime*lerpSpeed);
             }
 

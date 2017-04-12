@@ -23,6 +23,7 @@
             public const string CANVAS_ITEMS_HUD = UI + "CanvasItemsHUD";
             public const string CANVAS_PAUSED_HUD = UI + "CanvasPausedHUD";
             public const string CANVAS_PLAYERS_HUD = UI + "CanvasPlayersHUD";
+            public const string CANVAS_PROGRESS_HUD = UI + "CanvasProgressHUD";
         }
 
         public static class InMenuHUD

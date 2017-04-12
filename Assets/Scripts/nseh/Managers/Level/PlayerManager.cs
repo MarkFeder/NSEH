@@ -1,5 +1,6 @@
 ﻿using nseh.Gameplay.Entities.Player;
 using nseh.Managers.General;
+using nseh.Gameplay.Gameflow;
 using System;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ namespace nseh.Managers.Level
 
         #region Public Methods
 
-        public void Setup(GameObject prefab, Vector3 pos, Vector3 rot, int playerNumber, BarComponent playerBarComponent)
+        public void Setup(GameObject prefab, Vector3 pos, Vector3 rot, int playerNumber, BarComponent playerBarComponent, LevelProgress lvlProgress)
         {
             // Setup prefab
             _playerPrefab = GameObject.Instantiate(prefab, pos, Quaternion.Euler(rot));
@@ -53,6 +54,9 @@ namespace nseh.Managers.Level
 
             // Setup bar component
             _playerInfo.PlayerHealth.HealthBar = playerBarComponent;
+
+            // Setup level progress
+            _playerInfo.PlayerHealth.LvlProgress = lvlProgress;
 
             // Let the player moves
             _playerInfo.PlayerMovement.EnableMovement();
