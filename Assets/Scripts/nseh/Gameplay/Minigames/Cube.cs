@@ -21,13 +21,15 @@ public class Cube : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        other.GetComponent<Minigame>().velocityCube = -2;
+        if(other.tag=="PlayerBody")
+            other.GetComponent<Minigame>().velocityCube = -2;
       
     }
 
     private void OnTriggerExit(Collider other)
     {
-        other.GetComponent<Minigame>().velocityCube = 0;
+        if (other.tag == "PlayerBody")
+            other.GetComponent<Minigame>().velocityCube = 0;
     }
 
 }

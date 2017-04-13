@@ -17,7 +17,7 @@ namespace nseh.Managers.Level
     {
         #region Public Properties
 
-        public enum States { LevelEvent, Minigame };
+        public enum States { LevelEvent, LoadingMinigame, Minigame };
         public States _currentState;
 
         #endregion
@@ -94,6 +94,13 @@ namespace nseh.Managers.Level
             get { return _players; }
         }
 
+
+        public int numPlayers
+        {
+            get { return _numPlayers; }
+        }
+
+
         #endregion
 
         #region Private Methods
@@ -103,6 +110,7 @@ namespace nseh.Managers.Level
             LevelEvent serviceToAdd = new T() as LevelEvent;
             serviceToAdd.Setup(this);
             _eventsList.Add(serviceToAdd);
+            Debug.Log(serviceToAdd);
         }
 
         #endregion
@@ -154,14 +162,25 @@ namespace nseh.Managers.Level
 
                         break;
 
-                    case States.Minigame:
+                    case States.LoadingMinigame:
 
+                        //Time.timeScale = 0;
                         Find<Tar_Event>().EventRelease();
                         Find<CameraManager>().EventRelease();
                         Find<ItemSpawn_Event>().EventRelease();
                         Find<LevelProgress>().EventRelease();
-                        SceneManager.LoadScene("prueba");
                         
+                        SceneManager.LoadScene("prueba");
+                        Find<LoadingEvent>().ActivateEvent();
+                        _currentState = _nextState;
+
+                        break;
+
+                    case States.Minigame:
+
+                        Time.timeScale = 1;
+                        Find<MinigameEvent>().ActivateEvent();
+
 
                         _currentState = _nextState;
 
@@ -275,6 +294,8 @@ namespace nseh.Managers.Level
             Add<CameraManager>();
             Add<ItemSpawn_Event>();
             Add<LevelProgress>();
+            Add<MinigameEvent>();
+            Add<LoadingEvent>();
         }
 
         public override void Activate()

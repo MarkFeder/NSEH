@@ -14,7 +14,10 @@ namespace nseh.Gameplay.Movement
         public float speed;
         public float jumpForce;
         public float velocityCube;
+        public bool started = false;
         private Rigidbody myRigidBody;
+        private Animator animator;
+        public bool isGrounded;
 
         public int gamepadIndex;
 
@@ -22,23 +25,39 @@ namespace nseh.Gameplay.Movement
         void Start()
         {
             myRigidBody = GetComponent<Rigidbody>();
-            gamepadIndex = 1;
+            animator = GetComponent<Animator>();
             velocityCube = 0;
             //gamepadIndex = GetComponent<PlayerInfo>().GamepadIndex;
         }
 
+
+
         // Update is called once per frame
         void Update()
         {
-            
-                myRigidBody.velocity = new Vector3(speed + velocityCube, myRigidBody.velocity.y, myRigidBody.velocity.z);
-            
-            
-           
-            if (Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex)))
+            if(Math.Round(myRigidBody.velocity.y, 1) == 0)
             {
-                myRigidBody.velocity = new Vector3(myRigidBody.velocity.x, jumpForce, myRigidBody.velocity.z);
+                isGrounded = true;
             }
+            if (started == true)
+            {
+                animator.SetBool("Start", true);
+                myRigidBody.velocity = new Vector3(speed + velocityCube, myRigidBody.velocity.y, myRigidBody.velocity.z);
+
+                if (Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex)) && isGrounded)
+                {
+                    isGrounded = false;
+                    myRigidBody.velocity = new Vector3(myRigidBody.velocity.x, jumpForce, myRigidBody.velocity.z);
+                }
+            }
+            else
+            {
+                myRigidBody.velocity = Vector3.zero;
+            }
+
+
+
+
 
         }
     }
