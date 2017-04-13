@@ -21,6 +21,7 @@ namespace nseh.Gameplay.Gameflow
         private GameObject _CubeDeath;
         private bool _stoped;
         private GameObject aux;
+        private GameObject _platformGenerators;
         private List<GameObject> _players;
         
 
@@ -31,6 +32,7 @@ namespace nseh.Gameplay.Gameflow
             _stoped = false;
             _players = new List<GameObject>();
             _SpawPoints = GameObject.Find("SpawnPoints");
+            _platformGenerators = GameObject.Find("PlatformGenerators");
             Debug.Log(LvlManager.MyGame._characters.Count);
             for (int i=0; i< LvlManager.MyGame._characters.Count; i++)
             {
@@ -43,6 +45,7 @@ namespace nseh.Gameplay.Gameflow
                     aux.transform.position = _SpawPoints.transform.GetChild(i).transform.position;
                     aux.transform.GetChild(1).GetComponent<TextMinigame>().playerText= i + 1;
                     aux.GetComponent<Minigame>().gamepadIndex = i + 1;
+                    _platformGenerators.transform.GetChild(i).gameObject.SetActive(true);
                     _players.Add(aux);
                 }
             }
