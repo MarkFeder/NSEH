@@ -1,38 +1,43 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
+using nseh.Gameplay.Combat;
 using nseh.Gameplay.Entities.Player;
 using nseh.Utils.Helpers;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class ComboAAA02 : StateMachineBehaviour
+    public class Idle : StateMachineBehaviour
     {
         private PlayerInfo playerInfo;
-        private IAction action;
+        private IAction nextAction;
 
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             this.playerInfo = animator.gameObject.GetSafeComponent<PlayerInfo>();
-            this.action = this.playerInfo.PlayerCombat.Actions.Where(act => act.HashAnimation == stateInfo.shortNameHash).FirstOrDefault();
+            ClearAllAttacks(ref animator);
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.SetFloat(this.playerInfo.TimeComboAAA02Hash, stateInfo.normalizedTime);
-            if (action != null && action.ButtonHasBeenPressed())
+            this.nextAction = this.playerInfo.PlayerCombat.Actions.Where(action => action.ButtonHasBeenPressed()).FirstOrDefault();
+
+            if (nextAction != null && nextAction.ButtonHasBeenPressed())
             {
-                animator.SetTrigger(this.playerInfo.ComboAAA03Hash);
+                this.nextAction.DoAction();
             }
         }
 
-        // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-        override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        private void ClearAllAttacks(ref Animator animator)
         {
-            animator.SetFloat(this.playerInfo.TimeComboAAA02Hash, 0.0F);
-            animator.ResetTrigger(this.playerInfo.ComboAAA02Hash);
+            IEnumerator<CharacterAttack> enumerator = this.playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().GetEnumerator();
+            while(enumerator.MoveNext())
+            {
+                animator.ResetTrigger(enumerator.Current.HashAnimation);
+            }
         }
-    } 
+    }
 }

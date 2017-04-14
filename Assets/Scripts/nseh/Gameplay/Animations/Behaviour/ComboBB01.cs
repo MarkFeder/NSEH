@@ -1,7 +1,5 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Combat;
 using nseh.Gameplay.Entities.Player;
-using nseh.Utils;
 using nseh.Utils.Helpers;
 using System.Linq;
 using UnityEngine;
@@ -24,11 +22,9 @@ namespace nseh.Gameplay.Animations.Behaviour
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             animator.SetFloat(this.playerInfo.TimeComboBB01Hash, stateInfo.normalizedTime);
-            //Debug.Log("ASDASDAS" + animator.GetFloat(this.playerInfo.TimeComboBB01Hash));
-            if (action != null && (action.KeyHasBeenPressed() || action.ButtonHasBeenPressed()))
+            if (action != null && action.ButtonHasBeenPressed())
             {
-                animator.SetBool(this.playerInfo.ComboBB01Hash, false);
-                animator.SetBool(this.playerInfo.ComboBB02Hash, true);
+                animator.SetTrigger(this.playerInfo.ComboBB02Hash);
             }
         }
 
@@ -36,7 +32,7 @@ namespace nseh.Gameplay.Animations.Behaviour
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             animator.SetFloat(this.playerInfo.TimeComboBB01Hash, 0.0F);
-            animator.SetBool(this.playerInfo.ComboBB01Hash, false);
+            animator.ResetTrigger(this.playerInfo.ComboBB01Hash);
         }
     } 
 }

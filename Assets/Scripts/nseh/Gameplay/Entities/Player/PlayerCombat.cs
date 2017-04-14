@@ -99,39 +99,6 @@ namespace nseh.Gameplay.Entities.Player
 
         #endregion
 
-        private void Update()
-        {
-            this.currentAction = this.actions.OfType<CharacterAttack>().Where(action => action.ReceiveInput() /*action => action.KeyHasBeenPressed() || action.ButtonHasBeenPressed()*/).FirstOrDefault();
-            this.currentDefenseAction = this.actions.OfType<CharacterDefense>().Where(action => action.ReceiveInput() /*act => act.KeyHasBeenReleased() || act.KeyIsHoldDown() || act.ButtonHasBeenReleased() || act.ButtonIsHoldDown()*/).FirstOrDefault();
-        }
-
-        private void FixedUpdate()
-        {
-            this.Defense();
-
-            this.Attack();
-        }
-
-        #region Protected Methods
-
-        protected virtual void Defense()
-        {
-            if (this.currentDefenseAction != null && this.currentDefenseAction.GetType() == typeof(CharacterDefense))
-            {
-                this.currentDefenseAction.DoAction();
-            }
-        }
-
-        protected virtual void Attack()
-        {
-            if (this.currentAction != null && this.currentAction.GetType() == typeof(CharacterAttack))
-            {
-                this.currentAction.DoAction();
-            }
-        } 
-
-        #endregion
-
         #region Animation Events
 
         private void ActivateCollider(int index)

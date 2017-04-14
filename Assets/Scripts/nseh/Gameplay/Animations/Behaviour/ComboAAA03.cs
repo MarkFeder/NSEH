@@ -19,9 +19,7 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             animator.SetFloat(this.playerInfo.TimeComboAAA01Hash, 0.0F);
             animator.SetFloat(this.playerInfo.TimeComboAAA02Hash, 0.0F);
-            animator.SetBool(this.playerInfo.ComboAAA01Hash, false);
-            animator.SetBool(this.playerInfo.ComboAAA02Hash, false);
-            animator.SetBool(this.playerInfo.ComboAAA03Hash, false);
+            animator.ResetTrigger(this.playerInfo.ComboAAA03Hash);
         }
     }
 }

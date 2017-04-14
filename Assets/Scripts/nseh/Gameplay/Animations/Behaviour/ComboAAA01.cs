@@ -22,11 +22,9 @@ namespace nseh.Gameplay.Animations.Behaviour
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             animator.SetFloat(this.playerInfo.TimeComboAAA01Hash, stateInfo.normalizedTime);
-            if (action != null && (action.KeyHasBeenPressed() || action.ButtonHasBeenPressed()))
+            if (action != null && action.ButtonHasBeenPressed())
             {
-                animator.SetBool(this.playerInfo.ComboAAA01Hash, false);
-                animator.SetBool(this.playerInfo.ComboAAA03Hash, false);
-                animator.SetBool(this.playerInfo.ComboAAA02Hash, true);
+                animator.SetTrigger(this.playerInfo.ComboAAA02Hash);
             }
         }
 
@@ -34,7 +32,7 @@ namespace nseh.Gameplay.Animations.Behaviour
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             animator.SetFloat(this.playerInfo.TimeComboAAA01Hash, 0.0F);
-            animator.SetBool(this.playerInfo.ComboAAA01Hash, false);
+            animator.ResetTrigger(this.playerInfo.ComboAAA01Hash);
         }
     }
 
