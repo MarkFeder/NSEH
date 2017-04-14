@@ -8,6 +8,39 @@ namespace nseh.Gameplay.Combat.System
 {
     public static class CombatRules
     {
+        #region Private Properties
+
+        // See GDD Documentation to understand conflictsTable
+        // ** Ignore index of first column and row (99)
+        // -1: Cancel; both attacks do not take effect
+        //  0: None; both attacks take effect without interrumption
+        //  1: Attack a wins and cancels b
+        //  2: Attack b wins and cancels a
+        //  3: Both recieves attack (a or b) and cancel combo
+        private static int[,] conflictsTable = new int[,]
+        {
+            {99, 0, 1, 2, 3, 4, 5, 6, 7 },
+            {0, -1, 2, 1, 3, 3, 0, 0, 0 },
+            {1, 2, -1, 2, 3, 3, 0, 0, 0 },
+            {2, 1, 2, -1, 3, 3, 0, 0, -1 },
+            {3, 3, 3, 3, 3, 4, 0, 0, 0 },
+            {4, 3, 3, 3, 4, 3, 0, 0, -1 },
+            {5, 0, 0, 0, 0, 0, 0, 0, 0 },
+            {6, 0, 0, 0, 0, 0, 0, 0, 0 },
+            {7, 0, 0, -1, 0, -1, 0, -1, 0 }
+        };
+
+        private static Dictionary<int, string> conflictToStr = new Dictionary<int, string>()
+        {
+            { -1, "Cancel" },
+            { 0, "None" },
+            { 1, "A over B" },
+            { 2, "B over A" },
+            { 3, "A and B" },
+        };
+
+        #endregion
+
         #region Private Methods
 
         private static int ConvertAttackTypeToIndex(AttackType attackType)
@@ -61,35 +94,6 @@ namespace nseh.Gameplay.Combat.System
 
             return index;
         }
-
-        // See GDD Documentation to understand conflictsTable
-        // ** Ignore index of first column and row (99)
-        // -1: Cancel; both attacks do not take effect
-        //  0: None; both attacks take effect without interrumption
-        //  1: Attack a wins and cancels b
-        //  2: Attack b wins and cancels a
-        //  3: Both recieves attack (a or b) and cancel combo
-        public static int[,] conflictsTable = new int[,]
-        {
-            {99, 0, 1, 2, 3, 4, 5, 6, 7 },
-            {0, -1, 2, 1, 3, 3, 0, 0, 0 },
-            {1, 2, -1, 2, 3, 3, 0, 0, 0 },
-            {2, 1, 2, -1, 3, 3, 0, 0, -1 },
-            {3, 3, 3, 3, 3, 4, 0, 0, 0 },
-            {4, 3, 3, 3, 4, 3, 0, 0, -1 },
-            {5, 0, 0, 0, 0, 0, 0, 0, 0 },
-            {6, 0, 0, 0, 0, 0, 0, 0, 0 },
-            {7, 0, 0, -1, 0, -1, 0, -1, 0 }
-        };
-
-        private static Dictionary<int, string> conflictToStr = new Dictionary<int, string>()
-        {
-            { -1, "Cancel" },
-            { 0, "None" },
-            { 1, "A over B" },
-            { 2, "B over A" },
-            { 3, "A and B" },
-        };
 
         #endregion
 

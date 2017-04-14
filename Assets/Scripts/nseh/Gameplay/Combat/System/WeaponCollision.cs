@@ -22,22 +22,20 @@ namespace nseh.Gameplay.Combat.System
 
         #endregion
 
-        #region Protected Properties
-
-        protected Collider hitBox;
-        protected PlayerCombat playerCombat;
-        protected PlayerMovement playerMovement;
-        protected PlayerInfo playerInfo;
-
-        protected List<GameObject> enemyTargets;
-        protected GameObject rootCharacter;
-
-        protected string parentObjName;
-
-        #endregion
-
         #region Private Properties
 
+        private PlayerCombat playerCombat;
+        private PlayerMovement playerMovement;
+        private PlayerInfo playerInfo;
+
+        private List<GameObject> enemyTargets;
+        private GameObject rootCharacter;
+
+        private delegate void FuncRef<T1, T2, T3, T4>(ref T1 arg1, ref T2 arg2, ref T3 arg3, ref T4 arg4);
+        private Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterAttack, PlayerInfo>> collisionHandlersAttacks;
+        private Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterDefense, PlayerInfo>> collisionHandlersAttackAndDefense;
+
+        private string parentObjName;
         private int layerMask;
 
         #endregion
@@ -57,24 +55,33 @@ namespace nseh.Gameplay.Combat.System
         {
             PlayerMovement enemyMov = enemy.GetComponent<PlayerMovement>();
 
-            return !(this.playerMovement.IsFacingRight && !enemyMov.IsFacingRight
-                    || !this.playerMovement.IsFacingRight && enemyMov.IsFacingRight);
+            return !this.playerMovement.IsFacingRight && !enemyMov.IsFacingRight ||
+                   !this.playerMovement.IsFacingRight && enemyMov.IsFacingRight;
         }
 
-        private void Awake()
+        private void Start()
         {
-            this.hitBox = GetComponent<Collider>();
-            this.hitBox.enabled = false;
+            this.layerMask = LayerMask.GetMask(Tags.PLAYER);
+
+            // Setup collisionHandlers
+            this.collisionHandlersAttacks = new Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterAttack, PlayerInfo>>();
+            this.collisionHandlersAttacks[-1] = CancelCollisionHandler;
+            this.collisionHandlersAttacks[0] = NoneCollisionHandler;
+            this.collisionHandlersAttacks[1] = FirstOverSecondCollisionHandler;
+            this.collisionHandlersAttacks[2] = SecondOverFirstCollisionHandler;
+            this.collisionHandlersAttacks[3] = BothCollisionHandler;
+
+            this.collisionHandlersAttackAndDefense = new Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterDefense, PlayerInfo>>();
+            this.collisionHandlersAttackAndDefense[-1] = CancelCollisionHandlerAttDef;
+            this.collisionHandlersAttackAndDefense[0] = NoneCollisionHandlerAttDef;
 
             this.playerInfo = this.transform.root.GetComponent<PlayerInfo>();
-            this.playerCombat = this.transform.root.GetComponent<PlayerCombat>();
+            this.playerCombat = this.playerInfo.PlayerCombat;
             this.playerMovement = this.playerInfo.PlayerMovement;
             this.enemyTargets = new List<GameObject>();
 
             this.parentObjName = this.transform.root.name;
             this.rootCharacter = this.transform.root.gameObject;
-
-            this.layerMask = LayerMask.GetMask(Tags.PLAYER);
         }
 
         #endregion
@@ -241,32 +248,9 @@ namespace nseh.Gameplay.Combat.System
 
         private void ResolveConflict(int conflict, ref GameObject sender, ref CharacterAttack senderAttack, ref PlayerInfo senderInfo, ref GameObject enemy, ref CharacterDefense enemyDefense, ref PlayerInfo enemyInfo)
         {
-            if (conflict == -1)
+            if (conflict == -1 || conflict == 0)
             {
-                if (senderAttack.AttackType == AttackType.CharacterAttackBSharp)
-                {
-                    enemyInfo.PlayerHealth.TakeDamage((int)senderAttack.CurrentDamage / 2);
-                    enemyDefense.Animator.SetTrigger(enemyInfo.ImpactHash);
-
-                    // Display effects
-                    enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
-                }
-                else if (senderAttack.AttackType == AttackType.CharacterAttackBStep2 
-                        || senderAttack.AttackType == AttackType.CharacterDefinitive)
-                {
-                    enemyInfo.PlayerHealth.TakeDamage((int)senderAttack.CurrentDamage);
-                    enemyDefense.Animator.SetTrigger(enemyInfo.ImpactHash);
-
-                    // Display effects
-                    enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
-                }
-            }
-            else if (conflict == 0)
-            {
-                senderAttack.Animator.SetTrigger(senderInfo.ImpactHash);
-
-                // Display effects
-                senderInfo.PlayParticleAtPosition(senderInfo.GetParticleDefense(enemyDefense.CurrentMode), senderInfo.ParticleBodyPos.position);
+                this.collisionHandlersAttackAndDefense[conflict].Invoke(ref senderAttack, ref senderInfo, ref enemyDefense, ref enemyInfo);
             }
             else
             {
@@ -276,64 +260,134 @@ namespace nseh.Gameplay.Combat.System
 
         private void ResolveConflict(int conflict, ref GameObject sender, ref CharacterAttack senderAction, ref PlayerInfo senderInfo, ref GameObject enemy, ref CharacterAttack enemyAction, ref PlayerInfo enemyInfo)
         {
-            if (conflict == -1)
+            if (conflict >= -1 && conflict <= 3)
             {
-                // Cancel both attacks; do not take any damage effect
-                enemyAction.Animator.SetTrigger(enemyInfo.ImpactHash);
-                senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
-
-                // Display effects
-                senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
-                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
-            }
-            else if (conflict == 0)
-            {
-                // Both attacks take effect normally without interrumption
-                enemyInfo.PlayerHealth.TakeDamage((int)senderAction.CurrentDamage);
-                senderInfo.PlayerHealth.TakeDamage((int)enemyAction.CurrentDamage);
-
-                // Display effects
-                senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
-                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
-            }
-            else if (conflict == 1)
-            {
-                enemyInfo.PlayerHealth.TakeDamage((int)senderAction.CurrentDamage);
-                // Cancel a's action
-                senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
-
-                // Display effects
-                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
-            }
-            else if (conflict == 2)
-            {
-                senderInfo.PlayerHealth.TakeDamage((int)enemyAction.CurrentDamage);
-                // Cancel b's action
-                // It should be sth related to CharacterCombat but we have the animator itself there
-                enemyAction.Animator.SetTrigger(enemyInfo.ImpactHash);
-
-                // Display effects
-                senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
-            }
-            else if (conflict == 3)
-            {
-                // Both receives action's damage
-                senderInfo.PlayerHealth.TakeDamage((int)enemyAction.CurrentDamage);
-                enemyInfo.PlayerHealth.TakeDamage((int)senderAction.CurrentDamage);
-
-                // Cancel both a and b
-                senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
-
-                // Display effects
-                senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
-                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
+                this.collisionHandlersAttacks[conflict].Invoke(ref senderAction, ref senderInfo, ref enemyAction, ref enemyInfo);
             }
             else
             {
                 Debug.Log(string.Format("No conflict for characters: {0} and {1}", enemy.name, sender.name));
             }
+        }
 
-            // TODO: We should store hashAnimations somewhere
+        #endregion
+
+        #region Collision Handlers - Attacks
+
+        private void CancelCollisionHandler(ref CharacterAttack senderAction, 
+                                            ref PlayerInfo senderInfo, 
+                                            ref CharacterAttack enemyAction, 
+                                            ref PlayerInfo enemyInfo)
+        {
+            Debug.Log("CancelCollisionHandler()");
+
+            // Cancel both attacks; do not take any damage effect
+            enemyAction.Animator.SetTrigger(enemyInfo.ImpactHash);
+            senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
+
+            // Display effects
+            senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
+            enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
+        }
+
+        private void NoneCollisionHandler(ref CharacterAttack senderAction,
+                                            ref PlayerInfo senderInfo,
+                                            ref CharacterAttack enemyAction,
+                                            ref PlayerInfo enemyInfo)
+        {
+            Debug.Log("NoneCollisionHandler()");
+
+            // Both attacks take effect normally without interrumption
+            enemyInfo.PlayerHealth.TakeDamage((int)senderAction.CurrentDamage);
+            senderInfo.PlayerHealth.TakeDamage((int)enemyAction.CurrentDamage);
+
+            // Display effects
+            senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
+            enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
+        }
+
+        private void FirstOverSecondCollisionHandler(ref CharacterAttack senderAction,
+                                            ref PlayerInfo senderInfo,
+                                            ref CharacterAttack enemyAction,
+                                            ref PlayerInfo enemyInfo)
+        {
+            Debug.Log("FirstOverSecondCollisionHandler()");
+
+            enemyInfo.PlayerHealth.TakeDamage((int)senderAction.CurrentDamage);
+            // Cancel a's action
+            senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
+
+            // Display effects
+            enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
+        }
+
+        private void SecondOverFirstCollisionHandler(ref CharacterAttack senderAction,
+                                            ref PlayerInfo senderInfo,
+                                            ref CharacterAttack enemyAction,
+                                            ref PlayerInfo enemyInfo)
+        {
+            Debug.Log("SecondOverFirstCollisionHandler()");
+
+            senderInfo.PlayerHealth.TakeDamage((int)enemyAction.CurrentDamage);
+            // Cancel b's action
+            enemyAction.Animator.SetTrigger(enemyInfo.ImpactHash);
+
+            // Display effects
+            senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
+        }
+
+        private void BothCollisionHandler(ref CharacterAttack senderAction,
+                                            ref PlayerInfo senderInfo,
+                                            ref CharacterAttack enemyAction,
+                                            ref PlayerInfo enemyInfo)
+        {
+            Debug.Log("BothCollisionHandler()");
+
+            // Both receives action's damage
+            senderInfo.PlayerHealth.TakeDamage((int)enemyAction.CurrentDamage);
+            enemyInfo.PlayerHealth.TakeDamage((int)senderAction.CurrentDamage);
+
+            // Cancel both a and b
+            senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
+
+            // Display effects
+            senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
+            enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
+        }
+
+        // Put other collision handlers here if exist
+
+        #endregion
+
+        #region Collision Handlers - Attacks/Defense
+
+        private void CancelCollisionHandlerAttDef(ref CharacterAttack senderAttack, ref PlayerInfo senderInfo, ref CharacterDefense enemyDefense, ref PlayerInfo enemyInfo)
+        {
+            if (senderAttack.AttackType == AttackType.CharacterAttackBSharp)
+            {
+                enemyInfo.PlayerHealth.TakeDamage((int)senderAttack.CurrentDamage / 2);
+                enemyDefense.Animator.SetTrigger(enemyInfo.ImpactHash);
+
+                // Display effects
+                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
+            }
+            else if (senderAttack.AttackType == AttackType.CharacterAttackBStep2
+                    || senderAttack.AttackType == AttackType.CharacterDefinitive)
+            {
+                enemyInfo.PlayerHealth.TakeDamage((int)senderAttack.CurrentDamage);
+                enemyDefense.Animator.SetTrigger(enemyInfo.ImpactHash);
+
+                // Display effects
+                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
+            }
+        }
+
+        private void NoneCollisionHandlerAttDef(ref CharacterAttack senderAttack, ref PlayerInfo senderInfo, ref CharacterDefense enemyDefense, ref PlayerInfo enemyInfo)
+        {
+            senderAttack.Animator.SetTrigger(senderInfo.ImpactHash);
+
+            // Display effects
+            senderInfo.PlayParticleAtPosition(senderInfo.GetParticleDefense(enemyDefense.CurrentMode), senderInfo.ParticleBodyPos.position);
         }
 
         #endregion
