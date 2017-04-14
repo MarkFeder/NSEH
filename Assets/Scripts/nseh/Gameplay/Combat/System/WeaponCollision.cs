@@ -172,7 +172,7 @@ namespace nseh.Gameplay.Combat.System
             }
         }
 
-        // Enemy are facing each other
+        // Both players are facing each other
         public void PerformDamage(ref GameObject sender, ref HandledAction senderAction, ref PlayerInfo senderInfo, ref List<GameObject> targetEnemies)
         {
             if (targetEnemies != null && targetEnemies.Count > 0)

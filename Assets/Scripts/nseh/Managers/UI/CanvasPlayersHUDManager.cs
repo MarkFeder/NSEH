@@ -125,48 +125,6 @@ namespace nseh.Managers.UI
 
         #region Public Methods
 
-        public BarComponent GetBarComponentForPlayer(int player)
-        {
-            switch(player)
-            {
-                case 1:
-                    return _p1BarComponent;
-
-                case 2:
-                    return _p2BarComponent;
-
-                case 3:
-                    return _p3BarComponent;
-
-                case 4:
-                    return _p4BarComponent;
-
-                default:
-                    return null;
-            }
-        }
-
-        public Image GetPortraitForPlayer(int player)
-        {
-            switch (player)
-            {
-                case 1:
-                    return _p1Portrait;
-
-                case 2:
-                    return _p2Portrait;
-
-                case 3:
-                    return _p3Portrait;
-
-                case 4:
-                    return _p4Portrait;
-
-                default:
-                    return null;
-            }
-        }
-
         public void EnableCanvas()
         {
             gameObject.SetActive(true);
@@ -257,6 +215,48 @@ namespace nseh.Managers.UI
 
                 default:
                     return;
+            }
+        }
+
+        public BarComponent GetBarComponentForPlayer(int player)
+        {
+            switch (player)
+            {
+                case 1:
+                    return _p1BarComponent;
+
+                case 2:
+                    return _p2BarComponent;
+
+                case 3:
+                    return _p3BarComponent;
+
+                case 4:
+                    return _p4BarComponent;
+
+                default:
+                    return null;
+            }
+        }
+
+        public Image GetPortraitForPlayer(int player)
+        {
+            switch (player)
+            {
+                case 1:
+                    return _p1Portrait;
+
+                case 2:
+                    return _p2Portrait;
+
+                case 3:
+                    return _p3Portrait;
+
+                case 4:
+                    return _p4Portrait;
+
+                default:
+                    return null;
             }
         }
 

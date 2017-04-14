@@ -63,6 +63,9 @@ namespace nseh.Managers.Level
 
             // Activate collider
             _playerInfo.PlayerCollider.enabled = true;
+
+            // Set player to idle state
+            _playerInfo.Animator.Play(_playerInfo.IdleHash);
         }
 
         public void Reset()
@@ -76,6 +79,7 @@ namespace nseh.Managers.Level
             _playerInfo.PlayerMovement.EnableMovement();
             _playerInfo.PlayerHealth.ResetHealth();
             _playerInfo.PlayerCollider.enabled = true;
+            _playerInfo.Animator.Play(_playerInfo.IdleHash);
         }
 
         #endregion

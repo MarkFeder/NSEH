@@ -366,7 +366,10 @@ namespace nseh.Managers.Level
             IsActivated = false;
             Find<ItemSpawn_Event>().EventRelease();
             Find<LevelProgress>().EventRelease();
-            _players = new List<PlayerManager>(); //When player goes to main menu from game scene the player list must be restarted to avoid conflicts when a new game scene is created.
+
+            //When player goes to main menu from game scene, 
+            // the player list must be restarted to avoid conflicts when a new game scene is created.
+            _players = new List<PlayerManager>();
 
             _canvasGameOverManager.DisableCanvas();
             _canvasPausedManager.DisableCanvas();
