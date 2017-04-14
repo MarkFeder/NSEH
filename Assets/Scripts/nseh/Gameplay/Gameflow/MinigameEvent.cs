@@ -139,7 +139,7 @@ namespace nseh.Gameplay.Gameflow
             _ready.text = "RUUUUUUN!!!";
             yield return new WaitForSeconds(1);
             _ready.text = "";
-            _timeRemaining = 60;
+            _timeRemaining = 30;
             Camera.main.GetComponent<CameraScript>().started = true;
             _CubeDeath.GetComponent<CubeDeath>().started = true;
             foreach(GameObject character in _players)

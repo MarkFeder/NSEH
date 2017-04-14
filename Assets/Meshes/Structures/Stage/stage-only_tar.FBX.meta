@@ -1,28 +1,52 @@
 fileFormatVersion: 2
-guid: 5ecc6fd580b73074db7537fe8391e6f5
-timeCreated: 1491912605
+guid: d26f2dbdc38406344bce47a080d6e467
+timeCreated: 1492179342
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Left_Stone
-    100002: Right_Stone
-    100004: Tar
-    100006: //RootNode
-    400000: Left_Stone
-    400002: Right_Stone
-    400004: Tar
-    400006: //RootNode
+    100000: Bone001
+    100002: Bone002
+    100004: Bone003
+    100006: Bone004
+    100008: Bone005
+    100010: Bone006
+    100012: Bone007
+    100014: Bone008
+    100016: Bone009
+    100018: Bone010
+    100020: Bone011
+    100022: Bone012
+    100024: Left_Stone
+    100026: Right_Stone
+    100028: //RootNode
+    100030: Tar
+    400000: Bone001
+    400002: Bone002
+    400004: Bone003
+    400006: Bone004
+    400008: Bone005
+    400010: Bone006
+    400012: Bone007
+    400014: Bone008
+    400016: Bone009
+    400018: Bone010
+    400020: Bone011
+    400022: Bone012
+    400024: Left_Stone
+    400026: Right_Stone
+    400028: //RootNode
+    400030: Tar
     2300000: Left_Stone
     2300002: Right_Stone
-    2300004: Tar
     3300000: Left_Stone
     3300002: Right_Stone
-    3300004: Tar
     4300000: Tar
     4300002: Left_Stone
     4300004: Right_Stone
+    7400000: TAR WITH BONES
     9500000: //RootNode
+    13700000: Tar
   materials:
     importMaterials: 1
     materialName: 0

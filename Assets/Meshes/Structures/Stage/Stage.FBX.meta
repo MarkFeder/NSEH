@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 851ed18b912e15f4c939b34fe2f49099
-timeCreated: 1491912608
+guid: 340d2e596099279419cd96bc34bd62ae
+timeCreated: 1492172666
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -10,91 +10,99 @@ ModelImporter:
     100004: Central_Up
     100006: Door_Cone
     100008: Door_Flintstones
-    100010: Door_Sand
-    100012: Door_Shack
-    100014: Ground
-    100016: House_Cone
-    100018: House_Flintstones
-    100020: House_Sand
-    100022: House_Shack
-    100024: Left_Down
-    100026: Left_Up
-    100028: Right_Down
-    100030: Right_pillars
-    100032: Right_Up
-    100034: Right_Up 2
-    100036: //RootNode
-    100038: Stage_Left
-    100040: Stage_Right
-    100042: Tunnel
-    100044: wall_central
+    100010: Door_Mine_left
+    100012: Door_Mine_Right
+    100014: Door_Shack
+    100016: Flintstone_platform
+    100018: Ground
+    100020: House_Cone
+    100022: House_Flintstones
+    100024: House_Shack
+    100026: Left_Down_middle
+    100028: Left_Up
+    100030: p2
+    100032: Right_Down
+    100034: Right_pillars
+    100036: Right_Up
+    100038: Right_Up 2
+    100040: //RootNode
+    100042: Stage_Left
+    100044: Stage_Right
+    100046: Tunnel
+    100048: wall_central
     400000: central_base
     400002: Central_Down
     400004: Central_Up
     400006: Door_Cone
     400008: Door_Flintstones
-    400010: Door_Sand
-    400012: Door_Shack
-    400014: Ground
-    400016: House_Cone
-    400018: House_Flintstones
-    400020: House_Sand
-    400022: House_Shack
-    400024: Left_Down
-    400026: Left_Up
-    400028: Right_Down
-    400030: Right_pillars
-    400032: Right_Up
-    400034: Right_Up 2
-    400036: //RootNode
-    400038: Stage_Left
-    400040: Stage_Right
-    400042: Tunnel
-    400044: wall_central
+    400010: Door_Mine_left
+    400012: Door_Mine_Right
+    400014: Door_Shack
+    400016: Flintstone_platform
+    400018: Ground
+    400020: House_Cone
+    400022: House_Flintstones
+    400024: House_Shack
+    400026: Left_Down_middle
+    400028: Left_Up
+    400030: p2
+    400032: Right_Down
+    400034: Right_pillars
+    400036: Right_Up
+    400038: Right_Up 2
+    400040: //RootNode
+    400042: Stage_Left
+    400044: Stage_Right
+    400046: Tunnel
+    400048: wall_central
     2300000: central_base
     2300002: Central_Down
     2300004: Central_Up
     2300006: Door_Cone
     2300008: Door_Flintstones
-    2300010: Door_Sand
-    2300012: Door_Shack
-    2300014: Ground
-    2300016: House_Cone
-    2300018: House_Flintstones
-    2300020: House_Sand
-    2300022: House_Shack
-    2300024: Left_Down
-    2300026: Left_Up
-    2300028: Right_Down
-    2300030: Right_pillars
-    2300032: Right_Up
-    2300034: Right_Up 2
-    2300036: Stage_Left
-    2300038: Stage_Right
-    2300040: Tunnel
-    2300042: wall_central
+    2300010: Door_Mine_left
+    2300012: Door_Mine_Right
+    2300014: Door_Shack
+    2300016: Flintstone_platform
+    2300018: Ground
+    2300020: House_Cone
+    2300022: House_Flintstones
+    2300024: House_Shack
+    2300026: Left_Down_middle
+    2300028: Left_Up
+    2300030: p2
+    2300032: Right_Down
+    2300034: Right_pillars
+    2300036: Right_Up
+    2300038: Right_Up 2
+    2300040: Stage_Left
+    2300042: Stage_Right
+    2300044: Tunnel
+    2300046: wall_central
     3300000: central_base
     3300002: Central_Down
     3300004: Central_Up
     3300006: Door_Cone
     3300008: Door_Flintstones
-    3300010: Door_Sand
-    3300012: Door_Shack
-    3300014: Ground
-    3300016: House_Cone
-    3300018: House_Flintstones
-    3300020: House_Sand
-    3300022: House_Shack
-    3300024: Left_Down
-    3300026: Left_Up
-    3300028: Right_Down
-    3300030: Right_pillars
-    3300032: Right_Up
-    3300034: Right_Up 2
-    3300036: Stage_Left
-    3300038: Stage_Right
-    3300040: Tunnel
-    3300042: wall_central
+    3300010: Door_Mine_left
+    3300012: Door_Mine_Right
+    3300014: Door_Shack
+    3300016: Flintstone_platform
+    3300018: Ground
+    3300020: House_Cone
+    3300022: House_Flintstones
+    3300024: House_Shack
+    3300026: Left_Down_middle
+    3300028: Left_Up
+    3300030: p2
+    3300032: Right_Down
+    3300034: Right_pillars
+    3300036: Right_Up
+    3300038: Right_Up 2
+    3300040: Stage_Left
+    3300042: Stage_Right
+    3300044: Tunnel
+    3300046: wall_central
     4300000: Ground
     4300002: Stage_Right
     4300004: Central_Up
@@ -102,21 +110,23 @@ ModelImporter:
     4300008: Central_Down
     4300010: Right_Up
     4300012: Left_Up
-    4300014: Left_Down
-    4300016: Stage_Left
-    4300018: House_Flintstones
-    4300020: House_Shack
-    4300022: House_Sand
-    4300024: House_Cone
-    4300026: wall_central
-    4300028: central_base
-    4300030: Right_pillars
-    4300032: Tunnel
-    4300034: Door_Shack
-    4300036: Door_Flintstones
-    4300038: Door_Cone
-    4300040: Door_Sand
-    4300042: Right_Up 2
+    4300014: Stage_Left
+    4300016: House_Flintstones
+    4300018: House_Shack
+    4300020: House_Cone
+    4300022: wall_central
+    4300024: central_base
+    4300026: Right_pillars
+    4300028: Tunnel
+    4300030: Door_Shack
+    4300032: Door_Flintstones
+    4300034: Door_Cone
+    4300036: Right_Up 2
+    4300038: Flintstone_platform
+    4300040: Left_Down_middle
+    4300042: Door_Mine_left
+    4300044: Door_Mine_Right
+    4300046: p2
   materials:
     importMaterials: 1
     materialName: 0

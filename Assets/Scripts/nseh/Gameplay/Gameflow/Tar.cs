@@ -11,9 +11,11 @@ namespace nseh.Gameplay.Gameflow
     {
         private float _nextApplyEffect = 0;
         private List<GameObject> _playersInTar;
+        public Animator animator;
 
         protected override bool TarUp(float elapsedTime)
         {
+            animator.SetBool("Motion", true);
             this.targetTarPosition = new Vector3(this.transform.position.x, this.platformPosition.y, this.transform.position.z);
             this.transform.position = Vector3.Lerp(this.transform.position, this.targetTarPosition, elapsedTime / 80.0f);
             if (this.transform.position == this.targetTarPosition)
@@ -33,13 +35,16 @@ namespace nseh.Gameplay.Gameflow
             {
                 //Debug.Log("Tar is down. " + "(" + elapsedTime + ")");
                 _playersInTar = new List<GameObject>();
+                animator.SetBool("Motion", false);
                 return false;
             }
+            //animator.SetBool("Motion", false);
             return true;
         }
 
         protected override void TarReset()
         {
+            animator.SetBool("Motion", false);
             this.transform.position = this.initialTarPosition;
             _nextApplyEffect = 0;
             _playersInTar = new List<GameObject>();
