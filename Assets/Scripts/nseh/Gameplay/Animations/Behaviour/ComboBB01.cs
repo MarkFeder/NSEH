@@ -16,6 +16,7 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             this.playerInfo = animator.gameObject.GetSafeComponent<PlayerInfo>();
             this.action = this.playerInfo.PlayerCombat.Actions.Where(act => act.HashAnimation == stateInfo.shortNameHash).FirstOrDefault();
+            this.playerInfo.PlayerMovement.DisableMovement();
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

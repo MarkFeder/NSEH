@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class Idle : StateMachineBehaviour
+    public class Locomotion : StateMachineBehaviour
     {
         private PlayerInfo playerInfo;
         private IAction nextAction;
