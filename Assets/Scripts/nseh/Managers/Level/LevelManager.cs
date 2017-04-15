@@ -170,7 +170,7 @@ namespace nseh.Managers.Level
                         Find<ItemSpawn_Event>().EventRelease();
                         Find<LevelProgress>().EventRelease();
                         
-                        SceneManager.LoadScene("prueba");
+                        SceneManager.LoadScene("Minigame");
                         Find<LoadingEvent>().ActivateEvent();
                         _currentState = _nextState;
 
@@ -366,10 +366,8 @@ namespace nseh.Managers.Level
             IsActivated = false;
             Find<ItemSpawn_Event>().EventRelease();
             Find<LevelProgress>().EventRelease();
-
-            //When player goes to main menu from game scene, 
-            // the player list must be restarted to avoid conflicts when a new game scene is created.
-            _players = new List<PlayerManager>();
+            _players = new List<PlayerManager>(); //When player goes to main menu from game scene,
+                                                  //the player list must be restarted to avoid conflicts when a new game scene is created.
 
             _canvasGameOverManager.DisableCanvas();
             _canvasPausedManager.DisableCanvas();
@@ -448,7 +446,7 @@ namespace nseh.Managers.Level
                 // Add new player manager
                 _players.AddNotDuplicate(new PlayerManager());
                 _players[i].Setup(GameManager.Instance._characters[i], _playersPos[i],
-                                  _playersRots[i], i + 1, _canvasPlayersManager.GetBarComponentForPlayer(i + 1), Find<LevelProgress>());
+                                  _playersRots[i], i + 1, _canvasPlayersManager.GetBarComponentForPlayer(i + 1), _canvasPlayersManager.GetLivesForPlayer(i + 1), Find<LevelProgress>());
 
                 // Change player's portrait from hud manager
                 _canvasPlayersManager.ChangePortrait(i + 1, _players[i].PlayerRunTimeInfo.CharacterPortrait);
@@ -463,6 +461,18 @@ namespace nseh.Managers.Level
                 {
                     _players[i].Reset();
                 }
+            }
+            else
+            {
+                Debug.Log("RespawnAllPlayers(): the number of players is 0 or less than 0");
+            }
+        }
+
+        private void RespawnPlayer(int player)
+        {
+            if (_players.Count() > 0)
+            {
+                    _players[player-1].Reset();
             }
             else
             {

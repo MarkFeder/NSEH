@@ -2705,6 +2705,16 @@ MonoBehaviour:
   _p2Portrait: {fileID: 114931346322188128}
   _p3Portrait: {fileID: 0}
   _p4Portrait: {fileID: 0}
+  _p1Lives:
+  - {fileID: 114783132332473666}
+  - {fileID: 114843501122833058}
+  - {fileID: 114629633587588022}
+  _p2Lives:
+  - {fileID: 114496431723194016}
+  - {fileID: 114123066643513530}
+  - {fileID: 114364635182030020}
+  _p3Lives: []
+  _p4Lives: []
 --- !u!114 &114889822756098712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3243,7 +3253,7 @@ Canvas:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1560825343978880}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -3252,6 +3262,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

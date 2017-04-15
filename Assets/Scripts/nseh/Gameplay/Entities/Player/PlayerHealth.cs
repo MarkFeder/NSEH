@@ -3,7 +3,9 @@ using nseh.Gameplay.Gameflow;
 using nseh.Managers.General;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace nseh.Gameplay.Entities.Player
 {
@@ -25,7 +27,7 @@ namespace nseh.Gameplay.Entities.Player
         #region Private Properties
 
         private BarComponent healthBar;
-
+        private List<Image> playerLives;
         private PlayerInfo playerInfo;
         private HealthMode healthMode;
 
@@ -107,6 +109,19 @@ namespace nseh.Gameplay.Entities.Player
                 {
                     healthBar.MaxValue = maxHealth;
                 }
+            }
+        }
+
+        public List<Image> PlayerLives
+        {
+            get
+            {
+                return playerLives;
+            }
+
+            set
+            {
+                playerLives = value;
             }
         }
 
@@ -286,6 +301,35 @@ namespace nseh.Gameplay.Entities.Player
             Debug.Log(string.Format("Character {0} is exiting Invulnerability mode", this.gameObject.name));
 
             this.healthMode = HealthMode.Normal;
+        }
+
+        private void DisableLife(int life)
+        {
+            switch (life)
+            {
+                case 1:
+                    PlayerLives[0].enabled = false;
+                    break;
+                case 2:
+                    PlayerLives[1].enabled = false;
+                    break;
+                case 3:
+                    PlayerLives[2].enabled = false;
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        private void RestoreAllLives()
+        {
+            foreach(Image life in PlayerLives)
+            {
+                if (life.enabled == false)
+                {
+                    life.enabled = true;
+                }
+            }
         }
 
         private void Death()
