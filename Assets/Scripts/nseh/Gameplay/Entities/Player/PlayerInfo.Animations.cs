@@ -25,9 +25,9 @@ namespace nseh.Gameplay.Entities.Player
         public string ComboAAA03StateName { get { return CombatAnimParameters.CHARACTER_COMBO_AAA_03; } }
         public string ComboBB01StateName { get { return CombatAnimParameters.CHARACTER_COMBO_BB_01; } }
         public string ComboBB02StateName { get { return CombatAnimParameters.CHARACTER_COMBO_BB_02; } }
-        public string DefinitiveStateName { get { return CombatAnimParameters.CHARACTER_COMBO_BB_02; } }
-        public string HabilityStateName { get { return CombatAnimParameters.CHARACTER_COMBO_BB_02; } }
-        public string DefenseStateName { get { return CombatAnimParameters.CHARACTER_COMBO_BB_02; } }
+        public string DefinitiveStateName { get { return CombatAnimParameters.CHARACTER_DEFINITIVE; } }
+        public string HabilityStateName { get { return CombatAnimParameters.CHARACTER_HABILITY; } }
+        public string DefenseStateName { get { return CombatAnimParameters.CHARACTER_DEFENSE; } }
         public string ImpactStateName { get { return CombatAnimParameters.CHARACTER_IMPACT; } }
         public string DeadStateName { get { return CombatAnimParameters.CHARACTER_DEAD; } }
 
@@ -48,9 +48,9 @@ namespace nseh.Gameplay.Entities.Player
         public int ComboAAA03Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_AAA_03); } }
         public int ComboBB01Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_01); } }
         public int ComboBB02Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_02); } }
-        public int DefinitiveHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_02); } }
-        public int HabilityHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_02); } }
-        public int DefenseHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_02); } }
+        public int DefinitiveHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_DEFINITIVE); } }
+        public int HabilityHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_HABILITY); } }
+        public int DefenseHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_DEFENSE); } }
         public int ImpactHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_IMPACT); } }
         public int DeadHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_DEAD); } }
         public int TimeComboAAA01Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_AAA_01_TIME); } }

@@ -10,6 +10,8 @@
 
         void DoAction();
 
+        void StopAction();
+
         bool KeyHasBeenPressed();
 
         bool KeyHasBeenReleased();

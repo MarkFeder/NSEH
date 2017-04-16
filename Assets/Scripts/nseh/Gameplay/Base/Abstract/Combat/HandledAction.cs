@@ -126,6 +126,20 @@ namespace nseh.Gameplay.Base.Abstract
             }
         }
 
+        public virtual void StopAction()
+        {
+            switch (this.ParameterType)
+            {
+                case AnimatorControllerParameterType.Bool:
+                    this.Animator.SetBool(this.HashAnimation, false);
+                    break;
+
+                case AnimatorControllerParameterType.Trigger:
+                    this.Animator.ResetTrigger(this.HashAnimation);
+                    break;
+            }
+        }
+
         #endregion
     }
 }
