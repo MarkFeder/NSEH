@@ -19,6 +19,8 @@ namespace nseh.Gameplay.Minigames
             {
                 destructionPoint = GameObject.Find("PlatformDestructionPointWall");
             }
+
+          
             else
             {
                 destructionPoint = GameObject.Find("PlatformDestructionPoint");

@@ -24,7 +24,7 @@ public class StageGenerator : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        platformWidth = platformInitial.GetComponent<MeshRenderer>().bounds.size.x;
+        //platformWidth = platformInitial.GetComponent<MeshRenderer>().bounds.size.x;
         count = 0;
 
     }
@@ -37,9 +37,9 @@ public class StageGenerator : MonoBehaviour
             platformWidth = platform.GetComponent<MeshRenderer>().bounds.size.x;
 
             transform.position = new Vector3(transform.position.x + platformWidth, transform.position.y, transform.position.z);
-            if (count < 5)
+            if (count < 3)
             {
-                Instantiate(platform, transform.position, transform.rotation);
+                Instantiate(platform, transform.position, platform.transform.rotation);
                 count++;
             }
             else
@@ -49,17 +49,17 @@ public class StageGenerator : MonoBehaviour
                 if (countSpecial == 5 && SpecialPlatforms.Count != 0)
                 {
                     countSpecial = 0;
-                    Instantiate(platformChest, transform.position, transform.rotation);
+                    Instantiate(platformChest, transform.position, platform.transform.rotation);
                 }
                 else if (SpecialPlatforms.Count == 0)
                 {
-                    Instantiate(platform, transform.position, transform.rotation);
+                    Instantiate(platform, transform.position, platform.transform.rotation);
                 }
                 else
                 {
                     randomPlatform = UnityEngine.Random.Range(0, SpecialPlatforms.Count);
-                    platformWidth = SpecialPlatforms[randomPlatform].GetComponent<MeshRenderer>().bounds.size.x;
-                    Instantiate(SpecialPlatforms[randomPlatform], transform.position, transform.rotation);
+                    //platformWidth = SpecialPlatforms[randomPlatform].GetComponent<MeshRenderer>().bounds.size.x;
+                    Instantiate(SpecialPlatforms[randomPlatform], transform.position, platform.transform.rotation);
 
                 }
             }
