@@ -37,7 +37,7 @@ public class StageGenerator : MonoBehaviour
             platformWidth = platform.GetComponent<MeshRenderer>().bounds.size.x;
 
             transform.position = new Vector3(transform.position.x + platformWidth, transform.position.y, transform.position.z);
-            if (count < 3)
+            if (count < 2)
             {
                 Instantiate(platform, transform.position, platform.transform.rotation);
                 count++;
@@ -46,7 +46,7 @@ public class StageGenerator : MonoBehaviour
             {
                 countSpecial++;
                 count = 0;
-                if (countSpecial == 5 && SpecialPlatforms.Count != 0)
+                if (countSpecial == 3 && SpecialPlatforms.Count != 0)
                 {
                     countSpecial = 0;
                     Instantiate(platformChest, transform.position, platform.transform.rotation);
