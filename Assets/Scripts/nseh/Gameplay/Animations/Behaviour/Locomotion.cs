@@ -19,8 +19,11 @@ namespace nseh.Gameplay.Animations.Behaviour
             this.playerInfo = animator.gameObject.GetSafeComponent<PlayerInfo>();
             ClearAllAttacks(ref animator);
 
-            // Enable movement again after playing combo
-            this.playerInfo.PlayerMovement.EnableMovement();
+            // Enable movement again after playing combo if player is not falling down
+            if (!this.playerInfo.PlayerMovement.IsFallingDown)
+            {
+                this.playerInfo.PlayerMovement.EnableMovement();
+            }
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
