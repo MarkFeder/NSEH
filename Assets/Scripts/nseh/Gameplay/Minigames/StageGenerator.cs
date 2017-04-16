@@ -24,7 +24,7 @@ public class StageGenerator : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        platformWidth = platformInitial.GetComponent<BoxCollider>().size.x;
+        platformWidth = platformInitial.GetComponent<MeshRenderer>().bounds.size.x;
         count = 0;
 
     }
@@ -34,7 +34,8 @@ public class StageGenerator : MonoBehaviour
     {
         if (transform.position.x < generationPoint.position.x)
         {
-            platformWidth = platform.GetComponent<BoxCollider>().size.x;
+            platformWidth = platform.GetComponent<MeshRenderer>().bounds.size.x;
+
             transform.position = new Vector3(transform.position.x + platformWidth, transform.position.y, transform.position.z);
             if (count < 5)
             {
@@ -57,7 +58,7 @@ public class StageGenerator : MonoBehaviour
                 else
                 {
                     randomPlatform = UnityEngine.Random.Range(0, SpecialPlatforms.Count);
-                    platformWidth = SpecialPlatforms[randomPlatform].GetComponent<BoxCollider>().size.x;
+                    platformWidth = SpecialPlatforms[randomPlatform].GetComponent<MeshRenderer>().bounds.size.x;
                     Instantiate(SpecialPlatforms[randomPlatform], transform.position, transform.rotation);
 
                 }

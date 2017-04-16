@@ -12,7 +12,17 @@ namespace nseh.Gameplay.Minigames
         // Use this for initialization
         void Start()
         {
-            destructionPoint = GameObject.Find("PlatformDestructionPoint");
+            if (this.gameObject.name == "Cube 6(Clone)")
+            {
+                destructionPoint = GameObject.Find("PlatformDestructionPointWall");
+            }else if (this.gameObject.name == "InitialPlatforms")
+            {
+                destructionPoint = GameObject.Find("PlatformDestructionPointWall");
+            }
+            else
+            {
+                destructionPoint = GameObject.Find("PlatformDestructionPoint");
+            }
 
         }
 
@@ -21,6 +31,9 @@ namespace nseh.Gameplay.Minigames
         {
             if (transform.position.x < destructionPoint.transform.position.x)
             {
+                Debug.Log(transform.position.x);
+                Debug.Log(destructionPoint.transform.position.x);
+                //Debug.Break();
                 Destroy(gameObject);
             }
         }
