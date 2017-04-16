@@ -66,7 +66,7 @@ namespace nseh.Gameplay.Gameflow
         {
             if(CurrentProgress >= MaxProgress)
             {
-                LvlManager.ChangeState(LevelManager.States.Minigame);
+                LvlManager.ChangeState(LevelManager.States.LoadingMinigame);
             }
         }
 

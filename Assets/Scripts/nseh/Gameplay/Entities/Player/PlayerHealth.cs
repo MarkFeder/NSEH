@@ -1,6 +1,8 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
 using nseh.Gameplay.Gameflow;
 using nseh.Managers.General;
+using nseh.Managers.Main;
+using nseh.Managers.Level;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,6 +36,7 @@ namespace nseh.Gameplay.Entities.Player
         private LevelProgress lvlProgress;
 
         private float currentHealth;
+        private int lives;
         private bool isDead;
         private int animDead;
 
@@ -134,6 +137,8 @@ namespace nseh.Gameplay.Entities.Player
             // Set initial health
             this.MaxHealth = this.maxHealth;
             this.CurrentHealth = this.startingHealth;
+            this.lives = 3;
+            this.isDead = false;
         }
 
         protected virtual void Update()
@@ -150,6 +155,23 @@ namespace nseh.Gameplay.Entities.Player
         {
             this.MaxHealth = this.maxHealth;
             this.CurrentHealth = this.startingHealth;
+            this.isDead = false;
+        }
+
+        /// <summary>
+        /// Restore lives values to default
+        /// </summary>
+        public void RestoreAllLives()
+        {
+            foreach (Image life in PlayerLives)
+            {
+                if (life.enabled == false)
+                {
+                    life.enabled = true;
+                }
+            }
+
+            this.lives = 3;
         }
 
         /// <summary>
@@ -199,9 +221,9 @@ namespace nseh.Gameplay.Entities.Player
                 this.CurrentHealth += amount;
                 this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
 
-                if (lvlProgress.IsActivated)
+                if (lvlProgress.IsActivated && oldHealth != this.maxHealth)
                 {
-                    lvlProgress.DecreaseProgress(amount);
+                    lvlProgress.DecreaseProgress(this.CurrentHealth-oldHealth);
                 }
 
                 Debug.Log(String.Format("Health of {0} is: {1} and applying {2}% more has changed to: {3}", this.gameObject.name, oldHealth, percent, this.CurrentHealth));
@@ -224,14 +246,18 @@ namespace nseh.Gameplay.Entities.Player
 
                 if (lvlProgress.IsActivated)
                 {
-                    lvlProgress.IncreaseProgress(amount);
+                    lvlProgress.IncreaseProgress(oldHealth-this.CurrentHealth);
                 }
 
                 Debug.Log(String.Format("Health of {0} is: {1} and reducing {2}% has changed to: {3}", this.gameObject.name, oldHealth, percent, this.CurrentHealth));
 
-                if (this.CurrentHealth == 0.0f && !this.isDead)
+                if (this.CurrentHealth == 0.0f && !this.isDead && lives == 1)
                 {
                     this.Death();
+                }
+                else if (this.CurrentHealth == 0.0f && !this.isDead && lives > 0)
+                {
+                    StartCoroutine(this.LoseLife(3));
                 }
             }
         }
@@ -244,18 +270,24 @@ namespace nseh.Gameplay.Entities.Player
         {
             if (this.healthMode == HealthMode.Normal)
             {
+                var oldHealth = this.CurrentHealth;
+
                 // Reduce current health
                 this.CurrentHealth -= amount;
                 this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
 
                 if (lvlProgress.IsActivated)
                 {
-                    lvlProgress.IncreaseProgress(amount);
+                    lvlProgress.IncreaseProgress(oldHealth-this.CurrentHealth);
                 }
 
-                if (this.CurrentHealth == 0.0f && !this.isDead)
+                if (this.CurrentHealth == 0.0f && !this.isDead && lives == 1)
                 {
                     this.Death();
+                }
+                else if(this.CurrentHealth == 0.0f && !this.isDead && lives > 0)
+                {
+                    StartCoroutine(this.LoseLife(3));
                 }
             }
         }
@@ -321,19 +353,10 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
-        private void RestoreAllLives()
-        {
-            foreach(Image life in PlayerLives)
-            {
-                if (life.enabled == false)
-                {
-                    life.enabled = true;
-                }
-            }
-        }
-
         private void Death()
         {
+            DisableLife(lives);
+            lives--;
             this.isDead = true;
 
             // Disable player
@@ -342,6 +365,16 @@ namespace nseh.Gameplay.Entities.Player
             this.playerInfo.PlayerCollider.enabled = false;
         }
 
+        private IEnumerator LoseLife(float respawnTime)
+        {
+            this.Death();
+
+            yield return new WaitForSeconds(respawnTime);
+
+            GameManager.Instance.Find<LevelManager>().RespawnPlayerFromDeath(this.playerInfo.Player);
+            this.isDead = false;
+
+        }
         #endregion
     }
 }

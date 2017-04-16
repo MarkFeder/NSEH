@@ -83,6 +83,21 @@ namespace nseh.Managers.Level
 
             _playerInfo.PlayerMovement.EnableMovement();
             _playerInfo.PlayerHealth.ResetHealth();
+            _playerInfo.PlayerHealth.RestoreAllLives();
+            _playerInfo.PlayerCollider.enabled = true;
+            _playerInfo.Animator.Play(_playerInfo.IdleHash);
+        }
+
+        public void ResetFromDeath()
+        {
+            _playerPrefab.transform.position = _spawnPosition;
+            _playerPrefab.transform.rotation = Quaternion.Euler(_spawnRotation);
+
+            _playerPrefab.SetActive(false);
+            _playerPrefab.SetActive(true);
+
+            _playerInfo.PlayerMovement.EnableMovement();
+            _playerInfo.PlayerHealth.ResetHealth();
             _playerInfo.PlayerCollider.enabled = true;
             _playerInfo.Animator.Play(_playerInfo.IdleHash);
         }

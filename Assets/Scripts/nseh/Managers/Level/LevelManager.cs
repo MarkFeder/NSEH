@@ -240,8 +240,9 @@ namespace nseh.Managers.Level
             // Respawn all the players again without loading prefabs again
             RespawnAllPlayers();
 
-            // Reactivate camera again
+            // Reactivate events again
             Find<CameraManager>().ActivateEvent();
+            Find<LevelProgress>().ActivateEvent();
         }
 
         public void GoToMainMenu()
@@ -269,7 +270,19 @@ namespace nseh.Managers.Level
         public GameObject GetPlayer4()
         {
             return _players[3].PlayerRunTime;
-        } 
+        }
+
+        public void RespawnPlayerFromDeath(int player)
+        {
+            if (_players.Count() > 0)
+            {
+                _players[player - 1].ResetFromDeath();
+            }
+            else
+            {
+                Debug.Log("RespawnAllPlayers(): the number of players is 0 or less than 0");
+            }
+        }
 
         #endregion
 
@@ -461,18 +474,6 @@ namespace nseh.Managers.Level
                 {
                     _players[i].Reset();
                 }
-            }
-            else
-            {
-                Debug.Log("RespawnAllPlayers(): the number of players is 0 or less than 0");
-            }
-        }
-
-        private void RespawnPlayer(int player)
-        {
-            if (_players.Count() > 0)
-            {
-                    _players[player-1].Reset();
             }
             else
             {
