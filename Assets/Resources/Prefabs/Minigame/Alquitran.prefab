@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 65525764961700080}
   - component: {fileID: 114527807307130416}
   - component: {fileID: 114917372113037198}
+  - component: {fileID: 65048244255199526}
   m_Layer: 0
   m_Name: Alquitran
   m_TagString: Untagged
@@ -84,7 +85,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1798522852774298}
   m_Mesh: {fileID: 4300000, guid: 928e1daee54bbd54db018e1b030d9472, type: 3}
---- !u!65 &65525764961700080
+--- !u!65 &65048244255199526
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -94,8 +95,20 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 1.5176102, z: 1.2500002}
+  m_Size: {x: 5.0000024, y: 1.5176105, z: 1.2500006}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65525764961700080
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1798522852774298}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 1.5176102, z: 1.4611856}
+  m_Center: {x: 0, y: 2.757935e-16, z: 0.10559273}
 --- !u!114 &114527807307130416
 MonoBehaviour:
   m_ObjectHideFlags: 1
