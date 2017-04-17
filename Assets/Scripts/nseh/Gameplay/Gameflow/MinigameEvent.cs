@@ -52,20 +52,37 @@ namespace nseh.Gameplay.Gameflow
                     _platformGenerators.transform.GetChild(i).gameObject.SetActive(true);
                     _players.Add(aux);
                 }
+                else if (LvlManager.MyGame._characters[i].name == "Wrarr")
+                {
+                    aux = Object.Instantiate(Resources.Load("WrarrMinigame") as GameObject);
+                    Debug.Log(aux);
+                    aux.transform.position = _SpawPoints.transform.GetChild(i).transform.position;
+                    aux.transform.GetChild(1).GetComponent<TextMinigame>().playerText = i + 1;
+                    aux.GetComponent<Minigame>().gamepadIndex = i + 1;
+                    _platformGenerators.transform.GetChild(i).gameObject.SetActive(true);
+                    _players.Add(aux);
+                }
             }
             _CubeDeath = GameObject.Find("Tar/Tar");
             Debug.Log(_CubeDeath);
+            /*
             _canvasClock = GameObject.Find("CanvasClockHUD").GetComponent<Canvas>();
             Debug.Log(_canvasClock);
             _canvasPause = GameObject.Find("CanvasPausedHUD").GetComponent<Canvas>();
-            _canvasPause.enabled = false;
+            Debug.Log(_canvasPause);
+            _canvasPause.gameObject.SetActive(false);
+            
             _canvasGameOver = GameObject.Find("CanvasGameOverHUD").GetComponent<Canvas>();
             _canvasGameOver.enabled = false;
-
-            _clock = _canvasClock.transform.Find("TextClock").GetComponent<Text>();
-            Debug.Log(_clock.text);
+            */
+            _clock = LvlManager.CanvasClockMinigameManager._clockText;
+               
+            
             _clock.text = "";
-            _ready = _canvasClock.transform.Find("TextReady").GetComponent<Text>();
+            _ready = LvlManager.CanvasClockMinigameManager._readyText;
+            LvlManager.CanvasPausedMinigameManager.DisableCanvas();
+            LvlManager.CanvasGameOverMinigameManager.DisableCanvas();
+            //_canvasPausedManager.DisableCanvas();
             StartMinigame(LvlManager.MyGame);
             _timeRemaining = -1;
 
@@ -75,18 +92,22 @@ namespace nseh.Gameplay.Gameflow
 
         override public void EventTick()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) && _timeRemaining>0)
             {
-                Debug.Log("dsadsad");
-                _canvasPause.enabled=true;
-                Time.timeScale = 0;
+                _isPaused = !_isPaused;
+
+                if (_isPaused)
+                {
+                    LvlManager.CanvasPausedMinigameManager.EnableCanvas();
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    LvlManager.CanvasPausedMinigameManager.DisableCanvas();
+                    Time.timeScale = 1;
+                }
             }
-            else
-            {
-                _canvasPause.enabled=false;
-                Time.timeScale = 1;
-            }
-        
+
 
             if(_timeRemaining != -1)
             {
@@ -104,7 +125,7 @@ namespace nseh.Gameplay.Gameflow
                 else if (_stoped == false)
                 {
                     _stoped = true;
-                    StopMinigame();
+                    LvlManager.MyGame.StartCoroutine(StopMinigame());
 
                 }
             }
@@ -114,7 +135,7 @@ namespace nseh.Gameplay.Gameflow
 
         override public void EventRelease()
         {
-            
+            _players = new List<GameObject>();
             IsActivated = false;
 
         }
@@ -169,12 +190,15 @@ namespace nseh.Gameplay.Gameflow
             }
         }
 
-        void StopMinigame()
+        IEnumerator StopMinigame()
         {
             _clock.text = "SAFE!";
             Camera.main.GetComponent<CameraScript>().started = false;
             _CubeDeath.GetComponent<CubeDeath>().started = false;
+            yield return new WaitForSeconds(3);
+            LvlManager.CanvasGameOverMinigameManager.EnableCanvas();
             //LvlManager.ChangeState(LevelManager.States.BossFight);
+        
         }
     }
 }

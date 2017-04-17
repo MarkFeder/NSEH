@@ -17,7 +17,7 @@ namespace nseh.Managers.Level
     {
         #region Public Properties
 
-        public enum States { LevelEvent, LoadingMinigame, Minigame };
+        public enum States { LevelEvent, LoadingMinigame, Minigame , LoadingLevel};
         public States _currentState;
 
         #endregion
@@ -35,8 +35,15 @@ namespace nseh.Managers.Level
         private GameObject _canvasItemsObj;
         private GameObject _canvasProgressObj;
 
+        private GameObject _canvasPausedMinigameObj;
+        private GameObject _canvasClockMinigameObj;
+        private GameObject _canvasGameOverMinigameObj;
+
         private CanvasPausedHUDManager _canvasPausedManager;
         private CanvasClockHUDManager _canvasClockManager;
+        private CanvasClockMinigameHUDManager _canvasClockMinigameManager;
+        private CanvasPausedMinigameHUDManager _canvasPauseMinigameManager;
+        private CanvasGameOverMinigameHUDManager _canvasGameOverMinigameManager;
         private CanvasGameOverHUDManager _canvasGameOverManager;
         private CanvasPlayersHUDManager _canvasPlayersManager;
         private CanvasItemsHUDManager _canvasItemsManager;
@@ -64,14 +71,29 @@ namespace nseh.Managers.Level
             get { return _canvasPausedManager; }
         }
 
+        public CanvasPausedMinigameHUDManager CanvasPausedMinigameManager
+        {
+            get { return _canvasPauseMinigameManager; }
+        }
+
         public CanvasClockHUDManager CanvasClockManager
         {
             get { return _canvasClockManager; }
         }
 
+        public CanvasClockMinigameHUDManager CanvasClockMinigameManager
+        {
+            get { return _canvasClockMinigameManager; }
+        }
+
         public CanvasGameOverHUDManager CanvasGameOverManager
         {
             get { return _canvasGameOverManager; }
+        }
+
+        public CanvasGameOverMinigameHUDManager CanvasGameOverMinigameManager
+        {
+            get { return _canvasGameOverMinigameManager; }
         }
 
         public CanvasPlayersHUDManager CanvasPlayersManager
@@ -152,11 +174,16 @@ namespace nseh.Managers.Level
                 switch (_nextState)
                 {
                     case States.LevelEvent:
-
+                        Find<MinigameEvent>().EventRelease();
+                        _canvasLoaded = false;
+                        Activate();
+                        //Restart();
+                        /*
                         Find<Tar_Event>().ActivateEvent();
                         Find<CameraManager>().ActivateEvent();
                         Find<ItemSpawn_Event>().ActivateEvent();
                         Find<LevelProgress>().ActivateEvent();
+                        */
 
                         _currentState = _nextState;
 
@@ -165,6 +192,7 @@ namespace nseh.Managers.Level
                     case States.LoadingMinigame:
 
                         //Time.timeScale = 0;
+
                         Find<Tar_Event>().EventRelease();
                         Find<CameraManager>().EventRelease();
                         Find<ItemSpawn_Event>().EventRelease();
@@ -179,11 +207,23 @@ namespace nseh.Managers.Level
                     case States.Minigame:
 
                         Time.timeScale = 1;
+                        SetupMinigameCanvas();
                         Find<MinigameEvent>().ActivateEvent();
+                        
 
 
                         _currentState = _nextState;
 
+                        break;
+
+                    case States.LoadingLevel:
+
+                        Find<MinigameEvent>().EventRelease();
+                        SceneManager.LoadScene("Game");
+                        Find<LoadingEvent>().ActivateEvent();
+
+
+                        _currentState = _nextState;
                         break;
                 }
             }
@@ -216,41 +256,51 @@ namespace nseh.Managers.Level
 
         public void Restart()
         {
-            // Refresh variables
-            _isGameOver = false;
-            _isPaused = false;
-            _timeRemaining = Constants.LevelManager.TIME_REMAINING;
-            Time.timeScale = 1;
+            if (SceneManager.GetActiveScene().name == "Game")
+            {
+                // Refresh variables
+                _isGameOver = false;
+                _isPaused = false;
+                _timeRemaining = Constants.LevelManager.TIME_REMAINING;
+                Time.timeScale = 1;
+
+                // Deactivate some canvas
+                _canvasGameOverManager.DisableCanvas();
+                _canvasPausedManager.DisableCanvas();
+
+                // Activate some canvas
+                _canvasClockManager.EnableCanvas();
+
+                // Activate events
+                Find<Tar_Event>().ActivateEvent();
+                Find<ItemSpawn_Event>().ActivateEvent();
+
+                // Release managers
+                Find<CameraManager>().EventRelease();
+                Find<LevelProgress>().EventRelease();
+
+                // Respawn all the players again without loading prefabs again
+                RespawnAllPlayers();
+
+                // Reactivate events again
+                Find<CameraManager>().ActivateEvent();
+                Find<LevelProgress>().ActivateEvent();
+            }
+            else
+            {
+                ChangeState(LevelManager.States.LoadingLevel);
                 
-            // Deactivate some canvas
-            _canvasGameOverManager.DisableCanvas();
-            _canvasPausedManager.DisableCanvas();
-
-            // Activate some canvas
-            _canvasClockManager.EnableCanvas();
-
-            // Activate events
-            Find<Tar_Event>().ActivateEvent();
-            Find<ItemSpawn_Event>().ActivateEvent();
-
-            // Release managers
-            Find<CameraManager>().EventRelease();
-            Find<LevelProgress>().EventRelease();
-
-            // Respawn all the players again without loading prefabs again
-            RespawnAllPlayers();
-
-            // Reactivate events again
-            Find<CameraManager>().ActivateEvent();
-            Find<LevelProgress>().ActivateEvent();
+            }
         }
 
         public void GoToMainMenu()
         {
             _isPaused = false;
+            
             _canvasLoaded = false;
             MyGame.ChangeState(Main.GameManager.States.MainMenu);
         }
+
 
         public GameObject GetPlayer1()
         {
@@ -354,12 +404,12 @@ namespace nseh.Managers.Level
         //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
         public override void Tick()
         {
-            if (_timeRemaining > 0 && !_isGameOver)
+            if (_timeRemaining > 0 && !_isGameOver && SceneManager.GetActiveScene().name=="Game")
             {
                 Clock();
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape) && !_isGameOver)
+            if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name=="Game")
             {
                 PauseGame();
             }
@@ -382,8 +432,8 @@ namespace nseh.Managers.Level
             _players = new List<PlayerManager>(); //When player goes to main menu from game scene,
                                                   //the player list must be restarted to avoid conflicts when a new game scene is created.
 
-            _canvasGameOverManager.DisableCanvas();
-            _canvasPausedManager.DisableCanvas();
+            //_canvasGameOverManager.DisableCanvas();
+            //_canvasPausedManager.DisableCanvas();
         } 
 
         #endregion
@@ -410,6 +460,25 @@ namespace nseh.Managers.Level
             _canvasItemsManager = _canvasItemsObj.GetComponent<CanvasItemsHUDManager>();
             _canvasProgressManager = _canvasProgressObj.GetComponent<CanvasProgressHUDManager>();
         }
+
+        private void SetupMinigameCanvas()
+        {
+            _canvasLoaded = true;
+
+            // Load canvas from prefabs
+            _canvasPausedMinigameObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PAUSED_MINIGAME_HUD), Vector3.zero, Quaternion.identity) as GameObject;
+            _canvasClockMinigameObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_CLOCK_MINIGAME_HUD), Vector3.zero, Quaternion.identity) as GameObject;
+            //_canvasGameOverMinigameObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_GAME_OVER_MINIGAME_HUD), Vector3.zero, Quaternion.identity) as GameObject;
+            _canvasGameOverObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_GAME_OVER_MINIGAME_HUD), Vector3.zero, Quaternion.identity) as GameObject;
+
+            // Load canvas managers
+
+            _canvasPauseMinigameManager = _canvasPausedMinigameObj.GetComponent<CanvasPausedMinigameHUDManager>();
+            _canvasClockMinigameManager = _canvasClockMinigameObj.GetComponent<CanvasClockMinigameHUDManager>();
+            _canvasGameOverMinigameManager = _canvasGameOverObj.GetComponent<CanvasGameOverMinigameHUDManager>();
+
+        }
+
 
         private void SetupPlayersTransforms()
         {

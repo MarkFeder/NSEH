@@ -10,13 +10,13 @@ namespace nseh.Managers.General
     {
         public GameObject current;
         MenuManager _MenuManager;
-        GameObject _paladin;
+        GameObject _wrarr;
         GameObject _demon;
         GameObject _prospector;
         int adding;
         public Text _playerTurnText;
         public Button play;
-        public Button paladin;
+        public Button wrarr;
         public Button demon;
         public Button prospector;
         public EventSystem eventSystem;
@@ -47,7 +47,7 @@ namespace nseh.Managers.General
             {
                 adding = 0;
                 _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
-                paladin.interactable = true;
+                wrarr.interactable = true;
                 demon.interactable = true;
                 prospector.interactable = true;
                 play.interactable = false;
@@ -60,18 +60,18 @@ namespace nseh.Managers.General
 
         }
 
-        public void AddingPaladin()
+        public void AddingWrarr()
         {
-            _paladin = Resources.Load("Paladin") as GameObject;
-            _MenuManager.Adding(_paladin);
+            _wrarr = Resources.Load("Wrarr") as GameObject;
+            _MenuManager.Adding(_wrarr);
             adding++;
 
-            _MenuManager.SetPlayerChoice("Paladin", adding);
+            _MenuManager.SetPlayerChoice("Wrarr", adding);
 
             if (adding == GameManager.Instance._numberPlayers)
             {
                 _playerTurnText.text = "READY?";
-                paladin.interactable = false;
+                wrarr.interactable = false;
                 demon.interactable = false;
                 prospector.interactable = false;
                 play.interactable = true;
@@ -95,7 +95,7 @@ namespace nseh.Managers.General
             if (adding == GameManager.Instance._numberPlayers)
             {
                 _playerTurnText.text = "READY?";
-                paladin.interactable = false;
+                wrarr.interactable = false;
                 demon.interactable = false;
                 prospector.interactable = false;
                 play.interactable = true;
@@ -119,7 +119,7 @@ namespace nseh.Managers.General
             if (adding == GameManager.Instance._numberPlayers)
             {
                 _playerTurnText.text = "READY?";
-                paladin.interactable = false;
+                wrarr.interactable = false;
                 demon.interactable = false;
                 prospector.interactable = false;
                 play.interactable = true;

@@ -36,7 +36,15 @@ namespace nseh.Gameplay.Gameflow
         public override void EventRelease()
         {
             IsActivated = false;
-            LvlManager.ChangeState(LevelManager.States.Minigame);
+            if (SceneManager.GetActiveScene().name=="Minigame")
+            {
+                LvlManager.ChangeState(LevelManager.States.Minigame);
+            }
+            else
+            {
+                LvlManager.ChangeState(LevelManager.States.LevelEvent);
+            }
+            
        
             
         }
