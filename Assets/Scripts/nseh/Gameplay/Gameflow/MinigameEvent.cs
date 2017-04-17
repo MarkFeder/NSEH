@@ -17,12 +17,15 @@ namespace nseh.Gameplay.Gameflow
         private Text _ready;
         private float _timeRemaining;
         private Canvas _canvasClock;
+        private Canvas _canvasPause;
+        private Canvas _canvasGameOver;
         private GameObject _SpawPoints;
         private GameObject _CubeDeath;
         private bool _stoped;
         private GameObject aux;
         private GameObject _platformGenerators;
         private List<GameObject> _players;
+        private bool _isPaused;
         
 
         override public void ActivateEvent()
@@ -30,6 +33,7 @@ namespace nseh.Gameplay.Gameflow
 
             IsActivated = true;
             _stoped = false;
+            _isPaused = false;
             _players = new List<GameObject>();
             _SpawPoints = GameObject.Find("SpawnPoints");
             _platformGenerators = GameObject.Find("PlatformGenerators");
@@ -53,7 +57,11 @@ namespace nseh.Gameplay.Gameflow
             Debug.Log(_CubeDeath);
             _canvasClock = GameObject.Find("CanvasClockHUD").GetComponent<Canvas>();
             Debug.Log(_canvasClock);
-            
+            _canvasPause = GameObject.Find("CanvasPausedHUD").GetComponent<Canvas>();
+            _canvasPause.enabled = false;
+            _canvasGameOver = GameObject.Find("CanvasGameOverHUD").GetComponent<Canvas>();
+            _canvasGameOver.enabled = false;
+
             _clock = _canvasClock.transform.Find("TextClock").GetComponent<Text>();
             Debug.Log(_clock.text);
             _clock.text = "";
@@ -67,6 +75,19 @@ namespace nseh.Gameplay.Gameflow
 
         override public void EventTick()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("dsadsad");
+                _canvasPause.enabled=true;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                _canvasPause.enabled=false;
+                Time.timeScale = 1;
+            }
+        
+
             if(_timeRemaining != -1)
             {
                 _timeRemaining -= Time.deltaTime;
