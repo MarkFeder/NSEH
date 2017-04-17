@@ -39,9 +39,6 @@ GameObject:
   - component: {fileID: 4831306387760844}
   - component: {fileID: 33608066754996944}
   - component: {fileID: 23549042365513714}
-  - component: {fileID: 65450931718263402}
-  - component: {fileID: 114813647265223070}
-  - component: {fileID: 54680411552130368}
   m_Layer: 8
   m_Name: Espada
   m_TagString: Weapon
@@ -366,9 +363,11 @@ GameObject:
   - component: {fileID: 4112289900191990}
   - component: {fileID: 33654265765498986}
   - component: {fileID: 23849158185394974}
+  - component: {fileID: 65754158170553272}
+  - component: {fileID: 114493074330683062}
   m_Layer: 8
   m_Name: Pala
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -684,7 +683,6 @@ GameObject:
   - component: {fileID: 4302736090349774}
   - component: {fileID: 135989348980882486}
   - component: {fileID: 114930258291489294}
-  - component: {fileID: 54924012287013964}
   m_Layer: 8
   m_Name: Bip001 R Hand
   m_TagString: Weapon
@@ -1843,44 +1841,14 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!54 &54680411552130368
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1034366027164950}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!54 &54924012287013964
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1732835578239094}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &65450931718263402
+--- !u!65 &65754158170553272
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1034366027164950}
+  m_GameObject: {fileID: 1339237284239440}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.1802298, y: 0.15, z: 1}
@@ -1947,6 +1915,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   maxHealth: 100
+--- !u!114 &114493074330683062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1339237284239440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 2
 --- !u!114 &114774921100939200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1958,18 +1938,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576154859cbd6874ca95a2ff4b017490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114813647265223070
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1034366027164950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 2
 --- !u!114 &114823691471598760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1981,6 +1949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e245d3be634e89e49975c6e74c26eaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSpeed: 0
   dampAir: 0.5
   jumpAirSpeed: 5
   jumpHeight: 13.5
@@ -2039,7 +2008,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1732835578239094}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.23

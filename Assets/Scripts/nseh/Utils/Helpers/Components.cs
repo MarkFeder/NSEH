@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace nseh.Utils.Helpers
@@ -96,6 +98,21 @@ namespace nseh.Utils.Helpers
             {
                 Debug.Log("The element " + element.ToString() + " is already in the list");
             }
+        }
+
+        public static void PrintOnDebug(this List<GameObject> list)
+        {
+            StringBuilder toPrint = new StringBuilder("Current list: [");
+
+            foreach(GameObject obj in list)
+            {
+                toPrint.Append(", ");
+                toPrint.Append(obj.name);
+            }
+
+            toPrint.Append("]");
+
+            Debug.Log(toPrint);
         }
     }
 }

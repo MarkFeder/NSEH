@@ -309,6 +309,7 @@ namespace nseh.Gameplay.Entities.Player
         public void EnableMovement()
         {
             this.enabled = true;
+            this.playerInfo.Body.useGravity = true;
             this.playerInfo.Body.isKinematic = false;
         }
 
@@ -318,6 +319,7 @@ namespace nseh.Gameplay.Entities.Player
         public void DisableMovement()
         {
             this.enabled = false;
+            this.playerInfo.Body.useGravity = false;
             this.playerInfo.Body.isKinematic = true;
         }
 

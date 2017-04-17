@@ -36,7 +36,6 @@ namespace nseh.Gameplay.Combat.System
         private Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterDefense, PlayerInfo>> collisionHandlersAttackAndDefense;
 
         private string parentObjName;
-        private int layerMask;
 
         #endregion
 
@@ -61,8 +60,15 @@ namespace nseh.Gameplay.Combat.System
 
         private void Start()
         {
-            this.layerMask = LayerMask.GetMask(Tags.PLAYER);
+            this.SetupWeaponCollision();
+            Debug.Log("Start() for " + this.rootCharacter.name);
+        }
 
+        /// <summary>
+        /// This function sets up this weapon collision component
+        /// </summary>
+        private void SetupWeaponCollision()
+        {
             // Setup collisionHandlers
             this.collisionHandlersAttacks = new Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterAttack, PlayerInfo>>();
             this.collisionHandlersAttacks[-1] = CancelCollisionHandler;
@@ -84,11 +90,29 @@ namespace nseh.Gameplay.Combat.System
             this.rootCharacter = this.transform.root.gameObject;
         }
 
+        /// <summary>
+        /// Recreate list when this component is enabled
+        /// </summary>
+        private void OnEnable()
+        {
+            this.enemyTargets = new List<GameObject>();
+        }
+
+        /// <summary>
+        /// Clear the list with all enemy targets
+        /// </summary>
+        private void OnDisable()
+        {
+            Debug.Log("OnDisable() for " + this.rootCharacter.name);
+            this.enemyTargets.Clear();
+            this.enemyTargets = null;
+        }
+
         #endregion
 
         #region Trigger Methods
 
-        protected void OnCollisionEnter(Collision collider)
+        private void OnTriggerEnter(Collider collider)
         {
             GameObject enemy = collider.gameObject;
 
@@ -98,7 +122,7 @@ namespace nseh.Gameplay.Combat.System
             //    Debug.DrawRay(contact.point, contact.normal, Color.red, 5.0f);
             //}
 
-            if (enemy.CompareTag(Tags.PLAYER_BODY))
+            if (enemy.CompareTag(Tags.PLAYER_BODY) && !this.enemyTargets.Contains(enemy))
             {
                 PlayerInfo enemyInfo = enemy.GetComponent<PlayerInfo>();
 
@@ -132,8 +156,6 @@ namespace nseh.Gameplay.Combat.System
                         }
                     }
                 }
-
-                this.enemyTargets.Clear();
             }
         }
 
@@ -175,6 +197,8 @@ namespace nseh.Gameplay.Combat.System
         // Both players are facing each other
         public void PerformDamage(ref GameObject sender, ref HandledAction senderAction, ref PlayerInfo senderInfo, ref List<GameObject> targetEnemies)
         {
+            targetEnemies.PrintOnDebug();
+
             if (targetEnemies != null && targetEnemies.Count > 0)
             {
                 for (int i = 0; i < targetEnemies.Count(); i++)
