@@ -32,6 +32,7 @@ namespace nseh.Gameplay.Entities.Player
         private List<Image> playerLives;
         private PlayerInfo playerInfo;
         private HealthMode healthMode;
+        private Animator _animator;
 
         private LevelProgress lvlProgress;
 
@@ -139,6 +140,7 @@ namespace nseh.Gameplay.Entities.Player
             this.CurrentHealth = this.startingHealth;
             this.lives = 3;
             this.isDead = false;
+            _animator = this.gameObject.GetComponent<Animator>();
         }
 
         protected virtual void Update()
@@ -274,8 +276,10 @@ namespace nseh.Gameplay.Entities.Player
 
                 // Reduce current health
                 this.CurrentHealth -= amount;
+                _animator.SetTrigger("TakeDamage");
+                //Debug.Break();
                 this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
-
+       
                 if (lvlProgress.IsActivated)
                 {
                     lvlProgress.IncreaseProgress(oldHealth-this.CurrentHealth);
