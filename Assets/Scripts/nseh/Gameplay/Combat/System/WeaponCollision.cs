@@ -61,7 +61,6 @@ namespace nseh.Gameplay.Combat.System
         private void Start()
         {
             this.SetupWeaponCollision();
-            Debug.Log("Start() for " + this.rootCharacter.name);
         }
 
         /// <summary>
@@ -103,7 +102,6 @@ namespace nseh.Gameplay.Combat.System
         /// </summary>
         private void OnDisable()
         {
-            Debug.Log("OnDisable() for " + this.rootCharacter.name);
             this.enemyTargets.Clear();
             this.enemyTargets = null;
         }

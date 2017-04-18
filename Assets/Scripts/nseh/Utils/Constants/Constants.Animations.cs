@@ -28,6 +28,7 @@
 
                 public const string CHARACTER_USEITEM = "UseItem";
                 public const string CHARACTER_IMPACT = "Impact";
+                public const string CHARACTER_TAKE_DAMAGE = "TakeDamage";
 
                 public const string CHARACTER_DEAD = "Dead";
             }

@@ -21,8 +21,6 @@ namespace nseh.Gameplay.Entities.Player
         private List<Collider> colliders;
         private PlayerInfo playerInfo;
 
-        private IAction currentAction;
-        private IAction currentDefenseAction;
         private List<IAction> actions;
 
         #endregion
@@ -73,9 +71,7 @@ namespace nseh.Gameplay.Entities.Player
         protected virtual void Start()
         {
             this.playerInfo = GetComponent<PlayerInfo>();
-
             this.actions = this.FillCharacterActions();
-            this.currentAction = null;
         }
 
         #region Actions 
@@ -105,13 +101,22 @@ namespace nseh.Gameplay.Entities.Player
         {
             if (this.colliders != null && this.colliders.Count() > 0)
             {
-                Collider collider = this.colliders.Where(c => c.GetComponent<WeaponCollision>().Index == index).FirstOrDefault();
-
-                if (collider && !collider.enabled)
+                // Deactivate other colliders
+                this.colliders.ForEach(collider =>
                 {
-                    collider.GetComponent<WeaponCollision>().enabled = true;
-                    collider.enabled = true;
-                }
+                    WeaponCollision tempCollision = collider.GetComponent<WeaponCollision>();
+
+                    if (tempCollision.Index != index)
+                    {
+                        collider.enabled = false;
+                        tempCollision.enabled = false;
+                    }
+                    else
+                    {
+                        collider.enabled = true;
+                        tempCollision.enabled = true;
+                    }
+                });
             }
             else
             {
@@ -123,13 +128,14 @@ namespace nseh.Gameplay.Entities.Player
         {
             if (this.colliders != null && this.colliders.Count() > 0)
             {
-                Collider collider = this.colliders.Where(c => c.GetComponent<WeaponCollision>().Index == index).FirstOrDefault();
-
-                if (collider && collider.enabled)
+                // Deactivate other colliders
+                this.colliders.ForEach(collider =>
                 {
-                    collider.GetComponent<WeaponCollision>().enabled = false;
+                    WeaponCollision tempCollision = collider.GetComponent<WeaponCollision>();
+
                     collider.enabled = false;
-                }
+                    tempCollision.enabled = false;
+                });
             }
             else
             {

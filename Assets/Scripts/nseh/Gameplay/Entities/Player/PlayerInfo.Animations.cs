@@ -30,6 +30,8 @@ namespace nseh.Gameplay.Entities.Player
         public string DefenseStateName { get { return CombatAnimParameters.CHARACTER_DEFENSE; } }
         public string ImpactStateName { get { return CombatAnimParameters.CHARACTER_IMPACT; } }
         public string DeadStateName { get { return CombatAnimParameters.CHARACTER_DEAD; } }
+        public string TakeDamageStateName { get { return CombatAnimParameters.CHARACTER_TAKE_DAMAGE; } }
+
 
         // Movement - Hash
 
@@ -52,11 +54,11 @@ namespace nseh.Gameplay.Entities.Player
         public int HabilityHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_HABILITY); } }
         public int DefenseHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_DEFENSE); } }
         public int ImpactHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_IMPACT); } }
+        public int TakeDamageHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_TAKE_DAMAGE); } }
         public int DeadHash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_DEAD); } }
         public int TimeComboAAA01Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_AAA_01_TIME); } }
         public int TimeComboAAA02Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_AAA_02_TIME); } }
         public int TimeComboBB01Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_01_TIME); } }
-       
 
         #endregion
     }

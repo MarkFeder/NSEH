@@ -139,14 +139,14 @@ ModelImporter:
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 2
         messageOptions: 0
       - time: 0.9191322
         functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 2
         messageOptions: 0
       transformMask:
       - path: 
@@ -266,7 +266,7 @@ ModelImporter:
     - serializedVersion: 16
       name: WrarrComboA2
       takeName: WRARR- COMBO A FULL
-      firstFrame: 16.8
+      firstFrame: 16.9
       lastFrame: 28.3
       wrapMode: 0
       orientationOffsetY: 0
@@ -292,14 +292,14 @@ ModelImporter:
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 2
+        intParameter: 1
         messageOptions: 0
       - time: 0.7475345
         functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 2
+        intParameter: 1
         messageOptions: 0
       transformMask:
       - path: 
@@ -419,7 +419,7 @@ ModelImporter:
     - serializedVersion: 16
       name: WrarrComboA3
       takeName: WRARR- COMBO A FULL
-      firstFrame: 28.3
+      firstFrame: 28.4
       lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
