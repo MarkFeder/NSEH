@@ -1435,7 +1435,7 @@ MonoBehaviour:
   particleDefense: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
   gamepadIndex: 1
   player: 0
-  characterPortrait: {fileID: 21300000, guid: 8c5980caaa56e924995cb819759f9f9a, type: 3}
+  characterPortrait: {fileID: 21300000, guid: 37b37fd8864f5d146b88e4483007237c, type: 3}
 --- !u!114 &114265241072407274
 MonoBehaviour:
   m_ObjectHideFlags: 1
