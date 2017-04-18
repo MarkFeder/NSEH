@@ -1395,12 +1395,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1324920165775392}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 2
+  index: 1
 --- !u!114 &114196002245353524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1493,12 +1493,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1868302112566618}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 1
+  index: 2
 --- !u!135 &135115222219642246
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1507,7 +1507,7 @@ SphereCollider:
   m_GameObject: {fileID: 1868302112566618}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.25
   m_Center: {x: -0.32, y: 0, z: 0}
@@ -1519,7 +1519,7 @@ SphereCollider:
   m_GameObject: {fileID: 1324920165775392}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.25
   m_Center: {x: -0.32, y: 0, z: 0}

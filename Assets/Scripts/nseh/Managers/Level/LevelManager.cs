@@ -52,6 +52,7 @@ namespace nseh.Managers.Level
         private List<PlayerManager> _players;
         private List<Vector3> _playersPos;
         private List<Vector3> _playersRots;
+        private List<GameObject> _playerSpawnPoints;
 
         private List<LevelEvent> _eventsList;
 
@@ -219,6 +220,8 @@ namespace nseh.Managers.Level
                     case States.LoadingLevel:
 
                         Find<MinigameEvent>().EventRelease();
+                        _players = new List<PlayerManager>();
+                        _playerSpawnPoints = new List<GameObject>();
                         SceneManager.LoadScene("Game");
                         Find<LoadingEvent>().ActivateEvent();
 
@@ -334,6 +337,11 @@ namespace nseh.Managers.Level
             }
         }
 
+        public void RegisterPlayerSpawnPoint(GameObject spawnToRegister)
+        {
+            _playerSpawnPoints.Add(spawnToRegister);
+        }
+
         #endregion
 
         #region LevelEvent Public Methods
@@ -431,7 +439,7 @@ namespace nseh.Managers.Level
             Find<LevelProgress>().EventRelease();
             _players = new List<PlayerManager>(); //When player goes to main menu from game scene,
                                                   //the player list must be restarted to avoid conflicts when a new game scene is created.
-
+            _playerSpawnPoints = new List<GameObject>();
             //_canvasGameOverManager.DisableCanvas();
             //_canvasPausedManager.DisableCanvas();
         } 
@@ -478,7 +486,6 @@ namespace nseh.Managers.Level
             _canvasGameOverMinigameManager = _canvasGameOverObj.GetComponent<CanvasGameOverMinigameHUDManager>();
 
         }
-
 
         private void SetupPlayersTransforms()
         {
@@ -549,7 +556,6 @@ namespace nseh.Managers.Level
                 Debug.Log("RespawnAllPlayers(): the number of players is 0 or less than 0");
             }
         }
-
         #endregion
     } 
 }

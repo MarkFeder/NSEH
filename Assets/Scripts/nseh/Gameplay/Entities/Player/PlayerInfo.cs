@@ -1,5 +1,4 @@
-﻿using nseh.Gameplay.Movement;
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using Inputs = nseh.Utils.Constants.Input;

@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 23549042365513714}
   m_Layer: 8
   m_Name: Espada
-  m_TagString: Weapon
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1849,7 +1849,7 @@ BoxCollider:
   m_GameObject: {fileID: 1339237284239440}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.1802298, y: 0.15, z: 1}
   m_Center: {x: 0.00774765, y: -0.0016470484, z: -0.25}
@@ -1921,7 +1921,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339237284239440}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
@@ -1960,7 +1960,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1732835578239094}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
@@ -2009,7 +2009,7 @@ SphereCollider:
   m_GameObject: {fileID: 1732835578239094}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.23
   m_Center: {x: 0, y: 0, z: 0}
