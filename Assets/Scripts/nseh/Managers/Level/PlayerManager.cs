@@ -20,6 +20,7 @@ namespace nseh.Managers.Level
 
         private Vector3 _spawnPosition;
         private Vector3 _spawnRotation;
+        private List<GameObject> _spawnPoints;
 
         #endregion
 
@@ -39,13 +40,14 @@ namespace nseh.Managers.Level
 
         #region Public Methods
 
-        public void Setup(GameObject prefab, Vector3 pos, Vector3 rot, int playerNumber, BarComponent playerBarComponent, List<Image> playerLives, LevelProgress lvlProgress)
+        public void Setup(GameObject prefab, Vector3 pos, Vector3 rot, List<GameObject> spawnPoints, int playerNumber, BarComponent playerBarComponent, List<Image> playerLives/*, LevelProgress lvlProgress*/)
         {
             // Setup prefab
             _playerPrefab = GameObject.Instantiate(prefab, pos, Quaternion.Euler(rot));
             _playerNumber = playerNumber;
             _spawnPosition = pos;
             _spawnRotation = rot;
+            _spawnPoints = spawnPoints;
 
             // Get references to the components
             _playerInfo = _playerPrefab.GetComponent<PlayerInfo>();
@@ -61,7 +63,7 @@ namespace nseh.Managers.Level
             _playerInfo.PlayerHealth.PlayerLives = playerLives;
 
             // Setup level progress
-            _playerInfo.PlayerHealth.LvlProgress = lvlProgress;
+            //_playerInfo.PlayerHealth.LvlProgress = lvlProgress;
 
             // Let the player moves
             _playerInfo.PlayerMovement.EnableMovement();
@@ -83,14 +85,15 @@ namespace nseh.Managers.Level
 
             _playerInfo.PlayerMovement.EnableMovement();
             _playerInfo.PlayerHealth.ResetHealth();
-            _playerInfo.PlayerHealth.RestoreAllLives();
+            //_playerInfo.PlayerHealth.RestoreAllLives();
             _playerInfo.PlayerCollider.enabled = true;
             _playerInfo.Animator.Play(_playerInfo.IdleHash);
         }
 
         public void ResetFromDeath()
         {
-            _playerPrefab.transform.position = _spawnPosition;
+            int randomSpawn = (int)UnityEngine.Random.Range(0, _spawnPoints.Count);
+            _playerPrefab.transform.position = _spawnPoints[randomSpawn].transform.position;
             _playerPrefab.transform.rotation = Quaternion.Euler(_spawnRotation);
 
             _playerPrefab.SetActive(false);

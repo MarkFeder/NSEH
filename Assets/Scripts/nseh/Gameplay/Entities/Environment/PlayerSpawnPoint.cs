@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using nseh.Managers.Main;
 using nseh.Managers.Level;
 
@@ -10,7 +11,12 @@ namespace nseh.Gameplay.Entities.Environment
     {
         void Start()
         {
-            GameManager.Instance.Find<LevelManager>().RegisterPlayerSpawnPoint(this.gameObject);
+            if (SceneManager.GetActiveScene().name == "Game")
+            {
+                Debug.Log("Registro SpawnPoint");
+                Debug.Log(GameManager.Instance.Find<LevelManager>());
+                GameManager.Instance.Find<LevelManager>().RegisterPlayerSpawnPoint(this.gameObject);
+            }
         }
     }
 }

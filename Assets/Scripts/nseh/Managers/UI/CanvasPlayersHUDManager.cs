@@ -25,6 +25,12 @@ namespace nseh.Managers.UI
 
         [Space(20)]
         [Header("Player Lives")]
+        public GameObject _p1LivesHUD;
+        public GameObject _p2LivesHUD;
+        public GameObject _p3LivesHUD;
+        public GameObject _p4LivesHUD;
+
+        [Space(10)]
         public List<Image> _p1Lives;
         public List<Image> _p2Lives;
         public List<Image> _p3Lives;
@@ -101,6 +107,13 @@ namespace nseh.Managers.UI
                 return;
             }
 
+            if (!ValidatePlayerLivesHUD())
+            {
+                Debug.Log("One or more of the players' lives are null");
+                enabled = false;
+                return;
+            }
+
             if(!ValidatePlayerLives())
             {
                 Debug.Log("One or more of the players' lives are null");
@@ -123,6 +136,11 @@ namespace nseh.Managers.UI
         private bool ValidatePlayersHuds()
         {
             return _p1Hud && _p2Hud; // includes p3Hud and p4Hud when available
+        }
+
+        private bool ValidatePlayerLivesHUD()
+        {
+            return _p1LivesHUD && _p2LivesHUD; //includes _p3LivesHUD and _p4LivesHUD when available
         }
 
         private bool ValidatePlayerLives()
@@ -273,6 +291,64 @@ namespace nseh.Managers.UI
                     return _p4Lives;
                 default:
                     return null;
+            }
+        }
+
+        public void DisableAllLives()
+        {
+            _p1LivesHUD.SetActive(false);
+            _p2LivesHUD.SetActive(false);
+            //_p3LivesHUD.SetActive(false);
+            //_p4LivesHUD.SetActive(false);
+        }
+
+        public void EnableAllLives()
+        {
+            _p1LivesHUD.SetActive(true);
+            _p2LivesHUD.SetActive(true);
+            //_p3LivesHUD.SetActive(true);
+            //_p4LivesHUD.SetActive(true);
+        }
+
+        public void DisableLivesForPlayer(int player)
+        {
+            switch(player)
+            {
+                case 1:
+                    _p1LivesHUD.SetActive(false);
+                    break;
+                case 2:
+                    _p2LivesHUD.SetActive(false);
+                    break;
+                case 3:
+                    _p3LivesHUD.SetActive(false);
+                    break;
+                case 4:
+                    _p4LivesHUD.SetActive(false);
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        public void EnableLivesForPlayer(int player)
+        {
+            switch (player)
+            {
+                case 1:
+                    _p1LivesHUD.SetActive(true);
+                    break;
+                case 2:
+                    _p2LivesHUD.SetActive(true);
+                    break;
+                case 3:
+                    _p3LivesHUD.SetActive(true);
+                    break;
+                case 4:
+                    _p4LivesHUD.SetActive(true);
+                    break;
+                default:
+                    return;
             }
         }
 
