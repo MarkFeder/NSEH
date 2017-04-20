@@ -58,7 +58,7 @@ namespace nseh.Gameplay.Gameflow
         {
             IsActivated = true;
             this._progressBar = LvlManager.CanvasProgressManager.ProgressBar;
-            MaxProgress = CalculateMaxProgress();
+            MaxProgress = 1;//CalculateMaxProgress();
             this.CurrentProgress = 0;
         }
 
