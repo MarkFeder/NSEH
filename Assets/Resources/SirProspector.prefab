@@ -39,6 +39,8 @@ GameObject:
   - component: {fileID: 4831306387760844}
   - component: {fileID: 33608066754996944}
   - component: {fileID: 23549042365513714}
+  - component: {fileID: 65071983693459816}
+  - component: {fileID: 114260751212745758}
   m_Layer: 8
   m_Name: Espada
   m_TagString: Untagged
@@ -363,8 +365,8 @@ GameObject:
   - component: {fileID: 4112289900191990}
   - component: {fileID: 33654265765498986}
   - component: {fileID: 23849158185394974}
-  - component: {fileID: 65754158170553272}
-  - component: {fileID: 114493074330683062}
+  - component: {fileID: 65908409726001904}
+  - component: {fileID: 114617106729738090}
   m_Layer: 8
   m_Name: Pala
   m_TagString: Weapon
@@ -1841,7 +1843,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!65 &65754158170553272
+--- !u!65 &65071983693459816
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1034366027164950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.1802298, y: 0.15, z: 1}
+  m_Center: {x: 0.00774765, y: -0.0016470484, z: -0.25}
+--- !u!65 &65908409726001904
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1849,10 +1863,10 @@ BoxCollider:
   m_GameObject: {fileID: 1339237284239440}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1802298, y: 0.15, z: 1}
-  m_Center: {x: 0.00774765, y: -0.0016470484, z: -0.25}
+  m_Size: {x: 0.24891661, y: 0.06760919, z: 0.46941864}
+  m_Center: {x: 0.000000761844, y: -0.0000001714006, z: -0.06114202}
 --- !u!95 &95473474562999980
 Animator:
   serializedVersion: 3
@@ -1891,6 +1905,18 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190335
+--- !u!114 &114260751212745758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1034366027164950}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 2
 --- !u!114 &114361435954042190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1915,13 +1941,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   maxHealth: 100
---- !u!114 &114493074330683062
+--- !u!114 &114617106729738090
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339237284239440}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
@@ -1980,9 +2006,9 @@ MonoBehaviour:
   damageAttackA: 2
   damageAttackB: 5
   damageComboAAA01: 2
-  damageComboAAA02: 5
-  damageComboBB01: 5
-  damageComboBSharp: 7
+  damageComboAAA02: 2
+  damageComboBB01: 7
+  damageComboBSharp: 5
   damageDefinitive: 20
   damageHability: 5
   particleBodyPos: {fileID: 4817425128645374}
@@ -2011,7 +2037,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.23
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136276430367340074
 CapsuleCollider:

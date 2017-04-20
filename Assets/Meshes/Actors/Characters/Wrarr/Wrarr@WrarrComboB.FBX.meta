@@ -133,14 +133,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.83431953
+      - time: 0.6745562
         functionName: ActivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.9092702
+      - time: 0.9605523
         functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -286,14 +286,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.41753057
+      - time: 0.36033136
         functionName: ActivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.48853648
+      - time: 0.57137674
         functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}

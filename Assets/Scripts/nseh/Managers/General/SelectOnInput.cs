@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Inputs = nseh.Utils.Constants.Input;
+using InputUE = UnityEngine.Input;
 
 
 namespace nseh.Managers.General
@@ -13,9 +16,12 @@ namespace nseh.Managers.General
         public GameObject selectedGameObject;
 
         private bool _buttonSelected;
+        private float horizontal;
+        private float vertical;
 
-	    // Use this for initialization
-	    void Start ()
+
+        // Use this for initialization
+        void Start ()
         {
             eventSystem = FindObjectOfType<EventSystem>();
 	    }
@@ -23,7 +29,8 @@ namespace nseh.Managers.General
 	    // Update is called once per frame
 	    void Update ()
         {
-		    if ((Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0) 
+            Debug.Log(Input.GetAxisRaw(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, 1)));
+            if ((Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, 1)) != 0 || Input.GetAxisRaw(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, 1)) != 0) 
                 && !_buttonSelected && selectedGameObject)
             {
                 eventSystem.SetSelectedGameObject(selectedGameObject);

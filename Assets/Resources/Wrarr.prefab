@@ -693,7 +693,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1828854585127354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.53}
+  m_LocalPosition: {x: -5.04, y: 0, z: -2.53}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_Children:
   - {fileID: 4697453187860392}
@@ -1412,11 +1412,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1dcb7a16b2f29245b088aef352f4ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAttackA: 2
-  damageAttackB: 5
-  damageComboAAA01: 2
+  damageAttackA: 3
+  damageAttackB: 7
+  damageComboAAA01: 3
   damageComboAAA02: 5
-  damageComboBB01: 5
+  damageComboBB01: 10
   damageComboBSharp: 7
   damageDefinitive: 20
   damageHability: 5
@@ -1450,7 +1450,7 @@ MonoBehaviour:
   currentSpeed: 0
   dampAir: 0.5
   jumpAirSpeed: 5
-  jumpHeight: 13.5
+  jumpHeight: 15
   baseSpeed: 6
 --- !u!114 &114500159127260180
 MonoBehaviour:
@@ -1509,8 +1509,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.25
-  m_Center: {x: -0.32, y: 0, z: 0}
+  m_Radius: 0.3
+  m_Center: {x: -0.22, y: 0, z: 0}
 --- !u!135 &135514339076783878
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1521,8 +1521,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.25
-  m_Center: {x: -0.32, y: 0, z: 0}
+  m_Radius: 0.3
+  m_Center: {x: -0.22, y: 0, z: 0}
 --- !u!136 &136961033616317180
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1533,9 +1533,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.41854355
-  m_Height: 1.4203343
+  m_Height: 1.4400816
   m_Direction: 1
-  m_Center: {x: 0, y: 0.51326823, z: 0.0685436}
+  m_Center: {x: 0, y: 0.6116535, z: 0.0685436}
 --- !u!137 &137772750400435786
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -30,7 +30,7 @@ public class ChestMinigame : MonoBehaviour {
             {
                 character.GetComponent<Minigame>().velocityCube = 2;
                 //StartCoroutine(ChangeVelocity(other, 1, -2));
-                Invoke("ChangeVelocity", 0.1f);
+                Invoke("ChangeVelocity", 1f);
             }
             else if (randomBuff > 0.75f && randomBuff < 1f)
             {
