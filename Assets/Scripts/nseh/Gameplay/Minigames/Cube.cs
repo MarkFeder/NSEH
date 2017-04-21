@@ -22,7 +22,7 @@ public class Cube : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if(other.tag=="PlayerBody")
-            other.GetComponent<Minigame>().velocityCube = -2;
+            other.GetComponent<Minigame>().velocityCube = -3;
       
     }
 
