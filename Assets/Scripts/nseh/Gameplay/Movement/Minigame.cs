@@ -18,6 +18,7 @@ namespace nseh.Gameplay.Movement
         private Rigidbody myRigidBody;
         private Animator animator;
         public bool isGrounded;
+        public int position;
 
         public int gamepadIndex;
 

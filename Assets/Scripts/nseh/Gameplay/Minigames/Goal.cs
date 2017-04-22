@@ -5,9 +5,11 @@ using nseh.Gameplay.Movement;
 using nseh.Managers;
 
 
-namespace nseh.Gameplay.Minigames {
+namespace nseh.Gameplay.Minigames
+{
 
-    public class CubeDeath : MonoBehaviour {
+
+    public class Goal : MonoBehaviour {
 
 
         public float speed;
@@ -15,18 +17,20 @@ namespace nseh.Gameplay.Minigames {
         public bool started = false;
         public int num;
         // Use this for initialization
-        void Start () {
+        void Start()
+        {
             myRigidBody = GetComponent<Rigidbody>();
+            num = 400;
 
         }
-	
-	    // Update is called once per frame
-	    void Update ()
+
+        // Update is called once per frame
+        void Update()
         {
-            if(started == true)
+            if (started == true)
             {
                 myRigidBody.velocity = new Vector3(speed, myRigidBody.velocity.y, myRigidBody.velocity.z);
-            
+
             }
             else
             {
@@ -37,26 +41,14 @@ namespace nseh.Gameplay.Minigames {
 
         private void OnTriggerEnter(Collider other)
         {
-            StartCoroutine(DestroyCharacter(other));
-            //Destroy(other.gameObject);
-        }
-
-        IEnumerator DestroyCharacter(Collider other)
-        {
             if (other.tag == "PlayerBody")
             {
-                other.GetComponent<Minigame>().velocityCube = -10f;
                 other.GetComponent<Minigame>().position = num;
-                num+=50;
-                if (num == 0)
-                {
-                    //FIN MINIJUEGO
-                }
-                yield return new WaitForSeconds(2);
-
+                num-=100;
                 //Destroy(other.gameObject);
             }
-            
         }
+
+  
     }
 }

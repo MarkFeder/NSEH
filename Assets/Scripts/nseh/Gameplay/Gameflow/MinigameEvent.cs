@@ -24,6 +24,7 @@ namespace nseh.Gameplay.Gameflow
         private Canvas _canvasGameOver;
         private GameObject _SpawPoints;
         private GameObject _CubeDeath;
+        private GameObject _Goal;
         private bool _stoped;
         private GameObject aux;
         private GameObject _platformGenerators;
@@ -41,6 +42,7 @@ namespace nseh.Gameplay.Gameflow
             _SpawPoints = GameObject.Find("SpawnPoints");
             _platformGenerators = GameObject.Find("PlatformGenerators");
             Debug.Log(LvlManager.MyGame._characters.Count);
+
             for (int i=0; i< LvlManager.MyGame._characters.Count; i++)
             {
                 Debug.Log(LvlManager.MyGame._characters[i].name);
@@ -67,6 +69,8 @@ namespace nseh.Gameplay.Gameflow
                 }
             }
             _CubeDeath = GameObject.Find("Tar/Tar");
+            _CubeDeath.GetComponent<CubeDeath>().num = 50+ (4 -LvlManager.MyGame._numberPlayers)*50;
+            _Goal = GameObject.Find("Goal");
             Debug.Log(_CubeDeath);
             /*
             _canvasClock = GameObject.Find("CanvasClockHUD").GetComponent<Canvas>();
@@ -188,7 +192,8 @@ namespace nseh.Gameplay.Gameflow
             _timeRemaining = 30;
             Camera.main.GetComponent<CameraScript>().started = true;
             _CubeDeath.GetComponent<CubeDeath>().started = true;
-            foreach(GameObject character in _players)
+            _Goal.GetComponent<Goal>().started = true;
+            foreach (GameObject character in _players)
             {
                 character.GetComponent<Minigame>().started = true;
             }
@@ -199,6 +204,7 @@ namespace nseh.Gameplay.Gameflow
             _clock.text = "SAFE!";
             Camera.main.GetComponent<CameraScript>().started = false;
             _CubeDeath.GetComponent<CubeDeath>().started = false;
+            _Goal.GetComponent<Goal>().started = false;
             yield return new WaitForSeconds(3);
             LvlManager.CanvasGameOverMinigameManager.EnableCanvas();
             //LvlManager.ChangeState(LevelManager.States.BossFight);
