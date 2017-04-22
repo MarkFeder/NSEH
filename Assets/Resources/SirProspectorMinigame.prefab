@@ -1888,6 +1888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759cb5489336fe94893b6b75f1752cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerText: 0
 --- !u!135 &135305940279674648
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1910,9 +1911,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.4
-  m_Height: 1.5730191
+  m_Height: 1.345706
   m_Direction: 1
-  m_Center: {x: 0, y: 0.61, z: 0.05}
+  m_Center: {x: -1.776353e-16, y: 0.53645754, z: 0.050000012}
 --- !u!137 &137133250860430572
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

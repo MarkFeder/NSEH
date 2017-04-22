@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,8 @@ using nseh.Gameplay.Movement;
 using nseh.Gameplay.Base.Abstract.Gameflow;
 using nseh.Managers.Level;
 using LevelHUDConstants = nseh.Utils.Constants.InLevelHUD;
+using Inputs = nseh.Utils.Constants.Input;
+using InputUE = UnityEngine.Input;
 
 namespace nseh.Gameplay.Gameflow
 {
@@ -44,7 +47,7 @@ namespace nseh.Gameplay.Gameflow
                 if(LvlManager.MyGame._characters[i].name== "SirProspector")
                 {
                     Debug.Log("Creando");
-                    aux=Object.Instantiate(Resources.Load("SirProspectorMinigame") as GameObject);
+                    aux= UnityEngine.Object.Instantiate(Resources.Load("SirProspectorMinigame") as GameObject);
                     Debug.Log(aux);
                     aux.transform.position = _SpawPoints.transform.GetChild(i).transform.position;
                     aux.transform.GetChild(1).GetComponent<TextMinigame>().playerText= i + 1;
@@ -54,7 +57,7 @@ namespace nseh.Gameplay.Gameflow
                 }
                 else if (LvlManager.MyGame._characters[i].name == "Wrarr")
                 {
-                    aux = Object.Instantiate(Resources.Load("WrarrMinigame") as GameObject);
+                    aux = UnityEngine.Object.Instantiate(Resources.Load("WrarrMinigame") as GameObject);
                     Debug.Log(aux);
                     aux.transform.position = _SpawPoints.transform.GetChild(i).transform.position;
                     aux.transform.GetChild(1).GetComponent<TextMinigame>().playerText = i + 1;
@@ -92,7 +95,8 @@ namespace nseh.Gameplay.Gameflow
 
         override public void EventTick()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && _timeRemaining>0)
+            Debug.Log(Input.GetButton(System.String.Format("{0}{1}", Inputs.OPTIONS, 1)));
+            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))) && _timeRemaining>0)
             {
                 _isPaused = !_isPaused;
 

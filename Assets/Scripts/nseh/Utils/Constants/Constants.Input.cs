@@ -23,6 +23,8 @@
 
             // Defense
             public const string DEFENSE = "Defense_";
+
+            public const string OPTIONS = "Options_";
         }
     }
 }
