@@ -51,7 +51,6 @@ namespace nseh.Managers.General
                 demon.interactable = true;
                 prospector.interactable = true;
                 play.interactable = false;
-                _MenuManager.RestartingCharacters();
             }
             current.SetActive(false);
             current = newCanvas;

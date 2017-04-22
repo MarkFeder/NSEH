@@ -17,7 +17,9 @@ namespace nseh.Managers
 
         public void ChangePlayers(int number)
         {
+            RestartingCharacters();
             Main.GameManager.Instance.ChangePlayers(number);
+
         }
 
         public void SetPlayerChoice(string choice, int player)

@@ -32,8 +32,6 @@ namespace nseh.Managers.Main
         public States _nextState;
         public int _numberPlayers = 0;
         public List<GameObject> _characters;
-        public string player1character;
-        public string player2character;
 
         //List of all services (E.g: EventManager, LightManager...) 
         private List<Service> _servicesList;
@@ -111,7 +109,8 @@ namespace nseh.Managers.Main
 
         public void RestartList()
         {
-            _characters.Clear();
+            _characters = new List<GameObject>();
+            
         }
 
         public void ChangePlayers(int number)
