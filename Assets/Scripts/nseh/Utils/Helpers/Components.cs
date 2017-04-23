@@ -85,6 +85,15 @@ namespace nseh.Utils.Helpers
         }
     }
 
+    public static class StringBuilderExtensions
+    {
+        public static void Clear(this StringBuilder value)
+        {
+            value.Length = 0;
+            value.Capacity = 0;
+        }
+    }
+
     public static class ListExtensions
     {
         public static void AddNotDuplicate<T>(this List<T> list, T element)

@@ -1,6 +1,8 @@
 ﻿using nseh.Managers.General;
 using nseh.Managers.Level;
+using nseh.Managers.Pool;
 using nseh.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,30 +28,45 @@ namespace nseh.Managers.Main
         }
         #endregion
 
-        //Properties
+        #region Public Properties
+
         public enum States { MainMenu, Playing, Loading };
-        private States _currentState;
         public States _nextState;
+
         public int _numberPlayers = 0;
         public List<GameObject> _characters;
         public int [,] _score;
         public string player1character;
         public string player2character;
 
+        #endregion
+
+        #region Private Properties
+
+        private States _currentState;
+        private ObjectPoolManager _objectPoolManager;
+        private LevelManager _levelManager;
+
         //List of all services (E.g: EventManager, LightManager...) 
         private List<Service> _servicesList;
 
-        #region Initialization
+        #endregion
 
-        //Managers should be initialised here
-        public void Start()
+        #region Cached Managers
+
+        public ObjectPoolManager ObjectPoolManager
         {
-            Add<MenuManager>();
-            Add<LevelManager>();
-            Add<LoadingScene>();
-            Find<MenuManager>().Activate();
+            get { return _objectPoolManager; }
         }
 
+        public LevelManager LevelManager
+        {
+            get { return _levelManager; }
+        }
+
+        #endregion
+
+        #region Initialization
 
         public void Awake()
         {
@@ -69,12 +86,31 @@ namespace nseh.Managers.Main
             }
         }
 
+        public void Start()
+        {
+            // Add managers to the list
+            Add<MenuManager>();
+            Add<LevelManager>();
+            Add<LoadingScene>();
+            Add<ObjectPoolManager>();
+
+            // Cache some managers
+            _objectPoolManager = Find<ObjectPoolManager>();
+            _levelManager = Find<LevelManager>();
+
+            // Find managers and activate them
+            Find<MenuManager>().Activate();
+            Find<ObjectPoolManager>().Activate();
+        }
+
         #endregion
 
-        //Here is where the different game services are triggered in a similar way to a state machine
+        /// <summary>
+        /// Here is where the different game services are triggered in 
+        /// a similar way to a state machine.
+        /// </summary>
         public void Update()
         {
-            //State execution
             foreach (Service thisService in _servicesList)
             {
                 if (thisService.IsActivated)
@@ -82,7 +118,6 @@ namespace nseh.Managers.Main
                     thisService.Tick();
                 }
             }
-            //End of state execution
         }
 
         #region Characters Management
@@ -125,7 +160,11 @@ namespace nseh.Managers.Main
 
         #region Service Management
 
-        //Finds the specified service in the services list
+        /// <summary>
+        /// Finds the specified service in the services list.
+        /// </summary>
+        /// <typeparam name="T">The manager itself of type T</typeparam>
+        /// <returns></returns>
         public T Find<T>() where T : class
         {
             foreach (Service thisService in _servicesList)
@@ -136,7 +175,10 @@ namespace nseh.Managers.Main
             return null;
         }
 
-        //Adds the specified service to the services list
+        /// <summary>
+        /// Adds the specified service to the services list.
+        /// </summary>
+        /// <typeparam name="T">The manager of type T to be added</typeparam>
         public void Add<T>() where T : new()
         {
             Service serviceToAdd = new T() as Service;
@@ -144,7 +186,10 @@ namespace nseh.Managers.Main
             _servicesList.Add(serviceToAdd);
         }
 
-        // Setup the specified service from the services list
+        /// <summary>
+        /// Setup the specified service from the services list.
+        /// </summary>
+        /// <typeparam name="T">The type of the service to be set up</typeparam>
         public void SetupService<T>() where T : class
         {
             var enumerator = _servicesList.GetEnumerator();
@@ -160,7 +205,9 @@ namespace nseh.Managers.Main
             }
         }
 
-        // Setup all services from the services list
+        /// <summary>
+        /// Setup all services from the services list.
+        /// </summary>
         public void SetupAllServices()
         {
             var enumerator = _servicesList.GetEnumerator();
@@ -238,6 +285,20 @@ namespace nseh.Managers.Main
         public void ExitGame()
         {
             Application.Quit();
+        }
+
+        #endregion
+
+        #region Utils Methods
+
+        /// <summary>
+        /// Function for use in the States that have no access to Unity functions. 
+        /// Call an IEnumerator through this GameObject.
+        /// </summary>
+        /// <param name="_coroutine">IEnumerator object.</param>
+        public void StartChildCoroutine(IEnumerator coroutine)
+        {
+            StartCoroutine(coroutine);
         }
 
         #endregion

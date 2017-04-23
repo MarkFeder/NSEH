@@ -18,6 +18,7 @@ namespace nseh.Gameplay.Entities.Player
 
         [Range(1, 4)]
         public int player;
+        public string playerName;
         public Sprite characterPortrait;
 
         [Space(20)]
@@ -164,6 +165,14 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        public string PlayerName
+        {
+            get
+            {
+                return this.playerName;
+            }
+        }
+
         public Collider PlayerCollider
         {
             get { return this.playerCollider; }
@@ -180,7 +189,10 @@ namespace nseh.Gameplay.Entities.Player
             this.playerMovement = GetComponent<PlayerMovement>();
             this.playerCombat = GetComponent<PlayerCombat>();
             this.playerCollider = GetComponent<Collider>();
-        }
+
+            this.SetupParticles();
+            this.SetupLookUpKeyParticles();
+    }
 
         private void Start()
         {
@@ -195,18 +207,5 @@ namespace nseh.Gameplay.Entities.Player
 
             this.jumpPressed = InputUE.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex));
         }
-
-        #region Public Methods
-
-        /// <summary>
-        /// Function for use in the States that have no access to Unity functions. Call an IEnumerator through this GameObject.
-        /// </summary>
-        /// <param name="_coroutine">IEnumerator object.</param>
-        public void StartChildCoroutine(IEnumerator coroutine)
-        {
-            StartCoroutine(coroutine);
-        }
-
-        #endregion
     }
 }

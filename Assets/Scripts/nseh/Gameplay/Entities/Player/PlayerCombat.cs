@@ -2,7 +2,6 @@
 using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
 using nseh.Gameplay.Combat.System;
-using nseh.Gameplay.Movement;
 using nseh.Utils.Helpers;
 using System;
 using System.Collections.Generic;

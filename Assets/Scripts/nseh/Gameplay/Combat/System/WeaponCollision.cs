@@ -1,6 +1,7 @@
 ﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Gameplay.Combat.Defense;
 using nseh.Gameplay.Entities.Player;
+using nseh.Managers.Main;
 using nseh.Utils.Helpers;
 using System;
 using System.Collections.Generic;
@@ -184,7 +185,9 @@ namespace nseh.Gameplay.Combat.System
                 enemyInfo.PlayerHealth.TakeDamage(amountDamage);
 
                 // Display effects
-                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
+                GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), 
+                                                                                          senderInfo.CurrentPoolParticle,
+                                                                                          enemyInfo.ParticleBodyPos.position);
             }
             else
             {
@@ -227,7 +230,9 @@ namespace nseh.Gameplay.Combat.System
                             enemyInfo.PlayerHealth.TakeDamage(amountDamage);
 
                             // Display effects
-                            enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleHeadPos.position);
+                            GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType),
+                                                                                                      senderInfo.CurrentPoolParticle,
+                                                                                                      enemyInfo.ParticleHeadPos.position);
                         }
                     }
                 }
@@ -308,8 +313,13 @@ namespace nseh.Gameplay.Combat.System
             senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
 
             // Display effects
-            senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
-            enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
+            GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType),
+                                                                                      enemyInfo.CurrentPoolParticle,
+                                                                                      senderInfo.ParticleBodyPos.position);
+
+            GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType),
+                                                                                      senderInfo.CurrentPoolParticle,
+                                                                                      enemyInfo.ParticleBodyPos.position);
         }
 
         private void NoneCollisionHandler(ref CharacterAttack senderAction,
@@ -324,8 +334,13 @@ namespace nseh.Gameplay.Combat.System
             senderInfo.PlayerHealth.TakeDamage((int)enemyAction.CurrentDamage);
 
             // Display effects
-            senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
-            enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
+            GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType),
+                                                                                      enemyInfo.CurrentPoolParticle,
+                                                                                      senderInfo.ParticleBodyPos.position);
+
+            GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType),
+                                                                                      senderInfo.CurrentPoolParticle,
+                                                                                      enemyInfo.ParticleBodyPos.position);
         }
 
         private void FirstOverSecondCollisionHandler(ref CharacterAttack senderAction,
@@ -340,7 +355,9 @@ namespace nseh.Gameplay.Combat.System
             senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
 
             // Display effects
-            enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
+            GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType),
+                                                                                      senderInfo.CurrentPoolParticle,
+                                                                                      enemyInfo.ParticleBodyPos.position);
         }
 
         private void SecondOverFirstCollisionHandler(ref CharacterAttack senderAction,
@@ -355,7 +372,9 @@ namespace nseh.Gameplay.Combat.System
             enemyAction.Animator.SetTrigger(enemyInfo.ImpactHash);
 
             // Display effects
-            senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
+            GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType),
+                                                                                      enemyInfo.CurrentPoolParticle,
+                                                                                      senderInfo.ParticleBodyPos.position);
         }
 
         private void BothCollisionHandler(ref CharacterAttack senderAction,
@@ -373,8 +392,13 @@ namespace nseh.Gameplay.Combat.System
             senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
 
             // Display effects
-            senderInfo.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType), senderInfo.ParticleBodyPos.position);
-            enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType), enemyInfo.ParticleBodyPos.position);
+            GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType),
+                                                                                      enemyInfo.CurrentPoolParticle,
+                                                                                      senderInfo.ParticleBodyPos.position);
+
+            GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAction.AttackType),
+                                                                                      senderInfo.CurrentPoolParticle,
+                                                                                      enemyInfo.ParticleBodyPos.position);
         }
 
         // Put other collision handlers here if exist
@@ -391,7 +415,9 @@ namespace nseh.Gameplay.Combat.System
                 enemyDefense.Animator.SetTrigger(enemyInfo.ImpactHash);
 
                 // Display effects
-                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
+                GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType),
+                                                                                          senderInfo.CurrentPoolParticle,
+                                                                                          enemyInfo.ParticleBodyPos.position);
             }
             else if (senderAttack.AttackType == AttackType.CharacterAttackBStep2
                     || senderAttack.AttackType == AttackType.CharacterDefinitive)
@@ -400,7 +426,9 @@ namespace nseh.Gameplay.Combat.System
                 enemyDefense.Animator.SetTrigger(enemyInfo.ImpactHash);
 
                 // Display effects
-                enemyInfo.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), enemyInfo.ParticleBodyPos.position);
+                GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType),
+                                                                                          senderInfo.CurrentPoolParticle,
+                                                                                          enemyInfo.ParticleBodyPos.position);
             }
         }
 
@@ -409,7 +437,9 @@ namespace nseh.Gameplay.Combat.System
             senderAttack.Animator.SetTrigger(senderInfo.ImpactHash);
 
             // Display effects
-            senderInfo.PlayParticleAtPosition(senderInfo.GetParticleDefense(enemyDefense.CurrentMode), senderInfo.ParticleBodyPos.position);
+            GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleDefense(enemyDefense.CurrentMode),
+                                                                                      senderInfo.CurrentPoolParticle,
+                                                                                      senderInfo.ParticleBodyPos.position);
         }
 
         #endregion
