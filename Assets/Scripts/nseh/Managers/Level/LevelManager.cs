@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using LevelHUDConstants = nseh.Utils.Constants.InLevelHUD;
+using Inputs = nseh.Utils.Constants.Input;
 
 namespace nseh.Managers.Level
 {
@@ -466,7 +467,8 @@ namespace nseh.Managers.Level
                 Clock();
             }
 
-            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))) && SceneManager.GetActiveScene().name=="Game")
+            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))) && 
+                SceneManager.GetActiveScene().name=="Game")
             {
                 PauseGame();
             }
