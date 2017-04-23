@@ -81,11 +81,20 @@ namespace nseh.Managers.General
                 prospector.interactable = false;
                 play.interactable = true;
                 eventSystem.SetSelectedGameObject(selectedGameObject);
-                // 
+                /*PLEASE DONT REMOVE
+                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + 1;
+                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + 1;
+                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + 1;
+                */
             }
             else
             {
                 _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+                /*PLEASE DONT REMOVE
+               eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_"+(adding+1).ToString();
+               eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
+               eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + (adding + 1).ToString();
+               */
             }
         }
 
@@ -105,11 +114,20 @@ namespace nseh.Managers.General
                 prospector.interactable = false;
                 play.interactable = true;
                 eventSystem.SetSelectedGameObject(selectedGameObject);
-
+                /*PLEASE DONT REMOVE
+                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + 1;
+                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + 1;
+                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + 1;
+                */
             }
             else
             {
                 _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+                /*PLEASE DONT REMOVE
+                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + (adding + 1).ToString();
+                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
+                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + (adding + 1).ToString();
+                */
             }
         }
 
@@ -129,11 +147,20 @@ namespace nseh.Managers.General
                 prospector.interactable = false;
                 play.interactable = true;
                 eventSystem.SetSelectedGameObject(selectedGameObject);
-
+                /*PLEASE DONT REMOVE
+                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + 1;
+                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + 1;
+                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + 1;
+                */
             }
             else
             {
                 _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+                /*PLEASE DONT REMOVE
+                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + (adding + 1).ToString();
+                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
+                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + (adding + 1).ToString();
+                */
             }
         }
 

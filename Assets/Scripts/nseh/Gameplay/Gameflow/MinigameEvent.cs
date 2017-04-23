@@ -206,6 +206,10 @@ namespace nseh.Gameplay.Gameflow
             _CubeDeath.GetComponent<CubeDeath>().started = false;
             _Goal.GetComponent<Goal>().started = false;
             yield return new WaitForSeconds(3);
+            foreach (GameObject character in _players)
+            {
+                LvlManager.MyGame._score[character.GetComponent<Minigame>().gamepadIndex, 1]= character.GetComponent<Minigame>().position;
+            }
             LvlManager.CanvasGameOverMinigameManager.EnableCanvas();
             //LvlManager.ChangeState(LevelManager.States.BossFight);
         

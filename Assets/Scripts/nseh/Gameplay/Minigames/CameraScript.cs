@@ -44,7 +44,7 @@ namespace nseh.Gameplay.Minigames
                 }
                 else if (num == 4)
                 {
-                    transform.position = new Vector3(2, 1.5f, transform.position.z);
+                    transform.position = new Vector3(2, 1.5f, -12);
                 }
             }
         }
