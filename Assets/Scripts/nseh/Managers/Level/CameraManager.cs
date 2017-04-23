@@ -10,6 +10,8 @@ namespace nseh.Managers.Level
         List<GameObject> _sceneCameras;
         Vector3 _player1position;
         Vector3 _player2position;
+        Vector3 _player3position;
+        Vector3 _player4position;
         GameObject _environmentCamera;
         GameObject _characterCamera;
 
@@ -38,7 +40,7 @@ namespace nseh.Managers.Level
                     _player1position = LvlManager.GetPlayer1().transform.position;
                     foreach (GameObject thisCamera in _sceneCameras)
                     {
-                        thisCamera.GetComponent<CameraComponent>().RefreshCamera(_player1position, _player1position);
+                        thisCamera.GetComponent<CameraComponent>().RefreshCamera(_player1position, _player1position, _player1position, _player1position);
                     }
                     break;
 
@@ -47,7 +49,18 @@ namespace nseh.Managers.Level
                     _player2position = LvlManager.GetPlayer2().transform.position;
                     foreach (GameObject thisCamera in _sceneCameras)
                     {
-                        thisCamera.GetComponent<CameraComponent>().RefreshCamera(_player1position, _player2position);
+                        thisCamera.GetComponent<CameraComponent>().RefreshCamera(_player1position, _player2position, _player1position, _player2position);
+                    }
+                    break;
+
+                case 4:
+                    _player1position = LvlManager.GetPlayer1().transform.position;
+                    _player2position = LvlManager.GetPlayer2().transform.position;
+                    _player3position = LvlManager.GetPlayer3().transform.position;
+                    _player4position = LvlManager.GetPlayer4().transform.position;
+                    foreach (GameObject thisCamera in _sceneCameras)
+                    {
+                        thisCamera.GetComponent<CameraComponent>().RefreshCamera(_player1position, _player2position, _player3position, _player4position);
                     }
                     break;
             }

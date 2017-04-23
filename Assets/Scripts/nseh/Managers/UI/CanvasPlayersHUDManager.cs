@@ -130,30 +130,31 @@ namespace nseh.Managers.UI
 
         private bool ValidatePlayersPortraits()
         {
-            return _p1Portrait && _p2Portrait; // includes p3Portrait and p4Portrait when available
+            return _p1Portrait && _p2Portrait && _p3Portrait && _p4Portrait; 
         }
 
         private bool ValidatePlayersHuds()
         {
-            return _p1Hud && _p2Hud; // includes p3Hud and p4Hud when available
+            Debug.Log(_p4Hud);
+            return _p1Hud && _p2Hud && _p3Hud && _p4Hud;
         }
 
         private bool ValidatePlayerLivesHUD()
         {
-            return _p1LivesHUD && _p2LivesHUD; //includes _p3LivesHUD and _p4LivesHUD when available
+            return _p1LivesHUD && _p2LivesHUD && _p3LivesHUD && _p4LivesHUD;
         }
 
         private bool ValidatePlayerLives()
         {
-            return _p1Lives.Any() && _p2Lives.Any(); //includes _p3Lives.Any() and _p4Lives.Any() when available
+            return _p1Lives.Any() && _p2Lives.Any() && _p3Lives.Any() && _p4Lives.Any(); 
         }
 
         private void SetupBarComponents()
         {
             _p1BarComponent = _p1Hud.GetComponentInChildren<BarComponent>();
             _p2BarComponent = _p2Hud.GetComponentInChildren<BarComponent>();
-            // p3BarComponent = p3Hud.GetComponentInChildren<BarComponent>();
-            // p4BarComponent = p4Hud.GetComponentInChildren<BarComponent>();
+            _p3BarComponent = _p3Hud.GetComponentInChildren<BarComponent>();
+            _p4BarComponent = _p4Hud.GetComponentInChildren<BarComponent>();
         }
 
         private void OnEnable()
@@ -183,18 +184,22 @@ namespace nseh.Managers.UI
             {
                 case 1:
                     _p1Hud.SetActive(true);
+                    Debug.Log("1");
                     break;
 
                 case 2:
                     _p2Hud.SetActive(true);
+                    Debug.Log("2");
                     break;
 
                 case 3:
                     _p3Hud.SetActive(true);
+                    Debug.Log("3");
                     break;
 
                 case 4:
                     _p4Hud.SetActive(true);
+                    Debug.Log("4");
                     break;
 
                 default:
@@ -231,6 +236,8 @@ namespace nseh.Managers.UI
         {
             _p1Hud.SetActive(false);
             _p2Hud.SetActive(false);
+            _p3Hud.SetActive(false);
+            _p4Hud.SetActive(false);
             // DisableP3Hud();
             // DisableP4Hud();
         }
@@ -298,16 +305,16 @@ namespace nseh.Managers.UI
         {
             _p1LivesHUD.SetActive(false);
             _p2LivesHUD.SetActive(false);
-            //_p3LivesHUD.SetActive(false);
-            //_p4LivesHUD.SetActive(false);
+            _p3LivesHUD.SetActive(false);
+            _p4LivesHUD.SetActive(false);
         }
 
         public void EnableAllLives()
         {
             _p1LivesHUD.SetActive(true);
             _p2LivesHUD.SetActive(true);
-            //_p3LivesHUD.SetActive(true);
-            //_p4LivesHUD.SetActive(true);
+            _p3LivesHUD.SetActive(true);
+            _p4LivesHUD.SetActive(true);
         }
 
         public void DisableLivesForPlayer(int player)

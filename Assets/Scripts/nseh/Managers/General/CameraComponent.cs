@@ -6,6 +6,8 @@ namespace nseh.Managers.General
     {
         public Vector3 DebugPlayer1;
         public Vector3 DebugPlayer2;
+        public Vector3 DebugPlayer3;
+        public Vector3 DebugPlayer4;
 
         public Vector3 distance;
         public Vector3 Midpoint;
@@ -20,19 +22,21 @@ namespace nseh.Managers.General
         //[SerializeField]
         private float yMax = 20;
 
-        public void RefreshCamera(Vector3 PositionPlayer1, Vector3 PositionPlayer2)
+        public void RefreshCamera(Vector3 PositionPlayer1, Vector3 PositionPlayer2, Vector3 PositionPlayer3, Vector3 PositionPlayer4)
         {
             DebugPlayer1 = PositionPlayer1;
             DebugPlayer2 = PositionPlayer2;
+            DebugPlayer3 = PositionPlayer3;
+            DebugPlayer4 = PositionPlayer4;
 
-            
+
 
             if (PositionPlayer1 != PositionPlayer2)
             {
-                float xMaxPlayers = Mathf.Max(PositionPlayer1.x, PositionPlayer2.x);
-                float xMinPlayers = Mathf.Min(PositionPlayer1.x, PositionPlayer2.x);
-                float yMaxPlayers = Mathf.Max(PositionPlayer1.y, PositionPlayer2.y);
-                float yMinPlayers = Mathf.Min(PositionPlayer1.y, PositionPlayer2.y);
+                float xMaxPlayers = Mathf.Max(PositionPlayer1.x, PositionPlayer2.x, PositionPlayer3.x, PositionPlayer4.x);
+                float xMinPlayers = Mathf.Min(PositionPlayer1.x, PositionPlayer2.x, PositionPlayer3.x, PositionPlayer4.x);
+                float yMaxPlayers = Mathf.Max(PositionPlayer1.y, PositionPlayer2.y, PositionPlayer3.y, PositionPlayer4.y);
+                float yMinPlayers = Mathf.Min(PositionPlayer1.y, PositionPlayer2.y, PositionPlayer3.y, PositionPlayer4.y);
                 distance = PositionPlayer1 - PositionPlayer2;
                 Midpoint = new Vector3((xMaxPlayers + xMinPlayers) / 2, (yMaxPlayers + yMinPlayers) / 2, 0);
             }else

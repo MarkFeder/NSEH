@@ -15,6 +15,8 @@
 
             public const string CANVAS_PLAYERS_HUD_P1 = "p1_mark_hud";
             public const string CANVAS_PLAYERS_HUD_P2 = "p2_mark_hud";
+            public const string CANVAS_PLAYERS_HUD_P3 = "p3_mark_hud";
+            public const string CANVAS_PLAYERS_HUD_P4 = "p4_mark_hud";
             public const string CANVAS_PLAYERS_PORTRAIT = "portrait";
 
             public const string CANVAS_GAMEOVER = "CanvasGameOver";

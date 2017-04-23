@@ -515,7 +515,7 @@ namespace nseh.Managers.Level
                     _playersPos = new List<Vector3>()
                     {
                         new Vector3(12, 1, 2),
-                        new Vector3(-12, 1, 2)
+                        new Vector3(-15, 1, 2)
                     };
 
                     _playersRots = new List<Vector3>()
@@ -523,6 +523,28 @@ namespace nseh.Managers.Level
                         new Vector3(0, -90, 0),
                         new Vector3(0, 90, 0)
                     };
+
+                    break;
+
+                case 4:
+
+                    _playersPos = new List<Vector3>()
+                    {
+                        new Vector3(12, 1, 2),
+                        new Vector3(-15, 1, 2),
+                        new Vector3(12, 10, 2),
+                        new Vector3(-18, 12, 2)
+                    };
+
+                    _playersRots = new List<Vector3>()
+                    {
+                        new Vector3(0, -90, 0),
+                        new Vector3(0, 90, 0),
+                        new Vector3(0, -90, 0),
+                        new Vector3(0, 90, 0)
+                    };
+
+                   
 
                     break;
 

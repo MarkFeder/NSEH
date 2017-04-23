@@ -41,6 +41,12 @@ namespace nseh.Managers.General
             ChangeCanvas(newCanvas);
         }
 
+        public void FourNumberCharacter(GameObject newCanvas)
+        {
+            _MenuManager.ChangePlayers(4);
+            ChangeCanvas(newCanvas);
+        }
+
         public void ChangeCanvas(GameObject newCanvas)
         {
             if (current.name == "Canvas_PickingCharacters")
