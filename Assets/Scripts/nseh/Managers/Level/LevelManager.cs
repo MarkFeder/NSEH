@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using LevelHUDConstants = nseh.Utils.Constants.InLevelHUD;
+using nseh.Managers.Level;
 
 namespace nseh.Managers.Level
 {
@@ -55,6 +56,9 @@ namespace nseh.Managers.Level
         private List<GameObject> _playerSpawnPoints;
 
         private List<LevelEvent> _eventsList;
+        private List<SubLevelManager> _subManagersList;
+
+        private ParticlesManager _particlesManager;
 
         private bool _isGameOver;
         private bool _isPaused;
@@ -126,9 +130,19 @@ namespace nseh.Managers.Level
 
         #endregion
 
+        #region Cached SubManagers
+
+        public ParticlesManager ParticlesManager
+        {
+            get { return _particlesManager; }
+        }
+
+        #endregion
+
         #region Private Methods
 
-        private void Add<T>() where T : new()
+        private void Add<T>() 
+            where T : new()
         {
             LevelEvent serviceToAdd = new T() as LevelEvent;
             serviceToAdd.Setup(this);
@@ -136,17 +150,40 @@ namespace nseh.Managers.Level
             Debug.Log(serviceToAdd);
         }
 
+        private void AddSubManager<T>() 
+            where T : SubLevelManager, new()
+        {
+            SubLevelManager subManager = new T() as SubLevelManager;
+            subManager.Setup(this);
+
+            _subManagersList.Add(subManager);
+            Debug.Log(subManager);
+        }
+
         #endregion
 
         #region Public Methods
 
-        public T Find<T>() where T : class
+        public T Find<T>() 
+            where T : class
         {
             foreach (LevelEvent thisEvent in _eventsList)
             {
                 if (thisEvent.GetType() == typeof(T))
                     return thisEvent as T;
             }
+            return null;
+        }
+
+        public T FindSubManager<T>()
+            where T : SubLevelManager
+        {
+            foreach (SubLevelManager subManager in _subManagersList)
+            {
+                if (subManager.GetType() == typeof(T))
+                    return subManager as T;
+            }
+
             return null;
         }
 
@@ -293,7 +330,6 @@ namespace nseh.Managers.Level
             else
             {
                 ChangeState(LevelManager.States.LoadingLevel);
-                
             }
         }
 
@@ -349,12 +385,13 @@ namespace nseh.Managers.Level
 
         #region LevelEvent Public Methods
 
-        public override void Setup(Main.GameManager myGame)
+        public override void Setup(GameManager myGame)
         {
             base.Setup(myGame);
 
             // Setup lists
             _eventsList = new List<LevelEvent>();
+            _subManagersList = new List<SubLevelManager>();
             _players = new List<PlayerManager>();
             _playersPos = new List<Vector3>();
             _playersRots = new List<Vector3>();
@@ -371,6 +408,12 @@ namespace nseh.Managers.Level
             //Add<LevelProgress>();
             Add<MinigameEvent>();
             Add<LoadingEvent>();
+
+            // Submit submanagers
+            AddSubManager<ParticlesManager>();
+
+            // Cached submanagers
+            _particlesManager = FindSubManager<ParticlesManager>();
         }
 
         public override void Activate()
@@ -410,7 +453,10 @@ namespace nseh.Managers.Level
             Find<Tar_Event>().ActivateEvent();
             Find<ItemSpawn_Event>().ActivateEvent();
             Find<CameraManager>().ActivateEvent();
-            //Find<LevelProgress>().ActivateEvent();    
+            //Find<LevelProgress>().ActivateEvent();
+
+            // Activate submanagers
+            _particlesManager.ActivateSubManager();
         }
 
         //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
@@ -441,8 +487,11 @@ namespace nseh.Managers.Level
             IsActivated = false;
             Find<ItemSpawn_Event>().EventRelease();
             //Find<LevelProgress>().EventRelease();
-            _players = new List<PlayerManager>(); //When player goes to main menu from game scene,
-                                                  //the player list must be restarted to avoid conflicts when a new game scene is created.
+
+            //When player goes to main menu from game scene,
+            //the player list must be restarted to avoid conflicts when a new game scene is created.
+            _players = new List<PlayerManager>(); 
+
             _playerSpawnPoints = new List<GameObject>();
             //_canvasGameOverManager.DisableCanvas();
             //_canvasPausedManager.DisableCanvas();
