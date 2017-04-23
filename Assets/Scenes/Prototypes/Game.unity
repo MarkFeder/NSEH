@@ -3675,8 +3675,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 62.195625, y: 14.443354, z: 24.892864}
-  m_Center: {x: -4.04842, y: -7.942546, z: 1.505106}
+  m_Size: {x: 62.195625, y: 15.448885, z: 24.892864}
+  m_Center: {x: -4.04842, y: -7.43978, z: 1.505106}
 --- !u!95 &2087800070 stripped
 Animator:
   m_PrefabParentObject: {fileID: 9500000, guid: 4057a0628ea6d26488c0ba206f7074d4,

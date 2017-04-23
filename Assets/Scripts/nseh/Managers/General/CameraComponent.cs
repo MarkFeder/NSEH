@@ -37,7 +37,8 @@ namespace nseh.Managers.General
                 float xMinPlayers = Mathf.Min(PositionPlayer1.x, PositionPlayer2.x, PositionPlayer3.x, PositionPlayer4.x);
                 float yMaxPlayers = Mathf.Max(PositionPlayer1.y, PositionPlayer2.y, PositionPlayer3.y, PositionPlayer4.y);
                 float yMinPlayers = Mathf.Min(PositionPlayer1.y, PositionPlayer2.y, PositionPlayer3.y, PositionPlayer4.y);
-                distance = PositionPlayer1 - PositionPlayer2;
+                //distance = PositionPlayer1 - PositionPlayer2;
+                distance = new Vector3(xMaxPlayers, yMaxPlayers, 0) - new Vector3(xMinPlayers, yMinPlayers, 0);
                 Midpoint = new Vector3((xMaxPlayers + xMinPlayers) / 2, (yMaxPlayers + yMinPlayers) / 2, 0);
             }else
             {
