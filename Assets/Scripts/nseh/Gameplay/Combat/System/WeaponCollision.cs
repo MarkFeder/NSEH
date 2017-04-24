@@ -55,8 +55,8 @@ namespace nseh.Gameplay.Combat.System
         {
             PlayerMovement enemyMov = enemy.GetComponent<PlayerMovement>();
 
-            return !this.playerMovement.IsFacingRight && !enemyMov.IsFacingRight ||
-                   !this.playerMovement.IsFacingRight && enemyMov.IsFacingRight;
+            return ((this.playerMovement.IsFacingRight && enemyMov.IsFacingRight) ||
+                    (!this.playerMovement.IsFacingRight && !enemyMov.IsFacingRight));
         }
 
         private void Start()
@@ -95,7 +95,6 @@ namespace nseh.Gameplay.Combat.System
         /// </summary>
         private void OnEnable()
         {
-            this.enemyTargets = new List<GameObject>();
         }
 
         /// <summary>
@@ -104,7 +103,6 @@ namespace nseh.Gameplay.Combat.System
         private void OnDisable()
         {
             this.enemyTargets.Clear();
-            this.enemyTargets = null;
         }
 
         #endregion
@@ -184,7 +182,7 @@ namespace nseh.Gameplay.Combat.System
                 // Reduce health
                 enemyInfo.PlayerHealth.TakeDamage(amountDamage);
 
-                Debug.Log("POR FAVOR UNA PERSONA AMABLE QUE ME INCREMENTE LA ENERGIA EN DECIMALES");
+                // TODO: Increment energy by using float instead of int
                 // Increase energy
                 senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 2);
 
@@ -236,7 +234,7 @@ namespace nseh.Gameplay.Combat.System
                             // Reduce health
                             enemyInfo.PlayerHealth.TakeDamage(amountDamage);
 
-                            Debug.Log("POR FAVOR UNA PERSONA AMABLE QUE ME INCREMENTE LA ENERGIA EN DECIMALES");
+                            // TODO: Increment energy by using float instead of int
                             // Increase energy
                             senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 2);
 
@@ -456,9 +454,11 @@ namespace nseh.Gameplay.Combat.System
             if (senderAttack.AttackType == AttackType.CharacterAttackBSharp)
             {
                 enemyInfo.PlayerHealth.TakeDamage((int)senderAttack.CurrentDamage / 2);
-                enemyDefense.Animator.SetTrigger(enemyInfo.ImpactHash);
 
-                //Increase Energy
+                // Animation has been changed, so we have to deactivate this collider
+                enemyInfo.PlayerCombat.DeactivateSpecificCollider(this.index);
+
+                // Increase Energy
                 senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 4);
 
                 // Increase score
@@ -474,7 +474,10 @@ namespace nseh.Gameplay.Combat.System
             {
                 enemyInfo.PlayerHealth.TakeDamage((int)senderAttack.CurrentDamage);
 
-                //Increase Energy
+                // Animation has been changed, so we have to deactivate this collider
+                enemyInfo.PlayerCombat.DeactivateSpecificCollider(this.index);
+
+                // Increase Energy
                 senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 2);
 
                 // Increase score
@@ -492,6 +495,9 @@ namespace nseh.Gameplay.Combat.System
         private void NoneCollisionHandlerAttDef(ref CharacterAttack senderAttack, ref PlayerInfo senderInfo, ref CharacterDefense enemyDefense, ref PlayerInfo enemyInfo)
         {
             senderAttack.Animator.SetTrigger(senderInfo.ImpactHash);
+
+            // Animation has been changed, so we have to deactivate this collider
+            senderInfo.PlayerCombat.DeactivateSpecificCollider(this.index);
 
             // Display effects
             GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleDefense(enemyDefense.CurrentMode),

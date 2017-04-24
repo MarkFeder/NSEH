@@ -50,7 +50,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.transform.root.transform.forward.x > 0.0f;
+                return this.facingRight;
             }
         }
 

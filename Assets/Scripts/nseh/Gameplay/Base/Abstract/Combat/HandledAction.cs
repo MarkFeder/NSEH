@@ -88,6 +88,11 @@ namespace nseh.Gameplay.Base.Abstract
                    this.KeyHasBeenReleased() || this.KeyIsHoldDown() || this.ButtonIsHoldDown() || this.ButtonHasBeenReleased();
         }
 
+        public override string ToString()
+        {
+            return this.StateName;
+        }
+
         #endregion
 
         #region Virtual Methods

@@ -202,9 +202,6 @@ namespace nseh.Gameplay.Entities.Player
             get { return this.playerCollider; }
         }
 
-        
-
-
         #endregion
 
         private void Awake()
@@ -220,7 +217,7 @@ namespace nseh.Gameplay.Entities.Player
 
             this.SetupParticles();
             this.SetupLookUpKeyParticles();
-    }
+        }
 
         private void Start()
         {

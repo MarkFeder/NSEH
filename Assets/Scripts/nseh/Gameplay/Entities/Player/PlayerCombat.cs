@@ -28,50 +28,51 @@ namespace nseh.Gameplay.Entities.Player
 
         public List<IAction> Actions
         {
-            get
-            {
-                return this.actions;
-            }
+            get { return this.actions; }
         }
 
         public int CurrentHashAnimation
         {
-            get
-            {
-                return (this.playerInfo.Animator.GetCurrentAnimatorStateInfo(0).shortNameHash);
-            }
+            get { return (this.playerInfo.Animator.GetCurrentAnimatorStateInfo(0).shortNameHash); }
         }
 
         public IAction CurrentAction
         {
-            get
-            {
-                return this.actions.Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault();
-            }
+            get { return this.actions.Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault(); }
         }
 
         public IAction CurrentDefenseAction
         {
-            get
-            {
-                return this.actions.OfType<CharacterDefense>().Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault();
-            }
+            get { return this.actions.OfType<CharacterDefense>().Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault(); }
         }
 
-        public GameObject TargetEnemy { get; set; }
+        public GameObject TargetEnemy
+        {
+            get;
+            set;
+        }
 
         #endregion
 
-        protected virtual void Awake()
+        private void Awake()
         {
             this.colliders = this.gameObject.GetSafeComponentsInChildren<Collider>().Where(c => c.tag.Equals(Tags.WEAPON)).ToList();
         }
 
-        protected virtual void Start()
+        private void Start()
         {
             this.playerInfo = GetComponent<PlayerInfo>();
             this.actions = this.FillCharacterActions();
         }
+
+        private void Update()
+        {
+            if (this.CurrentAction != null)
+            {
+                Debug.Log(string.Format("[{0}] - Current action is: {1}", this.playerInfo.PlayerName, this.CurrentAction.ToString()));
+            }
+        }
+
 
         #region Actions 
 
@@ -94,28 +95,56 @@ namespace nseh.Gameplay.Entities.Player
 
         #endregion
 
-        #region Animation Events
+        #region Public Methods
 
-        private void ActivateCollider(int index)
+        public void DeactivateSpecificCollider(int index)
         {
-            if (this.colliders != null && this.colliders.Count() > 0)
+            if (this.colliders != null && this.colliders.Count > 0)
             {
                 // Deactivate other colliders
-                this.colliders.ForEach(collider =>
+                for (int i = 0; i < this.colliders.Count; i++)
                 {
-                    WeaponCollision tempCollision = collider.GetComponent<WeaponCollision>();
+                    Collider collider = this.colliders[i];
+                    WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
 
-                    if (tempCollision.Index != index)
+                    if (weaponCollision.Index == index)
                     {
                         collider.enabled = false;
-                        tempCollision.enabled = false;
+                        weaponCollision.enabled = false;
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log(String.Format("DeactivateCollider({0}): colliders are 0 or null", index));
+            }
+        }
+
+        #endregion
+
+        #region Animation Events
+
+        public void ActivateCollider(int index)
+        {
+            if (this.colliders != null && this.colliders.Count > 0)
+            {
+                // Deactivate other colliders
+                for (int i = 0; i < this.colliders.Count; i++)
+                {
+                    Collider collider = this.colliders[i];
+                    WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
+
+                    if (weaponCollision.Index != index)
+                    {
+                        collider.enabled = false;
+                        weaponCollision.enabled = false;
                     }
                     else
                     {
                         collider.enabled = true;
-                        tempCollision.enabled = true;
+                        weaponCollision.enabled = true;
                     }
-                });
+                }
             }
             else
             {
@@ -123,22 +152,23 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
-        private void DeactivateCollider(int index)
+        public void DeactivateCollider(int index)
         {
-            if (this.colliders != null && this.colliders.Count() > 0)
+            if (this.colliders != null && this.colliders.Count > 0)
             {
                 // Deactivate other colliders
-                this.colliders.ForEach(collider =>
+                for (int i = 0; i < this.colliders.Count; i++)
                 {
-                    WeaponCollision tempCollision = collider.GetComponent<WeaponCollision>();
+                    Collider collider = this.colliders[i];
+                    WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
 
                     collider.enabled = false;
-                    tempCollision.enabled = false;
-                });
+                    weaponCollision.enabled = false;
+                }
             }
             else
             {
-                Debug.Log(String.Format("ActivateCollider({0}): colliders are 0 or null", index));
+                Debug.Log(String.Format("DeactivateCollider({0}): colliders are 0 or null", index));
             }
         }
 
