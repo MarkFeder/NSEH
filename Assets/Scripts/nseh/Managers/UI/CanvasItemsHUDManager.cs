@@ -11,6 +11,8 @@ namespace nseh.Managers.UI
         public Text _mainText;
         public Text _p1ItemText;
         public Text _p2ItemText;
+        public Text _p3ItemText;
+        public Text _p4ItemText;
 
         #endregion
 
@@ -30,6 +32,16 @@ namespace nseh.Managers.UI
         {
             get { return _p2ItemText; }
         }
+
+        public Text P3ItemText
+        {
+            get { return _p3ItemText; }
+        }
+
+        public Text P4ItemText
+        {
+            get { return _p4ItemText; }
+        }
         #endregion
 
         private void Start()
@@ -46,7 +58,7 @@ namespace nseh.Managers.UI
 
         private bool ValidateItems()
         {
-            return _mainText && _p1ItemText && _p2ItemText; // includes p3Portrait and p4Portrait when available
+            return _mainText && _p1ItemText && _p2ItemText && _p3ItemText && _p4ItemText; // includes p3Portrait and p4Portrait when available
         }
 
         #endregion

@@ -184,6 +184,13 @@ namespace nseh.Gameplay.Combat.System
                 // Reduce health
                 enemyInfo.PlayerHealth.TakeDamage(amountDamage);
 
+                Debug.Log("POR FAVOR UNA PERSONA AMABLE QUE ME INCREMENTE LA ENERGIA EN DECIMALES");
+                // Increase energy
+                senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 2);
+
+                // Increase score
+                senderInfo.Score += amountDamage;
+
                 // Display effects
                 GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), 
                                                                                           senderInfo.CurrentPoolParticle,
@@ -228,6 +235,13 @@ namespace nseh.Gameplay.Combat.System
 
                             // Reduce health
                             enemyInfo.PlayerHealth.TakeDamage(amountDamage);
+
+                            Debug.Log("POR FAVOR UNA PERSONA AMABLE QUE ME INCREMENTE LA ENERGIA EN DECIMALES");
+                            // Increase energy
+                            senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 2);
+
+                            // Increase score
+                            senderInfo.Score += amountDamage;
 
                             // Display effects
                             GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType),
@@ -333,6 +347,14 @@ namespace nseh.Gameplay.Combat.System
             enemyInfo.PlayerHealth.TakeDamage((int)senderAction.CurrentDamage);
             senderInfo.PlayerHealth.TakeDamage((int)enemyAction.CurrentDamage);
 
+            // Increase energy
+            enemyInfo.PlayerEnergy.IncreaseEnergy(enemyAction.CurrentDamage / 2);
+            senderInfo.PlayerEnergy.IncreaseEnergy(senderAction.CurrentDamage / 2);
+
+            // Increase score
+            senderInfo.Score += (int)senderAction.CurrentDamage;
+            enemyInfo.Score += (int)enemyAction.CurrentDamage;
+
             // Display effects
             GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(enemyInfo.GetParticleAttack(enemyAction.AttackType),
                                                                                       enemyInfo.CurrentPoolParticle,
@@ -351,6 +373,13 @@ namespace nseh.Gameplay.Combat.System
             Debug.Log("FirstOverSecondCollisionHandler()");
 
             enemyInfo.PlayerHealth.TakeDamage((int)senderAction.CurrentDamage);
+
+            //Increase Energy
+            senderInfo.PlayerEnergy.IncreaseEnergy(senderAction.CurrentDamage / 2);
+
+            // Increase score
+            senderInfo.Score += (int)senderAction.CurrentDamage;
+
             // Cancel a's action
             senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
 
@@ -369,6 +398,13 @@ namespace nseh.Gameplay.Combat.System
 
             senderInfo.PlayerHealth.TakeDamage((int)enemyAction.CurrentDamage);
             // Cancel b's action
+
+            //Increase Energy
+            enemyInfo.PlayerEnergy.IncreaseEnergy(enemyAction.CurrentDamage / 2);
+
+            // Increase score
+            enemyInfo.Score += (int)enemyAction.CurrentDamage;
+
             enemyAction.Animator.SetTrigger(enemyInfo.ImpactHash);
 
             // Display effects
@@ -387,6 +423,14 @@ namespace nseh.Gameplay.Combat.System
             // Both receives action's damage
             senderInfo.PlayerHealth.TakeDamage((int)enemyAction.CurrentDamage);
             enemyInfo.PlayerHealth.TakeDamage((int)senderAction.CurrentDamage);
+
+            //Increase Energy
+            senderInfo.PlayerEnergy.IncreaseEnergy(senderAction.CurrentDamage / 2);
+            enemyInfo.PlayerEnergy.IncreaseEnergy(enemyAction.CurrentDamage / 2);
+
+            // Increase score
+            senderInfo.Score += (int)senderAction.CurrentDamage;
+            enemyInfo.Score += (int)enemyAction.CurrentDamage;
 
             // Cancel both a and b
             senderAction.Animator.SetTrigger(senderInfo.ImpactHash);
@@ -414,6 +458,12 @@ namespace nseh.Gameplay.Combat.System
                 enemyInfo.PlayerHealth.TakeDamage((int)senderAttack.CurrentDamage / 2);
                 enemyDefense.Animator.SetTrigger(enemyInfo.ImpactHash);
 
+                //Increase Energy
+                senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 4);
+
+                // Increase score
+                senderInfo.Score += (int)senderAttack.CurrentDamage/2;
+
                 // Display effects
                 GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType),
                                                                                           senderInfo.CurrentPoolParticle,
@@ -423,6 +473,13 @@ namespace nseh.Gameplay.Combat.System
                     || senderAttack.AttackType == AttackType.CharacterDefinitive)
             {
                 enemyInfo.PlayerHealth.TakeDamage((int)senderAttack.CurrentDamage);
+
+                //Increase Energy
+                senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 2);
+
+                // Increase score
+                senderInfo.Score += (int)senderAttack.CurrentDamage;
+
                 enemyDefense.Animator.SetTrigger(enemyInfo.ImpactHash);
 
                 // Display effects

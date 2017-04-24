@@ -40,7 +40,7 @@ namespace nseh.Managers.Level
 
         #region Public Methods
 
-        public void Setup(GameObject prefab, Vector3 pos, Vector3 rot, List<GameObject> spawnPoints, int playerNumber, BarComponent playerBarComponent, List<Image> playerLives/*, LevelProgress lvlProgress*/)
+        public void Setup(GameObject prefab, Vector3 pos, Vector3 rot, List<GameObject> spawnPoints, int playerNumber, BarComponent playerHealthBarComponent, BarComponent playerEnergyBarComponent, List<Image> playerLives/*, LevelProgress lvlProgress*/)
         {
             // Setup prefab
             _playerPrefab = GameObject.Instantiate(prefab, pos, Quaternion.Euler(rot));
@@ -55,15 +55,12 @@ namespace nseh.Managers.Level
             // Set player number to be consistent across the scripts
             _playerInfo.GamepadIndex = playerNumber;
             _playerInfo.Player = playerNumber;
-
-            // Setup bar component
-            _playerInfo.PlayerHealth.HealthBar = playerBarComponent;
+            // Setup bar components
+            _playerInfo.PlayerHealth.HealthBar = playerHealthBarComponent;
+            _playerInfo.PlayerEnergy.EnergyBar = playerEnergyBarComponent;
 
             // Setup player lives
             _playerInfo.PlayerHealth.PlayerLives = playerLives;
-
-            // Setup level progress
-            //_playerInfo.PlayerHealth.LvlProgress = lvlProgress;
 
             // Let the player moves
             _playerInfo.PlayerMovement.EnableMovement();
@@ -85,6 +82,8 @@ namespace nseh.Managers.Level
 
             _playerInfo.PlayerMovement.EnableMovement();
             _playerInfo.PlayerHealth.ResetHealth();
+            _playerInfo.PlayerHealth.ResetDeathCounter();
+            _playerInfo.PlayerEnergy.ResetEnergy();
             //_playerInfo.PlayerHealth.RestoreAllLives();
             _playerInfo.PlayerCollider.enabled = true;
             _playerInfo.Animator.Play(_playerInfo.IdleHash);

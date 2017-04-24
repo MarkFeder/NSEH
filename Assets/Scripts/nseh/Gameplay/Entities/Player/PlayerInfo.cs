@@ -31,11 +31,14 @@ namespace nseh.Gameplay.Entities.Player
         private Animator animator;
         private Collider playerCollider;
         private PlayerHealth playerHealth;
+        private PlayerEnergy playerEnergy;
         private PlayerMovement playerMovement;
         private PlayerCombat playerCombat;
 
         private float horizontal;
         private float vertical;
+
+        private int score;
 
         private bool teletransported;
         private bool jumpPressed;
@@ -96,6 +99,19 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        public int Score
+        {
+            get
+            {
+                return score;
+            }
+
+            set
+            {
+                score = value;
+            }
+        }
+
         public bool Teletransported
         {
             get
@@ -149,6 +165,14 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        public PlayerEnergy PlayerEnergy
+        {
+            get
+            {
+                return this.playerEnergy;
+            }
+        }
+
         public PlayerMovement PlayerMovement
         {
             get
@@ -178,6 +202,9 @@ namespace nseh.Gameplay.Entities.Player
             get { return this.playerCollider; }
         }
 
+        
+
+
         #endregion
 
         private void Awake()
@@ -186,6 +213,7 @@ namespace nseh.Gameplay.Entities.Player
             this.animator = GetComponent<Animator>();
 
             this.playerHealth = GetComponent<PlayerHealth>();
+            this.playerEnergy = GetComponent<PlayerEnergy>();
             this.playerMovement = GetComponent<PlayerMovement>();
             this.playerCombat = GetComponent<PlayerCombat>();
             this.playerCollider = GetComponent<Collider>();
@@ -196,6 +224,7 @@ namespace nseh.Gameplay.Entities.Player
 
         private void Start()
         {
+            this.score = 0;
             this.teletransported = false;
             this.jumpPressed = false;
         }

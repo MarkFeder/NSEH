@@ -138,6 +138,7 @@ namespace nseh.Gameplay.Entities.Player
             this.MaxHealth = this.maxHealth;
             this.CurrentHealth = this.startingHealth;
             //this.lives = 3;
+            this.deathCount = 0;
             this.isDead = false;
         }
 
@@ -156,6 +157,14 @@ namespace nseh.Gameplay.Entities.Player
             this.MaxHealth = this.maxHealth;
             this.CurrentHealth = this.startingHealth;
             this.isDead = false;
+        }
+
+        /// <summary>
+        /// Restore death counter to zero
+        /// </summary>
+        public void ResetDeathCounter()
+        {
+            this.deathCount = 0;
         }
 
         /// <summary>
@@ -280,11 +289,8 @@ namespace nseh.Gameplay.Entities.Player
 
                 // Clamp current health
                 this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
-                /*
-                if (lvlProgress.IsActivated)
-                {
-                    lvlProgress.IncreaseProgress(oldHealth-this.CurrentHealth);
-                }*/
+             
+                this.playerInfo.PlayerEnergy.IncreaseEnergy(oldHealth-this.CurrentHealth);
 
                 /*if (this.CurrentHealth == 0.0f && !this.isDead && lives == 1)
                 {
@@ -362,6 +368,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             //DisableLife(lives);
             //lives--;
+            this.deathCount++;
             this.isDead = true;
 
             // Disable player

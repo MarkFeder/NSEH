@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 114361435954042190}
   - component: {fileID: 114409295371350454}
   - component: {fileID: 114945180413029768}
+  - component: {fileID: 114473405665452258}
   m_Layer: 8
   m_Name: SirProspector
   m_TagString: PlayerBody
@@ -1941,6 +1942,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   maxHealth: 100
+--- !u!114 &114473405665452258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196191226483754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac97389723fd0644389ba40878d49c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114617106729738090
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -40,33 +40,58 @@ namespace nseh.Managers.UI
 
         #region Private Properties
 
-        private BarComponent _p1BarComponent;
-        private BarComponent _p2BarComponent;
-        private BarComponent _p3BarComponent;
-        private BarComponent _p4BarComponent;
+        private BarComponent _p1HealthBarComponent;
+        private BarComponent _p2HealthBarComponent;
+        private BarComponent _p3HealthBarComponent;
+        private BarComponent _p4HealthBarComponent;
+
+        private BarComponent _p1EnergyBarComponent;
+        private BarComponent _p2EnergyBarComponent;
+        private BarComponent _p3EnergyBarComponent;
+        private BarComponent _p4EnergyBarComponent;
 
         #endregion
 
         #region Public C# Properties
 
-        public BarComponent P1BarComponent
+        public BarComponent P1HealthBarComponent
         {
-            get { return _p1BarComponent; }
+            get { return _p1HealthBarComponent; }
         }
 
-        public BarComponent P2BarComponent
+        public BarComponent P2HealthBarComponent
         {
-            get { return _p2BarComponent; }
+            get { return _p2HealthBarComponent; }
         }
 
-        public BarComponent P3BarComponent
+        public BarComponent P3HealthBarComponent
         {
-            get { return _p3BarComponent; }
+            get { return _p3HealthBarComponent; }
         }
 
-        public BarComponent P4BarComponent
+        public BarComponent P4HealthBarComponent
         {
-            get { return _p4BarComponent; }
+            get { return _p4HealthBarComponent; }
+        }
+
+        public BarComponent P1EnergyBarComponent
+        {
+            get { return _p1EnergyBarComponent; }
+        }
+
+        public BarComponent P2EnergyBarComponent
+        {
+            get { return _p2EnergyBarComponent; }
+        }
+
+        public BarComponent P3EnergyBarComponent
+        {
+            get { return _p3EnergyBarComponent; }
+        }
+
+        public BarComponent P4EnergyBarComponent
+        {
+            get { return _p4EnergyBarComponent; }
         }
 
         public Image P1Portrait
@@ -151,10 +176,18 @@ namespace nseh.Managers.UI
 
         private void SetupBarComponents()
         {
-            _p1BarComponent = _p1Hud.GetComponentInChildren<BarComponent>();
-            _p2BarComponent = _p2Hud.GetComponentInChildren<BarComponent>();
-            _p3BarComponent = _p3Hud.GetComponentInChildren<BarComponent>();
-            _p4BarComponent = _p4Hud.GetComponentInChildren<BarComponent>();
+            //Health Bar
+            Debug.Log("Barra vida" + _p1Hud.transform.GetChild(3).GetComponent<BarComponent>());
+            _p1HealthBarComponent = _p1Hud.transform.GetChild(3).GetComponent<BarComponent>();
+            _p2HealthBarComponent = _p2Hud.transform.GetChild(3).GetComponent<BarComponent>();
+            _p3HealthBarComponent = _p3Hud.transform.GetChild(3).GetComponent<BarComponent>();
+            _p4HealthBarComponent = _p4Hud.transform.GetChild(3).GetComponent<BarComponent>();
+            Debug.Log("Barra energia" + _p1Hud.transform.GetChild(0).GetComponent<BarComponent>());
+            //Energy Bar
+            _p1EnergyBarComponent = _p1Hud.transform.GetChild(0).GetComponent<BarComponent>();
+            _p2EnergyBarComponent = _p2Hud.transform.GetChild(0).GetComponent<BarComponent>();
+            _p3EnergyBarComponent = _p3Hud.transform.GetChild(0).GetComponent<BarComponent>();
+            _p4EnergyBarComponent = _p4Hud.transform.GetChild(0).GetComponent<BarComponent>();
         }
 
         private void OnEnable()
@@ -184,22 +217,18 @@ namespace nseh.Managers.UI
             {
                 case 1:
                     _p1Hud.SetActive(true);
-                    Debug.Log("1");
                     break;
 
                 case 2:
                     _p2Hud.SetActive(true);
-                    Debug.Log("2");
                     break;
 
                 case 3:
                     _p3Hud.SetActive(true);
-                    Debug.Log("3");
                     break;
 
                 case 4:
                     _p4Hud.SetActive(true);
-                    Debug.Log("4");
                     break;
 
                 default:
@@ -242,21 +271,42 @@ namespace nseh.Managers.UI
             // DisableP4Hud();
         }
 
-        public BarComponent GetBarComponentForPlayer(int player)
+        public BarComponent GetHealthBarComponentForPlayer(int player)
         {
             switch (player)
             {
                 case 1:
-                    return _p1BarComponent;
+                    return _p1HealthBarComponent;
 
                 case 2:
-                    return _p2BarComponent;
+                    return _p2HealthBarComponent;
 
                 case 3:
-                    return _p3BarComponent;
+                    return _p3HealthBarComponent;
 
                 case 4:
-                    return _p4BarComponent;
+                    return _p4HealthBarComponent;
+
+                default:
+                    return null;
+            }
+        }
+
+        public BarComponent GetEnergyBarComponentForPlayer(int player)
+        {
+            switch (player)
+            {
+                case 1:
+                    return _p1EnergyBarComponent;
+
+                case 2:
+                    return _p2EnergyBarComponent;
+
+                case 3:
+                    return _p3EnergyBarComponent;
+
+                case 4:
+                    return _p4EnergyBarComponent;
 
                 default:
                     return null;
@@ -383,50 +433,6 @@ namespace nseh.Managers.UI
                     return;
             }
         }
-        /*
-        public void DisableLife(int player, int index)
-        {
-            switch (player)
-            {
-                case 1:
-                    _p1Lives[index - 1].enabled = false;
-                    break;
-                case 2:
-                    _p2Lives[index - 1].enabled = false;
-                    break;
-                case 3:
-                    _p3Lives[index - 1].enabled = false;
-                    break;
-                case 4:
-                    _p4Lives[index - 1].enabled = false;
-                    break;
-                default:
-                    return;
-            }
-        }
-
-        public void RestoreAllLives()
-        {
-            foreach(Image life in _p1Lives)
-            {
-                if(life.enabled == false)
-                {
-                    life.enabled = true;
-                }
-            }
-
-            foreach (Image life in _p2Lives)
-            {
-                if (life.enabled == false)
-                {
-                    life.enabled = true;
-                }
-            }
-
-            //include loops for _p3 and _p4 when available
-        }
-        */
-
         #endregion
     }
 }

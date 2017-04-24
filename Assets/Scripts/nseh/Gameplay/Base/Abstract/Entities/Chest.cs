@@ -94,7 +94,13 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 						case 2:
 							itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P2ItemText;
 							break;
-					}
+                        case 3:
+                            itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P3ItemText;
+                            break;
+                        case 4:
+                            itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P4ItemText;
+                            break;
+                    }
 
 					this.PlaySoundAtPlayer(this.sound);
 					this.Activate();

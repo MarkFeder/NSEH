@@ -234,8 +234,10 @@ namespace nseh.Managers.Level
                         Find<Tar_Event>().EventRelease();
                         Find<CameraManager>().EventRelease();
                         Find<ItemSpawn_Event>().EventRelease();
-                        //Find<LevelProgress>().EventRelease();
-                        
+                        foreach(PlayerManager character in Players)
+                        {
+                            MyGame._score[character.PlayerRunTimeInfo.Player - 1, 0] = character.PlayerRunTimeInfo.Score;
+                        }
                         SceneManager.LoadScene("Minigame");
                         Find<LoadingEvent>().ActivateEvent();
                         _currentState = _nextState;
@@ -318,14 +320,12 @@ namespace nseh.Managers.Level
 
                 // Release managers
                 Find<CameraManager>().EventRelease();
-                //Find<LevelProgress>().EventRelease();
 
                 // Respawn all the players again without loading prefabs again
                 RespawnAllPlayers();
 
                 // Reactivate events again
                 Find<CameraManager>().ActivateEvent();
-                //Find<LevelProgress>().ActivateEvent();
             }
             else
             {
@@ -405,7 +405,6 @@ namespace nseh.Managers.Level
             Add<Tar_Event>();
             Add<CameraManager>();
             Add<ItemSpawn_Event>();
-            //Add<LevelProgress>();
             Add<MinigameEvent>();
             Add<LoadingEvent>();
 
@@ -453,7 +452,6 @@ namespace nseh.Managers.Level
             Find<Tar_Event>().ActivateEvent();
             Find<ItemSpawn_Event>().ActivateEvent();
             Find<CameraManager>().ActivateEvent();
-            //Find<LevelProgress>().ActivateEvent();
 
             // Activate submanagers
             _particlesManager.ActivateSubManager();
@@ -487,7 +485,6 @@ namespace nseh.Managers.Level
         {
             IsActivated = false;
             Find<ItemSpawn_Event>().EventRelease();
-            //Find<LevelProgress>().EventRelease();
 
             //When player goes to main menu from game scene,
             //the player list must be restarted to avoid conflicts when a new game scene is created.
@@ -512,7 +509,6 @@ namespace nseh.Managers.Level
             _canvasGameOverObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_GAME_OVER_HUD), Vector3.zero, Quaternion.identity) as GameObject;
             _canvasPlayersHUDObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PLAYERS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
             _canvasItemsObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_ITEMS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
-            //_canvasProgressObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PROGRESS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
 
             // Load canvas managers
             _canvasPausedManager = _canvasPausedObj.GetComponent<CanvasPausedHUDManager>();
@@ -520,7 +516,6 @@ namespace nseh.Managers.Level
             _canvasGameOverManager = _canvasGameOverObj.GetComponent<CanvasGameOverHUDManager>();
             _canvasPlayersManager = _canvasPlayersHUDObj.GetComponent<CanvasPlayersHUDManager>();
             _canvasItemsManager = _canvasItemsObj.GetComponent<CanvasItemsHUDManager>();
-            //_canvasProgressManager = _canvasProgressObj.GetComponent<CanvasProgressHUDManager>();
         }
 
         private void SetupMinigameCanvas()
@@ -611,7 +606,8 @@ namespace nseh.Managers.Level
                 // Add new player manager
                 _players.AddNotDuplicate(new PlayerManager());
                 _players[i].Setup(GameManager.Instance._characters[i], _playersPos[i],
-                                  _playersRots[i], _playerSpawnPoints, i + 1, _canvasPlayersManager.GetBarComponentForPlayer(i + 1), _canvasPlayersManager.GetLivesForPlayer(i + 1)/*, Find<LevelProgress>()*/);
+                                  _playersRots[i], _playerSpawnPoints, i + 1, _canvasPlayersManager.GetHealthBarComponentForPlayer(i + 1),
+                                  _canvasPlayersManager.GetEnergyBarComponentForPlayer(i + 1), _canvasPlayersManager.GetLivesForPlayer(i + 1));
 
                 // Change player's portrait from hud manager
                 _canvasPlayersManager.ChangePortrait(i + 1, _players[i].PlayerRunTimeInfo.CharacterPortrait);
