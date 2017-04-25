@@ -40,7 +40,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected PlayerInfo particlesSpawnPoints;
 		protected Collider collider;
 		protected Renderer renderer;
-		protected Text itemText;
+        protected GameObject sprite;
+        protected Text itemText;
 
 		#endregion
 
@@ -50,6 +51,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		{
 			this.collider = this.GetComponent<Collider>();
 			this.renderer = this.GetComponent<Renderer>();
+            this.sprite = this.transform.GetChild(0).gameObject;
 
 			this.ResetUses();
 		}
@@ -77,11 +79,19 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected abstract void Activate();
 		protected abstract void Deactivate();
 
-		protected virtual void OnTriggerStay(Collider other)
+        protected virtual void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag(Tags.PLAYER_BODY))
+            {
+                sprite.SetActive(true);
+            }
+        }
+        protected virtual void OnTriggerStay(Collider other)
 		{
 			if (other.CompareTag(Tags.PLAYER_BODY) && Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, other.GetComponent<PlayerInfo>().gamepadIndex)))
 			{
                 this.SetVisibility(false);
+                sprite.SetActive(false);
                 if (this.currentUses < this.uses)
 				{
 					this.currentUses++;
@@ -113,15 +123,15 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 				}
 			}
 		}
-/*
+
 		protected virtual void OnTriggerExit(Collider other)
 		{
 			if (other.CompareTag(Tags.PLAYER_BODY))
 			{
-				this.SetVisibility(false);
-			}
+                sprite.SetActive(false);
+            }
 		}
-*/
+
 		protected void ParticleAnimation(GameObject particle, float timeToDisplayParticles, Transform particlesPos)
 		{
 			GameObject particleGameObject = Instantiate(particle, particlesPos.position, particlesPos.rotation, this.target.transform);
