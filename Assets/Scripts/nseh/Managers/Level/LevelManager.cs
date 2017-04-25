@@ -1,5 +1,6 @@
 ﻿using nseh.Gameplay.Base.Abstract.Gameflow;
 using nseh.Gameplay.Gameflow;
+using nseh.Gameplay.Entities.Environment;
 using nseh.Managers.UI;
 using nseh.Managers.Main;
 using nseh.Utils;
@@ -321,6 +322,9 @@ namespace nseh.Managers.Level
                 // Release managers
                 Find<CameraManager>().EventRelease();
 
+                // Reset all player spawn points
+                ResetPlayerSpawnPoint();
+
                 // Respawn all the players again without loading prefabs again
                 RespawnAllPlayers();
 
@@ -627,6 +631,18 @@ namespace nseh.Managers.Level
             else
             {
                 Debug.Log("RespawnAllPlayers(): the number of players is 0 or less than 0");
+            }
+        }
+
+        private void ResetPlayerSpawnPoint()
+        {
+            foreach (GameObject playerSpawnPoint in _playerSpawnPoints)
+            {
+                PlayerSpawnPoint spawnPointComponent = playerSpawnPoint.GetComponent<PlayerSpawnPoint>();
+                if(spawnPointComponent.IsFree == false)
+                {
+                    spawnPointComponent.SetFree();
+                }
             }
         }
         #endregion

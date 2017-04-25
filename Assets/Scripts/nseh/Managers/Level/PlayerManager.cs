@@ -1,6 +1,7 @@
 ﻿using nseh.Gameplay.Entities.Player;
 using nseh.Managers.General;
 using nseh.Gameplay.Gameflow;
+using nseh.Gameplay.Entities.Environment;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,8 +92,19 @@ namespace nseh.Managers.Level
 
         public void ResetFromDeath()
         {
-            int randomSpawn = (int)UnityEngine.Random.Range(0, _spawnPoints.Count);
-            _playerPrefab.transform.position = _spawnPoints[randomSpawn].transform.position;
+            List<GameObject> freePlayerSpawnPoints = new List<GameObject>();
+            freePlayerSpawnPoints = _spawnPoints.FindAll(FindFreePlayerSpawnPoint);
+            Debug.Log("Number of Spawn Points" + _spawnPoints.Count);
+            if (freePlayerSpawnPoints.Count != 0)
+            {
+                int randomSpawn = (int)UnityEngine.Random.Range(0, freePlayerSpawnPoints.Count);
+                _playerPrefab.transform.position = freePlayerSpawnPoints[randomSpawn].transform.position;
+            }
+            else
+            {
+                Debug.Log("There are problems with player's respawn");
+            }
+
             _playerPrefab.transform.rotation = Quaternion.Euler(_spawnRotation);
 
             _playerPrefab.SetActive(false);
@@ -102,6 +114,11 @@ namespace nseh.Managers.Level
             _playerInfo.PlayerHealth.ResetHealth();
             _playerInfo.PlayerCollider.enabled = true;
             _playerInfo.Animator.Play(_playerInfo.IdleHash);
+        }
+
+        private bool FindFreePlayerSpawnPoint(GameObject playerSpawnPoint)
+        {
+            return playerSpawnPoint.GetComponent<PlayerSpawnPoint>().IsFree;
         }
 
         #endregion
