@@ -25,6 +25,8 @@
             public const string DEFENSE = "Defense_";
 
             public const string OPTIONS = "Options_";
+
+            public const string INTERACT = "Interact_";
         }
     }
 }

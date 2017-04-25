@@ -41,16 +41,13 @@ namespace nseh.Gameplay.Gameflow
             _players = new List<GameObject>();
             _SpawPoints = GameObject.Find("SpawnPoints");
             _platformGenerators = GameObject.Find("PlatformGenerators");
-            Debug.Log(LvlManager.MyGame._characters.Count);
 
             for (int i=0; i< LvlManager.MyGame._characters.Count; i++)
             {
                 Debug.Log(LvlManager.MyGame._characters[i].name);
                 if(LvlManager.MyGame._characters[i].name== "SirProspector")
                 {
-                    Debug.Log("Creando");
                     aux= UnityEngine.Object.Instantiate(Resources.Load("SirProspectorMinigame") as GameObject);
-                    Debug.Log(aux);
                     aux.transform.position = _SpawPoints.transform.GetChild(i).transform.position;
                     aux.transform.GetChild(1).GetComponent<TextMinigame>().playerText= i + 1;
                     aux.GetComponent<Minigame>().gamepadIndex = i + 1;
@@ -60,7 +57,6 @@ namespace nseh.Gameplay.Gameflow
                 else if (LvlManager.MyGame._characters[i].name == "Wrarr")
                 {
                     aux = UnityEngine.Object.Instantiate(Resources.Load("WrarrMinigame") as GameObject);
-                    Debug.Log(aux);
                     aux.transform.position = _SpawPoints.transform.GetChild(i).transform.position;
                     aux.transform.GetChild(1).GetComponent<TextMinigame>().playerText = i + 1;
                     aux.GetComponent<Minigame>().gamepadIndex = i + 1;
@@ -71,20 +67,7 @@ namespace nseh.Gameplay.Gameflow
             _CubeDeath = GameObject.Find("Tar/Tar");
             _CubeDeath.GetComponent<CubeDeath>().num = 50+ (4 -LvlManager.MyGame._numberPlayers)*50;
             _Goal = GameObject.Find("Goal");
-            Debug.Log(_CubeDeath);
-            /*
-            _canvasClock = GameObject.Find("CanvasClockHUD").GetComponent<Canvas>();
-            Debug.Log(_canvasClock);
-            _canvasPause = GameObject.Find("CanvasPausedHUD").GetComponent<Canvas>();
-            Debug.Log(_canvasPause);
-            _canvasPause.gameObject.SetActive(false);
-            
-            _canvasGameOver = GameObject.Find("CanvasGameOverHUD").GetComponent<Canvas>();
-            _canvasGameOver.enabled = false;
-            */
             _clock = LvlManager.CanvasClockMinigameManager._clockText;
-               
-            
             _clock.text = "";
             _ready = LvlManager.CanvasClockMinigameManager._readyText;
             LvlManager.CanvasPausedMinigameManager.DisableCanvas();
@@ -137,7 +120,15 @@ namespace nseh.Gameplay.Gameflow
 
                 }
             }
-            
+            foreach (GameObject character in _players)
+            {
+                if (character.GetComponent<Minigame>().position != 0)
+                {
+                    LvlManager.MyGame._score[(character.GetComponent<Minigame>().gamepadIndex) - 1, 1] = character.GetComponent<Minigame>().position;
+                }
+                
+            }
+
         }
 
 
@@ -206,11 +197,8 @@ namespace nseh.Gameplay.Gameflow
             _CubeDeath.GetComponent<CubeDeath>().started = false;
             _Goal.GetComponent<Goal>().started = false;
             yield return new WaitForSeconds(3);
-            foreach (GameObject character in _players)
-            {
-                LvlManager.MyGame._score[character.GetComponent<Minigame>().gamepadIndex, 1]= character.GetComponent<Minigame>().position;
-            }
             LvlManager.CanvasGameOverMinigameManager.EnableCanvas();
+           
             //LvlManager.ChangeState(LevelManager.States.BossFight);
         
         }

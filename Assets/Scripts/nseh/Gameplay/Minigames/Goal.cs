@@ -43,12 +43,21 @@ namespace nseh.Gameplay.Minigames
         {
             if (other.tag == "PlayerBody")
             {
-                other.GetComponent<Minigame>().position = num;
-                num-=100;
-                //Destroy(other.gameObject);
+                StartCoroutine(DestroyCharacter(other));
+               
+       
             }
         }
+        IEnumerator DestroyCharacter(Collider other)
+        {
+            other.GetComponent<Minigame>().position = num;
+            num -= 100;
+            yield return new WaitForSeconds(1);
+            Destroy(other.gameObject);
+             
+            
 
-  
+        }
+
     }
 }

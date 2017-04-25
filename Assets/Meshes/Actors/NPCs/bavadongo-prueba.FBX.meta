@@ -1,0 +1,164 @@
+fileFormatVersion: 2
+guid: da5b5cde70622fd4e8bf1b10a0caa1ed
+timeCreated: 1493113558
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bone007
+    100004: Bone008
+    100006: Bone010
+    100008: Bone011
+    100010: Bone013
+    100012: Bone014
+    100014: Bone019
+    100016: Bone020
+    100018: Bone022
+    100020: Bone023
+    100022: Bone025
+    100024: Bone026
+    100026: Bone028
+    100028: Bone029
+    100030: Bone030
+    100032: Bone031
+    100034: Box001
+    100036: Brazo D
+    100038: Brazo L
+    100040: Cadera
+    100042: Calf D
+    100044: Calf L
+    100046: Cola
+    100048: Crown
+    100050: dedopie1D
+    100052: dedopie1L
+    100054: Dedopie2D
+    100056: dedopie2L
+    100058: Dedopie3D
+    100060: dedopie3L
+    100062: Femur D
+    100064: Femur L
+    100066: Mano D
+    100068: Mano L
+    100070: Padre
+    100072: Pie D
+    100074: Pie L
+    100076: Radio D
+    100078: Radio L
+    400000: //RootNode
+    400002: Bone007
+    400004: Bone008
+    400006: Bone010
+    400008: Bone011
+    400010: Bone013
+    400012: Bone014
+    400014: Bone019
+    400016: Bone020
+    400018: Bone022
+    400020: Bone023
+    400022: Bone025
+    400024: Bone026
+    400026: Bone028
+    400028: Bone029
+    400030: Bone030
+    400032: Bone031
+    400034: Box001
+    400036: Brazo D
+    400038: Brazo L
+    400040: Cadera
+    400042: Calf D
+    400044: Calf L
+    400046: Cola
+    400048: Crown
+    400050: dedopie1D
+    400052: dedopie1L
+    400054: Dedopie2D
+    400056: dedopie2L
+    400058: Dedopie3D
+    400060: dedopie3L
+    400062: Femur D
+    400064: Femur L
+    400066: Mano D
+    400068: Mano L
+    400070: Padre
+    400072: Pie D
+    400074: Pie L
+    400076: Radio D
+    400078: Radio L
+    2300000: Box001
+    2300002: Crown
+    3300000: Box001
+    3300002: Crown
+    4300000: Crown
+    4300002: Box001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

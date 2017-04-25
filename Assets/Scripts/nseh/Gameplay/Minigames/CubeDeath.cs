@@ -52,9 +52,9 @@ namespace nseh.Gameplay.Minigames {
                 {
                     //FIN MINIJUEGO
                 }
-                yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(1);
 
-                //Destroy(other.gameObject);
+                Destroy(other.gameObject);
             }
             
         }

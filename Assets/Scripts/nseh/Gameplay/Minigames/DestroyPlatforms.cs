@@ -33,9 +33,6 @@ namespace nseh.Gameplay.Minigames
         {
             if (transform.position.x < destructionPoint.transform.position.x)
             {
-                Debug.Log(transform.position.x);
-                Debug.Log(destructionPoint.transform.position.x);
-                //Debug.Break();
                 Destroy(gameObject);
             }
         }

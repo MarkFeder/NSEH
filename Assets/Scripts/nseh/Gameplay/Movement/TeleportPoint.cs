@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using nseh.Gameplay.Gameflow;
 using nseh.Gameplay.Movement;
 using Constants = nseh.Utils.Constants.Animations.Movement;
@@ -42,10 +43,10 @@ namespace nseh.Gameplay.Movement
             if (animator != null)
             { 
                 animator.SetBool("Open", true);
-                animator.SetBool("Close", false);
+                animator.SetBool("Close", false); 
             }
 
-            if ((other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().Vertical > 0 && other.GetComponent<PlayerInfo>().Horizontal == 0 && other.GetComponent<PlayerInfo>().Teletransported == false))
+            if ((other.CompareTag(Tags.PLAYER_BODY) && Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, other.GetComponent<PlayerInfo>().gamepadIndex)) && other.GetComponent<PlayerInfo>().Teletransported == false))
             {
                 other.GetComponent<PlayerInfo>().Teletransported = true;
                 StartCoroutine(Teleport(other));

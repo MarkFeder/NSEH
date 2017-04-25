@@ -5,6 +5,7 @@ using nseh.Managers.Main;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Inputs = nseh.Utils.Constants.Input;
 using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Base.Abstract.Entities
@@ -76,11 +77,12 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected abstract void Activate();
 		protected abstract void Deactivate();
 
-		protected virtual void OnTriggerEnter(Collider other)
+		protected virtual void OnTriggerStay(Collider other)
 		{
-			if (other.CompareTag(Tags.PLAYER_BODY))
+			if (other.CompareTag(Tags.PLAYER_BODY) && Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, other.GetComponent<PlayerInfo>().gamepadIndex)))
 			{
-				if (this.currentUses < this.uses)
+                this.SetVisibility(false);
+                if (this.currentUses < this.uses)
 				{
 					this.currentUses++;
 					this.target = other.gameObject;
@@ -111,7 +113,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 				}
 			}
 		}
-
+/*
 		protected virtual void OnTriggerExit(Collider other)
 		{
 			if (other.CompareTag(Tags.PLAYER_BODY))
@@ -119,7 +121,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 				this.SetVisibility(false);
 			}
 		}
-
+*/
 		protected void ParticleAnimation(GameObject particle, float timeToDisplayParticles, Transform particlesPos)
 		{
 			GameObject particleGameObject = Instantiate(particle, particlesPos.position, particlesPos.rotation, this.target.transform);
