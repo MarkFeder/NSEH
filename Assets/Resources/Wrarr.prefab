@@ -1437,7 +1437,7 @@ MonoBehaviour:
   gamepadIndex: 1
   player: 0
   playerName: Wrarr
-  characterPortrait: {fileID: 21300000, guid: 37b37fd8864f5d146b88e4483007237c, type: 3}
+  characterPortrait: {fileID: 21300000, guid: e1596b61d78c934449714f25759fce9b, type: 3}
 --- !u!114 &114265241072407274
 MonoBehaviour:
   m_ObjectHideFlags: 1
