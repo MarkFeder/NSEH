@@ -8,7 +8,6 @@ namespace nseh.Gameplay.Misc
     public class PlayerText : MonoBehaviour
     {
 
-        Quaternion rotation;
         int playerText;
 
         void Start()
@@ -17,37 +16,39 @@ namespace nseh.Gameplay.Misc
 
             if (playerText == 1)
             {
-                rotation = new Quaternion(0, -1, 0, 0);
-                this.gameObject.GetComponent<TextMesh>().color = Color.red;
-                this.gameObject.GetComponent<TextMesh>().text = "P1";
+
+                this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
+                this.gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = "P1";
+                this.gameObject.transform.GetChild(1).GetComponent<TextMesh>().text = "P1";
             }
 
             else if (playerText == 2)
             {
-                rotation = new Quaternion(0, 1, 0, 0);
-                this.gameObject.GetComponent<TextMesh>().color = Color.blue;
-                this.gameObject.GetComponent<TextMesh>().text = "P2";
+
+                this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0.25f, 1, 1);
+                this.gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = "P2";
+                this.gameObject.transform.GetChild(1).GetComponent<TextMesh>().text = "P2";
+                //this.gameObject.GetComponent<TextMesh>().text = "P2";
             }
 
             else if (playerText == 3)
             {
-                rotation = new Quaternion(0, -1, 0, 0);
-                this.gameObject.GetComponent<TextMesh>().color = Color.green;
-                this.gameObject.GetComponent<TextMesh>().text = "P3";
+
+                this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 1, 1);
+                this.gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = "P3";
+                this.gameObject.transform.GetChild(1).GetComponent<TextMesh>().text = "P3";
+                //this.gameObject.GetComponent<TextMesh>().text = "P3";
             }
 
             else if (playerText == 4)
             {
-                rotation = new Quaternion(0, 1, 0, 0);
-                this.gameObject.GetComponent<TextMesh>().color = Color.yellow;
-                this.gameObject.GetComponent<TextMesh>().text = "P4";
+
+                this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0.25f, 0, 1);
+                this.gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = "P4";
+                this.gameObject.transform.GetChild(1).GetComponent<TextMesh>().text = "P4";
+                //this.gameObject.GetComponent<TextMesh>().text = "P4";
             }
 
-        }
-
-        void LateUpdate()
-        {
-            transform.rotation = rotation;
-        }
+        }  
     }
 }

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 72c68745a8b44994c98ee6771f107aa1
+timeCreated: 1493381257
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: SnapHand
+  fontNames:
+  - SnapHand
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

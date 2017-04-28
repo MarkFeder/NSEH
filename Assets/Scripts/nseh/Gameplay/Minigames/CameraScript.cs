@@ -36,7 +36,7 @@ namespace nseh.Gameplay.Minigames
                 }
                 else if (num == 2)
                 {
-                    transform.position = new Vector3(2, 4.5f, -8);
+                    transform.position = new Vector3(2, 5f, -7);
                 }
                 else if (num == 3)
                 {
