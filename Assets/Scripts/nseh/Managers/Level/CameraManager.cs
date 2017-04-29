@@ -14,6 +14,7 @@ namespace nseh.Managers.Level
         Vector3 _player4position;
         GameObject _environmentCamera;
         GameObject _characterCamera;
+        GameObject _TextCamera;
 
         // Use this for initialization
         public override void Setup(LevelManager lvlManager)
@@ -28,8 +29,10 @@ namespace nseh.Managers.Level
             //reminder: it would be nice to add a switch which controls the camera instantiation depending on LevelManager states.
             _environmentCamera = Object.Instantiate(Resources.Load("LevelCamera"), Vector3.zero, Quaternion.Euler(0,180,0)) as GameObject;
             _characterCamera = Object.Instantiate(Resources.Load("CharacterCamera"), Vector3.zero, Quaternion.Euler(0, 180, 0)) as GameObject;
+            _TextCamera = Object.Instantiate(Resources.Load("TextCamera"), Vector3.zero, Quaternion.Euler(0, 180, 0)) as GameObject;
             _sceneCameras.Add(_environmentCamera);
             _sceneCameras.Add(_characterCamera);
+            _sceneCameras.Add(_TextCamera);
         }
 
         public override void EventTick()

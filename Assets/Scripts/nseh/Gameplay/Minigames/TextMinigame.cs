@@ -15,7 +15,7 @@ using nseh.Gameplay.Movement;
 
                 this.gameObject.GetComponent<SpriteRenderer>().color = new Color32(193, 23, 23, 255);
             this.gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = "P1";
-                this.gameObject.transform.GetChild(0).transform.GetChild(0).transform.position = new Vector3(-0.9f, 2.2f, -0.8f);
+                //this.gameObject.transform.GetChild(0).transform.GetChild(0).transform.position = new Vector3(-0.9f, 2.2f, -0.8f);
             }
 
             else if (playerText == 2)

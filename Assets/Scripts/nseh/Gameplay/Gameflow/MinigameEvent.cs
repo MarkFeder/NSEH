@@ -182,6 +182,8 @@ namespace nseh.Gameplay.Gameflow
             _ready.text = "";
             _timeRemaining = 30;
             Camera.main.GetComponent<CameraScript>().started = true;
+            GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().started = true;
+            
             _CubeDeath.GetComponent<CubeDeath>().started = true;
             _Goal.GetComponent<Goal>().started = true;
             foreach (GameObject character in _players)

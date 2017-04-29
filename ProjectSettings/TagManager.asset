@@ -23,7 +23,7 @@ TagManager:
   - 
   - Player
   - Platform
-  - PassesPlatform
+  - PlayerText
   - 
   - 
   - 
@@ -48,4 +48,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PlayerText
+    uniqueID: 3997922121
     locked: 0

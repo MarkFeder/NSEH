@@ -533,7 +533,7 @@ GameObject:
   - component: {fileID: 4922959309748628}
   - component: {fileID: 212483192405584004}
   - component: {fileID: 114759884591755560}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Text_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 4189221926363554}
   - component: {fileID: 23632181121890594}
   - component: {fileID: 102254174565607374}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Player Text Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 4712924883856516}
   - component: {fileID: 23458175294699172}
   - component: {fileID: 102620024099670780}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Player Text Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1852,10 +1852,10 @@ MeshRenderer:
   m_GameObject: {fileID: 1622467950575488}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_ReceiveShadows: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 2100000, guid: 72c68745a8b44994c98ee6771f107aa1, type: 3}
   m_StaticBatchInfo:
@@ -2006,7 +2006,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1786245711097112}
-  m_Text: P3
+  m_Text: P1
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

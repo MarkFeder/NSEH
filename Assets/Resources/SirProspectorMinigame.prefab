@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4503361158784514}
   - component: {fileID: 23149165271286624}
   - component: {fileID: 102477546318742998}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Player Text Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 4410112931549388}
   - component: {fileID: 212883390809365012}
   - component: {fileID: 114059880437453552}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Text_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1148,7 +1148,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1383284746566342}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.81, z: 0.07}
+  m_LocalPosition: {x: 0.327, y: 1.81, z: 0.07}
   m_LocalScale: {x: 0.14030011, y: 0.14029999, z: 0.14030011}
   m_Children:
   - {fileID: 4503361158784514}
@@ -1204,7 +1204,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1385650246820782}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.533, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4592020697334680}
@@ -1247,7 +1247,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1064812651477056}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.94, y: 2.5, z: -0.5}
+  m_LocalPosition: {x: -0.94, y: 2.22, z: 1.78}
   m_LocalScale: {x: 0.72174734, y: 0.721746, z: 0.7217476}
   m_Children: []
   m_Father: {fileID: 4410112931549388}
@@ -2069,7 +2069,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: b75d7e9d122758545861dcdf884b2eb5, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
