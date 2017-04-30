@@ -10,7 +10,6 @@ namespace nseh.Gameplay.AI
     public class BavaDongo_AI : MonoBehaviour
     {
 
-
         public Transform left_Limit;
         public Transform right_Limit;
         public GameObject platform;
@@ -26,12 +25,17 @@ namespace nseh.Gameplay.AI
         private float prob_Attack1_in;
         private float prob_Attack2_in;
         private bool frenzy;
+        private bool isDeath;
         private int wait;
         private GameObject throne;
+        private Animator animator;
+
         // Use this for initialization
         void Start()
         {
+            animator = gameObject.GetComponent<Animator>();
             nextPoint = right_Limit;
+            isDeath = false;
             myRigidBody = GetComponent<Rigidbody>();
             agent = GetComponent<NavMeshAgent>();
             agent.SetDestination(nextPoint.position);
@@ -42,61 +46,70 @@ namespace nseh.Gameplay.AI
             wait = 2;
             throne = GameObject.Find("throne");
             maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
-            //inicializar el maxplayers
+            animator.SetTrigger("appear");
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (Health < 30 && frenzy == false)
+            if (Health < 0 && isDeath == false)
             {
-                frenzy = true;
-                prob_Patrol_in = 0.25f;
-                prob_Attack1_in = 1f;
-                agent.speed = 10;
-                wait = 1;
+                isDeath = true;
+                animator.SetTrigger("Death");
             }
-
-            if (Mathf.Abs(this.gameObject.transform.position.x - nextPoint.transform.position.x) < 0.5f)
+            else
             {
-                if (nextPoint == right_Limit)
+                if (Health < 30 && frenzy == false)
                 {
-                    Invoke("SelectAttack", wait);
-                    nextPoint = left_Limit;
-
-                    Debug.Log("1");
+                    frenzy = true;
+                    animator.SetTrigger("Frenzy");
+                    prob_Patrol_in = 0.25f;
+                    prob_Attack1_in = 1f;
+                    agent.speed = 10;
+                    wait = 1;
+                
                 }
-                else
+
+                if (Mathf.Abs(this.gameObject.transform.position.x - nextPoint.transform.position.x) < 0.5f)
                 {
-                    Invoke("SelectAttack", wait);
-                    nextPoint = right_Limit;
-                    Debug.Log("2");
+                    if (nextPoint == right_Limit)
+                    {
+                        animator.SetBool("Walk", false);
+                        Invoke("SelectAttack", wait);
+                        nextPoint = left_Limit;
+
+                        Debug.Log("1");
+                    }
+                    else
+                    {
+                        animator.SetBool("Walk", false);
+                        Invoke("SelectAttack", wait);
+                        nextPoint = right_Limit;
+                        Debug.Log("2");
+                    }
                 }
             }
-
-
         }
 
         void SelectAttack()
         {
-            Debug.Log("dasdas");
-
             dice = Random.Range(0.0f, 1.0f);
             numPlayers = throne.GetComponent<Throne>().players_throne;
             float prob_Attack1 = prob_Attack1_in - ((prob_Attack1_in - prob_Patrol_in) * numPlayers / maxPlayers);
-            //float prob_Attack2 =
-            Debug.Log("dICE " + dice + " " + prob_Attack1);
-            //Coger players en la plataforma
+            Debug.Log("Dice " + dice + " " + prob_Attack1_in+" "+ prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
             if (dice < prob_Patrol_in)
             {
+                animator.SetBool("Walk", true);
                 Debug.Log("PATROL");
             }
             else if (dice < prob_Attack1)
             {
+                animator.SetTrigger("Attack_1");
                 Debug.Log("ATTACK1");
             }
             else
             {
+                animator.SetTrigger("Attack_2");
                 Debug.Log("ATTACK2");
             }
             agent.SetDestination(nextPoint.position);

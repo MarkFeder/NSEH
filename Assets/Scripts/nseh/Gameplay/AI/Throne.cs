@@ -16,13 +16,15 @@ namespace nseh.Gameplay.AI
 
         private void OnTriggerEnter(Collider other)
         {
-            players_throne++;
+            if(other.gameObject.tag == "Player")
+                players_throne++;
         }
 
 
         private void OnTriggerExit(Collider other)
         {
-            players_throne--;
+            if (other.gameObject.tag == "Player")
+                players_throne--;
         }
 
 
