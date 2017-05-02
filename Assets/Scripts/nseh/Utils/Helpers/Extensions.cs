@@ -146,8 +146,8 @@ namespace nseh.Utils.Helpers
             }
             var ri = RunInfo.runners[group];
             ri.count++;
-            ParallelSupport.Instance.StartCoroutine(DoParallel(coroutine, ri));
 
+            ParallelSupport.Instance.StartCoroutine(DoParallel(coroutine, ri));
             return ri;
         }
 
