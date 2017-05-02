@@ -1996,7 +1996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 2
+  _index: 2
 --- !u!114 &114287641060360600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2090,7 +2090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 2
+  _index: 2
 --- !u!114 &114774921100939200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2129,7 +2129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 1
+  _index: 1
 --- !u!114 &114945180413029768
 MonoBehaviour:
   m_ObjectHideFlags: 1
