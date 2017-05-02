@@ -46,7 +46,7 @@ namespace nseh.Gameplay.Movement
                 animator.SetBool("Close", false); 
             }
 
-            if ((other.CompareTag(Tags.PLAYER_BODY) && Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, other.GetComponent<PlayerInfo>().gamepadIndex)) && other.GetComponent<PlayerInfo>().Teletransported == false))
+            if ((other.CompareTag(Tags.PLAYER_BODY) && Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, other.GetComponent<PlayerInfo>().GamepadIndex)) && other.GetComponent<PlayerInfo>().Teletransported == false))
             {
                 other.GetComponent<PlayerInfo>().Teletransported = true;
                 StartCoroutine(Teleport(other));

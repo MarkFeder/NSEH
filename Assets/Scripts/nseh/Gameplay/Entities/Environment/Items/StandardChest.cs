@@ -34,13 +34,6 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
         #endregion
 
-        protected override void Start()
-        {
-            base.Start();
-
-            this.CheckTimes();
-        }
-
         protected override void Activate()
         {
             switch (this.chestType)
@@ -85,7 +78,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case StandardChestType.Defense:
 
-                    this.SetUpDefense(this.time, this.hits);
+                    this.SetupDefense(this.time, this.hits);
                     this.spawnItemPoint.DisplayText(this.itemText, StandardItems.DEFENSE, this.timeToDisplayText);
                     this.ParticleAnimation(this.particlePrefab, this.time, this.particlesSpawnPoints.ParticleBodyPos);
 
@@ -107,16 +100,8 @@ namespace nseh.Gameplay.Entities.Environment.Items
         }
 
         #region Private Methods
-        
-        private void CheckTimes()
-        {
-            if (this.chestType == StandardChestType.Damage && this.time >= this.destructionTime)
-            {
-                Debug.LogError("Error, time must be less than destruction time");
-            }
-        }
 
-        private IEnumerator SetUpDefense(float time, int hits)
+        private IEnumerator SetupDefense(float time, int hits)
         {
             // TODO: think how to set this thing up with our combat system
 
@@ -138,39 +123,14 @@ namespace nseh.Gameplay.Entities.Environment.Items
             this.target.GetComponent<PlayerHealth>().IncreaseHealth(percent);
         }
 
-        //private void IncreaseDamage(float percent)
-        //{
-        //    // this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamage(percent));
-        //}
+        private void IncreaseDamage(float percent)
+        {
+            this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamage(percent));
+        }
 
         private void IncreaseDamage(float percent, float time)
         {
-            StartCoroutine(this.IncreaseDamageInternal(percent, time));
-            // this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamageForSeconds(percent, time));
-        }
-
-        private IEnumerator IncreaseDamageInternal(float percent, float time)
-        {
-            // Save old values
-
-            Dictionary<AttackType, float> oldDamages = new Dictionary<AttackType, float>();
-            var actions = this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>();
-
-            actions.ForEach(act =>
-            {
-                oldDamages.Add(act.AttackType, act.CurrentDamage);
-                act.IncreaseDamage(percent);
-            });
-
-            yield return new WaitForSeconds(time);
-
-            // Restore old values
-
-            actions.ForEach(act =>
-            {
-                act.CurrentDamage = oldDamages[act.AttackType];
-                Debug.Log(string.Format("[{0}] damage of {1} has been restored to: {2}", act.AttackType.ToString(), act.Animator.name, oldDamages[act.AttackType]));
-            });
+            this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamageForSeconds(percent, time));
         }
 
         #endregion

@@ -94,15 +94,14 @@ namespace nseh.Managers.Pool
         /// </summary>
         public void ClearPool()
         {
-            for (int i = _pooledObjects.Count - 1; i > 0; i--)
+            for (int i = 0; i < _pooledObjects.Count; i++)
             {
                 GameObject obj = _pooledObjects[i];
                 GameObject.Destroy(obj);
-
-                _pooledObjects.RemoveAt(i);
             }
 
             _pooledObjects.Clear();
+            _pooledObjects = null;
         }
 
         #endregion

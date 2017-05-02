@@ -34,6 +34,7 @@ namespace nseh.Gameplay.Entities.Player
         private HealthMode healthMode;
         //private LevelProgress lvlProgress;
 
+        private float _bonificationDefense;
         private float currentHealth;
         //private int lives;
         private int deathCount;
@@ -43,6 +44,12 @@ namespace nseh.Gameplay.Entities.Player
         #endregion
 
         #region Public C# Properties
+
+        public float BonificationDefense
+        {
+            get { return _bonificationDefense; }
+            set { _bonificationDefense = value; }
+        }
 
         public float CurrentHealth
         {
@@ -144,13 +151,13 @@ namespace nseh.Gameplay.Entities.Player
 
         protected virtual void Update()
         {
-           Debug.Log("Current health of " + this.gameObject.name + " is " + this.CurrentHealth);
+           // Debug.Log("Current health of " + this.gameObject.name + " is " + this.CurrentHealth);
         }
 
         #region Public Methods
 
         /// <summary>
-        /// Restore health values to default
+        /// Restore health values to default.
         /// </summary>
         public void ResetHealth()
         {
@@ -160,7 +167,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Restore death counter to zero
+        /// Restore death counter to zero.
         /// </summary>
         public void ResetDeathCounter()
         {
@@ -168,7 +175,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Restore lives values to default
+        /// Restore lives values to default.
         /// </summary>
         public void RestoreAllLives()
         {
@@ -184,7 +191,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Increase health by percent every second for a total of seconds
+        /// Increase health by percent every second for a total of seconds.
         /// </summary>
         /// <param name="percent"></param>
         /// <param name="seconds"></param>
@@ -195,7 +202,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Decrease health by percent every second for a total of seconds
+        /// Decrease health by percent every second for a total of seconds.
         /// </summary>
         /// <param name="percent"></param>
         /// <param name="seconds"></param>
@@ -206,7 +213,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Activate invulnerability mode for a total of seconds
+        /// Activate invulnerability mode for a total of seconds.
         /// </summary>
         /// <param name="percent"></param>
         /// <param name="seconds"></param>
@@ -217,7 +224,17 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Increase health by percent
+        /// Activate bonification defense for a total of seconds.
+        /// </summary>
+        /// <param name="percent"></param>
+        /// <param name="seconds"></param>
+        public void BonificationDefenseForSeconds(float percent, float seconds)
+        {
+            StartCoroutine(BonificationDefenseForSecondsInternal(percent, seconds));
+        }
+
+        /// <summary>
+        /// Increase health by percent.
         /// </summary>
         /// <param name="percent"></param>
         public void IncreaseHealth(float percent)
@@ -240,7 +257,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Decrease health by percent
+        /// Decrease health by percent.
         /// </summary>
         /// <param name="percent"></param>
         public void DecreaseHealth(float percent)
@@ -272,7 +289,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Character takes an amount of damage
+        /// Character takes an amount of damage.
         /// </summary>
         /// <param name="amount"></param>
         public void TakeDamage(int amount)
@@ -281,8 +298,15 @@ namespace nseh.Gameplay.Entities.Player
             {
                 var oldHealth = this.CurrentHealth;
 
-                // Reduce current health
-                this.CurrentHealth -= amount;
+                // Reduce current health and applying bonus defense if exists
+                float famount = (float)amount;
+
+                if (_bonificationDefense > 0.0f)
+                {
+                    famount = famount - (famount * (_bonificationDefense / 100.0f));
+                }
+
+                this.CurrentHealth -= famount;
 
                 // Play hit animation
                 this.playerInfo.Animator.SetTrigger(this.playerInfo.TakeDamageHash);
@@ -290,7 +314,7 @@ namespace nseh.Gameplay.Entities.Player
                 // Clamp current health
                 this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
              
-                this.playerInfo.PlayerEnergy.IncreaseEnergy(oldHealth-this.CurrentHealth);
+                this.playerInfo.PlayerEnergy.IncreaseEnergy(oldHealth - this.CurrentHealth);
 
                 /*if (this.CurrentHealth == 0.0f && !this.isDead && lives == 1)
                 {
@@ -344,6 +368,19 @@ namespace nseh.Gameplay.Entities.Player
             Debug.Log(string.Format("Character {0} is exiting Invulnerability mode", this.gameObject.name));
 
             this.healthMode = HealthMode.Normal;
+        }
+
+        private IEnumerator BonificationDefenseForSecondsInternal(float percent, float seconds)
+        {
+            _bonificationDefense = percent;
+
+            Debug.Log(string.Format("Character {0} has received an extra bonus defense: {1}%", gameObject.name, _bonificationDefense));
+
+            yield return new WaitForSeconds(seconds);
+
+            _bonificationDefense = 0.0f;
+
+            Debug.Log(string.Format("Character {0} has received an extra bonus defense: {1}%", gameObject.name, _bonificationDefense));
         }
 
         private void DisableLife(int life)

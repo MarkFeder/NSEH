@@ -1,6 +1,5 @@
 ﻿using nseh.Managers.General;
 using nseh.Managers.Level;
-using nseh.Managers.Pool;
 using nseh.Utils;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,7 +43,6 @@ namespace nseh.Managers.Main
         #region Private Properties
 
         private States _currentState;
-        private ObjectPoolManager _objectPoolManager;
         private LevelManager _levelManager;
 
         //List of all services (E.g: EventManager, LightManager...) 
@@ -53,11 +51,6 @@ namespace nseh.Managers.Main
         #endregion
 
         #region Cached Managers
-
-        public ObjectPoolManager ObjectPoolManager
-        {
-            get { return _objectPoolManager; }
-        }
 
         public LevelManager LevelManager
         {
@@ -92,15 +85,12 @@ namespace nseh.Managers.Main
             Add<MenuManager>();
             Add<LevelManager>();
             Add<LoadingScene>();
-            Add<ObjectPoolManager>();
 
             // Cache some managers
-            _objectPoolManager = Find<ObjectPoolManager>();
             _levelManager = Find<LevelManager>();
 
             // Find managers and activate them
             Find<MenuManager>().Activate();
-            Find<ObjectPoolManager>().Activate();
         }
 
         #endregion
@@ -299,6 +289,26 @@ namespace nseh.Managers.Main
         public void StartChildCoroutine(IEnumerator coroutine)
         {
             StartCoroutine(coroutine);
+        }
+
+        /// <summary>
+        /// Function for use in the States that have no access to Unity functions. 
+        /// Call an IEnumerator through this GameObject.
+        /// </summary>
+        /// <param name="_coroutine">IEnumerator object.</param>
+        public void StopChildCoroutine(IEnumerator coroutine)
+        {
+            StopCoroutine(coroutine);
+        }
+
+        /// <summary>
+        /// Function for use in the States that have no access to Unity functions. 
+        /// Call an IEnumerator through this GameObject.
+        /// </summary>
+        /// <param name="_coroutine">The name of the method.</param>
+        public void StopChildCoroutine(string methodName)
+        {
+            StopCoroutine(methodName);
         }
 
         #endregion

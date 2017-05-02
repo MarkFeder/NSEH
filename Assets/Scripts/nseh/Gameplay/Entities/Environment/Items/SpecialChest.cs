@@ -115,11 +115,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
         private void UnlockDefinitiveMode()
         {
-            var definitiveAttack = this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().Where(act =>
-            {
-                return act.AttackType == AttackType.CharacterDefinitive;
-
-            }).FirstOrDefault();
+            CharacterAttack definitiveAttack = this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().Where(act => act.AttackType == AttackType.CharacterDefinitive).FirstOrDefault();
 
             if (definitiveAttack != null)
             {

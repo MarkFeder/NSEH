@@ -9,10 +9,10 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
-            animator.SetFloat(this.playerInfo.TimeComboAAA02Hash, stateInfo.normalizedTime);
-            if (action != null && action.ButtonHasBeenPressed())
+            animator.SetFloat(_playerInfo.TimeComboAAA02Hash, stateInfo.normalizedTime);
+            if (_action != null && _action.ButtonHasBeenPressed())
             {
-                animator.SetTrigger(this.playerInfo.ComboAAA03Hash);
+                animator.SetTrigger(_playerInfo.ComboAAA03Hash);
             }
         }
 
@@ -20,8 +20,8 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
 
-            animator.SetFloat(this.playerInfo.TimeComboAAA02Hash, 0.0F);
-            animator.ResetTrigger(this.playerInfo.ComboAAA02Hash);
+            animator.SetFloat(_playerInfo.TimeComboAAA02Hash, 0.0F);
+            animator.ResetTrigger(_playerInfo.ComboAAA02Hash);
         }
     } 
 }

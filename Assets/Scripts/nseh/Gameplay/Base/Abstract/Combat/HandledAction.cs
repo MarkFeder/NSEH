@@ -1,146 +1,133 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
-using System;
 using System.Linq;
 using UnityEngine;
+using System;
+using System.Collections;
+using nseh.Gameplay.Entities.Player;
 
 namespace nseh.Gameplay.Base.Abstract
 {
+    [Serializable]
     public abstract class HandledAction : MonoBehaviour, IAction
     {
-        #region Public Properties
+        #region Protected Properties
 
-        public int HashAnimation { get; set; }
-        public string StateName { get; set; }
-        public KeyCode KeyToPress { get; set; }
-        public string ButtonToPress { get; set; }
-        public Animator Animator { get; set; }
+        protected int _hash;
 
-        #endregion
+        protected string _stateName;
+        protected string _button;
 
-        #region Private Properties
-
-        private AnimatorControllerParameterType ParameterType { get; set; }
+        protected PlayerInfo _playerInfo;
+        protected Animator _animator;
+        protected AnimatorControllerParameterType _paramType;
 
         #endregion
 
-        public HandledAction(int hashAnimation, string stateName, Animator animator,
-            KeyCode keyToPress = KeyCode.None, 
-            string buttonToPress = null)
-        {
-            this.HashAnimation = hashAnimation;
-            this.StateName = stateName;
-            this.KeyToPress = keyToPress;
-            this.ButtonToPress = buttonToPress;
-            this.Animator = animator;
+        #region Public C# Properties
 
-            if (this.HashAnimation != 0.0f)
-            {
-                this.ParameterType = this.TypeOfParamAnimator(this.HashAnimation);
-            }
-        }
+        public int Hash { get { return _hash; } }
+
+        public string StateName { get { return _stateName; } }
+
+        public AnimatorControllerParameterType ParamType { get { return _paramType; } }
+
+        public string Button { get { return _button; } }
+
+        public Animator Animator { get { return _animator; } }
+
+        #endregion
 
         #region Protected Methods
 
-        protected AnimatorControllerParameterType TypeOfParamAnimator(int hashAnimation)
+        protected AnimatorControllerParameterType TypeOfParamAnimator(int hash)
         {
-            AnimatorControllerParameter[] parameters = this.Animator.parameters;
-            var animatorController = parameters.Where(p => p.nameHash == hashAnimation).FirstOrDefault();
+            AnimatorControllerParameter[] parameters = _animator.parameters;
+            AnimatorControllerParameter animatorController = parameters.Where(p => p.nameHash == hash).FirstOrDefault();
+
             return animatorController.type;
-        } 
+        }
 
         #endregion
 
         #region Input Support
 
-        public bool KeyHasBeenPressed()
-        {
-            return this.KeyToPress != KeyCode.None && Input.GetKeyDown(this.KeyToPress);
-        }
-
         public bool ButtonHasBeenPressed()
         {
-            return !String.IsNullOrEmpty(this.ButtonToPress) && Input.GetButtonDown(this.ButtonToPress);
-        }
-
-        public bool KeyHasBeenReleased()
-        {
-            return this.KeyToPress != KeyCode.None && Input.GetKeyUp(this.KeyToPress);
-        }
-
-        public bool KeyIsHoldDown()
-        {
-            return this.KeyToPress != KeyCode.None && Input.GetKey(this.KeyToPress);
+            return !String.IsNullOrEmpty(_button) && Input.GetButtonDown(_button);
         }
 
         public bool ButtonIsHoldDown()
         {
-            return !String.IsNullOrEmpty(this.ButtonToPress) && Input.GetButton(this.ButtonToPress);
+            return !String.IsNullOrEmpty(_button) && Input.GetButton(_button);
         }
 
         public bool ButtonHasBeenReleased()
         {
-            return !String.IsNullOrEmpty(this.ButtonToPress) && Input.GetButtonUp(this.ButtonToPress);
+            return !String.IsNullOrEmpty(_button) && Input.GetButtonUp(_button);
         }
 
         public bool ReceiveInput()
         {
-            return this.KeyHasBeenPressed() || this.ButtonHasBeenPressed() ||
-                   this.KeyHasBeenReleased() || this.KeyIsHoldDown() || this.ButtonIsHoldDown() || this.ButtonHasBeenReleased();
+            return ButtonHasBeenPressed() || ButtonIsHoldDown() || ButtonHasBeenReleased();
         }
+
+        #endregion
+
+        #region Public Methods
 
         public override string ToString()
         {
-            return this.StateName;
+            return StateName;
         }
 
         #endregion
 
         #region Virtual Methods
 
-        public virtual void DoAction()
+        public virtual void StartAction()
         {
-            switch (this.ParameterType)
+            switch (_paramType)
             {
                 case AnimatorControllerParameterType.Bool:
-                    this.Animator.SetBool(this.HashAnimation, true);
+                    Animator.SetBool(_hash, true);
                     break;
 
                 case AnimatorControllerParameterType.Trigger:
-                    this.Animator.SetTrigger(this.HashAnimation);
+                    Animator.SetTrigger(_hash);
                     break;
             }
         }
 
-        public virtual void DoAction(float value)
+        public virtual void StartAction(float value)
         {
-            switch (this.ParameterType)
+            switch (_paramType)
             {
                 case AnimatorControllerParameterType.Float:
-                    this.Animator.SetFloat(this.HashAnimation, value);
+                    Animator.SetFloat(_hash, value);
                     break;
             }
         }
 
-        public virtual void DoAction(int value)
+        public virtual void StartAction(int value)
         {
-            switch (this.ParameterType)
+            switch (_paramType)
             {
                 case AnimatorControllerParameterType.Int:
-                    this.Animator.SetInteger(this.HashAnimation, value);
+                    Animator.SetInteger(_hash, value);
                     break;
             }
         }
 
         public virtual void StopAction()
         {
-            switch (this.ParameterType)
+            switch (_paramType)
             {
                 case AnimatorControllerParameterType.Bool:
-                    this.Animator.SetBool(this.HashAnimation, false);
+                    Animator.SetBool(_hash, false);
                     break;
 
                 case AnimatorControllerParameterType.Trigger:
-                    this.Animator.ResetTrigger(this.HashAnimation);
+                    Animator.ResetTrigger(_hash);
                     break;
             }
         }

@@ -10,7 +10,7 @@ namespace nseh.Gameplay.Animations.Behaviour
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
             // On entering this state, disable player's movement component
-            this.playerInfo.PlayerMovement.DisableMovement();
+            _playerInfo.PlayerMovement.DisableMovement();
         }
     }
 }
