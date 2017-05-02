@@ -1,13 +1,13 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Gameflow;
 using nseh.Managers.General;
-using nseh.Managers.Main;
 using nseh.Managers.Level;
+using nseh.Managers.Main;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using LOGS = nseh.Utils.Constants.Logs.PlayerHealth;
 
 namespace nseh.Gameplay.Entities.Player
 {
@@ -252,7 +252,7 @@ namespace nseh.Gameplay.Entities.Player
                     lvlProgress.DecreaseProgress(this.CurrentHealth-oldHealth);
                 }*/
 
-                Debug.Log(String.Format("Health of {0} is: {1} and applying {2}% more has changed to: {3}", this.gameObject.name, oldHealth, percent, this.CurrentHealth));
+                Debug.Log(String.Format(LOGS.INCREASE_HEALTH, this.gameObject.name, oldHealth, percent, this.CurrentHealth));
             }
         }
 
@@ -274,8 +274,8 @@ namespace nseh.Gameplay.Entities.Player
                 {
                     lvlProgress.IncreaseProgress(oldHealth-this.CurrentHealth);
                 }*/
-
-                Debug.Log(String.Format("Health of {0} is: {1} and reducing {2}% has changed to: {3}", this.gameObject.name, oldHealth, percent, this.CurrentHealth));
+                
+                Debug.Log(String.Format(LOGS.DECREASE_HEALTH, this.gameObject.name, oldHealth, percent, this.CurrentHealth));
 
                 /*if (this.CurrentHealth == 0.0f && !this.isDead && lives == 1)
                 {
@@ -361,11 +361,11 @@ namespace nseh.Gameplay.Entities.Player
         {
             this.healthMode = HealthMode.Invulnerability;
 
-            Debug.Log(string.Format("Character {0} is entering Invulnerability mode", this.gameObject.name));
+            Debug.Log(string.Format(LOGS.INVULNERABILITY_MODE_ACTIVATED, this.gameObject.name));
 
             yield return new WaitForSeconds(seconds);
 
-            Debug.Log(string.Format("Character {0} is exiting Invulnerability mode", this.gameObject.name));
+            Debug.Log(string.Format(LOGS.INVULNERABILITY_MODE_DEACTIVATED, this.gameObject.name));
 
             this.healthMode = HealthMode.Normal;
         }
@@ -374,13 +374,13 @@ namespace nseh.Gameplay.Entities.Player
         {
             _bonificationDefense = percent;
 
-            Debug.Log(string.Format("Character {0} has received an extra bonus defense: {1}%", gameObject.name, _bonificationDefense));
+            Debug.Log(string.Format(LOGS.BONIFICATION_DEFENSE_ACTIVATED, gameObject.name, _bonificationDefense));
 
             yield return new WaitForSeconds(seconds);
 
             _bonificationDefense = 0.0f;
 
-            Debug.Log(string.Format("Character {0} has received an extra bonus defense: {1}%", gameObject.name, _bonificationDefense));
+            Debug.Log(string.Format(LOGS.BONIFICATION_DEFENSE_DEACTIVATED, gameObject.name, _bonificationDefense));
         }
 
         private void DisableLife(int life)

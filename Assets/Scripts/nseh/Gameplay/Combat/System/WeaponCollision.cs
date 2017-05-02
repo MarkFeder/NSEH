@@ -14,28 +14,26 @@ using Tags = nseh.Utils.Constants.Tags;
 namespace nseh.Gameplay.Combat.System
 {
     [Serializable]
+    [RequireComponent(typeof(PlayerInfo))]
     [RequireComponent(typeof(Collider))]
     public class WeaponCollision : MonoBehaviour
     {
-        #region Public Properties
-
-        public int index;
-
-        #endregion
-
         #region Private Properties
 
-        private PlayerCombat playerCombat;
-        private PlayerMovement playerMovement;
-        private PlayerInfo playerInfo;
+        [SerializeField]
+        private int _index;
 
-        private List<GameObject> enemyTargets;
-        private GameObject rootCharacter;
+        private PlayerCombat _playerCombat;
+        private PlayerMovement _playerMovement;
+        private PlayerInfo _playerInfo;
 
-        private Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterAttack, PlayerInfo>> collisionHandlersAttacks;
-        private Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterDefense, PlayerInfo>> collisionHandlersAttackAndDefense;
+        private List<GameObject> _enemyTargets;
+        private GameObject _rootCharacter;
 
-        private string parentObjName;
+        private Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterAttack, PlayerInfo>> _collisionHandlersAttacks;
+        private Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterDefense, PlayerInfo>> _collisionHandlersAttackAndDefense;
+
+        private string _parentObjName;
 
         #endregion
 
@@ -43,7 +41,7 @@ namespace nseh.Gameplay.Combat.System
 
         public int Index
         {
-            get { return this.index; }
+            get { return _index; }
         }
 
         #endregion
@@ -54,13 +52,13 @@ namespace nseh.Gameplay.Combat.System
         {
             PlayerMovement enemyMov = enemy.GetComponent<PlayerMovement>();
 
-            return ((this.playerMovement.IsFacingRight && enemyMov.IsFacingRight) ||
-                    (!this.playerMovement.IsFacingRight && !enemyMov.IsFacingRight));
+            return ((_playerMovement.IsFacingRight && enemyMov.IsFacingRight) ||
+                    (!_playerMovement.IsFacingRight && !enemyMov.IsFacingRight));
         }
 
         private void Start()
         {
-            this.SetupWeaponCollision();
+            SetupWeaponCollision();
         }
 
         /// <summary>
@@ -69,24 +67,24 @@ namespace nseh.Gameplay.Combat.System
         private void SetupWeaponCollision()
         {
             // Setup collisionHandlers
-            this.collisionHandlersAttacks = new Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterAttack, PlayerInfo>>();
-            this.collisionHandlersAttacks[-1] = CancelCollisionHandler;
-            this.collisionHandlersAttacks[0] = NoneCollisionHandler;
-            this.collisionHandlersAttacks[1] = FirstOverSecondCollisionHandler;
-            this.collisionHandlersAttacks[2] = SecondOverFirstCollisionHandler;
-            this.collisionHandlersAttacks[3] = BothCollisionHandler;
+            _collisionHandlersAttacks = new Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterAttack, PlayerInfo>>();
+            _collisionHandlersAttacks[-1] = CancelCollisionHandler;
+            _collisionHandlersAttacks[0] = NoneCollisionHandler;
+            _collisionHandlersAttacks[1] = FirstOverSecondCollisionHandler;
+            _collisionHandlersAttacks[2] = SecondOverFirstCollisionHandler;
+            _collisionHandlersAttacks[3] = BothCollisionHandler;
 
-            this.collisionHandlersAttackAndDefense = new Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterDefense, PlayerInfo>>();
-            this.collisionHandlersAttackAndDefense[-1] = CancelCollisionHandlerAttDef;
-            this.collisionHandlersAttackAndDefense[0] = NoneCollisionHandlerAttDef;
+            _collisionHandlersAttackAndDefense = new Dictionary<int, FuncRef<CharacterAttack, PlayerInfo, CharacterDefense, PlayerInfo>>();
+            _collisionHandlersAttackAndDefense[-1] = CancelCollisionHandlerAttDef;
+            _collisionHandlersAttackAndDefense[0] = NoneCollisionHandlerAttDef;
 
-            this.playerInfo = this.transform.root.GetComponent<PlayerInfo>();
-            this.playerCombat = this.playerInfo.PlayerCombat;
-            this.playerMovement = this.playerInfo.PlayerMovement;
-            this.enemyTargets = new List<GameObject>();
+            _playerInfo = transform.root.GetComponent<PlayerInfo>();
+            _playerCombat = _playerInfo.PlayerCombat;
+            _playerMovement = _playerInfo.PlayerMovement;
+            _enemyTargets = new List<GameObject>();
 
-            this.parentObjName = this.transform.root.name;
-            this.rootCharacter = this.transform.root.gameObject;
+            _parentObjName = transform.root.name;
+            _rootCharacter = transform.root.gameObject;
         }
 
         /// <summary>
@@ -101,7 +99,7 @@ namespace nseh.Gameplay.Combat.System
         /// </summary>
         private void OnDisable()
         {
-            this.enemyTargets.Clear();
+            _enemyTargets.Clear();
         }
 
         #endregion
@@ -118,37 +116,37 @@ namespace nseh.Gameplay.Combat.System
             //    Debug.DrawRay(contact.point, contact.normal, Color.red, 5.0f);
             //}
 
-            if (enemy.CompareTag(Tags.PLAYER_BODY) && !this.enemyTargets.Contains(enemy))
+            if (enemy.CompareTag(Tags.PLAYER_BODY) && !_enemyTargets.Contains(enemy))
             {
                 PlayerInfo enemyInfo = enemy.GetComponent<PlayerInfo>();
 
-                if (enemyInfo.Player != this.playerInfo.Player)
+                if (enemyInfo.Player != _playerInfo.Player)
                 {
-                    bool enemyTakenAback = this.EnemyHasBeenTakenAback(ref enemy);
+                    bool enemyTakenAback = EnemyHasBeenTakenAback(ref enemy);
 
                     if (enemyTakenAback)
                     {
-                        var attack = this.playerCombat.CurrentAction as HandledAction;
+                        var attack = _playerCombat.CurrentAction as HandledAction;
 
                         if (!SystemObject.ReferenceEquals(null, attack))
                         {
-                            Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
+                            Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, _parentObjName, attack.StateName));
 
-                            this.PerformDamage(ref this.rootCharacter, ref attack, ref enemy, ref this.playerInfo, ref enemyInfo);
+                            PerformDamage(ref _rootCharacter, ref attack, ref enemy, ref _playerInfo, ref enemyInfo);
                         }
                     }
                     else
                     {
                         // enemies are watching each other
-                        this.enemyTargets.Add(enemy);
+                        _enemyTargets.Add(enemy);
 
-                        var attack = this.playerCombat.CurrentAction as HandledAction;
+                        var attack = _playerCombat.CurrentAction as HandledAction;
 
                         if (!SystemObject.ReferenceEquals(null, attack))
                         {
-                            Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, this.parentObjName, attack.StateName));
+                            Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, _parentObjName, attack.StateName));
 
-                            this.PerformDamage(ref this.rootCharacter, ref attack, ref this.playerInfo, ref this.enemyTargets);
+                            PerformDamage(ref _rootCharacter, ref attack, ref _playerInfo, ref _enemyTargets);
                         }
                     }
                 }
@@ -159,10 +157,10 @@ namespace nseh.Gameplay.Combat.System
         //{
         //    GameObject enemy = collider.gameObject;
 
-        //    if (enemy.CompareTag(Tags.PLAYER) && this.parentObjName != enemy.name)
+        //    if (enemy.CompareTag(Tags.PLAYER) && parentObjName != enemy.name)
         //    {
         //        Debug.Log("OnCollisionExit");
-        //        this.enemyTargets.Remove(enemy);
+        //        enemyTargets.Remove(enemy);
         //    }
         //}
 
@@ -222,7 +220,7 @@ namespace nseh.Gameplay.Combat.System
                         {
                             int conflict = CombatRules.CompareActions(ref senderAction, ref enemyAction);
 
-                            this.ResolveConflict(conflict, ref sender, ref senderAction, ref senderInfo, ref enemy, ref enemyAction, ref enemyInfo);
+                            ResolveConflict(conflict, ref sender, ref senderAction, ref senderInfo, ref enemy, ref enemyAction, ref enemyInfo);
                         }
                         else
                         {
@@ -269,14 +267,14 @@ namespace nseh.Gameplay.Combat.System
                 CharacterAttack enemyAttack = enemyAction as CharacterAttack;
                 CharacterAttack senderAttack = senderAction as CharacterAttack;
 
-                this.ResolveConflict(conflict, ref sender, ref senderAttack, ref senderInfo, ref enemy, ref enemyAttack, ref enemyInfo);
+                ResolveConflict(conflict, ref sender, ref senderAttack, ref senderInfo, ref enemy, ref enemyAttack, ref enemyInfo);
             }
             else if (senderAction is CharacterAttack && enemyAction is CharacterDefense)
             {
                 CharacterAttack senderAttack = senderAction as CharacterAttack;
                 CharacterDefense enemyDefense = enemyAction as CharacterDefense;
 
-                this.ResolveConflict(conflict, ref sender, ref senderAttack, ref senderInfo, ref enemy, ref enemyDefense, ref enemyInfo);
+                ResolveConflict(conflict, ref sender, ref senderAttack, ref senderInfo, ref enemy, ref enemyDefense, ref enemyInfo);
             }
             else
             {
@@ -288,7 +286,7 @@ namespace nseh.Gameplay.Combat.System
         {
             if (conflict == -1 || conflict == 0)
             {
-                this.collisionHandlersAttackAndDefense[conflict].Invoke(ref senderAttack, ref senderInfo, ref enemyDefense, ref enemyInfo);
+                _collisionHandlersAttackAndDefense[conflict].Invoke(ref senderAttack, ref senderInfo, ref enemyDefense, ref enemyInfo);
             }
             else
             {
@@ -300,7 +298,7 @@ namespace nseh.Gameplay.Combat.System
         {
             if (conflict >= -1 && conflict <= 3)
             {
-                this.collisionHandlersAttacks[conflict].Invoke(ref senderAction, ref senderInfo, ref enemyAction, ref enemyInfo);
+                _collisionHandlersAttacks[conflict].Invoke(ref senderAction, ref senderInfo, ref enemyAction, ref enemyInfo);
             }
             else
             {
@@ -455,7 +453,7 @@ namespace nseh.Gameplay.Combat.System
                 enemyInfo.PlayerHealth.TakeDamage((int)senderAttack.CurrentDamage / 2);
 
                 // Animation has been changed, so we have to deactivate this collider
-                enemyInfo.PlayerCombat.DeactivateSpecificCollider(this.index);
+                enemyInfo.PlayerCombat.DeactivateSpecificCollider(_index);
 
                 // Increase Energy
                 senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 4);
@@ -474,7 +472,7 @@ namespace nseh.Gameplay.Combat.System
                 enemyInfo.PlayerHealth.TakeDamage((int)senderAttack.CurrentDamage);
 
                 // Animation has been changed, so we have to deactivate this collider
-                enemyInfo.PlayerCombat.DeactivateSpecificCollider(this.index);
+                enemyInfo.PlayerCombat.DeactivateSpecificCollider(_index);
 
                 // Increase Energy
                 senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 2);
@@ -496,7 +494,7 @@ namespace nseh.Gameplay.Combat.System
             senderAttack.Animator.SetTrigger(senderInfo.ImpactHash);
 
             // Animation has been changed, so we have to deactivate this collider
-            senderInfo.PlayerCombat.DeactivateSpecificCollider(this.index);
+            senderInfo.PlayerCombat.DeactivateSpecificCollider(_index);
 
             // Display effects
             GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleDefense(enemyDefense.CurrentMode),
