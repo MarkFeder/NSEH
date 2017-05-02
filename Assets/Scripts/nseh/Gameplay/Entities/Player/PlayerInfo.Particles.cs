@@ -100,42 +100,42 @@ namespace nseh.Gameplay.Entities.Player
             switch (type)
             {
                 case AttackType.CharacterAttackAStep1:
-                    particle = GameManager.Instance.ObjectPoolManager.GetPool(this.poolParticlesAttackA).GetObject();
+                    particle = GameManager.Instance.LevelManager.ObjectPoolManager.GetPool(this.poolParticlesAttackA).GetObject();
                     this.currentPoolParticle = this.poolParticlesAttackA;
                     break;
 
                 case AttackType.CharacterAttackAStep2:
-                    particle = GameManager.Instance.ObjectPoolManager.GetPool(this.poolParticlesComboAAA).GetObject();
+                    particle = GameManager.Instance.LevelManager.ObjectPoolManager.GetPool(this.poolParticlesComboAAA).GetObject();
                     this.currentPoolParticle = this.poolParticlesComboAAA;
                     break;
 
                 case AttackType.CharacterAttackAStep3:
-                    particle = GameManager.Instance.ObjectPoolManager.GetPool(this.poolParticlesComboAAA).GetObject();
+                    particle = GameManager.Instance.LevelManager.ObjectPoolManager.GetPool(this.poolParticlesComboAAA).GetObject();
                     this.currentPoolParticle = this.poolParticlesComboAAA;
                     break;
 
                 case AttackType.CharacterAttackBStep1:
-                    particle = GameManager.Instance.ObjectPoolManager.GetPool(this.poolParticlesAttackB).GetObject();
+                    particle = GameManager.Instance.LevelManager.ObjectPoolManager.GetPool(this.poolParticlesAttackB).GetObject();
                     this.currentPoolParticle = this.poolParticlesAttackB;
                     break;
 
                 case AttackType.CharacterAttackBStep2:
-                    particle = GameManager.Instance.ObjectPoolManager.GetPool(this.poolParticlesComboBB).GetObject();
+                    particle = GameManager.Instance.LevelManager.ObjectPoolManager.GetPool(this.poolParticlesComboBB).GetObject();
                     this.currentPoolParticle = this.poolParticlesComboBB;
                     break;
 
                 case AttackType.CharacterAttackBSharp:
-                    particle = GameManager.Instance.ObjectPoolManager.GetPool(this.poolParticlesComboBSharp).GetObject();
+                    particle = GameManager.Instance.LevelManager.ObjectPoolManager.GetPool(this.poolParticlesComboBSharp).GetObject();
                     this.currentPoolParticle = this.poolParticlesComboBSharp;
                     break;
 
                 case AttackType.CharacterHability:
-                    particle = GameManager.Instance.ObjectPoolManager.GetPool(this.poolParticlesHability).GetObject();
+                    particle = GameManager.Instance.LevelManager.ObjectPoolManager.GetPool(this.poolParticlesHability).GetObject();
                     this.currentPoolParticle = this.poolParticlesHability;
                     break;
 
                 case AttackType.CharacterDefinitive:
-                    particle = GameManager.Instance.ObjectPoolManager.GetPool(this.poolParticlesDefinitive).GetObject();
+                    particle = GameManager.Instance.LevelManager.ObjectPoolManager.GetPool(this.poolParticlesDefinitive).GetObject();
                     this.currentPoolParticle = this.poolParticlesDefinitive;
                     break;
 
@@ -154,7 +154,7 @@ namespace nseh.Gameplay.Entities.Player
             switch (type)
             {
                 case DefenseType.NormalDefense:
-                    particle = GameManager.Instance.ObjectPoolManager.GetPool(this.poolParticlesDefense).GetObject();
+                    particle = GameManager.Instance.LevelManager.ObjectPoolManager.GetPool(this.poolParticlesDefense).GetObject();
                     this.currentPoolParticle = this.poolParticlesDefense;
                     break;
 
@@ -175,36 +175,36 @@ namespace nseh.Gameplay.Entities.Player
             StringBuilder sb = new StringBuilder();
             List<bool> checkers = new List<bool>();
 
-            sb.AppendFormat(ParticlePools.PLAYER_ATTACK_A, this.playerName);
-            checkers.Add(GameManager.Instance.ObjectPoolManager.CreatePool(sb.ToString(), this.particleAttackA, 5));
+            sb.AppendFormat(ParticlePools.PLAYER_ATTACK_A, _playerName);
+            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleAttackA, 10));
             sb.Clear();
 
-            sb.AppendFormat(ParticlePools.PLAYER_ATTACK_B, this.playerName);
-            checkers.Add(GameManager.Instance.ObjectPoolManager.CreatePool(sb.ToString(), this.particleAttackB, 5));
+            sb.AppendFormat(ParticlePools.PLAYER_ATTACK_B, _playerName);
+            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleAttackB, 10));
             sb.Clear();
 
-            sb.AppendFormat(ParticlePools.PLAYER_COMBO_AAA, this.playerName);
-            checkers.Add(GameManager.Instance.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboAAA, 5));
+            sb.AppendFormat(ParticlePools.PLAYER_COMBO_AAA, _playerName);
+            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboAAA, 10));
             sb.Clear();
 
-            sb.AppendFormat(ParticlePools.PLAYER_COMBO_BB, this.playerName);
-            checkers.Add(GameManager.Instance.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboBB, 5));
+            sb.AppendFormat(ParticlePools.PLAYER_COMBO_BB, _playerName);
+            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboBB, 10));
             sb.Clear();
 
-            sb.AppendFormat(ParticlePools.PLAYER_COMBO_B_SHARP, this.playerName);
-            checkers.Add(GameManager.Instance.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboBSharp, 3));
+            sb.AppendFormat(ParticlePools.PLAYER_COMBO_B_SHARP, _playerName);
+            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboBSharp, 5));
             sb.Clear();
 
-            sb.AppendFormat(ParticlePools.PLAYER_DEFINITIVE, this.playerName);
-            checkers.Add(GameManager.Instance.ObjectPoolManager.CreatePool(sb.ToString(), this.particleDefinitive, 3));
+            sb.AppendFormat(ParticlePools.PLAYER_DEFINITIVE, _playerName);
+            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleDefinitive, 5));
             sb.Clear();
 
-            sb.AppendFormat(ParticlePools.PLAYER_HABILITY, this.playerName);
-            checkers.Add(GameManager.Instance.ObjectPoolManager.CreatePool(sb.ToString(), this.particleHability, 3));
+            sb.AppendFormat(ParticlePools.PLAYER_HABILITY, _playerName);
+            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleHability, 5));
             sb.Clear();
 
-            sb.AppendFormat(ParticlePools.PLAYER_DEFENSE, this.playerName);
-            checkers.Add(GameManager.Instance.ObjectPoolManager.CreatePool(sb.ToString(), this.particleDefense, 5));
+            sb.AppendFormat(ParticlePools.PLAYER_DEFENSE, _playerName);
+            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleDefense, 5));
             sb.Clear();
 
             sb = null;
@@ -223,21 +223,21 @@ namespace nseh.Gameplay.Entities.Player
 
         private void SetupLookUpKeyParticles()
         {
-           this.poolParticlesAttackA = string.Format(ParticlePools.PLAYER_ATTACK_A, this.playerName);
+           this.poolParticlesAttackA = string.Format(ParticlePools.PLAYER_ATTACK_A, _playerName);
 
-           this.poolParticlesAttackB = string.Format(ParticlePools.PLAYER_ATTACK_B, this.playerName);
+           this.poolParticlesAttackB = string.Format(ParticlePools.PLAYER_ATTACK_B, _playerName);
 
-           this.poolParticlesComboAAA = string.Format(ParticlePools.PLAYER_COMBO_AAA, this.playerName);
+           this.poolParticlesComboAAA = string.Format(ParticlePools.PLAYER_COMBO_AAA, _playerName);
 
-           this.poolParticlesComboBB = string.Format(ParticlePools.PLAYER_COMBO_BB, this.playerName);
+           this.poolParticlesComboBB = string.Format(ParticlePools.PLAYER_COMBO_BB, _playerName);
 
-           this.poolParticlesComboBSharp = string.Format(ParticlePools.PLAYER_COMBO_B_SHARP, this.playerName);
+           this.poolParticlesComboBSharp = string.Format(ParticlePools.PLAYER_COMBO_B_SHARP, _playerName);
 
-           this.poolParticlesDefinitive = string.Format(ParticlePools.PLAYER_DEFINITIVE, this.playerName);
+           this.poolParticlesDefinitive = string.Format(ParticlePools.PLAYER_DEFINITIVE, _playerName);
 
-           this.poolParticlesHability = string.Format(ParticlePools.PLAYER_HABILITY, this.playerName);
+           this.poolParticlesHability = string.Format(ParticlePools.PLAYER_HABILITY, _playerName);
 
-           this.poolParticlesDefense = string.Format(ParticlePools.PLAYER_DEFENSE, this.playerName);
+           this.poolParticlesDefense = string.Format(ParticlePools.PLAYER_DEFENSE, _playerName);
         }
 
         #endregion

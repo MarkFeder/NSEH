@@ -9,9 +9,9 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
 
-            animator.SetFloat(this.playerInfo.TimeComboAAA01Hash, 0.0F);
-            animator.SetFloat(this.playerInfo.TimeComboAAA02Hash, 0.0F);
-            animator.ResetTrigger(this.playerInfo.ComboBB02Hash);
+            animator.SetFloat(_playerInfo.TimeComboAAA01Hash, 0.0F);
+            animator.SetFloat(_playerInfo.TimeComboAAA02Hash, 0.0F);
+            animator.ResetTrigger(_playerInfo.ComboBB02Hash);
         }
     } 
 }

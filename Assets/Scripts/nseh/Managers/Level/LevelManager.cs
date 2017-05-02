@@ -12,6 +12,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using LevelHUDConstants = nseh.Utils.Constants.InLevelHUD;
 using Inputs = nseh.Utils.Constants.Input;
+using nseh.Managers.Pool;
 
 namespace nseh.Managers.Level
 {
@@ -60,7 +61,8 @@ namespace nseh.Managers.Level
         private List<SubLevelManager> _subManagersList;
 
         private ParticlesManager _particlesManager;
-
+        private ObjectPoolManager _objectPoolManager;
+    
         private bool _isGameOver;
         private bool _isPaused;
         private bool _canvasLoaded;
@@ -136,6 +138,11 @@ namespace nseh.Managers.Level
         public ParticlesManager ParticlesManager
         {
             get { return _particlesManager; }
+        }
+
+        public ObjectPoolManager ObjectPoolManager
+        {
+            get { return _objectPoolManager; }
         }
 
         #endregion
@@ -414,14 +421,20 @@ namespace nseh.Managers.Level
 
             // Submit submanagers
             AddSubManager<ParticlesManager>();
+            AddSubManager<ObjectPoolManager>();
 
             // Cached submanagers
             _particlesManager = FindSubManager<ParticlesManager>();
+            _objectPoolManager = FindSubManager<ObjectPoolManager>();
         }
 
         public override void Activate()
         {
             IsActivated = true;
+
+            // Activate submanagers
+            _particlesManager.ActivateSubManager();
+            _objectPoolManager.ActivateSubManager();
 
             // Fill some variables
             _numPlayers = Main.GameManager.Instance._numberPlayers;
@@ -456,9 +469,6 @@ namespace nseh.Managers.Level
             Find<Tar_Event>().ActivateEvent();
             Find<ItemSpawn_Event>().ActivateEvent();
             Find<CameraManager>().ActivateEvent();
-
-            // Activate submanagers
-            _particlesManager.ActivateSubManager();
         }
 
         //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
@@ -489,6 +499,8 @@ namespace nseh.Managers.Level
         {
             IsActivated = false;
             Find<ItemSpawn_Event>().EventRelease();
+            _particlesManager.ReleaseSubManager();
+            _objectPoolManager.ReleaseSubManager();
 
             //When player goes to main menu from game scene,
             //the player list must be restarted to avoid conflicts when a new game scene is created.

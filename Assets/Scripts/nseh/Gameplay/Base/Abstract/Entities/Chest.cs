@@ -40,8 +40,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected PlayerInfo particlesSpawnPoints;
 		protected Collider collider;
 		protected Renderer renderer;
-        protected GameObject sprite;
-        protected Text itemText;
+		protected GameObject sprite;
+		protected Text itemText;
 
 		#endregion
 
@@ -51,7 +51,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		{
 			this.collider = this.GetComponent<Collider>();
 			this.renderer = this.GetComponent<Renderer>();
-            this.sprite = this.transform.GetChild(0).gameObject;
+			this.sprite = this.transform.GetChild(0).gameObject;
 
 			this.ResetUses();
 		}
@@ -79,20 +79,21 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected abstract void Activate();
 		protected abstract void Deactivate();
 
-        protected virtual void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag(Tags.PLAYER_BODY))
-            {
-                sprite.SetActive(true);
-            }
-        }
-        protected virtual void OnTriggerStay(Collider other)
+		protected virtual void OnTriggerEnter(Collider other)
 		{
-			if (other.CompareTag(Tags.PLAYER_BODY) && Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, other.GetComponent<PlayerInfo>().gamepadIndex)))
+			if (other.CompareTag(Tags.PLAYER_BODY))
 			{
-                this.SetVisibility(false);
-                sprite.SetActive(false);
-                if (this.currentUses < this.uses)
+				sprite.SetActive(true);
+			}
+		}
+
+		protected virtual void OnTriggerStay(Collider other)
+		{
+			if (other.CompareTag(Tags.PLAYER_BODY) && Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, other.GetComponent<PlayerInfo>().GamepadIndex)))
+			{
+				this.SetVisibility(false);
+				sprite.SetActive(false);
+				if (this.currentUses < this.uses)
 				{
 					this.currentUses++;
 					this.target = other.gameObject;
@@ -106,13 +107,13 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 						case 2:
 							itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P2ItemText;
 							break;
-                        case 3:
-                            itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P3ItemText;
-                            break;
-                        case 4:
-                            itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P4ItemText;
-                            break;
-                    }
+						case 3:
+							itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P3ItemText;
+							break;
+						case 4:
+							itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P4ItemText;
+							break;
+					}
 
 					this.PlaySoundAtPlayer(this.sound);
 					this.Activate();
@@ -128,8 +129,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		{
 			if (other.CompareTag(Tags.PLAYER_BODY))
 			{
-                sprite.SetActive(false);
-            }
+				sprite.SetActive(false);
+			}
 		}
 
 		protected void ParticleAnimation(GameObject particle, float timeToDisplayParticles, Transform particlesPos)

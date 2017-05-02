@@ -236,6 +236,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1234954624648888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4341624177774076}
+  - component: {fileID: 114229055252415370}
+  - component: {fileID: 114067057149564876}
+  - component: {fileID: 114072911916261098}
+  - component: {fileID: 114969698066972448}
+  - component: {fileID: 114287641060360600}
+  - component: {fileID: 114373876742530630}
+  - component: {fileID: 114376842722589548}
+  - component: {fileID: 114949588210931934}
+  m_Layer: 8
+  m_Name: ActionsHolderGO
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1239501612340406
 GameObject:
   m_ObjectHideFlags: 1
@@ -1173,6 +1196,19 @@ Transform:
   m_Father: {fileID: 4674012993960866}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4341624177774076
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234954624648888}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4615774893104214}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4370545694828862
 Transform:
   m_ObjectHideFlags: 1
@@ -1362,13 +1398,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1196191226483754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4582110165165682}
   - {fileID: 4817425128645374}
   - {fileID: 4539171942663926}
   - {fileID: 4962706639210540}
+  - {fileID: 4341624177774076}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1906,6 +1943,48 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190335
+--- !u!114 &114067057149564876
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234954624648888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialDamage: 2
+  _currentDamage: 2
+  _attackType: 2
+--- !u!114 &114072911916261098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234954624648888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialDamage: 5
+  _currentDamage: 5
+  _attackType: 3
+--- !u!114 &114229055252415370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234954624648888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialDamage: 2
+  _currentDamage: 2
+  _attackType: 1
 --- !u!114 &114260751212745758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1918,6 +1997,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 2
+--- !u!114 &114287641060360600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234954624648888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialDamage: 7
+  _currentDamage: 7
+  _attackType: 5
 --- !u!114 &114361435954042190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1929,6 +2022,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49dc322c55b6f045aea34963a8f5455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _actionsHolderGO: {fileID: 1234954624648888}
+--- !u!114 &114373876742530630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234954624648888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4378dcea76b7c0240ad5a7de5e7c7d6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialDamage: 5
+  _currentDamage: 5
+  _attackType: 7
+--- !u!114 &114376842722589548
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234954624648888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b186416722b5a4694ec25280d635b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialDamage: 20
+  _currentDamage: 20
+  _attackType: 8
+  _percent: 100
+  _seconds: 15
+  _sword: {fileID: 23549042365513714}
+  _shovel: {fileID: 23849158185394974}
 --- !u!114 &114409295371350454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2015,14 +2141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1dcb7a16b2f29245b088aef352f4ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAttackA: 2
-  damageAttackB: 5
-  damageComboAAA01: 2
-  damageComboAAA02: 2
-  damageComboBB01: 7
-  damageComboBSharp: 5
-  damageDefinitive: 20
-  damageHability: 5
   particleBodyPos: {fileID: 4817425128645374}
   particleHeadPos: {fileID: 4539171942663926}
   particleFootPos: {fileID: 0}
@@ -2036,10 +2154,36 @@ MonoBehaviour:
   particleDefinitive: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
   particleHability: {fileID: 153390, guid: 3c2d41265118fc14f8065fbfc45391d0, type: 2}
   particleDefense: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
-  gamepadIndex: 1
-  player: 0
-  playerName: SirProspector
-  characterPortrait: {fileID: 21300000, guid: f673fa412cc43b24ab33b52e34ab0e9e, type: 3}
+  _gamepadIndex: 0
+  _player: 1
+  _playerName: SirProspector
+  _characterPortrait: {fileID: 21300000, guid: f673fa412cc43b24ab33b52e34ab0e9e, type: 3}
+--- !u!114 &114949588210931934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234954624648888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0100a03b96b31498291755067f2aff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentMode: 1
+--- !u!114 &114969698066972448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234954624648888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialDamage: 5
+  _currentDamage: 5
+  _attackType: 4
 --- !u!135 &135989348980882486
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -1,4 +1,5 @@
-﻿using nseh.Gameplay.Base.Abstract.Animations;
+﻿using nseh.Gameplay.Base.Abstract;
+using nseh.Gameplay.Base.Abstract.Animations;
 using nseh.Gameplay.Base.Interfaces;
 using nseh.Gameplay.Combat;
 using System.Collections.Generic;
@@ -16,26 +17,26 @@ namespace nseh.Gameplay.Animations.Behaviour
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
             ClearParams(ref animator);
-            this.playerInfo.PlayerMovement.EnableMovement();
+            _playerInfo.PlayerMovement.EnableMovement();
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            this.nextAction = this.playerInfo.PlayerCombat.Actions.Where(action => action.ButtonHasBeenPressed()).FirstOrDefault();
-            if (nextAction != null && nextAction.ButtonHasBeenPressed())
+            nextAction = _playerInfo.PlayerCombat.Actions.Where(action => action.ButtonHasBeenPressed()).FirstOrDefault();
+            if (nextAction != null)
             {
-                this.nextAction.DoAction();
+                this.nextAction.StartAction();
             }
         }
 
         private void ClearParams(ref Animator animator)
         {
-            IEnumerator<CharacterAttack> enumerator = this.playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().GetEnumerator();
+            IEnumerator<CharacterAttack> enumerator = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().GetEnumerator();
             while(enumerator.MoveNext())
             {
-                animator.ResetTrigger(enumerator.Current.HashAnimation);
+                animator.ResetTrigger(enumerator.Current.Hash);
             }
         }
     }

@@ -10,17 +10,17 @@ namespace nseh.Gameplay.Animations.Behaviour
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
             // On entering this state, disable player's movement component
-            this.playerInfo.PlayerMovement.DisableMovement();
+            _playerInfo.PlayerMovement.DisableMovement();
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            animator.SetFloat(this.playerInfo.TimeComboBB01Hash, stateInfo.normalizedTime);
-            if (action != null && action.ButtonHasBeenPressed())
+            animator.SetFloat(_playerInfo.TimeComboBB01Hash, stateInfo.normalizedTime);
+            if (_action != null && _action.ButtonHasBeenPressed())
             {
-                animator.SetTrigger(this.playerInfo.ComboBB02Hash);
+                animator.SetTrigger(_playerInfo.ComboBB02Hash);
             }
         }
 
@@ -28,8 +28,8 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
 
-            animator.SetFloat(this.playerInfo.TimeComboBB01Hash, 0.0F);
-            animator.ResetTrigger(this.playerInfo.ComboBB01Hash);
+            animator.SetFloat(_playerInfo.TimeComboBB01Hash, 0.0F);
+            animator.ResetTrigger(_playerInfo.ComboBB01Hash);
         }
     } 
 }

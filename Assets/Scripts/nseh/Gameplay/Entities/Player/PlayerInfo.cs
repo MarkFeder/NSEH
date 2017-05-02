@@ -1,4 +1,6 @@
-﻿using System;
+﻿using nseh.Gameplay.Combat;
+using nseh.Gameplay.Combat.Defense;
+using System;
 using System.Collections;
 using UnityEngine;
 using Inputs = nseh.Utils.Constants.Input;
@@ -11,37 +13,37 @@ namespace nseh.Gameplay.Entities.Player
     [RequireComponent(typeof(PlayerCombat))]
     public partial class PlayerInfo : MonoBehaviour
     {
-        #region Public Properties
+        #region Private Properties
 
         [Header("Input properties")]
-        public int gamepadIndex;
+        [SerializeField]
+        private int _gamepadIndex;
 
         [Range(1, 4)]
-        public int player;
-        public string playerName;
-        public Sprite characterPortrait;
+        [SerializeField]
+        private int _player;
+        [SerializeField]
+        private string _playerName;
+        [SerializeField]
+        private Sprite _characterPortrait;
 
         [Space(20)]
 
-        #endregion
+        private Rigidbody _body;
+        private Animator _animator;
+        private Collider _playerCollider;
+        private PlayerHealth _playerHealth;
+        private PlayerEnergy _playerEnergy;
+        private PlayerMovement _playerMovement;
+        private PlayerCombat _playerCombat;
 
-        #region Private Properties
+        private float _horizontal;
+        private float _vertical;
 
-        private Rigidbody body;
-        private Animator animator;
-        private Collider playerCollider;
-        private PlayerHealth playerHealth;
-        private PlayerEnergy playerEnergy;
-        private PlayerMovement playerMovement;
-        private PlayerCombat playerCombat;
+        private int _score;
 
-        private float horizontal;
-        private float vertical;
-
-        private int score;
-
-        private bool teletransported;
-        private bool jumpPressed;
+        private bool _teletransported;
+        private bool _jumpPressed;
 
         #endregion
 
@@ -51,12 +53,12 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.horizontal;
+                return _horizontal;
             }
 
             set
             {
-                this.horizontal = value;
+                _horizontal = value;
             }
         }
 
@@ -64,12 +66,12 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.vertical;
+                return _vertical;
             }
 
             set
             {
-                this.vertical = value;
+                _vertical = value;
             }
         }
 
@@ -77,12 +79,12 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.gamepadIndex;
+                return _gamepadIndex;
             }
 
             set
             {
-                this.gamepadIndex = value;
+                _gamepadIndex = value;
             }
         }
 
@@ -90,12 +92,12 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.player;
+                return _player;
             }
 
             set
             {
-                this.player = value;
+                _player = value;
             }
         }
 
@@ -103,12 +105,12 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return score;
+                return _score;
             }
 
             set
             {
-                score = value;
+                _score = value;
             }
         }
 
@@ -116,12 +118,12 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.teletransported;
+                return _teletransported;
             }
 
             set
             {
-                this.teletransported = value;
+                _teletransported = value;
             }
         }
 
@@ -129,7 +131,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.jumpPressed;
+                return _jumpPressed;
             }
         }
 
@@ -137,7 +139,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return (this.characterPortrait) ? this.characterPortrait : null;
+                return (_characterPortrait) ? _characterPortrait : null;
             }
         }
 
@@ -145,7 +147,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return (this.body) ? this.body : null;
+                return (_body) ? _body : null;
             }
         }
 
@@ -153,7 +155,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.animator;
+                return _animator;
             }
         }
 
@@ -161,7 +163,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.playerHealth;
+                return _playerHealth;
             }
         }
 
@@ -169,7 +171,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.playerEnergy;
+                return _playerEnergy;
             }
         }
 
@@ -177,7 +179,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.playerMovement;
+                return _playerMovement;
             }
         }
 
@@ -185,7 +187,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.playerCombat;
+                return _playerCombat;
             }
         }
 
@@ -193,45 +195,104 @@ namespace nseh.Gameplay.Entities.Player
         {
             get
             {
-                return this.playerName;
+                return _playerName;
             }
         }
 
         public Collider PlayerCollider
         {
-            get { return this.playerCollider; }
+            get { return _playerCollider; }
         }
 
         #endregion
 
         private void Awake()
         {
-            this.body = GetComponent<Rigidbody>();
-            this.animator = GetComponent<Animator>();
+            _body = GetComponent<Rigidbody>();
+            _animator = GetComponent<Animator>();
 
-            this.playerHealth = GetComponent<PlayerHealth>();
-            this.playerEnergy = GetComponent<PlayerEnergy>();
-            this.playerMovement = GetComponent<PlayerMovement>();
-            this.playerCombat = GetComponent<PlayerCombat>();
-            this.playerCollider = GetComponent<Collider>();
+            _playerHealth = GetComponent<PlayerHealth>();
+            _playerEnergy = GetComponent<PlayerEnergy>();
+            _playerMovement = GetComponent<PlayerMovement>();
+            _playerCombat = GetComponent<PlayerCombat>();
+            _playerCollider = GetComponent<Collider>();
 
-            this.SetupParticles();
-            this.SetupLookUpKeyParticles();
+            SetupParticles();
+            SetupLookUpKeyParticles();
         }
 
         private void Start()
         {
-            this.score = 0;
-            this.teletransported = false;
-            this.jumpPressed = false;
+            _score = 0;
+            _teletransported = false;
+            _jumpPressed = false;
         }
 
         private void Update()
         {
-            this.horizontal = InputUE.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, this.gamepadIndex));
-            this.vertical = InputUE.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, this.gamepadIndex));
+            _horizontal = InputUE.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, _gamepadIndex));
+            _vertical = InputUE.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, _gamepadIndex));
 
-            this.jumpPressed = InputUE.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex));
+            _jumpPressed = InputUE.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, _gamepadIndex));
         }
+
+        #region Public Methods
+        
+        public string GetButton(AttackType type)
+        {
+            string button = null;
+
+            switch(type)
+            {
+                case AttackType.CharacterAttackAStep1:
+                case AttackType.CharacterAttackAStep2:
+                case AttackType.CharacterAttackAStep3:
+                    button = String.Format("{0}{1}", Inputs.A, _gamepadIndex);
+                    break;
+
+                case AttackType.CharacterAttackBStep1:
+                case AttackType.CharacterAttackBStep2:
+                    button = String.Format("{0}{1}", Inputs.B, _gamepadIndex);
+                    break;
+
+                case AttackType.CharacterAttackBSharp:
+                    button = null;
+                    break;
+
+                case AttackType.CharacterDefinitive:
+                    button = String.Format("{0}{1}", Inputs.DEFINITIVE, _gamepadIndex);
+                    break;
+
+                case AttackType.CharacterHability:
+                    button = String.Format("{0}{1}", Inputs.HABILITY, _gamepadIndex);
+                    break;
+
+                case AttackType.None:
+                    button = null;
+                    break;
+            }
+
+            return button;
+        }
+
+        public string GetButton(DefenseType type)
+        {
+            string button = null;
+
+            switch (type)
+            {
+                case DefenseType.None:
+                    button = null;
+                    break;
+
+                case DefenseType.NormalDefense:
+                    button = String.Format("{0}{1}", Inputs.DEFENSE, _gamepadIndex);
+                    break;
+            }
+
+            return button;
+        } 
+
+        #endregion
     }
 }

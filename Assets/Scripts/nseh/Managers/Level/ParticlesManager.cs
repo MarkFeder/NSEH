@@ -1,5 +1,6 @@
 ﻿using nseh.Gameplay.Base.Abstract.Gameflow;
 using nseh.Managers.Main;
+using nseh.Utils.Helpers;
 using System.Collections;
 using UnityEngine;
 
@@ -7,12 +8,6 @@ namespace nseh.Managers.Level
 {
     public class ParticlesManager : SubLevelManager
     {
-        #region Private Properties
-
-        private int _destructionTime;
-
-        #endregion
-
         #region SubLevelManager Methods
 
         public override void ActivateSubManager()
@@ -22,7 +17,10 @@ namespace nseh.Managers.Level
 
         public override void SubManagerTick() {}
 
-        public override void ReleaseSubManager() {}
+        public override void ReleaseSubManager()
+        {
+            GameManager.Instance.StopAllCoroutines();
+        }
 
         #endregion
 
@@ -70,7 +68,7 @@ namespace nseh.Managers.Level
             yield return new WaitForSeconds(seconds);
 
             // Destroy particle
-            GameManager.Instance.ObjectPoolManager.GetPool(poolName).DestroyObject(particle);
+            _levelManager.ObjectPoolManager.GetPool(poolName).DestroyObject(particle);
         }
 
         #endregion

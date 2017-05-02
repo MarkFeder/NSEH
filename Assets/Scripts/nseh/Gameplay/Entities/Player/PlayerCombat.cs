@@ -1,4 +1,5 @@
-﻿using nseh.Gameplay.Base.Interfaces;
+﻿using nseh.Gameplay.Base.Abstract;
+using nseh.Gameplay.Base.Interfaces;
 using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
 using nseh.Gameplay.Combat.System;
@@ -7,20 +8,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Inputs = nseh.Utils.Constants.Input;
 using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Entities.Player
 {
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(PlayerInfo))]
     public class PlayerCombat : MonoBehaviour
     {
         #region Private Properties
 
-        private List<Collider> colliders;
-        private PlayerInfo playerInfo;
+        [SerializeField]
+        private GameObject _actionsHolderGO;
 
-        private List<IAction> actions;
+        private List<IAction> _playerActions;
+        private List<Collider> _colliders;
+        private PlayerInfo _playerInfo;
 
         #endregion
 
@@ -28,70 +30,68 @@ namespace nseh.Gameplay.Entities.Player
 
         public List<IAction> Actions
         {
-            get { return this.actions; }
+            get { return _playerActions; }
         }
 
         public int CurrentHashAnimation
         {
-            get { return (this.playerInfo.Animator.GetCurrentAnimatorStateInfo(0).shortNameHash); }
+            get { return (_playerInfo.Animator.GetCurrentAnimatorStateInfo(0).shortNameHash); }
         }
 
         public IAction CurrentAction
         {
-            get { return this.actions.Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault(); }
-        }
-
-        public IAction CurrentDefenseAction
-        {
-            get { return this.actions.OfType<CharacterDefense>().Where(act => act.HashAnimation == this.CurrentHashAnimation).FirstOrDefault(); }
-        }
-
-        public GameObject TargetEnemy
-        {
-            get;
-            set;
+            get { return _playerActions.Where(act => act.Hash == CurrentHashAnimation).FirstOrDefault(); }
         }
 
         #endregion
 
+        #region Private Methods
+
         private void Awake()
         {
-            this.colliders = this.gameObject.GetSafeComponentsInChildren<Collider>().Where(c => c.tag.Equals(Tags.WEAPON)).ToList();
+            _colliders = gameObject.GetSafeComponentsInChildren<Collider>().Where(c => c.tag.Equals(Tags.WEAPON)).ToList();
         }
 
         private void Start()
         {
-            this.playerInfo = GetComponent<PlayerInfo>();
-            this.actions = this.FillCharacterActions();
+            _playerInfo = GetComponent<PlayerInfo>();
+
+            _playerActions = _actionsHolderGO.GetComponents<HandledAction>().Cast<IAction>().ToList();
+        }
+
+        /// <summary>
+        /// Init all player actions. It is useful for making a gameobject 
+        /// which contains all the player's actions on runtime.
+        /// </summary>
+        private void InitPlayerActions()
+        {
+            foreach (HandledAction baseAction in _playerActions)
+            {
+                // Grab info from prefabs references and attach them to real go holder actions
+
+                Component co = _actionsHolderGO.AddComponent(baseAction.GetType());
+
+                if (baseAction.GetType() == typeof(CharacterAttack))
+                {
+                    CharacterAttack ca = baseAction as CharacterAttack;
+                    (co as CharacterAttack).InitAttackAction(ca.CurrentDamage, ca.InitialDamage, ca.AttackType);
+                }
+
+                if (baseAction.GetType() == typeof(CharacterDefense))
+                {
+                    CharacterDefense cd = baseAction as CharacterDefense;
+                    (co as CharacterDefense).InitDefenseAction(cd.CurrentMode);
+                }
+            }
         }
 
         private void Update()
         {
-            if (this.CurrentAction != null)
+            if (CurrentAction != null)
             {
-                Debug.Log(string.Format("[{0}] - Current action is: {1}", this.playerInfo.PlayerName, this.CurrentAction.ToString()));
+                Debug.Log(string.Format("[{0}] - Current action is: {1}", _playerInfo.PlayerName, CurrentAction.ToString()));
             }
-        }
-
-
-        #region Actions 
-
-        private List<IAction> FillCharacterActions()
-        {
-            var list = new List<IAction>()
-            {
-                new CharacterAttack(AttackType.CharacterAttackAStep1, this.playerInfo.ComboAAA01Hash, this.playerInfo.ComboAAA01StateName, this.playerInfo.Animator, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.playerInfo.GamepadIndex), this.playerInfo.DamageAttackA),
-                new CharacterAttack(AttackType.CharacterAttackAStep2, this.playerInfo.ComboAAA02Hash, this.playerInfo.ComboAAA02StateName, this.playerInfo.Animator, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.playerInfo.GamepadIndex), this.playerInfo.DamageComboAAA01),
-                new CharacterAttack(AttackType.CharacterAttackAStep3, this.playerInfo.ComboAAA03Hash, this.playerInfo.ComboAAA03StateName, this.playerInfo.Animator, KeyCode.None, String.Format("{0}{1}", Inputs.A, this.playerInfo.GamepadIndex), this.playerInfo.DamageComboAAA02),
-                new CharacterAttack(AttackType.CharacterAttackBStep1, this.playerInfo.ComboBB01Hash, this.playerInfo.ComboBB01StateName, this.playerInfo.Animator, KeyCode.None, String.Format("{0}{1}", Inputs.B, this.playerInfo.GamepadIndex), this.playerInfo.DamageAttackB),
-                new CharacterAttack(AttackType.CharacterAttackBStep2, this.playerInfo.ComboBB02Hash, this.playerInfo.ComboBB02StateName, this.playerInfo.Animator, KeyCode.None, String.Format("{0}{1}", Inputs.B, this.playerInfo.GamepadIndex), this.playerInfo.DamageComboBB01),
-                new CharacterAttack(AttackType.CharacterDefinitive, this.playerInfo.DefinitiveHash, this.playerInfo.DefinitiveStateName, this.playerInfo.Animator, KeyCode.None, String.Format("{0}{1}", Inputs.DEFINITIVE, this.playerInfo.GamepadIndex), this.playerInfo.DamageDefinitive),
-                new CharacterAttack(AttackType.CharacterHability, this.playerInfo.HabilityHash, this.playerInfo.HabilityStateName, this.playerInfo.Animator, KeyCode.None, String.Format("{0}{1}", Inputs.HABILITY, this.playerInfo.GamepadIndex), this.playerInfo.DamageHability),
-                new CharacterDefense(DefenseType.NormalDefense, this.playerInfo.DefenseHash, this.playerInfo.DefenseStateName, this.playerInfo.Animator, KeyCode.None, String.Format("{0}{1}", Inputs.DEFENSE, this.playerInfo.GamepadIndex))
-            };
-
-            return list;
-        }
+        } 
 
         #endregion
 
@@ -99,12 +99,12 @@ namespace nseh.Gameplay.Entities.Player
 
         public void DeactivateSpecificCollider(int index)
         {
-            if (this.colliders != null && this.colliders.Count > 0)
+            if (_colliders != null && _colliders.Count > 0)
             {
-                // Deactivate other colliders
-                for (int i = 0; i < this.colliders.Count; i++)
+                // Deactivate specific colliders
+                for (int i = 0; i < _colliders.Count; i++)
                 {
-                    Collider collider = this.colliders[i];
+                    Collider collider = _colliders[i];
                     WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
 
                     if (weaponCollision.Index == index)
@@ -123,15 +123,19 @@ namespace nseh.Gameplay.Entities.Player
         #endregion
 
         #region Animation Events
-
+        
+        /// <summary>
+        /// Activate the collider. This event is triggered by the animation.
+        /// </summary>
+        /// <param name="index">The weapon to be activated.</param>
         public void ActivateCollider(int index)
         {
-            if (this.colliders != null && this.colliders.Count > 0)
+            if (_colliders != null && _colliders.Count > 0)
             {
                 // Deactivate other colliders
-                for (int i = 0; i < this.colliders.Count; i++)
+                for (int i = 0; i < _colliders.Count; i++)
                 {
-                    Collider collider = this.colliders[i];
+                    Collider collider = _colliders[i];
                     WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
 
                     if (weaponCollision.Index != index)
@@ -152,14 +156,18 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        /// <summary>
+        /// Deactivate the collider. This event is triggered by the animation.
+        /// </summary>
+        /// <param name="index">The weapon to be deactivated.</param>
         public void DeactivateCollider(int index)
         {
-            if (this.colliders != null && this.colliders.Count > 0)
+            if (_colliders != null && _colliders.Count > 0)
             {
-                // Deactivate other colliders
-                for (int i = 0; i < this.colliders.Count; i++)
+                // Deactivate all the colliders
+                for (int i = 0; i < _colliders.Count; i++)
                 {
-                    Collider collider = this.colliders[i];
+                    Collider collider = _colliders[i];
                     WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
 
                     collider.enabled = false;

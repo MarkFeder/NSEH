@@ -1,4 +1,5 @@
 ﻿using nseh.Gameplay.Base.Abstract;
+using nseh.Gameplay.Entities.Player;
 using UnityEngine;
 
 namespace nseh.Gameplay.Combat.Defense
@@ -11,20 +12,47 @@ namespace nseh.Gameplay.Combat.Defense
 
     public class CharacterDefense : HandledAction
     {
-        #region Public C# Properties
+        #region Private Properties
 
-        public DefenseType CurrentMode { get; private set; }
+        [SerializeField]
+        private DefenseType _currentMode;
 
         #endregion
 
-        public CharacterDefense(DefenseType defenseType, int hashAnimation, string stateName, Animator animator,
-            KeyCode keyToPress = KeyCode.None,
-            string buttonToPress = null)
-            : base(hashAnimation, stateName, animator)
+        #region Public C# Properties
+
+        public DefenseType CurrentMode { get { return _currentMode; } }
+
+        #endregion
+
+        protected virtual void Start()
         {
-            this.KeyToPress = keyToPress;
-            this.ButtonToPress = buttonToPress;
-            this.CurrentMode = defenseType;
+            _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
+            _animator = _playerInfo.Animator;
+
+            _hash = _playerInfo.GetHash(_currentMode);
+            _stateName = _playerInfo.GetStateNameInfo(_currentMode);
+            _button = _playerInfo.GetButton(_currentMode);
+
+            _paramType = TypeOfParamAnimator(_hash);
+        }
+
+        /// <summary>
+        /// Init this defense action.
+        /// </summary>
+        /// <param name="currentMode">The type of this defense.</param>
+        public void InitDefenseAction(DefenseType currentMode)
+        {
+            _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
+            _animator = _playerInfo.Animator;
+
+            _currentMode = currentMode;
+
+            _hash = _playerInfo.GetHash(_currentMode);
+            _stateName = _playerInfo.GetStateNameInfo(_currentMode);
+            _button = _playerInfo.GetButton(_currentMode);
+
+            _paramType = TypeOfParamAnimator(_hash);
         }
     }
 }

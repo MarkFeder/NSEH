@@ -1,10 +1,11 @@
-﻿using System;
+﻿using nseh.Gameplay.Base.Abstract.Gameflow;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace nseh.Managers.Pool
 {
-    public class ObjectPoolManager : Service
+    public class ObjectPoolManager : SubLevelManager
     {
         #region Private Properties
 
@@ -24,19 +25,20 @@ namespace nseh.Managers.Pool
 
         #region Service Methods
 
-        public override void Activate()
+        public override void ActivateSubManager()
         {
-            IsActivated = true;
+            _isActivated = true;
 
             _objectPools = new Dictionary<string, ObjectPool>();
         }
 
-        public override void Tick()
+        public override void SubManagerTick()
         {
         }
 
-        public override void Release()
+        public override void ReleaseSubManager()
         {
+            ClearPools();
         }
 
         #endregion
@@ -77,6 +79,24 @@ namespace nseh.Managers.Pool
             {
                 Debug.Log(string.Format("Pool with name <{0}> does not exist!", poolName));
                 return null;
+            }
+        }
+
+        public void ClearPools()
+        {
+            // Clear all the pools
+            if (_objectPools.Count > 0)
+            {
+                foreach (KeyValuePair<String, ObjectPool> entry in _objectPools)
+                {
+                    entry.Value.ClearPool();
+                }
+
+                _objectPools.Clear();
+            }
+            else
+            {
+                Debug.Log("Pools have not been cleared!");
             }
         }
 

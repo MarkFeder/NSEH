@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using MoveAnimParameters = nseh.Utils.Constants.Animations.Movement;
-using CombatAnimParameters= nseh.Utils.Constants.Animations.Combat;
+using CombatAnimParameters = nseh.Utils.Constants.Animations.Combat;
+using nseh.Gameplay.Combat;
+using nseh.Gameplay.Combat.Defense;
 
 namespace nseh.Gameplay.Entities.Player
 {
@@ -59,6 +61,138 @@ namespace nseh.Gameplay.Entities.Player
         public int TimeComboAAA01Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_AAA_01_TIME); } }
         public int TimeComboAAA02Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_AAA_02_TIME); } }
         public int TimeComboBB01Hash { get { return Animator.StringToHash(CombatAnimParameters.CHARACTER_COMBO_BB_01_TIME); } }
+
+        #endregion
+
+        #region Public Methods
+
+        public int GetHash(AttackType type)
+        {
+            int hash = -1;
+
+            switch (type)
+            {
+                case AttackType.None:
+                    hash = -1;
+                    break;
+
+                case AttackType.CharacterAttackAStep1:
+                    hash = ComboAAA01Hash;
+                    break;
+
+                case AttackType.CharacterAttackAStep2:
+                    hash = ComboAAA02Hash;
+                    break;
+
+                case AttackType.CharacterAttackAStep3:
+                    hash = ComboAAA03Hash;
+                    break;
+
+                case AttackType.CharacterAttackBStep1:
+                    hash = ComboBB01Hash;
+                    break;
+
+                case AttackType.CharacterAttackBStep2:
+                    hash = ComboBB02Hash;
+                    break;
+
+                case AttackType.CharacterAttackBSharp:
+                    hash = -1;
+                    break;
+
+                case AttackType.CharacterHability:
+                    hash = HabilityHash;
+                    break;
+
+                case AttackType.CharacterDefinitive:
+                    hash = DefinitiveHash;
+                    break;
+            }
+
+            return hash;
+        }
+
+        public int GetHash(DefenseType type)
+        {
+            int hash = -1;
+
+            switch (type)
+            {
+                case DefenseType.None:
+                    hash = -1;
+                    break;
+
+                case DefenseType.NormalDefense:
+                    hash = DefenseHash;
+                    break;
+            }
+
+            return hash;
+        }
+
+        public string GetStateNameInfo(AttackType type)
+        {
+            string nameInfo = null;
+
+            switch (type)
+            {
+                case AttackType.None:
+                    nameInfo = null;
+                    break;
+
+                case AttackType.CharacterAttackAStep1:
+                    nameInfo = ComboAAA01StateName;
+                    break;
+
+                case AttackType.CharacterAttackAStep2:
+                    nameInfo = ComboAAA02StateName;
+                    break;
+
+                case AttackType.CharacterAttackAStep3:
+                    nameInfo = ComboAAA03StateName;
+                    break;
+
+                case AttackType.CharacterAttackBStep1:
+                    nameInfo = ComboBB01StateName;
+                    break;
+
+                case AttackType.CharacterAttackBStep2:
+                    nameInfo = ComboBB02StateName;
+                    break;
+
+                case AttackType.CharacterAttackBSharp:
+                    nameInfo = null;
+                    break;
+
+                case AttackType.CharacterHability:
+                    nameInfo = HabilityStateName;
+                    break;
+
+                case AttackType.CharacterDefinitive:
+                    nameInfo = DefinitiveStateName;
+                    break;
+            }
+
+            return nameInfo;
+        }
+
+        public string GetStateNameInfo(DefenseType type)
+        {
+            string nameInfo = null;
+
+            switch (type)
+            {
+                case DefenseType.None:
+                    nameInfo = null;
+                    break;
+
+                case DefenseType.NormalDefense:
+                    nameInfo = DefenseStateName;
+                    break;
+            }
+
+            return nameInfo;
+        }
 
         #endregion
     }

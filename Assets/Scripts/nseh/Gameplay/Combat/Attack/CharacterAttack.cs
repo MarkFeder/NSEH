@@ -1,4 +1,5 @@
 ﻿using nseh.Gameplay.Base.Abstract;
+using nseh.Gameplay.Entities.Player;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -18,79 +19,47 @@ namespace nseh.Gameplay.Combat
         CharacterDefinitive = 8,
     }
 
-    public class CharacterAttack : HandledAction
+    public class CharacterAttack : HandledAction 
     {
-        #region Public Properties
+        #region Protected Properties
 
-        public GameObject particlePrefab;
+        [SerializeField]
+        protected float _initialDamage;
+        [SerializeField]
+        protected float _currentDamage;
+        [SerializeField]
+        protected AttackType _attackType;
+
+        protected bool _critical;
+        protected bool _enabled;
 
         #endregion
 
         #region Private Properties
 
-        private float initialDamage;
-        private float currentDamage;
-        private bool critical;
+
 
         #endregion
 
         #region Public C# Properties
 
-        public float InitialDamage
-        {
-            get
-            {
-                return this.initialDamage;
-            }
-        }
+        public float InitialDamage { get { return _initialDamage; } }
 
-        public bool Critical
-        {
-            get
-            {
-                return this.critical;
-            }
+        public float CurrentDamage { get { return _currentDamage; } set { _currentDamage = value; } }
 
-            set
-            {
-                this.critical = value;
-            }
-        }
+        public bool Critical { get { return _critical;  } set { _critical = value; } }
 
-        public float CurrentDamage
-        {
-            get
-            {
-                return this.currentDamage;
-            }
-
-            set
-            {
-                this.currentDamage = value;
-            }
-        }
-
-        public bool EnabledAttack
-        {
-            get;
-            set;
-        }
-
-        public AttackType AttackType
-        {
-            get;
-            private set;
-        }
+        public bool EnabledAttack { get { return _enabled; } set { _enabled = value; } }
 
         public bool IsCombo
         {
             get
             {
-                return this.AttackType == AttackType.CharacterAttackAStep1 ||
-                       this.AttackType == AttackType.CharacterAttackAStep2 ||
-                       this.AttackType == AttackType.CharacterAttackAStep3 ||
-                       this.AttackType == AttackType.CharacterAttackBStep1 ||
-                       this.AttackType == AttackType.CharacterAttackBStep2;         
+                return AttackType == AttackType.CharacterAttackAStep1 ||
+                       AttackType == AttackType.CharacterAttackAStep2 ||
+                       AttackType == AttackType.CharacterAttackAStep3 ||
+                       AttackType == AttackType.CharacterAttackBStep1 ||
+                       AttackType == AttackType.CharacterAttackBStep2;
             }
         }
 
@@ -98,111 +67,149 @@ namespace nseh.Gameplay.Combat
         {
             get
             {
-                return !(this.AttackType == AttackType.CharacterDefinitive ||
-                       this.AttackType == AttackType.CharacterHability);
+                return !(AttackType == AttackType.CharacterDefinitive ||
+                       AttackType == AttackType.CharacterHability);
             }
         }
 
+        public AttackType AttackType { get { return _attackType; } }
+
         #endregion
 
-        public CharacterAttack(AttackType attackType, int hashAnimation, string stateName, Animator animator,
-            KeyCode keyToPress = KeyCode.None,
-            string buttonToPress = null,
-            float damage = 0.0f)
-            : base(hashAnimation, stateName, animator)
+        protected virtual void Start()
         {
-            this.KeyToPress = keyToPress;
-            this.ButtonToPress = buttonToPress;
-            this.AttackType = attackType;
-            this.EnabledAttack = true;
+            _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
+            _animator = _playerInfo.Animator;
 
-            this.initialDamage = damage;
-            this.currentDamage = damage;
-            this.critical = false;
+            _hash = _playerInfo.GetHash(_attackType);
+            _stateName = _playerInfo.GetStateNameInfo(_attackType);
+            _button = _playerInfo.GetButton(_attackType);
+
+            _paramType = TypeOfParamAnimator(_hash);
+
+            _enabled = true;
+            _critical = false;
+        }
+
+        /// <summary>
+        /// Init this attack action (for external calls).
+        /// </summary>
+        /// <param name="currentDamage">The current damage of this attack.</param>
+        /// <param name="initialDamage">The initial damage of this attack.</param>
+        /// <param name="attackType">The type of this attack.</param>
+        public void InitAttackAction(float currentDamage, float initialDamage, AttackType attackType)
+        {
+            _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
+            _animator = _playerInfo.Animator;
+
+            _attackType = attackType;
+            _currentDamage = currentDamage;
+            _initialDamage = initialDamage;
+
+            _hash = _playerInfo.GetHash(_attackType);
+            _stateName = _playerInfo.GetStateNameInfo(_attackType);
+            _button = _playerInfo.GetButton(_attackType);
+
+            _paramType = TypeOfParamAnimator(_hash);
+
+            _enabled = true;
+            _critical = false;
         }
 
         #region Public Methods
 
-        public void PlayParticleAtPosition(Vector3 posParticle)
+        /// <summary>
+        /// Start attack action.
+        /// </summary>
+        public override void StartAction()
         {
-            GameObject particleObj = Instantiate(this.particlePrefab, posParticle, Quaternion.identity);
-            ParticleSystem particleComponent = particleObj.GetComponent<ParticleSystem>();
-
-            if (particleComponent != null)
+            if (_enabled)
             {
-                particleComponent.Play();
-            }
-        }
-
-        public override void DoAction()
-        {
-            if (this.EnabledAttack)
-            {
-                if (this.IsSimpleAttack && this.critical)
+                if (IsSimpleAttack && _critical)
                 {
-                    base.DoAction();
+                    base.StartAction();
 
-                    this.critical = false;
-                    this.currentDamage = this.initialDamage;
+                    _critical = false;
+                    _currentDamage = _initialDamage;
                 }
                 else
                 {
-                    base.DoAction();
-                }
+                    base.StartAction();
+                } 
             }
         }
 
         /// <summary>
-        /// Increase damage by percent for a total of seconds
+        /// Increase damage by percent for a total of seconds.
+        /// It is used for external coroutines.
         /// </summary>
-        /// <param name="percent"></param>
-        /// <param name="seconds"></param>
+        /// <param name="percent">The percent to be incremented.</param>
+        /// <param name="seconds">The number of seconds this increase take.</param>
+        /// <returns></returns>
+        public IEnumerator IncreaseDamageForSecondsExternal(float percent, float seconds)
+        {
+            var oldDamage = _currentDamage;
+
+            IncreaseDamage(percent);
+
+            yield return new WaitForSeconds(seconds);
+
+            Debug.Log(string.Format("[{0}] damage of {1} has been restored to: {2}", AttackType.ToString(), _playerInfo.PlayerName, oldDamage));
+
+            _currentDamage = oldDamage;
+        }
+
+        /// <summary>
+        /// Increase damage by percent for a total of seconds.
+        /// </summary>
+        /// <param name="percent">The percent to be incremented.</param>
+        /// <param name="seconds">The number of seconds this increase take.</param>
         public void IncreaseDamageForSeconds(float percent, float seconds)
         {
-            StartCoroutine(this.IncreaseDamageForSecondsInternal(percent, seconds));
+            StartCoroutine(IncreaseDamageForSecondsInternal(percent, seconds));
         }
 
         /// <summary>
-        /// Decrease damage by percent for a total of seconds
+        /// Decrease damage by percent for a total of seconds.
         /// </summary>
-        /// <param name="percent"></param>
-        /// <param name="seconds"></param>
+        /// <param name="percent">The percent to be decreased.</param>
+        /// <param name="seconds">The number of seconds this decrease takes.</param>
         public void DecreaseDamageForSeconds(float percent, float seconds)
         {
-            StartCoroutine(this.DecreaseDamageForSecondsInternal(percent, seconds));
+            StartCoroutine(DecreaseDamageForSecondsInternal(percent, seconds));
         }
 
         /// <summary>
-        /// Increase Damage
+        /// Increase Damage.
         /// </summary>
-        /// <param name="percent"></param>
+        /// <param name="percent">The percent to be incremented.</param>
         public void IncreaseDamage(float percent)
         {
             if (percent > 0.0f)
             {
-                var oldDamage = this.currentDamage;
+                var oldDamage = _currentDamage;
 
-                this.currentDamage += (this.currentDamage * percent / 100.0f);
+                _currentDamage += (_currentDamage * percent / 100.0f);
 
                 Debug.Log(String.Format("[{0}] damage of {1} is: {2} and applying {3}% more has changed to: {4}",
-                    this.AttackType.ToString(), this.Animator.gameObject.name, oldDamage, percent, this.currentDamage));
+                    AttackType.ToString(), _playerInfo.PlayerName, oldDamage, percent, _currentDamage));
             }
         }
 
         /// <summary>
-        /// Decrease damage
+        /// Decrease damage.
         /// </summary>
-        /// <param name="percent"></param>
+        /// <param name="percent">The percent to be decreased.</param>
         public void DecreaseDamage(float percent)
         {
             if (percent > 0.0f)
             {
-                var oldDamage = this.currentDamage;
+                var oldDamage = _currentDamage;
 
-                this.currentDamage -= (this.currentDamage * percent/100.0f);
+                _currentDamage -= (_currentDamage * percent/100.0f);
 
                 Debug.Log(String.Format("[{0}] damage of {1} is: {2} and reducing {3}% has changed to: {4}",
-                    this.AttackType.ToString(), this.gameObject.name, oldDamage, percent, this.currentDamage));
+                    AttackType.ToString(), _playerInfo.PlayerName, oldDamage, percent, _currentDamage));
             }
         }
 
@@ -212,25 +219,25 @@ namespace nseh.Gameplay.Combat
 
         private IEnumerator IncreaseDamageForSecondsInternal(float percent, float seconds)
         {
-            var oldDamage = this.currentDamage;
+            var oldDamage = _currentDamage;
 
-            this.IncreaseDamage(percent);
+            IncreaseDamage(percent);
 
             yield return new WaitForSeconds(seconds);
 
-            Debug.Log(string.Format("[{0}] damage of {1} has been restored to: {2}", this.AttackType.ToString(), this.gameObject.name, oldDamage));
+            Debug.Log(string.Format("[{0}] damage of {1} has been restored to: {2}", AttackType.ToString(), _playerInfo.PlayerName, oldDamage));
 
-            this.currentDamage = oldDamage;
+            _currentDamage = oldDamage;
         }
 
         private IEnumerator DecreaseDamageForSecondsInternal(float percent, float seconds)
         {
             int counterSeconds = 0;
-            var oldDamage = this.currentDamage;
+            var oldDamage = _currentDamage;
 
             while (counterSeconds < seconds)
             {
-                this.DecreaseDamage(percent);
+                DecreaseDamage(percent);
                 counterSeconds++;
 
                 yield return new WaitForSeconds(1.0f);

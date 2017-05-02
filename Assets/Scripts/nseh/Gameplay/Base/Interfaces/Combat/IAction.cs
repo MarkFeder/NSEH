@@ -1,22 +1,18 @@
-﻿namespace nseh.Gameplay.Base.Interfaces
+﻿using System.Collections;
+
+namespace nseh.Gameplay.Base.Interfaces
 {
     public interface IAction
     {
-        int HashAnimation { get; set; }
+        int Hash { get; }
 
-        void DoAction(float value);
+        void StartAction(float value);
 
-        void DoAction(int value);
+        void StartAction(int value);
 
-        void DoAction();
+        void StartAction();
 
         void StopAction();
-
-        bool KeyHasBeenPressed();
-
-        bool KeyHasBeenReleased();
-
-        bool KeyIsHoldDown();
 
         bool ButtonHasBeenPressed();
 

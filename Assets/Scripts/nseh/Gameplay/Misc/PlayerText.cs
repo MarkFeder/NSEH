@@ -7,13 +7,12 @@ namespace nseh.Gameplay.Misc
 {
     public class PlayerText : MonoBehaviour
     {
-
         Quaternion rotation;
         int playerText;
 
-        void Start()
+        private void Start()
         {
-            playerText = this.transform.parent.gameObject.GetComponent<PlayerInfo>().player;
+            playerText = this.transform.parent.gameObject.GetComponent<PlayerInfo>().Player;
 
             if (playerText == 1)
             {
@@ -42,10 +41,9 @@ namespace nseh.Gameplay.Misc
                 this.gameObject.GetComponent<TextMesh>().color = Color.yellow;
                 this.gameObject.GetComponent<TextMesh>().text = "P4";
             }
-
         }
 
-        void LateUpdate()
+        private void LateUpdate()
         {
             transform.rotation = rotation;
         }

@@ -8,16 +8,20 @@ namespace nseh.Gameplay.Base.Abstract.Animations
 {
     public abstract class BaseStateMachineBehaviour : StateMachineBehaviour
     {
-        protected PlayerInfo playerInfo;
-        protected IAction action;
+        #region Protected Properties
+
+        protected PlayerInfo _playerInfo;
+        protected IAction _action; 
+
+        #endregion
 
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
-            this.playerInfo = animator.gameObject.GetSafeComponent<PlayerInfo>();
-            this.action = this.playerInfo.PlayerCombat.Actions.Where(act => act.HashAnimation == stateInfo.shortNameHash).FirstOrDefault();
+            _playerInfo = animator.gameObject.GetSafeComponent<PlayerInfo>();
+            _action = _playerInfo.PlayerCombat.Actions.Where(act => act.Hash == stateInfo.shortNameHash).FirstOrDefault();
         }
     }
 }
