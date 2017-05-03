@@ -6,9 +6,13 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
     {
         #region Private Properties
 
+        [SerializeField]
         private float _bonification;
+        [SerializeField]
         private float _seconds;
+        [SerializeField]
         private float _reusedTime;
+
         private float _timer;
 
         #endregion
@@ -18,10 +22,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         protected override void Start()
         {
             base.Start();
-
-            _bonification = 50.0f;
-            _seconds = 10.0f;
-            _reusedTime = 20.0f;
             _timer = 0.0f;
         }
 

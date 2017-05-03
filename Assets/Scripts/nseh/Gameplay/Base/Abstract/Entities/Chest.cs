@@ -1,6 +1,5 @@
 ﻿using nseh.Gameplay.Entities.Environment;
 using nseh.Gameplay.Entities.Player;
-using nseh.Managers.Level;
 using nseh.Managers.Main;
 using System;
 using UnityEngine;
@@ -12,68 +11,74 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 {
 	public abstract class Chest : MonoBehaviour
 	{
-		#region Public Properties
+		#region Private Properties
 
-		public AnimationClip animation;
-		public AudioClip sound;
-		public GameObject particlePrefab;
+		[SerializeField]
+		private AnimationClip _animation;
+		[SerializeField]
+		private AudioClip _sound;
 
-		[NonSerialized]
-		public GameObject canvasItemText;
-		[NonSerialized]
-		public SpawnItemPoint spawnItemPoint;
-
-		public float destructionTime;
-		public float timeToDisplayText;
-
-		public int uses;
-		public string displayName;
+		[SerializeField]
+		private int _uses;
+		[SerializeField]
+		private string _displayName;
 
 		#endregion
 
 		#region Protected Properties
 
-		protected bool isVisible = false;
-		protected int currentUses;
+		[NonSerialized]
+		protected GameObject _canvasItemText;
+		[NonSerialized]
+		protected SpawnItemPoint _spawnItemPoint;
 
-		protected GameObject target;
-		protected PlayerInfo particlesSpawnPoints;
-		protected Collider collider;
-		protected Renderer renderer;
-		protected GameObject sprite;
-		protected Text itemText;
+		[SerializeField]
+		protected GameObject _particlePrefab;
+		[SerializeField]
+		protected float _destructionTime;
+		[SerializeField]
+		protected float _timeToDisplayText;
+
+		protected bool _isVisible = false;
+		protected int _currentUses;
+
+		protected GameObject _target;
+		protected PlayerInfo _particlesSpawnPoints;
+		protected Collider _collider;
+		protected Renderer _renderer;
+		protected GameObject _sprite;
+		protected Text _itemText;
+
+		#endregion
+
+		#region Public Properties
+
+		public GameObject CanvasItemText { get { return _canvasItemText; } set { _canvasItemText = value; } }
+
+		public SpawnItemPoint SpawnItemPoint { get { return _spawnItemPoint; } set { _spawnItemPoint = value; } }
 
 		#endregion
 
 		#region Protected Methods
 
-		protected virtual void Start()
-		{
-			this.collider = this.GetComponent<Collider>();
-			this.renderer = this.GetComponent<Renderer>();
-			this.sprite = this.transform.GetChild(0).gameObject;
-
-			this.ResetUses();
-		}
-
 		protected void OnEnable()
 		{
-			this.ResetUses();
+			ResetUses();
 		}
 
 		protected void ShowInScene()
 		{
-			this.SetVisibility(true);
+			SetVisibility(true);
 		}
 
 		protected void HideInScene()
 		{
-			this.SetVisibility(false);
+			SetVisibility(false);
 		}
 
 		protected void ResetUses()
 		{
-			this.currentUses = 0;
+			_currentUses = 0;
 		}
 
 		protected abstract void Activate();
@@ -83,7 +88,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		{
 			if (other.CompareTag(Tags.PLAYER_BODY))
 			{
-				sprite.SetActive(true);
+				_sprite.SetActive(true);
 			}
 		}
 
@@ -91,36 +96,36 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		{
 			if (other.CompareTag(Tags.PLAYER_BODY) && Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, other.GetComponent<PlayerInfo>().GamepadIndex)))
 			{
-				this.SetVisibility(false);
-				sprite.SetActive(false);
-				if (this.currentUses < this.uses)
+				SetVisibility(false);
+				_sprite.SetActive(false);
+				if (_currentUses < _uses)
 				{
-					this.currentUses++;
-					this.target = other.gameObject;
-					this.particlesSpawnPoints = this.target.GetComponent<PlayerInfo>();
+					_currentUses++;
+					_target = other.gameObject;
+					_particlesSpawnPoints = _target.GetComponent<PlayerInfo>();
 
-					switch (this.particlesSpawnPoints.Player)
+					switch (_particlesSpawnPoints.Player)
 					{
 						case 1:
-							itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P1ItemText;
+							_itemText = GameManager.Instance.LevelManager.CanvasItemsManager.P1ItemText;
 							break;
 						case 2:
-							itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P2ItemText;
+							_itemText = GameManager.Instance.LevelManager.CanvasItemsManager.P2ItemText;
 							break;
 						case 3:
-							itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P3ItemText;
+							_itemText = GameManager.Instance.LevelManager.CanvasItemsManager.P3ItemText;
 							break;
 						case 4:
-							itemText = GameManager.Instance.Find<LevelManager>().CanvasItemsManager.P4ItemText;
+							_itemText = GameManager.Instance.LevelManager.CanvasItemsManager.P4ItemText;
 							break;
 					}
 
-					this.PlaySoundAtPlayer(this.sound);
-					this.Activate();
+					PlaySoundAtPlayer(_sound);
+					Activate();
 				}
 				else
 				{
-					Debug.Log(String.Format("The number of uses is more than or equal to {0}", this.uses));
+					Debug.Log(String.Format("The number of uses is more than or equal to {0}", _uses));
 				}
 			}
 		}
@@ -129,13 +134,13 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		{
 			if (other.CompareTag(Tags.PLAYER_BODY))
 			{
-				sprite.SetActive(false);
+				_sprite.SetActive(false);
 			}
 		}
 
 		protected void ParticleAnimation(GameObject particle, float timeToDisplayParticles, Transform particlesPos)
 		{
-			GameObject particleGameObject = Instantiate(particle, particlesPos.position, particlesPos.rotation, this.target.transform);
+			GameObject particleGameObject = Instantiate(particle, particlesPos.position, particlesPos.rotation, _target.transform);
 			particleGameObject.GetComponent<ParticleSystem>().Play();
 
 			Destroy(particleGameObject, timeToDisplayParticles);
@@ -143,7 +148,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		protected void PlaySoundAtPlayer(AudioClip clip)
 		{
-			AudioSource.PlayClipAtPoint(clip, this.target.transform.position, 1);
+			AudioSource.PlayClipAtPoint(clip, _target.transform.position, 1);
 		}
 
 		#endregion
@@ -152,18 +157,27 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		private void SetVisibility(bool isVisible)
 		{
-			this.isVisible = isVisible;
-			this.renderer.enabled = this.isVisible;
-			this.collider.enabled = this.isVisible;
+			_isVisible = isVisible;
+			_renderer.enabled = isVisible;
+			_collider.enabled = isVisible;
 		}
 
 		#endregion
 
-		#region Public Methods
+		#region Virtual Methods
+
+		protected virtual void Start()
+		{
+			_collider = GetComponent<Collider>();
+			_renderer = GetComponent<Renderer>();
+			_sprite = transform.GetChild(0).gameObject;
+
+			ResetUses();
+		}
 
 		public virtual void SpawnAt(Vector3 position)
 		{
-			this.transform.position = position;
+			transform.position = position;
 		}
 
 		#endregion

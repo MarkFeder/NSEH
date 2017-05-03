@@ -137,17 +137,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e351c6cd51d9fd46a5a1f72b833c7a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: {fileID: 0}
-  sound: {fileID: 8300000, guid: a4a9327e98855524c846cc8e2f559e96, type: 3}
-  particlePrefab: {fileID: 1716269738020152, guid: 3029fbedd9c1bf54fa505d0d5ad7c3f8,
+  _animation: {fileID: 0}
+  _sound: {fileID: 0}
+  _uses: 1
+  _displayName: 
+  _particlePrefab: {fileID: 1716269738020152, guid: 3029fbedd9c1bf54fa505d0d5ad7c3f8,
     type: 2}
-  destructionTime: 0
-  timeToDisplayText: 2
-  uses: 1
-  displayName: 
-  chestType: 2
-  percent: 8
-  seconds: 3
+  _destructionTime: 0
+  _timeToDisplayText: 0
+  _chestType: 2
+  _percent: 8
+  _seconds: 3
 --- !u!212 &212647592994309748
 SpriteRenderer:
   m_ObjectHideFlags: 1

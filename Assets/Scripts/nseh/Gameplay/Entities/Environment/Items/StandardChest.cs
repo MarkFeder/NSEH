@@ -2,8 +2,6 @@
 using nseh.Gameplay.Combat;
 using nseh.Gameplay.Entities.Player;
 using nseh.Utils.Helpers;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using StandardItems = nseh.Utils.Constants.Items.StandardItems;
@@ -29,14 +27,11 @@ namespace nseh.Gameplay.Entities.Environment.Items
         public float percent;
         public float time;
 
-        [Range(0,10)]
-        public int hits;
-
         #endregion
 
         protected override void Activate()
         {
-            switch (this.chestType)
+            switch (chestType)
             {
                 case StandardChestType.None:
 
@@ -46,41 +41,41 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case StandardChestType.Health:
 
-                    this.IncreaseHealth(this.percent);
-                    this.spawnItemPoint.DisplayText(this.itemText, StandardItems.HEALTH, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, 1.5f, this.particlesSpawnPoints.ParticleBodyPos);
+                    IncreaseHealth(percent);
+                    _spawnItemPoint.DisplayText(_itemText, StandardItems.HEALTH, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, 1.5f, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Damage:
 
-                    this.IncreaseDamage(this.percent, this.time);
-                    this.spawnItemPoint.DisplayText(this.itemText, StandardItems.DAMAGE, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, this.time, this.particlesSpawnPoints.ParticleBodyPos);
+                    IncreaseDamage(percent, time);
+                    _spawnItemPoint.DisplayText(_itemText, StandardItems.DAMAGE, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Velocity:
 
-                    this.IncreaseVelocity(this.percent, this.time);
-                    this.spawnItemPoint.DisplayText(this.itemText, StandardItems.SPEED, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, this.time, this.particlesSpawnPoints.ParticleBodyPos);
+                    IncreaseVelocity(percent, time);
+                    _spawnItemPoint.DisplayText(_itemText, StandardItems.SPEED, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Jump:
 
-                    this.IncreaseJump(this.percent, this.time);
-                    this.spawnItemPoint.DisplayText(this.itemText, StandardItems.JUMP, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, this.time, this.particlesSpawnPoints.ParticleBodyPos);
+                    IncreaseJump(percent, time);
+                    _spawnItemPoint.DisplayText(_itemText, StandardItems.JUMP, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Defense:
 
-                    this.SetupDefense(this.time, this.hits);
-                    this.spawnItemPoint.DisplayText(this.itemText, StandardItems.DEFENSE, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, this.time, this.particlesSpawnPoints.ParticleBodyPos);
+                    SetupDefense(percent, time);
+                    _spawnItemPoint.DisplayText(_itemText, StandardItems.DEFENSE, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -91,46 +86,44 @@ namespace nseh.Gameplay.Entities.Environment.Items
                     break;
             }
 
-            this.Deactivate();
+            Deactivate();
         }
 
         protected override void Deactivate()
         {
-            Destroy(this.gameObject, this.destructionTime);
+            Destroy(gameObject, _destructionTime);
         }
 
         #region Private Methods
 
-        private IEnumerator SetupDefense(float time, int hits)
+        private void SetupDefense(float percent, float time)
         {
-            // TODO: think how to set this thing up with our combat system
-
-            yield return new WaitForSeconds(time);
+            _target.GetComponent<PlayerHealth>().BonificationDefenseForSeconds(percent, time);
         }
 
         private void IncreaseJump(float percent, float time)
         {
-            this.target.GetComponent<PlayerMovement>().IncreaseJumpForSeconds(percent, time);
+            _target.GetComponent<PlayerMovement>().IncreaseJumpForSeconds(percent, time);
         }
 
         private void IncreaseVelocity(float percent, float time)
         {
-            this.target.GetComponent<PlayerMovement>().IncreaseSpeedForSeconds(percent, time);
+            _target.GetComponent<PlayerMovement>().IncreaseSpeedForSeconds(percent, time);
         }
 
         private void IncreaseHealth(float percent)
         {
-            this.target.GetComponent<PlayerHealth>().IncreaseHealth(percent);
+            _target.GetComponent<PlayerHealth>().IncreaseHealth(percent);
         }
 
         private void IncreaseDamage(float percent)
         {
-            this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamage(percent));
+            _target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamage(percent));
         }
 
         private void IncreaseDamage(float percent, float time)
         {
-            this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamageForSeconds(percent, time));
+            _target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamageForSeconds(percent, time));
         }
 
         #endregion

@@ -12,9 +12,8 @@ namespace nseh.Gameplay.Entities.Environment.Items
     {
         None = 0,
         Invulnerability = 1,
-        AutomaticAttacks = 2,
-        CriticalDamage = 3,
-        UnlockDefinitiveMode = 4
+        CriticalDamage = 2,
+        UnlockDefinitiveMode = 3
     }
 
     public class SpecialChest : Chest
@@ -24,13 +23,13 @@ namespace nseh.Gameplay.Entities.Environment.Items
         public SpecialChestType chestType;
 
         public float seconds;
-        public int times; 
+        public int percent; 
 
         #endregion
 
         protected override void Activate()
         {
-            switch (this.chestType)
+            switch (chestType)
             {
                 case SpecialChestType.None:
 
@@ -40,88 +39,66 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case SpecialChestType.Invulnerability:
 
-                    this.Invulnerability(this.seconds);
-                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.INVULNERABILITY, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleBodyPos);
-
-                    break;
-
-                case SpecialChestType.AutomaticAttacks:
-
-                    this.AutomaticAttacks(this.times);
-                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.AUTOATTACKS, this.timeToDisplayText);
-                    this.ParticleAnimation(particlePrefab, 3.0f, particlesSpawnPoints.ParticleBodyPos);
+                    Invulnerability(seconds);
+                    _spawnItemPoint.DisplayText(_itemText, SpecialItems.INVULNERABILITY, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, seconds, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
                 case SpecialChestType.CriticalDamage:
 
-                    this.CriticalDamage(this.times);
-                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.CRITICAL, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, 3.0f, particlesSpawnPoints.ParticleBodyPos);
+                    CriticalDamage(percent, seconds);
+                    _spawnItemPoint.DisplayText(_itemText, SpecialItems.CRITICAL, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, 3.0f, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
                 case SpecialChestType.UnlockDefinitiveMode:
 
-                    this.UnlockDefinitiveMode();
-                    this.spawnItemPoint.DisplayText(itemText, SpecialItems.ULTIMATE, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, 1.0f, particlesSpawnPoints.ParticleBodyPos);
+                    UnlockDefinitiveMode();
+                    _spawnItemPoint.DisplayText(_itemText, SpecialItems.ULTIMATE, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, 1.0f, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
                 default:
 
-                    Debug.Log("No SpecialChestType is detected");
+                    Debug.Log("No SpecialChestType has been detected");
 
                     break;
             }
 
-            this.Deactivate();
+            Deactivate();
         }
 
         protected override void Deactivate()
         {
-            Destroy(this.gameObject, this.destructionTime);
+            Destroy(gameObject, _destructionTime);
         }
+
+        #region Private Methods
 
         private void Invulnerability(float time)
         {
-            this.target.GetComponent<PlayerHealth>().InvulnerabilityModeForSeconds(time);
+            _target.GetComponent<PlayerHealth>().InvulnerabilityModeForSeconds(time);
         }
 
-        private void AutomaticAttacks(int times)
+        private void CriticalDamage(float percent, float seconds)
         {
-            // TODO: not defined special attacks
-        }
-
-        private void CriticalDamage(int times)
-        {
-            // For each action of type CharacterAttack which is not of CharacterHability or CharacterDefinitive type,
-            // increase its damage by (x) times.
-
-            this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().Where(act => act.IsSimpleAttack).ForEach(act =>
-            {
-                string log = "the attack of type: " + act.AttackType.ToString() + " changed its damage from (" + act.CurrentDamage + ")";
-
-                act.CurrentDamage = act.CurrentDamage * times;
-                act.Critical = true;
-
-                log += " to (" + act.CurrentDamage + ")";
-
-                Debug.Log(log);
-            });
+            _target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamageForSeconds(percent, seconds));
         }
 
         private void UnlockDefinitiveMode()
         {
-            CharacterAttack definitiveAttack = this.target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().Where(act => act.AttackType == AttackType.CharacterDefinitive).FirstOrDefault();
+            CharacterAttack definitiveAttack = _target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().Where(act => act.AttackType == AttackType.CharacterDefinitive).FirstOrDefault();
 
             if (definitiveAttack != null)
             {
                 definitiveAttack.EnabledAttack = true;
             }
         }
+
+        #endregion
     }
 
 }

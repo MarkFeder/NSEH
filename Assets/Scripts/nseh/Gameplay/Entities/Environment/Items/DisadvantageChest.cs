@@ -15,18 +15,21 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
     public class DisadvantageChest : Chest
     {
-        #region Public Properties
+        #region Private Properties
 
-        public DisadvantageChestType chestType;
+        [SerializeField]
+        private DisadvantageChestType _chestType;
 
-        public float percent;
-        public float seconds;
+        [SerializeField]
+        private float _percent;
+        [SerializeField]
+        private float _seconds;
 
         #endregion
 
         protected override void Activate()
         {
-            switch (this.chestType)
+            switch (_chestType)
             {
                 case DisadvantageChestType.None:
 
@@ -36,25 +39,25 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case DisadvantageChestType.ChestBomb:
 
-                    this.ChestBomb(this.percent);
-                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.BOMBCHEST, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, 1.0f, particlesSpawnPoints.ParticleBodyPos);
+                    ChestBomb(_percent);
+                    _spawnItemPoint.DisplayText(_itemText, DisadvantageItems.BOMBCHEST, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, 1.0f, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
                 case DisadvantageChestType.PoisonCloud:
 
-                    this.PoisonCloud(this.percent, this.seconds);
-                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.POISONCLOUD, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleBodyPos);
+                    PoisonCloud(_percent, _seconds);
+                    _spawnItemPoint.DisplayText(_itemText, DisadvantageItems.POISONCLOUD, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, _seconds, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
                 case DisadvantageChestType.ConfusedPotion:
 
-                    this.ConfusedPotion(this.seconds);
-                    this.spawnItemPoint.DisplayText(itemText, DisadvantageItems.CONFUSION, this.timeToDisplayText);
-                    this.ParticleAnimation(this.particlePrefab, this.seconds, particlesSpawnPoints.ParticleHeadPos);
+                    ConfusedPotion(_seconds);
+                    _spawnItemPoint.DisplayText(_itemText, DisadvantageItems.CONFUSION, _timeToDisplayText);
+                    ParticleAnimation(_particlePrefab, _seconds, _particlesSpawnPoints.ParticleHeadPos);
 
                     break;
 
@@ -65,27 +68,31 @@ namespace nseh.Gameplay.Entities.Environment.Items
                     break;
             }
 
-            this.Deactivate();
+            Deactivate();
         }
 
         protected override void Deactivate()
         {
-            Destroy(this.gameObject, this.destructionTime);
+            Destroy(gameObject, _destructionTime);
         }
+
+        #region Private Methods
 
         private void ChestBomb(float percent)
         {
-            this.target.GetComponent<PlayerHealth>().DecreaseHealth(percent);
+            _target.GetComponent<PlayerHealth>().DecreaseHealth(percent);
         }
 
         private void PoisonCloud(float percent, float seconds)
         {
-            this.target.GetComponent<PlayerHealth>().DecreaseHealthForEverySecond(percent, seconds);
+            _target.GetComponent<PlayerHealth>().DecreaseHealthForEverySecond(percent, seconds);
         }
 
         private void ConfusedPotion(float time)
         {
-            this.target.GetComponent<PlayerMovement>().InvertControl(time);
+            _target.GetComponent<PlayerMovement>().InvertControl(time);
         }
+
+        #endregion
     }
 }

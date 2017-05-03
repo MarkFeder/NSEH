@@ -74,8 +74,8 @@ namespace nseh.Gameplay.Entities.Environment
                 //Standard buffs
                 int randomStandardItem = (int)Random.Range(0, _standardItems.Count);
                 _instancedItem = Instantiate(_standardItems[randomStandardItem], this.transform.position, this.transform.rotation);
-                _instancedItem.GetComponent<StandardChest>().canvasItemText = this._canvasItem;
-                _instancedItem.GetComponent<StandardChest>().spawnItemPoint = this;
+                _instancedItem.GetComponent<StandardChest>().CanvasItemText = this._canvasItem;
+                _instancedItem.GetComponent<StandardChest>().SpawnItemPoint = this;
             }
 
             if (0.8f < dice && dice <= 0.9f)
@@ -83,8 +83,8 @@ namespace nseh.Gameplay.Entities.Environment
                 //Special buffs
                 int randomSpecialItem = (int)Random.Range(0, _specialItems.Count);
                 _instancedItem = Instantiate(_specialItems[randomSpecialItem], this.transform.position, this.transform.rotation);
-                _instancedItem.GetComponent<SpecialChest>().canvasItemText = this._canvasItem;
-                _instancedItem.GetComponent<SpecialChest>().spawnItemPoint = this;
+                _instancedItem.GetComponent<SpecialChest>().CanvasItemText = this._canvasItem;
+                _instancedItem.GetComponent<SpecialChest>().SpawnItemPoint = this;
             }
 
             if (0.9f < dice && dice <= 1)
@@ -92,8 +92,8 @@ namespace nseh.Gameplay.Entities.Environment
                 //Debuffs
                 int randomDisadvantageItem = (int)Random.Range(0, _disadvantageItems.Count);
                 _instancedItem = Instantiate(_disadvantageItems[randomDisadvantageItem], this.transform.position, this.transform.rotation);
-                _instancedItem.GetComponent<DisadvantageChest>().canvasItemText = this._canvasItem;
-                _instancedItem.GetComponent<DisadvantageChest>().spawnItemPoint = this;
+                _instancedItem.GetComponent<DisadvantageChest>().CanvasItemText = this._canvasItem;
+                _instancedItem.GetComponent<DisadvantageChest>().SpawnItemPoint = this;
             }
             Debug.Log("Item spawned");
             DisplayText(_spawnText, Constants.Events.ItemSpawn_Event.SPAWN_ALERT, 2);

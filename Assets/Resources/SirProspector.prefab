@@ -1459,7 +1459,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1196191226483754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.88, y: 0, z: 3.13}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4582110165165682}
@@ -2069,7 +2069,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 2
-  _currentDamage: 2
   _attackType: 2
 --- !u!114 &114072911916261098
 MonoBehaviour:
@@ -2083,7 +2082,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 5
-  _currentDamage: 5
   _attackType: 3
 --- !u!114 &114229055252415370
 MonoBehaviour:
@@ -2097,7 +2095,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 2
-  _currentDamage: 2
   _attackType: 1
 --- !u!114 &114242311106287240
 MonoBehaviour:
@@ -2134,7 +2131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 7
-  _currentDamage: 7
   _attackType: 5
 --- !u!114 &114361435954042190
 MonoBehaviour:
@@ -2160,8 +2156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 5
-  _currentDamage: 5
   _attackType: 7
+  _bonification: 50
+  _seconds: 10
+  _reusedTime: 20
 --- !u!114 &114376842722589548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2174,7 +2172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 20
-  _currentDamage: 20
   _attackType: 8
   _percent: 100
   _seconds: 15
@@ -2296,7 +2293,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 5
-  _currentDamage: 5
   _attackType: 4
 --- !u!135 &135989348980882486
 SphereCollider:

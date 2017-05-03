@@ -26,9 +26,9 @@ namespace nseh.Gameplay.Combat
         [SerializeField]
         protected float _initialDamage;
         [SerializeField]
-        protected float _currentDamage;
-        [SerializeField]
         protected AttackType _attackType;
+
+        protected float _currentDamage;
 
         protected bool _critical;
         protected bool _enabled;
@@ -80,6 +80,8 @@ namespace nseh.Gameplay.Combat
         {
             _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
             _animator = _playerInfo.Animator;
+
+            _currentDamage = _initialDamage;
 
             _hash = _playerInfo.GetHash(_attackType);
             _stateName = _playerInfo.GetStateNameInfo(_attackType);
