@@ -1,14 +1,16 @@
-﻿using UnityEngine;
-using MoveAnimParameters = nseh.Utils.Constants.Animations.Movement;
-using CombatAnimParameters = nseh.Utils.Constants.Animations.Combat;
-using nseh.Gameplay.Combat;
+﻿using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
+using UnityEngine;
+using CombatAnimParameters = nseh.Utils.Constants.Animations.Combat;
+using MoveAnimParameters = nseh.Utils.Constants.Animations.Movement;
 
 namespace nseh.Gameplay.Entities.Player
 {
     public partial class PlayerInfo : MonoBehaviour
     {
         #region Public C# Properties
+
+        // TODO: make states and hashes as private and assign them on Start
 
         // Movement - StateName
 

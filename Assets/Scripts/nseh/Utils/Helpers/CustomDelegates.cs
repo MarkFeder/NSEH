@@ -1,4 +1,6 @@
-﻿namespace nseh.Utils.Helpers
+﻿using UnityEngine;
+
+namespace nseh.Utils.Helpers
 {
     /// <summary>
     /// Custom delegate that receives a ref type as parameter
@@ -27,7 +29,6 @@
     /// <param name="arg3"></param>
     public delegate void FuncRef<T1, T2, T3>(ref T1 arg1, ref T2 arg2, ref T3 arg3);
 
-
     /// <summary>
     /// Custom delegate that receive four different ref types as parameters
     /// </summary>
@@ -40,4 +41,10 @@
     /// <param name="arg3"></param>
     /// <param name="arg4"></param>
     public delegate void FuncRef<T1, T2, T3, T4>(ref T1 arg1, ref T2 arg2, ref T3 arg3, ref T4 arg4);
+
+    /// <summary>
+    /// This method acts as a proxy for SirProspector definitive hability methods
+    /// </summary>
+    /// <param name="animationEvent"></param>
+    public delegate void AnimationEventDelegate(AnimationEvent animationEvent);
 }
