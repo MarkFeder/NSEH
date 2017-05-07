@@ -1553,7 +1553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialDamage: 2
+  _initialDamage: 3
   _attackType: 2
 --- !u!114 &114070606057771824
 MonoBehaviour:
@@ -1695,7 +1695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialDamage: 5
+  _initialDamage: 7
   _attackType: 3
 --- !u!114 &114478589548323906
 MonoBehaviour:
@@ -1708,7 +1708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialDamage: 2
+  _initialDamage: 3
   _attackType: 1
 --- !u!114 &114500159127260180
 MonoBehaviour:
@@ -1769,7 +1769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialDamage: 5
+  _initialDamage: 7
   _attackType: 4
 --- !u!114 &114847788110666382
 MonoBehaviour:
@@ -1782,7 +1782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialDamage: 7
+  _initialDamage: 10
   _attackType: 5
 --- !u!135 &135115222219642246
 SphereCollider:

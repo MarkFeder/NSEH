@@ -20,7 +20,7 @@ namespace nseh.Managers.Level
     {
         #region Public Properties
 
-        public enum States { LevelEvent, LoadingMinigame, Minigame , LoadingLevel};
+        public enum States { LevelEvent, LoadingMinigame, Minigame, LoadingLevel };
         public States _currentState;
 
         #endregion
@@ -62,7 +62,7 @@ namespace nseh.Managers.Level
 
         private ParticlesManager _particlesManager;
         private ObjectPoolManager _objectPoolManager;
-    
+
         private bool _isGameOver;
         private bool _isPaused;
         private bool _canvasLoaded;
@@ -148,7 +148,7 @@ namespace nseh.Managers.Level
 
         #region Private Methods
 
-        private void Add<T>() 
+        private void Add<T>()
             where T : new()
         {
             LevelEvent serviceToAdd = new T() as LevelEvent;
@@ -157,7 +157,7 @@ namespace nseh.Managers.Level
             Debug.Log(serviceToAdd);
         }
 
-        private void AddSubManager<T>() 
+        private void AddSubManager<T>()
             where T : SubLevelManager, new()
         {
             SubLevelManager subManager = new T() as SubLevelManager;
@@ -171,7 +171,7 @@ namespace nseh.Managers.Level
 
         #region Public Methods
 
-        public T Find<T>() 
+        public T Find<T>()
             where T : class
         {
             foreach (LevelEvent thisEvent in _eventsList)
@@ -213,7 +213,6 @@ namespace nseh.Managers.Level
         public void ChangeState(States newState)
         {
             _nextState = newState;
-
             if (_nextState != _currentState)
             {
                 switch (_nextState)
@@ -237,11 +236,10 @@ namespace nseh.Managers.Level
                     case States.LoadingMinigame:
 
                         //Time.timeScale = 0;
-
                         Find<Tar_Event>().EventRelease();
                         Find<CameraManager>().EventRelease();
                         Find<ItemSpawn_Event>().EventRelease();
-                        foreach(PlayerManager character in Players)
+                        foreach (PlayerManager character in Players)
                         {
                             MyGame._score[character.PlayerRunTimeInfo.Player - 1, 0] = character.PlayerRunTimeInfo.Score;
                         }
@@ -252,11 +250,10 @@ namespace nseh.Managers.Level
                         break;
 
                     case States.Minigame:
-
                         Time.timeScale = 1;
                         SetupMinigameCanvas();
                         Find<MinigameEvent>().ActivateEvent();
-                        
+
 
 
                         _currentState = _nextState;
@@ -264,13 +261,11 @@ namespace nseh.Managers.Level
                         break;
 
                     case States.LoadingLevel:
-
                         Find<MinigameEvent>().EventRelease();
                         _players = new List<PlayerManager>();
                         _playerSpawnPoints = new List<GameObject>();
                         SceneManager.LoadScene("Game");
                         Find<LoadingEvent>().ActivateEvent();
-
 
                         _currentState = _nextState;
                         break;
@@ -346,10 +341,11 @@ namespace nseh.Managers.Level
         public void GoToMainMenu()
         {
             _isPaused = false;
-            
+
             _canvasLoaded = false;
             MyGame.ChangeState(Main.GameManager.States.MainMenu);
         }
+
 
         public void GoToMainMenuScore()
         {
@@ -358,6 +354,7 @@ namespace nseh.Managers.Level
             _canvasLoaded = false;
             MyGame.ChangeState(Main.GameManager.States.Score);
         }
+
 
         public GameObject GetPlayer1()
         {
@@ -437,7 +434,6 @@ namespace nseh.Managers.Level
         public override void Activate()
         {
             IsActivated = true;
-
             // Activate submanagers
             _particlesManager.ActivateSubManager();
             _objectPoolManager.ActivateSubManager();
@@ -475,18 +471,19 @@ namespace nseh.Managers.Level
             Find<Tar_Event>().ActivateEvent();
             Find<ItemSpawn_Event>().ActivateEvent();
             Find<CameraManager>().ActivateEvent();
+
         }
 
         //This is where the different events are triggered in a similar way to a state machine. This method is very similar to MonoBehaviour.Update()
         public override void Tick()
         {
-            if (_timeRemaining > 0 /*&& !_isGameOver*/ && SceneManager.GetActiveScene().name=="Game")
+            if (_timeRemaining > 0 /*&& !_isGameOver*/ && SceneManager.GetActiveScene().name == "Game")
             {
                 Clock();
             }
 
-            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))) && 
-                SceneManager.GetActiveScene().name=="Game")
+            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))) &&
+                SceneManager.GetActiveScene().name == "Game")
             {
                 PauseGame();
             }
@@ -507,15 +504,15 @@ namespace nseh.Managers.Level
             Find<ItemSpawn_Event>().EventRelease();
             _particlesManager.ReleaseSubManager();
             _objectPoolManager.ReleaseSubManager();
-
+            _currentState = States.LevelEvent;
             //When player goes to main menu from game scene,
             //the player list must be restarted to avoid conflicts when a new game scene is created.
-            _players = new List<PlayerManager>(); 
+            _players = new List<PlayerManager>();
 
             _playerSpawnPoints = new List<GameObject>();
             //_canvasGameOverManager.DisableCanvas();
             //_canvasPausedManager.DisableCanvas();
-        } 
+        }
 
         #endregion
 
@@ -610,7 +607,7 @@ namespace nseh.Managers.Level
                         new Vector3(0, 90, 0)
                     };
 
-                   
+
 
                     break;
 
@@ -657,12 +654,12 @@ namespace nseh.Managers.Level
             foreach (GameObject playerSpawnPoint in _playerSpawnPoints)
             {
                 PlayerSpawnPoint spawnPointComponent = playerSpawnPoint.GetComponent<PlayerSpawnPoint>();
-                if(spawnPointComponent.IsFree == false)
+                if (spawnPointComponent.IsFree == false)
                 {
                     spawnPointComponent.SetFree();
                 }
             }
         }
         #endregion
-    } 
+    }
 }
