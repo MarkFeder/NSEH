@@ -352,6 +352,15 @@ namespace nseh.Managers.Level
         }
 
 
+        public void GoToMainMenuScore()
+        {
+            _isPaused = false;
+
+            _canvasLoaded = false;
+            MyGame.ChangeState(Main.GameManager.States.Score);
+        }
+
+
         public GameObject GetPlayer1()
         {
             return _players[0].PlayerRunTime;
