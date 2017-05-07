@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23549042365513714}
   - component: {fileID: 65071983693459816}
   - component: {fileID: 114260751212745758}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Espada
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 114409295371350454}
   - component: {fileID: 114945180413029768}
   - component: {fileID: 114473405665452258}
+  - component: {fileID: 114298136127664010}
   m_Layer: 8
   m_Name: SirProspector
   m_TagString: PlayerBody
@@ -390,7 +391,7 @@ GameObject:
   - component: {fileID: 23849158185394974}
   - component: {fileID: 65908409726001904}
   - component: {fileID: 114617106729738090}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Pala
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -2132,6 +2133,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 7
   _attackType: 5
+--- !u!114 &114298136127664010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196191226483754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db6db28c8364eac4d9a32d273e738b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114361435954042190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2173,6 +2185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 20
   _attackType: 8
+  _hideSwordTime: 0.1
+  _showSwordTime: 0.64
   _percent: 100
   _seconds: 15
   _sword: {fileID: 23549042365513714}

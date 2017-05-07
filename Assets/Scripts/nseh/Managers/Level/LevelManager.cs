@@ -124,7 +124,6 @@ namespace nseh.Managers.Level
             get { return _players; }
         }
 
-
         public int numPlayers
         {
             get { return _numPlayers; }

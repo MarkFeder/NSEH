@@ -34,10 +34,5 @@
             public const string CANVAS_PLAYERS_HUD = UI + "CanvasPlayersHUD";
             public const string CANVAS_PROGRESS_HUD = UI + "CanvasProgressHUD";
         }
-
-        public static class InMenuHUD
-        {
-
-        }
     }
 }
