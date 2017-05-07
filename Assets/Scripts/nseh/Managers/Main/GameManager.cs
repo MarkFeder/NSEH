@@ -81,16 +81,6 @@ namespace nseh.Managers.Main
 
         public void Start()
         {
-
-            _score = new int[4, 3];
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    _score[i, j] = i+j;
-                }
-            }
-            _numberPlayers = 2;
             // Add managers to the list
             Add<MenuManager>();
             Add<LevelManager>();
@@ -238,7 +228,6 @@ namespace nseh.Managers.Main
         public void ChangeState(States newState)
         {
             _nextState = newState;
-            Debug.Log("DSADSA "+newState+" "+_currentState);
             if (_nextState != _currentState)
             {
                 switch (_currentState)
@@ -246,7 +235,6 @@ namespace nseh.Managers.Main
                     case States.MainMenu:
                         _currentState = States.Loading;
                         _nextState = States.Playing;
-
                         Find<MenuManager>().Release();
                         SceneManager.LoadScene(Constants.Scenes.SCENE_01);
                         Find<LoadingScene>().Activate();
@@ -258,15 +246,13 @@ namespace nseh.Managers.Main
                         {
                             Time.timeScale = 1;
                             _currentState = _nextState;
-                            Debug.Log("Main");
-                            Find<LoadingScene>().Release();
                             Find<MenuManager>().Activate();
                         }
                         else if (_nextState == States.Playing)
                         {
                             _currentState = _nextState;
-                            Debug.Log("saadd " + _currentState + " " + _nextState);
-                            Find<LoadingScene>().Release();
+                            //DEBUG SOMEDAY
+                            Find<LevelManager>().Setup(this);
                             Find<LevelManager>().Activate();
 
                         }
@@ -275,27 +261,27 @@ namespace nseh.Managers.Main
                         {
                             Time.timeScale = 1;
                             _currentState = _nextState;
-
-                            Debug.Log("Score "+ _currentState +" "+_nextState);
-                           
-                                
-                            
+                                           
                         }
                         break;
 
                     case States.Playing:
-                        _currentState = States.Loading;
+                        //_currentState = States.Loading;
                         //_nextState = States.MainMenu;
                         if(_nextState== States.MainMenu)
                         {
+                            _currentState = States.Loading;
+                            //_nextState = States.MainMenu;
                             Find<LevelManager>().Release();
                             SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
                             Find<LoadingScene>().Activate();
                         }
                         else if (_nextState == States.Score)
                         {
+                            _currentState = States.Loading;
                             Find<LevelManager>().Release();
                             SceneManager.LoadScene("Score");
+                            Find<LoadingScene>().Activate();
                         }
 
                         break;
@@ -303,9 +289,8 @@ namespace nseh.Managers.Main
                     case States.Score:
 
                         _currentState = States.Loading;
-                        _nextState = States.MainMenu;
+                        //_nextState = States.MainMenu;
                         Debug.Log("scs");
-                        Find<LevelManager>().Release();
                         SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
                         Find<LoadingScene>().Activate();
 

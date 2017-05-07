@@ -25,7 +25,7 @@ namespace nseh.Gameplay.Gameflow
 
         public override void EventTick()
         {
-            Debug.Log("Laoding "+ aux+ " "+ SceneManager.GetActiveScene().name);
+            Debug.Log("Loading "+ aux+ " "+ SceneManager.GetActiveScene().name);
             if (aux != SceneManager.GetActiveScene().name)
             {
                 EventRelease();

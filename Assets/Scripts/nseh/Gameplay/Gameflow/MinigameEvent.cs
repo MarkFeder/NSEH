@@ -34,7 +34,6 @@ namespace nseh.Gameplay.Gameflow
 
         override public void ActivateEvent()
         {
-
             IsActivated = true;
             _stoped = false;
             _isPaused = false;
@@ -82,7 +81,6 @@ namespace nseh.Gameplay.Gameflow
 
         override public void EventTick()
         {
-            Debug.Log(Input.GetButton(System.String.Format("{0}{1}", Inputs.OPTIONS, 1)));
             if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))) && _timeRemaining>0)
             {
                 _isPaused = !_isPaused;
@@ -141,29 +139,7 @@ namespace nseh.Gameplay.Gameflow
 
 
         void StartMinigame(MonoBehaviour myMonoBehaviour)
-        {/*
-            switch (LvlManager.numPlayers)
-            {
-                case 1:
-                    _playersPos = new List<Vector3>()
-                    {
-                        new Vector3(-0.35f, 4.77f, 0.02f)
-                    };
-
-                    break;
-
-                case 2:
-                    _playersPos = new List<Vector3>()
-                    {
-                        new Vector3(-0.35f, 4.77f, 0.02f),
-                        new Vector3(-0.35f, 1.6f, 0.02f)
-                    };
-
-                    break;
-
-            }
-            */
-            //COLOCAR LOS PERSONAJES Y SUS INDICADORES
+        {
             Camera.main.GetComponent<CameraScript>().num = LvlManager.numPlayers;  
             myMonoBehaviour.StartCoroutine(CountDown());
             

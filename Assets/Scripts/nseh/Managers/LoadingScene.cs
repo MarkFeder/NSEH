@@ -46,7 +46,6 @@ namespace nseh.Managers
 
             else if (state == nseh.Managers.Main.GameManager.States.Score)
             {
-                Debug.Log("dsadsa");
                 nseh.Managers.Main.GameManager.Instance.ChangeState(nseh.Managers.Main.GameManager.States.Score);
             }
             IsActivated = false;

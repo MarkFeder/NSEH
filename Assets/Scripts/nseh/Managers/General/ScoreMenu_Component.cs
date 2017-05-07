@@ -54,7 +54,6 @@ public class ScoreMenu_Component : MonoBehaviour {
 
             }
             yield return new WaitForSeconds(1f);
-            Debug.Log("DSADAS " + i);
             //Invoke("Wait", 10);
         }
         for (int j = 0; j < _MenuManager.MyGame._numberPlayers; j++)
@@ -63,7 +62,6 @@ public class ScoreMenu_Component : MonoBehaviour {
 
         }
         yield return new WaitForSeconds(1f);
-        Debug.Log("DSADAS " + 3);
 
     }
 
