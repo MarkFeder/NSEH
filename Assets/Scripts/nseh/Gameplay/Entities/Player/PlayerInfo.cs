@@ -29,6 +29,7 @@ namespace nseh.Gameplay.Entities.Player
 
         [Space(20)]
 
+        private AudioSource _soundPlayer;
         private Rigidbody _body;
         private Animator _animator;
         private Collider _playerCollider;
@@ -143,6 +144,11 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        public AudioSource SoundPlayer
+        {
+            get { return _soundPlayer; }
+        }
+
         public Rigidbody Body
         {
             get
@@ -210,6 +216,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             _body = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
+            _soundPlayer = GetComponent<AudioSource>();
 
             _playerHealth = GetComponent<PlayerHealth>();
             _playerEnergy = GetComponent<PlayerEnergy>();

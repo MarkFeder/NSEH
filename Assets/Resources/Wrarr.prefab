@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 114736991629091880}
   - component: {fileID: 114196002245353524}
   - component: {fileID: 114585666874532276}
+  - component: {fileID: 114190659147358852}
   m_Layer: 8
   m_Name: Wrarr
   m_TagString: PlayerBody
@@ -611,9 +612,9 @@ GameObject:
   - component: {fileID: 114437163869857748}
   - component: {fileID: 114818167681729954}
   - component: {fileID: 114847788110666382}
-  - component: {fileID: 114534532017371892}
-  - component: {fileID: 114087782778105256}
   - component: {fileID: 114268211253785414}
+  - component: {fileID: 114161931219264344}
+  - component: {fileID: 114111621053604880}
   m_Layer: 8
   m_Name: ActionsHolderGO
   m_TagString: Untagged
@@ -750,7 +751,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1828854585127354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.88, y: 0, z: 4.94}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4697453187860392}
@@ -1553,7 +1554,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 2
-  _currentDamage: 2
   _attackType: 2
 --- !u!114 &114070606057771824
 MonoBehaviour:
@@ -1567,7 +1567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _index: 1
---- !u!114 &114087782778105256
+--- !u!114 &114111621053604880
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1575,12 +1575,48 @@ MonoBehaviour:
   m_GameObject: {fileID: 1855465091862338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
+  m_Script: {fileID: 11500000, guid: 85653fe752b3f5740b3b90d4f71ed46a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 20
-  _currentDamage: 20
   _attackType: 8
+  _rockMesh: {fileID: 1389682234776032, guid: ad01807142f3e164886e00fbe58d7e32, type: 2}
+  _bone: {fileID: 4623093243208722}
+  _rockForce: 500
+  _startTime: 0.35
+  _endTime: 0.72
+--- !u!114 &114161931219264344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855465091862338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 738aa3ac28a00ee43ad4246da6173b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialDamage: 5
+  _attackType: 7
+  _roarSound: {fileID: 0}
+  _startRoarTime: 0.4
+  _stopRoarTime: 0.9
+  _force: 5000
+  _distance: 10
+  _percent: 20
+  _seconds: 4
+  _reusedTime: 15
+--- !u!114 &114190659147358852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828854585127354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8bb6350fce42d941a5454255bb8826f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114195813224154018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1660,7 +1696,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 5
-  _currentDamage: 5
   _attackType: 3
 --- !u!114 &114478589548323906
 MonoBehaviour:
@@ -1674,7 +1709,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 2
-  _currentDamage: 2
   _attackType: 1
 --- !u!114 &114500159127260180
 MonoBehaviour:
@@ -1688,20 +1722,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionsHolderGO: {fileID: 1855465091862338}
---- !u!114 &114534532017371892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1855465091862338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _initialDamage: 5
-  _currentDamage: 5
-  _attackType: 7
 --- !u!114 &114585666874532276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1750,7 +1770,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 5
-  _currentDamage: 5
   _attackType: 4
 --- !u!114 &114847788110666382
 MonoBehaviour:
@@ -1764,7 +1783,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialDamage: 7
-  _currentDamage: 7
   _attackType: 5
 --- !u!135 &135115222219642246
 SphereCollider:

@@ -31,8 +31,7 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
             if (!_enabled && _timer > _reusedTime)
             {
-                Debug.Log(string.Format("Reestablished bonification defense after {0} seconds", _timer));
-
+                // Enable attack again
                 _enabled = true;
                 _timer = 0.0f;
             }

@@ -157,4 +157,32 @@ namespace nseh.Utils.Helpers
             ri.count--;
         }
     }
+
+    public static class AnimationEventExtensions
+    {
+        public static AnimationEvent CreateAnimationEvent(string functionName, 
+                                                          float time, 
+                                                          SendMessageOptions messageOptions)
+        {
+            AnimationEvent animEvent = new AnimationEvent();
+            animEvent.functionName = functionName;
+            animEvent.time = time;
+            animEvent.messageOptions = messageOptions;
+
+            return animEvent;
+        }
+
+        public static void CreateAnimationEventForClip(ref AnimationClip clip, 
+                                                       string functionName, 
+                                                       float time, 
+                                                       SendMessageOptions messageOptions)
+        {
+            AnimationEvent animEvent = new AnimationEvent();
+            animEvent.functionName = functionName;
+            animEvent.time = time;
+            animEvent.messageOptions = messageOptions;
+
+            clip.AddEvent(animEvent);
+        }
+    }
 }

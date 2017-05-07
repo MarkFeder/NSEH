@@ -1,18 +1,18 @@
 ﻿using nseh.Gameplay.Base.Abstract.Gameflow;
-using nseh.Gameplay.Gameflow;
 using nseh.Gameplay.Entities.Environment;
-using nseh.Managers.UI;
+using nseh.Gameplay.Gameflow;
 using nseh.Managers.Main;
+using nseh.Managers.Pool;
+using nseh.Managers.UI;
 using nseh.Utils;
 using nseh.Utils.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using LevelHUDConstants = nseh.Utils.Constants.InLevelHUD;
+using UnityEngine.UI;
 using Inputs = nseh.Utils.Constants.Input;
-using nseh.Managers.Pool;
+using LevelHUDConstants = nseh.Utils.Constants.InLevelHUD;
 
 namespace nseh.Managers.Level
 {
@@ -351,7 +351,6 @@ namespace nseh.Managers.Level
             MyGame.ChangeState(Main.GameManager.States.MainMenu);
         }
 
-
         public void GoToMainMenuScore()
         {
             _isPaused = false;
@@ -359,7 +358,6 @@ namespace nseh.Managers.Level
             _canvasLoaded = false;
             MyGame.ChangeState(Main.GameManager.States.Score);
         }
-
 
         public GameObject GetPlayer1()
         {

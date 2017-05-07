@@ -1,4 +1,5 @@
 ﻿using nseh.Gameplay.Animations.Receivers.SirProspector;
+using nseh.Utils.EditorCustomization;
 using nseh.Utils.Helpers;
 using System.Collections;
 using System.Linq;
@@ -6,6 +7,7 @@ using UnityEngine;
 
 namespace nseh.Gameplay.Combat.Attack.SirProspector
 {
+    [HidePropertiesInInspector("_initialDamage")]
     public class SirProspectorDefinitive : CharacterAttack
     {
         #region Private Properties
@@ -13,11 +15,9 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         [SerializeField]
         [Range(0,1)]
         private float _hideSwordTime;
-
         [SerializeField]
         [Range(0, 1)]
         private float _showSwordTime;
-
         [SerializeField]
         private float _percent;
         [SerializeField]
@@ -29,7 +29,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         private MeshRenderer _shovel;
 
         private SirProspectorAnimationEventReceiver _receiver;
-        private AnimatorStateInfo _stateInfo;
         private AnimationClip _animationClip;
 
         private const string _clipName = "ULTIMATESKILL";
@@ -72,24 +71,32 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _animationClip = _playerInfo.Animator.runtimeAnimatorController.animationClips
                                .Where(clip => clip.name == _clipName).FirstOrDefault();
 
-            // Setup events
-            AnimationEvent hideSwordEvent = new AnimationEvent();
-            hideSwordEvent.functionName = "OnHideSword";
-            hideSwordEvent.messageOptions = SendMessageOptions.RequireReceiver;
-            hideSwordEvent.time = _animationClip.length * _hideSwordTime;
+            if (_animationClip != null)
+            {
 
-            AnimationEvent showSwordEvent = new AnimationEvent();
-            showSwordEvent.functionName = "OnShowSword";
-            showSwordEvent.messageOptions = SendMessageOptions.RequireReceiver;
-            showSwordEvent.time = _animationClip.length * _showSwordTime;
+                // Setup events
+                AnimationEvent hideSwordEvent = new AnimationEvent();
+                hideSwordEvent.functionName = "OnHideSword";
+                hideSwordEvent.messageOptions = SendMessageOptions.RequireReceiver;
+                hideSwordEvent.time = _animationClip.length * _hideSwordTime;
 
-            // Add events to this animation clip
-            _animationClip.events = new AnimationEvent[] { hideSwordEvent, showSwordEvent };
+                AnimationEvent showSwordEvent = new AnimationEvent();
+                showSwordEvent.functionName = "OnShowSword";
+                showSwordEvent.messageOptions = SendMessageOptions.RequireReceiver;
+                showSwordEvent.time = _animationClip.length * _showSwordTime;
 
-            // Setup proxy receivers
-            _receiver = transform.root.gameObject.GetComponent<SirProspectorAnimationEventReceiver>();
-            _receiver.OnHideSwordCallback += OnHideSword;
-            _receiver.OnShowSwordCallback += OnShowSword;
+                // Add events to this animation clip
+                _animationClip.events = new AnimationEvent[] { hideSwordEvent, showSwordEvent };
+
+                // Setup proxy receivers
+                _receiver = transform.root.gameObject.GetComponent<SirProspectorAnimationEventReceiver>();
+                _receiver.OnHideSwordCallback += OnHideSword;
+                _receiver.OnShowSwordCallback += OnShowSword; 
+            }
+            else
+            {
+                Debug.LogError("Could not setup animation events for SirProspector definitive");
+            }
         }
 
         private void OnHideSword(AnimationEvent animationEvent)
@@ -104,8 +111,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
         private void OnDestroy()
         {
-            Debug.Log("OnDestroy()");
-
             _receiver.OnHideSwordCallback -= OnHideSword;
             _receiver.OnShowSwordCallback -= OnShowSword;
         }

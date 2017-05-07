@@ -268,6 +268,10 @@ namespace nseh.Gameplay.Entities.Player
             Gizmos.DrawWireSphere(this.transform.position, 0.35f);
         }
 
+        /// <summary>
+        /// Check if the player is on the ground.
+        /// </summary>
+        /// <returns></returns>
         public bool IsGrounded()
         {
             return Physics.CheckSphere(this.transform.position, 0.35f, this.platformMask) && this.body.velocity.y <= 0.1f;
@@ -304,7 +308,7 @@ namespace nseh.Gameplay.Entities.Player
         #region Public Methods
 
         /// <summary>
-        /// Enable player's movement
+        /// Enable player's movement.
         /// </summary>
         public void EnableMovement()
         {
@@ -314,7 +318,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Disable player's movement
+        /// Disable player's movement.
         /// </summary>
         public void DisableMovement()
         {
@@ -328,7 +332,7 @@ namespace nseh.Gameplay.Entities.Player
         #region Private Methods
 
         /// <summary>
-        /// Called when PlayerMovement is enabled. Get all references again
+        /// Called when PlayerMovement is enabled. Get all references again.
         /// </summary>
         private void OnEnable()
         {
@@ -336,7 +340,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Called when PlayerMovement component is activated
+        /// Called when PlayerMovement component is activated.
         /// </summary>
         private void OnSetupPlayerMovement()
         {
@@ -354,7 +358,7 @@ namespace nseh.Gameplay.Entities.Player
         #region Flip Logic
 
         /// <summary>
-        /// Check if player can rotate and do it
+        /// Check if player can rotate and do it.
         /// </summary>
         /// <param name="horizontal"></param>
         private void OnFlipPlayer(float horizontal)
@@ -370,7 +374,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Flip player's rotation
+        /// Flip player's rotation.
         /// </summary>
         private void Flip()
         {
@@ -386,7 +390,7 @@ namespace nseh.Gameplay.Entities.Player
         #region Public Items Methods
 
         /// <summary>
-        /// Invert input control
+        /// Invert input control.
         /// </summary>
         /// <param name="seconds"></param>
         public void InvertControl(float seconds)
@@ -397,7 +401,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Increase jump by percent for a total of seconds
+        /// Increase jump by percent for a total of seconds.
         /// </summary>
         /// <param name="percent"></param>
         /// <param name="seconds"></param>
@@ -407,7 +411,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Increase speed by percent for a total of seconds
+        /// Increase speed by percent for a total of seconds.
         /// </summary>
         /// <param name="percent"></param>
         /// <param name="seconds"></param>
@@ -417,7 +421,17 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Increase speed by percent
+        /// Decrease speed by percent for a total of seconds.
+        /// </summary>
+        /// <param name="percent"></param>
+        /// <param name="seconds"></param>
+        public void DecreaseSpeedForSeconds(float percent, float seconds)
+        {
+            StartCoroutine(this.DecreaseSpeedForSecondsInternal(percent, seconds));
+        }
+
+        /// <summary>
+        /// Increase speed by percent.
         /// </summary>
         /// <param name="percent"></param>
         public void IncreaseSpeed(float percent)
@@ -434,7 +448,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Decrease speed by percent 
+        /// Decrease speed by percent.
         /// </summary>
         /// <param name="percent"></param>
         public void DecreaseSpeed(float percent)
@@ -451,7 +465,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Decrease speed by percent when a player falls into Tar 
+        /// Decrease speed by percent when a player falls into Tar.
         /// </summary>
         /// <param name="percent"></param>
         public void DecreaseSpeedTar(float percent)
@@ -468,7 +482,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Increase jump by percent
+        /// Increase jump by percent.
         /// </summary>
         /// <param name="percent"></param>
         public void IncreaseJump(float percent)
@@ -485,7 +499,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Decrease jump by percent
+        /// Decrease jump by percent.
         /// </summary>
         /// <param name="percent"></param>
         public void DecreaseJump(float percent)
@@ -502,7 +516,7 @@ namespace nseh.Gameplay.Entities.Player
         }
 
         /// <summary>
-        /// Set current speed to base speed
+        /// Set current speed to base speed.
         /// </summary>
         public void RestoreBaseSpeed()
         {
@@ -553,6 +567,19 @@ namespace nseh.Gameplay.Entities.Player
             oldSpeed = this.currentSpeed;
 
             this.IncreaseSpeed(percent);
+
+            yield return new WaitForSeconds(seconds);
+
+            Debug.Log(string.Format("Speed of {0} has been restored to: {1}", this.gameObject.name, oldSpeed));
+
+            this.currentSpeed = oldSpeed;
+        }
+
+        private IEnumerator DecreaseSpeedForSecondsInternal(float percent, float seconds)
+        {
+            oldSpeed = this.currentSpeed;
+
+            this.DecreaseSpeed(percent);
 
             yield return new WaitForSeconds(seconds);
 

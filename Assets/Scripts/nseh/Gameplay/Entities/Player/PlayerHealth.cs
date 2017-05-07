@@ -301,19 +301,12 @@ namespace nseh.Gameplay.Entities.Player
                 // Reduce current health and applying bonus defense if exists
                 float famount = (float)amount;
 
-                Debug.Log("Current Health: " + CurrentHealth);
-                Debug.Log("Base damage: " + famount);
-
                 if (_bonificationDefense > 0.0f)
                 {
                     famount = famount - (famount * (_bonificationDefense / 100.0f));
-
-                    Debug.Log("Damage after applying bonus: " + famount);
                 }
 
                 this.CurrentHealth -= famount;
-
-                Debug.Log("Current Health after applying bonus: " + CurrentHealth);
 
                 // Play hit animation
                 this.playerInfo.Animator.SetTrigger(this.playerInfo.TakeDamageHash);
