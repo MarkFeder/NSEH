@@ -29,7 +29,7 @@ namespace nseh.Managers.Main
 
         #region Public Properties
 
-        public enum States { MainMenu, Playing, Loading };
+        public enum States { MainMenu, Playing, Loading , Score};
         public States _nextState;
 
         public int _numberPlayers = 0;
@@ -81,6 +81,16 @@ namespace nseh.Managers.Main
 
         public void Start()
         {
+
+            _score = new int[4, 3];
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    _score[i, j] = i+j;
+                }
+            }
+            _numberPlayers = 2;
             // Add managers to the list
             Add<MenuManager>();
             Add<LevelManager>();
@@ -91,6 +101,8 @@ namespace nseh.Managers.Main
 
             // Find managers and activate them
             Find<MenuManager>().Activate();
+
+           
         }
 
         #endregion
@@ -226,7 +238,7 @@ namespace nseh.Managers.Main
         public void ChangeState(States newState)
         {
             _nextState = newState;
-
+            Debug.Log("DSADSA "+newState+" "+_currentState);
             if (_nextState != _currentState)
             {
                 switch (_currentState)
@@ -246,23 +258,53 @@ namespace nseh.Managers.Main
                         {
                             Time.timeScale = 1;
                             _currentState = _nextState;
-
+                            Debug.Log("Main");
                             Find<LoadingScene>().Release();
                             Find<MenuManager>().Activate();
                         }
                         else if (_nextState == States.Playing)
                         {
                             _currentState = _nextState;
-
+                            Debug.Log("saadd " + _currentState + " " + _nextState);
                             Find<LoadingScene>().Release();
                             Find<LevelManager>().Activate();
+
+                        }
+
+                        else if (_nextState == States.Score)
+                        {
+                            Time.timeScale = 1;
+                            _currentState = _nextState;
+
+                            Debug.Log("Score "+ _currentState +" "+_nextState);
+                           
+                                
+                            
                         }
                         break;
 
                     case States.Playing:
                         _currentState = States.Loading;
-                        _nextState = States.MainMenu;
+                        //_nextState = States.MainMenu;
+                        if(_nextState== States.MainMenu)
+                        {
+                            Find<LevelManager>().Release();
+                            SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
+                            Find<LoadingScene>().Activate();
+                        }
+                        else if (_nextState == States.Score)
+                        {
+                            Find<LevelManager>().Release();
+                            SceneManager.LoadScene("Score");
+                        }
 
+                        break;
+
+                    case States.Score:
+
+                        _currentState = States.Loading;
+                        _nextState = States.MainMenu;
+                        Debug.Log("scs");
                         Find<LevelManager>().Release();
                         SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
                         Find<LoadingScene>().Activate();

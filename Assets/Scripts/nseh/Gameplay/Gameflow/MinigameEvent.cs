@@ -180,7 +180,7 @@ namespace nseh.Gameplay.Gameflow
             _ready.text = "RUUUUUUN!!!";
             yield return new WaitForSeconds(1);
             _ready.text = "";
-            _timeRemaining = 30;
+            _timeRemaining = 3;
             Camera.main.GetComponent<CameraScript>().started = true;
             GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().started = true;
             
@@ -199,7 +199,8 @@ namespace nseh.Gameplay.Gameflow
             _CubeDeath.GetComponent<CubeDeath>().started = false;
             _Goal.GetComponent<Goal>().started = false;
             yield return new WaitForSeconds(3);
-            LvlManager.CanvasGameOverMinigameManager.EnableCanvas();
+            LvlManager.GoToMainMenuScore();
+            //LvlManager.CanvasGameOverMinigameManager.EnableCanvas();
            
             //LvlManager.ChangeState(LevelManager.States.BossFight);
         

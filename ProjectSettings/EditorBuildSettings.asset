@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prototypes/Minigame.unity
     guid: 7138a3164272e304eb374e83375db5fd
+  - enabled: 1
+    path: Assets/Scenes/Prototypes/Score.unity
+    guid: 1b2ed815eb1a62d45bd8264c7fdebbb6
