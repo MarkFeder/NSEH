@@ -33,6 +33,7 @@ namespace nseh.Gameplay.AI
         // Use this for initialization
         void Start()
         {
+
             animator = gameObject.GetComponent<Animator>();
             nextPoint = right_Limit;
             isDeath = false;
@@ -44,9 +45,12 @@ namespace nseh.Gameplay.AI
             Health = 100;
             frenzy = false;
             wait = 2;
+            animator.SetBool("Appear", true);
+            animator.SetBool("Appear", false);
             throne = GameObject.Find("throne");
-            maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
-            animator.SetTrigger("appear");
+            //maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
+            maxPlayers = 2;
+
         }
 
         // Update is called once per frame
@@ -55,14 +59,14 @@ namespace nseh.Gameplay.AI
             if (Health < 0 && isDeath == false)
             {
                 isDeath = true;
-                animator.SetTrigger("Death");
+                animator.SetBool("Death", true);
             }
             else
             {
                 if (Health < 30 && frenzy == false)
                 {
                     frenzy = true;
-                    animator.SetTrigger("Frenzy");
+                    animator.SetBool("Frenzy", true);
                     prob_Patrol_in = 0.25f;
                     prob_Attack1_in = 1f;
                     agent.speed = 10;
@@ -97,6 +101,9 @@ namespace nseh.Gameplay.AI
             numPlayers = throne.GetComponent<Throne>().players_throne;
             float prob_Attack1 = prob_Attack1_in - ((prob_Attack1_in - prob_Patrol_in) * numPlayers / maxPlayers);
             Debug.Log("Dice " + dice + " " + prob_Attack1_in+" "+ prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
+            animator.SetBool("Walk", false);
+            animator.SetBool("Attack1", false);
+            animator.SetBool("Attack2", false);
             if (dice < prob_Patrol_in)
             {
                 animator.SetBool("Walk", true);
@@ -104,16 +111,22 @@ namespace nseh.Gameplay.AI
             }
             else if (dice < prob_Attack1)
             {
-                animator.SetTrigger("Attack_1");
+                animator.SetBool("Attack1", true);
                 Debug.Log("ATTACK1");
             }
             else
             {
-                animator.SetTrigger("Attack_2");
+                animator.SetBool("Attack2", true);
                 Debug.Log("ATTACK2");
             }
             agent.SetDestination(nextPoint.position);
 
+        }
+
+
+        IEnumerator Wait(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
         }
     }
 }
