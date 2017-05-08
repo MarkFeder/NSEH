@@ -2728,10 +2728,6 @@ MonoBehaviour:
   prospector: {fileID: 522819424}
   eventSystem: {fileID: 343126775}
   selectedGameObject: {fileID: 367300724}
-  CanvasTwoPlayerScore: {fileID: 1028381130}
-  CanvasFourPlayerScore: {fileID: 1856776886}
-  twoPlayerScore: {fileID: 285063580}
-  fourPlayerScore: {fileID: 70991908}
 --- !u!4 &478989263
 Transform:
   m_ObjectHideFlags: 0

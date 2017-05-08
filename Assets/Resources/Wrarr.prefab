@@ -1581,8 +1581,8 @@ MonoBehaviour:
   _initialDamage: 20
   _attackType: 8
   _rockMesh: {fileID: 1389682234776032, guid: ad01807142f3e164886e00fbe58d7e32, type: 2}
-  _bone: {fileID: 4623093243208722}
-  _rockForce: 500
+  _bone: {fileID: 4022378891723576}
+  _rockForce: 700
   _startTime: 0.35
   _endTime: 0.72
 --- !u!114 &114161931219264344

@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 65727889674558672}
   - component: {fileID: 23459664413660476}
   - component: {fileID: 54923635305890712}
-  m_Layer: 0
+  - component: {fileID: 114019307902746192}
+  m_Layer: 11
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +39,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4530996945030558}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WrarrRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,9 +66,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002598472552652}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.25, y: 0.25, z: 0.25}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
   m_Father: {fileID: 4530996945030558}
   m_RootOrder: 0
@@ -124,7 +125,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 56
   m_CollisionDetection: 0
 --- !u!65 &65727889674558672
 BoxCollider:
@@ -132,9 +133,21 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002598472552652}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 428f084040ed5ce43b683065eb0f1b5a, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114019307902746192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1002598472552652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c5263ad9bcfd746bb45cb2c9b0a8f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destructionTime: 5

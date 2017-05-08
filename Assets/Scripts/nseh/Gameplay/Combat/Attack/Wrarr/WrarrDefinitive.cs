@@ -100,9 +100,13 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
         private void OnStartLaunchRock(AnimationEvent animationEvent)
         {
             _rockRuntime = Instantiate(_rockMesh, _bone.position, Quaternion.identity);
+            RockComponent component = _rockRuntime.transform.GetChild(0).GetComponent<RockComponent>();
+            component.Damage = _currentDamage;
+            component.Player = _playerInfo.Player;
 
             _rockRuntime.transform.parent = _bone.transform;
             _rockRuntime.transform.localPosition = Vector3.zero;
+            _rockRuntime.transform.localRotation = _bone.localRotation;
 
             SetUnMovableRock();
         }
@@ -123,7 +127,6 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
         private void SetUnMovableRock()
         {
             _rockBody = _rockRuntime.transform.GetChild(0).GetComponent<Rigidbody>();
-            // _rockBody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY;
             _rockBody.velocity = Vector3.zero;
             _rockBody.useGravity = false;
             _rockBody.isKinematic = true;
