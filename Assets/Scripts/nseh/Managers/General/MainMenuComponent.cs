@@ -17,8 +17,13 @@ namespace nseh.Managers.General
         public Text _playerTurnText;
         public Button play;
         public Button wrarr;
-        public Button demon;
         public Button prospector;
+        public Button granhilda;
+        public Button musho;
+        public Button anthea;
+        public Button harley;
+        public Button myson;
+        public Button random;
         public EventSystem eventSystem;
         public GameObject selectedGameObject;
 
@@ -54,8 +59,13 @@ namespace nseh.Managers.General
                 adding = 0;
                 _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
                 wrarr.interactable = true;
-                demon.interactable = true;
                 prospector.interactable = true;
+                granhilda.interactable = true;
+                musho.interactable = true;
+                anthea.interactable = true;
+                harley.interactable = true;
+                myson.interactable = true;
+                random.interactable = true;
                 play.interactable = false;
             }
             current.SetActive(false);
@@ -77,8 +87,13 @@ namespace nseh.Managers.General
             {
                 _playerTurnText.text = "READY?";
                 wrarr.interactable = false;
-                demon.interactable = false;
                 prospector.interactable = false;
+                granhilda.interactable = false;
+                musho.interactable = false;
+                anthea.interactable = false;
+                harley.interactable = false;
+                myson.interactable = false;
+                random.interactable = false;
                 play.interactable = true;
                 eventSystem.SetSelectedGameObject(selectedGameObject);
                 /*PLEASE DONT REMOVE
@@ -98,38 +113,7 @@ namespace nseh.Managers.General
             }
         }
 
-        public void AddingDemon()
-        {
-            _demon = Resources.Load("Demon") as GameObject;
-            _MenuManager.Adding(_demon);
-            adding++;
-
-            _MenuManager.SetPlayerChoice("Demon", adding);
-
-            if (adding == GameManager.Instance._numberPlayers)
-            {
-                _playerTurnText.text = "READY?";
-                wrarr.interactable = false;
-                demon.interactable = false;
-                prospector.interactable = false;
-                play.interactable = true;
-                eventSystem.SetSelectedGameObject(selectedGameObject);
-                /*PLEASE DONT REMOVE
-                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + 1;
-                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + 1;
-                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + 1;
-                */
-            }
-            else
-            {
-                _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
-                /*PLEASE DONT REMOVE
-                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + (adding + 1).ToString();
-                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
-                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + (adding + 1).ToString();
-                */
-            }
-        }
+      
 
         public void AddingProspector()
         {
@@ -143,8 +127,13 @@ namespace nseh.Managers.General
             {
                 _playerTurnText.text = "READY?";
                 wrarr.interactable = false;
-                demon.interactable = false;
                 prospector.interactable = false;
+                granhilda.interactable = false;
+                musho.interactable = false;
+                anthea.interactable = false;
+                harley.interactable = false;
+                myson.interactable = false;
+                random.interactable = false;
                 play.interactable = true;
                 eventSystem.SetSelectedGameObject(selectedGameObject);
                 /*PLEASE DONT REMOVE
