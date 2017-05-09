@@ -2282,7 +2282,7 @@ MonoBehaviour:
   _gamepadIndex: 0
   _player: 1
   _playerName: SirProspector
-  _characterPortrait: {fileID: 21300000, guid: f673fa412cc43b24ab33b52e34ab0e9e, type: 3}
+  _characterPortrait: {fileID: 21300000, guid: d1cb5f9b810fe5c41ae98ad8a60289fe, type: 3}
 --- !u!114 &114949588210931934
 MonoBehaviour:
   m_ObjectHideFlags: 1
