@@ -24,7 +24,9 @@ namespace nseh.Managers.General
         void Start ()
         {
             eventSystem = FindObjectOfType<EventSystem>();
-	    }
+            eventSystem.SetSelectedGameObject(selectedGameObject);
+            _buttonSelected = true;
+        }
 	
 	    // Update is called once per frame
 	    void Update ()

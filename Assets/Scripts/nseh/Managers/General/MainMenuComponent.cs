@@ -31,7 +31,7 @@ namespace nseh.Managers.General
         {
             _MenuManager = GameManager.Instance.Find<MenuManager>();
             adding = 0;
-            _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+            _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
         }
 
         public void OneNumberCharacter(GameObject newCanvas)
@@ -57,7 +57,7 @@ namespace nseh.Managers.General
             if (current.name == "Canvas_PickingCharacters")
             {
                 adding = 0;
-                _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+                _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
                 wrarr.interactable = true;
                 prospector.interactable = true;
                 granhilda.interactable = true;
@@ -104,7 +104,7 @@ namespace nseh.Managers.General
             }
             else
             {
-                _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+                _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
                 /*PLEASE DONT REMOVE
                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_"+(adding+1).ToString();
                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
@@ -144,7 +144,7 @@ namespace nseh.Managers.General
             }
             else
             {
-                _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN!";
+                _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
                 /*PLEASE DONT REMOVE
                 eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + (adding + 1).ToString();
                 eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
