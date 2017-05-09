@@ -12,6 +12,7 @@ namespace nseh.Gameplay.AI
 
         public Transform left_Limit;
         public Transform right_Limit;
+        public GameObject spike;
         public GameObject platform;
         public float Health;
         public float maxPlayers;
@@ -22,13 +23,14 @@ namespace nseh.Gameplay.AI
         private NavMeshAgent agent;
         private float dice;
         private float prob_Patrol_in;
-        private float prob_Attack1_in;
-        private float prob_Attack2_in;
+        private float prob_AttackSpikes_in;
+        private float prob_AttackRoll_in;
         private bool frenzy;
         private bool isDeath;
         private int wait;
         private GameObject throne;
         private Animator animator;
+        private bool isDice;
 
         // Use this for initialization
         void Start()
@@ -41,7 +43,7 @@ namespace nseh.Gameplay.AI
             agent = GetComponent<NavMeshAgent>();
             agent.SetDestination(nextPoint.position);
             prob_Patrol_in = 0.5f;
-            prob_Attack1_in = 1f;
+            prob_AttackSpikes_in = 1f;
             Health = 100;
             frenzy = false;
             wait = 2;
@@ -50,7 +52,8 @@ namespace nseh.Gameplay.AI
             throne = GameObject.Find("throne");
             //maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
             maxPlayers = 2;
-
+            animator.SetBool("Walk", true);
+            isDice = true;
         }
 
         // Update is called once per frame
@@ -68,29 +71,39 @@ namespace nseh.Gameplay.AI
                     frenzy = true;
                     animator.SetBool("Frenzy", true);
                     prob_Patrol_in = 0.25f;
-                    prob_Attack1_in = 1f;
+                    prob_AttackSpikes_in = 1f;
                     agent.speed = 10;
                     wait = 1;
                 
                 }
-
-                if (Mathf.Abs(this.gameObject.transform.position.x - nextPoint.transform.position.x) < 0.5f)
+                //Debug.Log("0 " + animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
+                if (Mathf.Abs(this.gameObject.transform.position.x - nextPoint.transform.position.x) <= 1f)
                 {
+                    animator.SetBool("Walk", false);
+                    animator.SetBool("AttackRoll", false);
+                    animator.SetBool("AttackSpikes", false);
+                    animator.SetBool("Walk", false);
+                   
                     if (nextPoint == right_Limit)
                     {
-                        animator.SetBool("Walk", false);
-                        Invoke("SelectAttack", wait);
                         nextPoint = left_Limit;
-
+                        isDice = false;
                         Debug.Log("1");
                     }
-                    else
+                    else if (nextPoint == left_Limit)
                     {
-                        animator.SetBool("Walk", false);
-                        Invoke("SelectAttack", wait);
                         nextPoint = right_Limit;
+                        isDice = false;
                         Debug.Log("2");
                     }
+                    
+                }
+
+                else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle") && isDice==false)
+                {
+                    Debug.Log("3");
+                    isDice = true;
+                    Invoke("SelectAttack", wait);
                 }
             }
         }
@@ -98,26 +111,47 @@ namespace nseh.Gameplay.AI
         void SelectAttack()
         {
             dice = Random.Range(0.0f, 1.0f);
-            numPlayers = throne.GetComponent<Throne>().players_throne;
-            float prob_Attack1 = prob_Attack1_in - ((prob_Attack1_in - prob_Patrol_in) * numPlayers / maxPlayers);
-            Debug.Log("Dice " + dice + " " + prob_Attack1_in+" "+ prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
-            animator.SetBool("Walk", false);
-            animator.SetBool("Attack1", false);
-            animator.SetBool("Attack2", false);
+            //numPlayers = throne.GetComponent<Throne>().players_throne;
+            numPlayers = 1;
+            float prob_AttackRoll = prob_AttackSpikes_in - ((prob_AttackSpikes_in - prob_Patrol_in) * numPlayers / maxPlayers);
+            Debug.Log("Dice " + dice + " " + prob_AttackSpikes_in + " "+ prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
+            this.gameObject.transform.Rotate(0, 180, 0);
             if (dice < prob_Patrol_in)
             {
+                //Debug.Log(this.gameObject.transform.rotation);
+                
                 animator.SetBool("Walk", true);
+                //funcion caminar
                 Debug.Log("PATROL");
             }
-            else if (dice < prob_Attack1)
+            else if (dice < prob_AttackRoll)
             {
-                animator.SetBool("Attack1", true);
-                Debug.Log("ATTACK1");
+               
+                animator.SetBool("AttackRoll", true);
+                //funcion rodar
+                Debug.Log("ATTACKROLL");
             }
             else
             {
-                animator.SetBool("Attack2", true);
-                Debug.Log("ATTACK2");
+                //nextPoint = middle_Limit;
+                //myRigidBody.AddForce(10000000,10000000000,0);
+               
+                if (nextPoint == left_Limit)
+                {
+                    nextPoint = right_Limit;
+                }else
+                {
+                    nextPoint = left_Limit;
+                }
+                animator.SetBool("AttackSpikes", true);
+                //funcion pinchos
+                Debug.Log("ATTACKSPIKES");
+               /* for (int i = 0; i < 3; i++)
+                {
+                    GameObject clone = Instantiate(spike, sp.transform.position, transform.rotation);
+                    clone.rigidbody.AddForce(transform.forward * 8000); ;
+                }*/
+               
             }
             agent.SetDestination(nextPoint.position);
 
