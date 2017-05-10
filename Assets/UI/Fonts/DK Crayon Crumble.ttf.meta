@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 66f57b399ae19334a88f8ae02f093c60
+timeCreated: 1494412340
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: DK Crayon Crumble
+  fontNames:
+  - DK Crayon Crumble
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

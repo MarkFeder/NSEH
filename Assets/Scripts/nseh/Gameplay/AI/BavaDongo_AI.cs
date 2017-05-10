@@ -76,14 +76,13 @@ namespace nseh.Gameplay.AI
                     wait = 1;
                 
                 }
-                //Debug.Log("0 " + animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
+                //Debug.Log("0 " + animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle")+ " "+isDice);
                 if (Mathf.Abs(this.gameObject.transform.position.x - nextPoint.transform.position.x) <= 1f)
                 {
                     animator.SetBool("Walk", false);
                     animator.SetBool("AttackRoll", false);
-                    animator.SetBool("AttackSpikes", false);
-                    animator.SetBool("Walk", false);
-                   
+                    
+
                     if (nextPoint == right_Limit)
                     {
                         nextPoint = left_Limit;
@@ -99,23 +98,34 @@ namespace nseh.Gameplay.AI
                     
                 }
 
-                else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle") && isDice==false)
+
+                else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle") && isDice ==false)
                 {
-                    Debug.Log("3");
-                    isDice = true;
-                    Invoke("SelectAttack", wait);
+                  
+                        Debug.Log("3 " + " " + animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
+                        isDice = true;
+                        Invoke("SelectAttack", wait);
+                    
+
                 }
             }
         }
 
         void SelectAttack()
         {
+            
             dice = Random.Range(0.0f, 1.0f);
             //numPlayers = throne.GetComponent<Throne>().players_throne;
             numPlayers = 1;
             float prob_AttackRoll = prob_AttackSpikes_in - ((prob_AttackSpikes_in - prob_Patrol_in) * numPlayers / maxPlayers);
             Debug.Log("Dice " + dice + " " + prob_AttackSpikes_in + " "+ prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
-            this.gameObject.transform.Rotate(0, 180, 0);
+            float angle = 179;
+            if (Vector3.Angle(this.transform.forward, nextPoint.transform.position - this.transform.position) > angle)
+            {
+                this.gameObject.transform.Rotate(0, 180, 0);
+
+            }
+
             if (dice < prob_Patrol_in)
             {
                 //Debug.Log(this.gameObject.transform.rotation);
@@ -123,6 +133,7 @@ namespace nseh.Gameplay.AI
                 animator.SetBool("Walk", true);
                 //funcion caminar
                 Debug.Log("PATROL");
+                agent.SetDestination(nextPoint.position);
             }
             else if (dice < prob_AttackRoll)
             {
@@ -130,30 +141,24 @@ namespace nseh.Gameplay.AI
                 animator.SetBool("AttackRoll", true);
                 //funcion rodar
                 Debug.Log("ATTACKROLL");
+                agent.SetDestination(nextPoint.position);
             }
             else
             {
-                //nextPoint = middle_Limit;
-                //myRigidBody.AddForce(10000000,10000000000,0);
-               
-                if (nextPoint == left_Limit)
-                {
-                    nextPoint = right_Limit;
-                }else
-                {
-                    nextPoint = left_Limit;
-                }
-                animator.SetBool("AttackSpikes", true);
+
+                animator.SetTrigger("AttackSpikes");
+                isDice = false;
                 //funcion pinchos
                 Debug.Log("ATTACKSPIKES");
-               /* for (int i = 0; i < 3; i++)
-                {
-                    GameObject clone = Instantiate(spike, sp.transform.position, transform.rotation);
-                    clone.rigidbody.AddForce(transform.forward * 8000); ;
-                }*/
-               
+                //animator.SetBool("AttackSpikes", false);
+                /* for (int i = 0; i < 3; i++)
+                 {
+                     GameObject clone = Instantiate(spike, sp.transform.position, transform.rotation);
+                     clone.rigidbody.AddForce(transform.forward * 8000); ;
+                 }*/
+
             }
-            agent.SetDestination(nextPoint.position);
+            
 
         }
 

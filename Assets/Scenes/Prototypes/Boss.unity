@@ -95,7 +95,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 1.62
+    agentRadius: 2.5
     agentHeight: 2
     agentSlope: 0
     agentClimb: 2.98
@@ -103,7 +103,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 7.04
     manualCellSize: 0
-    cellSize: 0.54
+    cellSize: 0.8333333
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -243,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 179487696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.94, y: 0.859, z: 0}
+  m_LocalPosition: {x: 19.07, y: 0.66, z: -0.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -315,12 +315,12 @@ GameObject:
   m_Component:
   - component: {fileID: 222717439}
   - component: {fileID: 222717438}
-  - component: {fileID: 222717437}
   - component: {fileID: 222717436}
   - component: {fileID: 222717435}
   - component: {fileID: 222717434}
   - component: {fileID: 222717440}
   - component: {fileID: 222717441}
+  - component: {fileID: 222717437}
   m_Layer: 0
   m_Name: Bava Dongo
   m_TagString: Untagged
@@ -393,8 +393,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &222717437
-BoxCollider:
+--- !u!136 &222717437
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -402,9 +402,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1.3502543
+  m_Height: 5.189657
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.02, z: -0}
 --- !u!33 &222717438
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -419,7 +420,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 222717433}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 7.65, y: 0.8499999, z: 0.02}
+  m_LocalPosition: {x: 7.65, y: 0.8499999, z: -0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 387424972}
@@ -435,7 +436,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 7
+  m_Speed: 4.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -571,7 +572,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 258501854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.58, y: 0.66, z: 0}
+  m_LocalPosition: {x: -4.77, y: 0.66, z: -0.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1321,7 +1322,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 848279434}
   m_LocalRotation: {x: -0.45596737, y: 0.036801934, z: 0.053457115, w: 0.88762707}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.05, y: 2.41, z: 1.72}
   m_LocalScale: {x: 1, y: 0.9999999, z: 1}
   m_Children: []
   m_Father: {fileID: 387424972}
