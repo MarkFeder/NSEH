@@ -14,6 +14,7 @@ public class ScoreMenu_Component : MonoBehaviour {
     public GameObject fourPlayerScore;
     public GameObject CanvasTwoPlayerScore;
     public GameObject CanvasFourPlayerScore;
+
     // Use this for initialization
     void Start ()
     {
