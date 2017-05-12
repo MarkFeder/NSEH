@@ -46,7 +46,7 @@ namespace nseh.Gameplay.Minigames
         {
             if (other.tag == "PlayerBody")
             {
-                StartCoroutine(DestroyCharacter(other);
+                StartCoroutine(DestroyCharacter(other));
             }
         }
 
