@@ -5,101 +5,106 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
 
-public class ScoreMenu_Component : MonoBehaviour {
 
-
-    MenuManager _MenuManager;
-    public GameObject current;
-    public GameObject twoPlayerScore;
-    public GameObject fourPlayerScore;
-    public GameObject CanvasTwoPlayerScore;
-    public GameObject CanvasFourPlayerScore;
-
-    // Use this for initialization
-    void Start ()
+namespace nseh.Managers.General
+{
+    public class ScoreMenu_Component : MonoBehaviour
     {
-        _MenuManager = GameManager.Instance.Find<MenuManager>();
-        if(_MenuManager.MyGame._numberPlayers == 2)
+
+        #region Private Properties
+        private MenuManager _MenuManager;
+        #endregion
+
+        #region Public Properties
+        public GameObject current;
+        public GameObject twoPlayerScore;
+        public GameObject fourPlayerScore;
+        public GameObject CanvasTwoPlayerScore;
+        public GameObject CanvasFourPlayerScore;
+        #endregion
+
+        #region Public Methods
+        // Use this for initialization
+        public void Start()
         {
-            current.SetActive(false);
-            current = CanvasTwoPlayerScore;
-            current.SetActive(true);
-            StartCoroutine("Score_two");
-        }
-
-        else if (_MenuManager.MyGame._numberPlayers == 4)
-        {
-            current.SetActive(false);
-            current = CanvasFourPlayerScore;
-            current.SetActive(true);
-            StartCoroutine("Score_four");
-        }
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-
-
-    IEnumerator Score_two()
-    {
-        yield return new WaitForSeconds(1f);
-        for (int i = 0; i < 3; i++)
-        {
-
-            for (int j = 0; j < _MenuManager.MyGame._numberPlayers; j++)
+            _MenuManager = GameManager.Instance.Find<MenuManager>();
+            if (_MenuManager.MyGame._numberPlayers == 2)
             {
-                twoPlayerScore.gameObject.transform.GetChild(j).transform.GetChild(i).GetComponent<Text>().text = _MenuManager.MyGame._score[j, i].ToString();
-
+                current.SetActive(false);
+                current = CanvasTwoPlayerScore;
+                current.SetActive(true);
+                StartCoroutine("Score_two");
             }
+
+            else if (_MenuManager.MyGame._numberPlayers == 4)
+            {
+                current.SetActive(false);
+                current = CanvasFourPlayerScore;
+                current.SetActive(true);
+                StartCoroutine("Score_four");
+            }
+        }
+
+        public void Restart()
+        {
+            _MenuManager.MyGame.ChangeState(GameManager.States.Playing);
+        }
+
+        public void MainMenu()
+        {
+            _MenuManager.MyGame.ChangeState(GameManager.States.MainMenu);
+        }
+        #endregion
+
+        #region Private Methods
+        private IEnumerator Score_two()
+        {
             yield return new WaitForSeconds(1f);
-            //Invoke("Wait", 10);
-        }
-        for (int j = 0; j < _MenuManager.MyGame._numberPlayers; j++)
-        {
-            twoPlayerScore.gameObject.transform.GetChild(j).transform.GetChild(3).GetComponent<Text>().text = (_MenuManager.MyGame._score[j, 0] + _MenuManager.MyGame._score[j, 1] + _MenuManager.MyGame._score[j, 2]).ToString();
+            for (int i = 0; i < 3; i++)
+            {
 
-        }
-        yield return new WaitForSeconds(1f);
+                for (int j = 0; j < _MenuManager.MyGame._numberPlayers; j++)
+                {
+                    twoPlayerScore.gameObject.transform.GetChild(j).transform.GetChild(i).GetComponent<Text>().text = _MenuManager.MyGame._score[j, i].ToString();
 
-    }
-
-
-    IEnumerator Score_four()
-    {
-        yield return new WaitForSeconds(1f);
-        for (int i = 0; i < 3; i++)
-        {
+                }
+                yield return new WaitForSeconds(1f);
+                //Invoke("Wait", 10);
+            }
             for (int j = 0; j < _MenuManager.MyGame._numberPlayers; j++)
             {
-                Debug.Log(fourPlayerScore.gameObject.transform.GetChild(j).transform.GetChild(i).name);
-                fourPlayerScore.gameObject.transform.GetChild(j).transform.GetChild(i).GetComponent<Text>().text = _MenuManager.MyGame._score[j, i].ToString();
-
+                twoPlayerScore.gameObject.transform.GetChild(j).transform.GetChild(3).GetComponent<Text>().text = (_MenuManager.MyGame._score[j, 0] + _MenuManager.MyGame._score[j, 1] + _MenuManager.MyGame._score[j, 2]).ToString();
 
             }
             yield return new WaitForSeconds(1f);
 
         }
-        for (int j = 0; j < _MenuManager.MyGame._numberPlayers; j++)
+
+
+        private IEnumerator Score_four()
         {
-            fourPlayerScore.gameObject.transform.GetChild(j).transform.GetChild(3).GetComponent<Text>().text = (_MenuManager.MyGame._score[j, 0] + _MenuManager.MyGame._score[j, 1] + _MenuManager.MyGame._score[j, 2]).ToString();
+            yield return new WaitForSeconds(1f);
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < _MenuManager.MyGame._numberPlayers; j++)
+                {
+                    Debug.Log(fourPlayerScore.gameObject.transform.GetChild(j).transform.GetChild(i).name);
+                    fourPlayerScore.gameObject.transform.GetChild(j).transform.GetChild(i).GetComponent<Text>().text = _MenuManager.MyGame._score[j, i].ToString();
 
 
+                }
+                yield return new WaitForSeconds(1f);
+
+            }
+            for (int j = 0; j < _MenuManager.MyGame._numberPlayers; j++)
+            {
+                fourPlayerScore.gameObject.transform.GetChild(j).transform.GetChild(3).GetComponent<Text>().text = (_MenuManager.MyGame._score[j, 0] + _MenuManager.MyGame._score[j, 1] + _MenuManager.MyGame._score[j, 2]).ToString();
+
+
+            }
+            yield return new WaitForSeconds(1f);
         }
-        yield return new WaitForSeconds(1f);
+        #endregion
+
     }
-
-
-    public void Restart()
-    {
-        _MenuManager.MyGame.ChangeState(GameManager.States.Playing);
-    }
-
-    public void MainMenu()
-    {
-        _MenuManager.MyGame.ChangeState(GameManager.States.MainMenu);
-    }
-
 }

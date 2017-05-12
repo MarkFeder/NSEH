@@ -10,56 +10,54 @@ namespace nseh.Gameplay.Movement
 
     public class Minigame : MonoBehaviour
     {
-
+        #region Public Properties
+        public bool started = false;
+        public bool isGrounded;
+        public int position;
+        public int gamepadIndex;
         public float speed;
         public float jumpForce;
         public float velocityCube;
-        public bool started = false;
-        private Rigidbody myRigidBody;
-        private Animator animator;
-        public bool isGrounded;
-        public int position;
+        #endregion
 
-        public int gamepadIndex;
+        #region Private Properties
+        private Rigidbody _myRigidBody;
+        private Animator _animator;
+        #endregion
 
+        #region Public Properties
         // Use this for initialization
-        void Start()
+        public void Start()
         {
-            myRigidBody = GetComponent<Rigidbody>();
-            animator = GetComponent<Animator>();
+            _myRigidBody = GetComponent<Rigidbody>();
+            _animator = GetComponent<Animator>();
             velocityCube = 0;
             //gamepadIndex = GetComponent<PlayerInfo>().GamepadIndex;
         }
 
-
-
         // Update is called once per frame
-        void Update()
+        public void Update()
         {
-            if(Math.Round(myRigidBody.velocity.y, 1) == 0)
+            if(Math.Round(_myRigidBody.velocity.y, 1) == 0)
             {
                 isGrounded = true;
             }
             if (started == true)
             {
-                animator.SetBool("Start", true);
-                myRigidBody.velocity = new Vector3(speed + velocityCube, myRigidBody.velocity.y, myRigidBody.velocity.z);
+                _animator.SetBool("Start", true);
+                _myRigidBody.velocity = new Vector3(speed + velocityCube, _myRigidBody.velocity.y, _myRigidBody.velocity.z);
 
                 if (Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, this.gamepadIndex)) && isGrounded)
                 {
                     isGrounded = false;
-                    myRigidBody.velocity = new Vector3(myRigidBody.velocity.x, jumpForce, myRigidBody.velocity.z);
+                    _myRigidBody.velocity = new Vector3(_myRigidBody.velocity.x, jumpForce, _myRigidBody.velocity.z);
                 }
             }
             else
             {
-                myRigidBody.velocity = Vector3.zero;
+                _myRigidBody.velocity = Vector3.zero;
             }
-
-
-
-
-
         }
+        #endregion
     }
 }

@@ -8,13 +8,17 @@ namespace nseh.Managers.General
 {
     public class MainMenuComponent : MonoBehaviour
     {
+
+        #region Private Properties
+        private MenuManager _MenuManager;
+        private GameObject _wrarr;
+        private GameObject _prospector;
+        private int adding;
+        #endregion
+
+        #region Public Properties
         public GameObject current;
-        MenuManager _MenuManager;
-        GameObject _wrarr;
-        GameObject _demon;
-        GameObject _prospector;
-        int adding;
-        public Text _playerTurnText;
+        public Text playerTurnText;
         public Button play;
         public Button wrarr;
         public Button prospector;
@@ -26,12 +30,14 @@ namespace nseh.Managers.General
         public Button random;
         public EventSystem eventSystem;
         public GameObject selectedGameObject;
+        #endregion
 
-        void Start()
+        #region Public Methods
+        public void Start()
         {
             _MenuManager = GameManager.Instance.Find<MenuManager>();
             adding = 0;
-            _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
+            playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
         }
 
         public void OneNumberCharacter(GameObject newCanvas)
@@ -57,7 +63,7 @@ namespace nseh.Managers.General
             if (current.name == "Canvas_PickingCharacters")
             {
                 adding = 0;
-                _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
+                playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
                 wrarr.interactable = true;
                 prospector.interactable = true;
                 granhilda.interactable = true;
@@ -85,7 +91,7 @@ namespace nseh.Managers.General
 
             if (adding == GameManager.Instance._numberPlayers)
             {
-                _playerTurnText.text = "READY?";
+                playerTurnText.text = "READY?";
                 wrarr.interactable = false;
                 prospector.interactable = false;
                 granhilda.interactable = false;
@@ -104,7 +110,7 @@ namespace nseh.Managers.General
             }
             else
             {
-                _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
+                playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
                 /*PLEASE DONT REMOVE
                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_"+(adding+1).ToString();
                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
@@ -125,7 +131,7 @@ namespace nseh.Managers.General
 
             if (adding == GameManager.Instance._numberPlayers)
             {
-                _playerTurnText.text = "READY?";
+                playerTurnText.text = "READY?";
                 wrarr.interactable = false;
                 prospector.interactable = false;
                 granhilda.interactable = false;
@@ -144,7 +150,7 @@ namespace nseh.Managers.General
             }
             else
             {
-                _playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
+                playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
                 /*PLEASE DONT REMOVE
                 eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + (adding + 1).ToString();
                 eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
@@ -159,11 +165,6 @@ namespace nseh.Managers.General
 
         }
 
-        public void Update()
-        {
-
-        }
-
         public void PlayGame(GameObject newCanvas)
         {
             //ChangeCanvas(newCanvas);
@@ -174,7 +175,8 @@ namespace nseh.Managers.General
         {
             _MenuManager.ExitGame();
         }
-    } 
+        #endregion
+    }
 }
 
 

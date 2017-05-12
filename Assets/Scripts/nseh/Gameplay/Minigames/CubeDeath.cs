@@ -9,39 +9,43 @@ namespace nseh.Gameplay.Minigames {
 
     public class CubeDeath : MonoBehaviour {
 
-
-        public float speed;
-        private Rigidbody myRigidBody;
+        #region Public Properties
         public bool started = false;
         public int num;
-        // Use this for initialization
-        void Start () {
-            myRigidBody = GetComponent<Rigidbody>();
+        public float speed;  
+        #endregion
 
+        #region Private Properties
+        private Rigidbody _myRigidBody;
+        #endregion
+
+        #region Public Methods
+        // Use this for initialization
+        public void Start () {
+            _myRigidBody = GetComponent<Rigidbody>();
         }
 	
 	    // Update is called once per frame
-	    void Update ()
+	    public void Update ()
         {
             if(started == true)
             {
-                myRigidBody.velocity = new Vector3(speed, myRigidBody.velocity.y, myRigidBody.velocity.z);
-            
+                _myRigidBody.velocity = new Vector3(speed, _myRigidBody.velocity.y, _myRigidBody.velocity.z);          
             }
             else
             {
-                myRigidBody.velocity = Vector3.zero;
+                _myRigidBody.velocity = Vector3.zero;
             }
-
         }
+        #endregion
 
+        #region Private Methods
         private void OnTriggerEnter(Collider other)
         {
             StartCoroutine(DestroyCharacter(other));
-            //Destroy(other.gameObject);
         }
 
-        IEnumerator DestroyCharacter(Collider other)
+        private IEnumerator DestroyCharacter(Collider other)
         {
             if (other.tag == "PlayerBody")
             {
@@ -53,10 +57,10 @@ namespace nseh.Gameplay.Minigames {
                     //FIN MINIJUEGO
                 }
                 yield return new WaitForSeconds(1);
-
                 Destroy(other.gameObject);
-            }
-            
+            }            
         }
+        #endregion
+
     }
 }

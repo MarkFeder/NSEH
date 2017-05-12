@@ -8,25 +8,24 @@ using UnityEngine.SceneManagement;
 
 namespace nseh.Gameplay.Gameflow
 {
-        public class LoadingEvent : LevelEvent
-        {
-        string aux;
+    public class LoadingEvent : LevelEvent
+    {
+
+        #region Private Properties
+        private string _aux;
         nseh.Managers.Level.LevelManager.States state;
+        #endregion
 
-
-        // Use this for initialization
-
-
+        #region Public Methods
         public override void ActivateEvent()
         {
             IsActivated = true;
-            aux = SceneManager.GetActiveScene().name;
+            _aux = SceneManager.GetActiveScene().name;
         }
 
         public override void EventTick()
         {
-            Debug.Log("Loading "+ aux+ " "+ SceneManager.GetActiveScene().name);
-            if (aux != SceneManager.GetActiveScene().name)
+            if (_aux != SceneManager.GetActiveScene().name)
             {
                 EventRelease();
             }
@@ -43,10 +42,9 @@ namespace nseh.Gameplay.Gameflow
             else
             {
                 LvlManager.ChangeState(LevelManager.States.LevelEvent);
-            }
-            
-       
-            
+            }  
         }
+        #endregion
+
     }
 }

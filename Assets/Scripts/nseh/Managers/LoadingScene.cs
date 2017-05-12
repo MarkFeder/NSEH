@@ -7,9 +7,13 @@ namespace nseh.Managers
 {
     public class LoadingScene : Service
     {
-        string aux;
-        nseh.Managers.Main.GameManager.States state;
 
+        #region Private Methods
+        private string _aux;
+        nseh.Managers.Main.GameManager.States state;
+        #endregion
+
+        #region Public Methods
         // Use this for initialization
         public override void Setup(nseh.Managers.Main.GameManager myGame)
         {
@@ -20,12 +24,12 @@ namespace nseh.Managers
         {
             IsActivated = true;
             state = MyGame._nextState;
-            aux = SceneManager.GetActiveScene().name;
+            _aux = SceneManager.GetActiveScene().name;
         }
 
         public override void Tick()
         {
-            if (aux != SceneManager.GetActiveScene().name)
+            if (_aux != SceneManager.GetActiveScene().name)
             {
                 Release();
             }
@@ -50,5 +54,7 @@ namespace nseh.Managers
             }
             IsActivated = false;
         }
+        #endregion
+
     }
 }

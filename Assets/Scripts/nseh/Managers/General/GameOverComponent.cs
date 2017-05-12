@@ -6,8 +6,12 @@ namespace nseh.Managers.General
 {
     public class GameOverComponent : MonoBehaviour
     {
-        LevelManager _LevelManager;
 
+        #region Private Properties
+        private LevelManager _LevelManager;
+        #endregion
+
+        #region Public Methods
         public void RestartGame()
         {
             _LevelManager.Restart();
@@ -24,11 +28,6 @@ namespace nseh.Managers.General
         {
             _LevelManager = GameManager.Instance.Find<LevelManager>();
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-    } 
+        #endregion
+    }
 }

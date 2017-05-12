@@ -6,9 +6,11 @@ namespace nseh.Managers.General
 {
     public class PausedComponent : MonoBehaviour
     {
+        #region Private Properties
+        private LevelManager _LevelManager;
+        #endregion
 
-        LevelManager _LevelManager;
-
+        #region Public Methods
         public void RestartGame()
         {
             _LevelManager.Restart();
@@ -25,15 +27,11 @@ namespace nseh.Managers.General
         }
 
         // Use this for initialization
-        void Start()
+        public void Start()
         {
             _LevelManager = GameManager.Instance.Find<LevelManager>();
         }
+        #endregion
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-    } 
+    }
 }

@@ -4,7 +4,7 @@ namespace nseh.Managers
 {
     public class MenuManager : Service
     {
-
+        #region Public Methods
         public override void Setup(Main.GameManager myGame)
         {
             base.Setup(myGame);
@@ -54,7 +54,7 @@ namespace nseh.Managers
         public override void Release()
         {
             IsActivated = false;
-            //MyGame.nextState = Game.States.Playing;
         }
-    } 
+        #endregion
+    }
 }

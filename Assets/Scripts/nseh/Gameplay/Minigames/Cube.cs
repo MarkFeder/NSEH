@@ -1,35 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using nseh.Gameplay.Movement;
 
-public class Cube : MonoBehaviour
+namespace nseh.Gameplay.Minigames
 {
-
-    // Use this for initialization
-    void Start()
+  
+    public class Cube : MonoBehaviour
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if(other.tag=="PlayerBody")
-            other.GetComponent<Minigame>().velocityCube = -3;
+        #region Private Methods
+        private void OnTriggerStay(Collider other)
+        {
+            if(other.tag=="PlayerBody")
+                other.GetComponent<Minigame>().velocityCube = -3;
       
-    }
+        }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "PlayerBody")
-            other.GetComponent<Minigame>().velocityCube = 0;
-    }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "PlayerBody")
+                other.GetComponent<Minigame>().velocityCube = 0;
+        }
+        #endregion
 
+    }
 }
+

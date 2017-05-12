@@ -2,68 +2,70 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageGenerator : MonoBehaviour
+namespace nseh.Gameplay.Minigames
 {
 
-
-
-    public GameObject platform;
-    public GameObject platformChest;
-    public GameObject platformInitial;
-    public Transform generationPoint;
-    [SerializeField]
-    private List<GameObject> SpecialPlatforms;
-
-    private int count;
-    private int countSpecial;
-
-    private float platformWidth;
-
-    private int randomPlatform;
-
-    // Use this for initialization
-    void Start()
+    public class StageGenerator : MonoBehaviour
     {
-        //platformWidth = platformInitial.GetComponent<MeshRenderer>().bounds.size.x;
-        count = 0;
 
-    }
+        #region Privates Properties
+        private int _randomPlatform;
+        private int _count;
+        private int _countSpecial;
+        private float _platformWidth;
+        [SerializeField]
+        private List<GameObject> _specialPlatforms;
+        #endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (transform.position.x < generationPoint.position.x)
+        #region Public Properties
+        public GameObject platform;
+        public GameObject platformChest;
+        public GameObject platformInitial;
+        public Transform generationPoint;
+        #endregion
+
+        #region Public Methods
+        // Use this for initialization
+        public void Start()
         {
-            platformWidth = platform.GetComponent<MeshRenderer>().bounds.size.x;
+            _count = 0;
+        }
 
-            transform.position = new Vector3(transform.position.x + platformWidth, transform.position.y, transform.position.z);
-            if (count < 2)
+        // Update is called once per frame
+        public void Update()
+        {
+            if (transform.position.x < generationPoint.position.x)
             {
-                Instantiate(platform, transform.position, platform.transform.rotation);
-                count++;
-            }
-            else
-            {
-                countSpecial++;
-                count = 0;
-                if (countSpecial == 3 && SpecialPlatforms.Count != 0)
-                {
-                    countSpecial = 0;
-                    Instantiate(platformChest, transform.position, platform.transform.rotation);
-                }
-                else if (SpecialPlatforms.Count == 0)
+                _platformWidth = platform.GetComponent<MeshRenderer>().bounds.size.x;
+
+                transform.position = new Vector3(transform.position.x + _platformWidth, transform.position.y, transform.position.z);
+                if (_count < 2)
                 {
                     Instantiate(platform, transform.position, platform.transform.rotation);
+                    _count++;
                 }
                 else
                 {
-                    randomPlatform = UnityEngine.Random.Range(0, SpecialPlatforms.Count);
-                    //platformWidth = SpecialPlatforms[randomPlatform].GetComponent<MeshRenderer>().bounds.size.x;
-                    Instantiate(SpecialPlatforms[randomPlatform], transform.position, platform.transform.rotation);
-
+                    _countSpecial++;
+                    _count = 0;
+                    if (_countSpecial == 3 && _specialPlatforms.Count != 0)
+                    {
+                        _countSpecial = 0;
+                        Instantiate(platformChest, transform.position, platform.transform.rotation);
+                    }
+                    else if (_specialPlatforms.Count == 0)
+                    {
+                        Instantiate(platform, transform.position, platform.transform.rotation);
+                    }
+                    else
+                    {
+                        _randomPlatform = UnityEngine.Random.Range(0, _specialPlatforms.Count);
+                        Instantiate(_specialPlatforms[_randomPlatform], transform.position, platform.transform.rotation);
+                    }
                 }
             }
         }
+        #endregion
 
     }
 }

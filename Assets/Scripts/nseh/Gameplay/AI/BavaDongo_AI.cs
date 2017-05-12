@@ -10,6 +10,7 @@ namespace nseh.Gameplay.AI
     public class BavaDongo_AI : MonoBehaviour
     {
 
+        #region Public Properties
         public Transform left_Limit;
         public Transform right_Limit;
         public GameObject spike;
@@ -17,140 +18,137 @@ namespace nseh.Gameplay.AI
         public float Health;
         public float maxPlayers;
         public float numPlayers;
+        #endregion
 
-        private Transform nextPoint;
-        private Rigidbody myRigidBody;
-        private NavMeshAgent agent;
-        private float dice;
-        private float prob_Patrol_in;
-        private float prob_AttackSpikes_in;
-        private float prob_AttackRoll_in;
-        private bool frenzy;
-        private bool isDeath;
-        private int wait;
-        private GameObject throne;
-        private Animator animator;
-        private bool isDice;
+        #region Private Properties
+        private Transform _nextPoint;
+        private Rigidbody _myRigidBody;
+        private NavMeshAgent _agent;
+        private GameObject _throne;
+        private Animator _animator;
+        private bool _isDice;
+        private bool _frenzy;
+        private bool _isDeath;
+        private int _wait;
+        private float _dice;
+        private float _prob_Patrol_in;
+        private float _prob_AttackSpikes_in;
+        private float _prob_AttackRoll_in;
+        #endregion
 
+        #region Public Methods
         // Use this for initialization
-        void Start()
+        public void Start()
         {
-
-            animator = gameObject.GetComponent<Animator>();
-            nextPoint = right_Limit;
-            isDeath = false;
-            myRigidBody = GetComponent<Rigidbody>();
-            agent = GetComponent<NavMeshAgent>();
-            agent.SetDestination(nextPoint.position);
-            prob_Patrol_in = 0.5f;
-            prob_AttackSpikes_in = 1f;
+            _animator = gameObject.GetComponent<Animator>();
+            _nextPoint = right_Limit;
+            _isDeath = false;
+            _myRigidBody = GetComponent<Rigidbody>();
+            _agent = GetComponent<NavMeshAgent>();
+            _agent.SetDestination(_nextPoint.position);
+            _prob_Patrol_in = 0.5f;
+            _prob_AttackSpikes_in = 1f;
             Health = 100;
-            frenzy = false;
-            wait = 2;
-            animator.SetBool("Appear", true);
-            animator.SetBool("Appear", false);
-            throne = GameObject.Find("throne");
+            _frenzy = false;
+            _wait = 2;
+            _animator.SetBool("Appear", true);
+            _animator.SetBool("Appear", false);
+            _throne = GameObject.Find("throne");
             //maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
             maxPlayers = 2;
-            animator.SetBool("Walk", true);
-            isDice = true;
+            _animator.SetBool("Walk", true);
+            _isDice = true;
         }
 
         // Update is called once per frame
-        void Update()
+        public void Update()
         {
-            if (Health < 0 && isDeath == false)
+            if (Health < 0 && _isDeath == false)
             {
-                isDeath = true;
-                animator.SetBool("Death", true);
+                _isDeath = true;
+                _animator.SetBool("Death", true);
             }
             else
             {
-                if (Health < 30 && frenzy == false)
+                if (Health < 30 && _frenzy == false)
                 {
-                    frenzy = true;
-                    animator.SetBool("Frenzy", true);
-                    prob_Patrol_in = 0.25f;
-                    prob_AttackSpikes_in = 1f;
-                    agent.speed = 10;
-                    wait = 1;
+                    _frenzy = true;
+                    _animator.SetBool("Frenzy", true);
+                    _prob_Patrol_in = 0.25f;
+                    _prob_AttackSpikes_in = 1f;
+                    _agent.speed = 10;
+                    _wait = 1;
                 
                 }
                 //Debug.Log("0 " + animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle")+ " "+isDice);
-                if (Mathf.Abs(this.gameObject.transform.position.x - nextPoint.transform.position.x) <= 1f)
+                if (Mathf.Abs(this.gameObject.transform.position.x - _nextPoint.transform.position.x) <= 1f)
                 {
-                    animator.SetBool("Walk", false);
-                    animator.SetBool("AttackRoll", false);
-                    
+                    _animator.SetBool("Walk", false);
+                    _animator.SetBool("AttackRoll", false);
 
-                    if (nextPoint == right_Limit)
+                    if (_nextPoint == right_Limit)
                     {
-                        nextPoint = left_Limit;
-                        isDice = false;
+                        _nextPoint = left_Limit;
+                        _isDice = false;
                         Debug.Log("1");
                     }
-                    else if (nextPoint == left_Limit)
+
+                    else if (_nextPoint == left_Limit)
                     {
-                        nextPoint = right_Limit;
-                        isDice = false;
+                        _nextPoint = right_Limit;
+                        _isDice = false;
                         Debug.Log("2");
-                    }
-                    
+                    }         
                 }
 
-
-                else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle") && isDice ==false)
-                {
-                  
-                        Debug.Log("3 " + " " + animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
-                        isDice = true;
-                        Invoke("SelectAttack", wait);
-                    
-
+                else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle") && _isDice ==false)
+                {         
+                    Debug.Log("3 " + " " + _animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
+                    _isDice = true;
+                    Invoke("SelectAttack", _wait);
                 }
             }
         }
 
-        void SelectAttack()
-        {
-            
-            dice = Random.Range(0.0f, 1.0f);
+        #endregion
+
+        #region Private Methods
+        private void SelectAttack()
+        {          
+            _dice = Random.Range(0.0f, 1.0f);
             //numPlayers = throne.GetComponent<Throne>().players_throne;
             numPlayers = 1;
-            float prob_AttackRoll = prob_AttackSpikes_in - ((prob_AttackSpikes_in - prob_Patrol_in) * numPlayers / maxPlayers);
-            Debug.Log("Dice " + dice + " " + prob_AttackSpikes_in + " "+ prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
+            float prob_AttackRoll = _prob_AttackSpikes_in - ((_prob_AttackSpikes_in - _prob_Patrol_in) * numPlayers / maxPlayers);
+            //Debug.Log("Dice " + dice + " " + prob_AttackSpikes_in + " "+ prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
             float angle = 179;
-            if (Vector3.Angle(this.transform.forward, nextPoint.transform.position - this.transform.position) > angle)
+
+            if (Vector3.Angle(this.transform.forward, _nextPoint.transform.position - this.transform.position) > angle)
             {
                 this.gameObject.transform.Rotate(0, 180, 0);
-
             }
 
-            if (dice < prob_Patrol_in)
+            if (_dice < _prob_Patrol_in)
             {
-                //Debug.Log(this.gameObject.transform.rotation);
-                
-                animator.SetBool("Walk", true);
+                _animator.SetBool("Walk", true);
                 //funcion caminar
                 Debug.Log("PATROL");
-                agent.SetDestination(nextPoint.position);
+                _agent.SetDestination(_nextPoint.position);
             }
-            else if (dice < prob_AttackRoll)
-            {
-               
-                animator.SetBool("AttackRoll", true);
+
+            else if (_dice < prob_AttackRoll)
+            {             
+                _animator.SetBool("AttackRoll", true);
                 //funcion rodar
                 Debug.Log("ATTACKROLL");
-                agent.SetDestination(nextPoint.position);
+                _agent.SetDestination(_nextPoint.position);
             }
+
             else
             {
-
-                animator.SetTrigger("AttackSpikes");
-                isDice = false;
+                _animator.SetTrigger("AttackSpikes");
+                _isDice = false;
                 //funcion pinchos
                 Debug.Log("ATTACKSPIKES");
-                //animator.SetBool("AttackSpikes", false);
                 /* for (int i = 0; i < 3; i++)
                  {
                      GameObject clone = Instantiate(spike, sp.transform.position, transform.rotation);
@@ -158,14 +156,13 @@ namespace nseh.Gameplay.AI
                  }*/
 
             }
-            
-
         }
 
-
-        IEnumerator Wait(float seconds)
+        private IEnumerator Wait(float seconds)
         {
             yield return new WaitForSeconds(seconds);
         }
+        #endregion
+
     }
 }

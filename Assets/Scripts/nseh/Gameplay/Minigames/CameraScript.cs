@@ -7,21 +7,23 @@ namespace nseh.Gameplay.Minigames
 
     public class CameraScript : MonoBehaviour
     {
+        #region Public Properties
+        public bool starting;
         public bool started = false;
         public int num;
-        public bool starting;
+        #endregion
 
+        #region Public Methods
         // Use this for initialization
-        void Start()
+        public void Start()
         {
             starting = true;
 
         }
 
         // Update is called once per frame
-        void Update()
+        public void Update()
         {
-
             if (started == true)
             {
                 starting =false;
@@ -48,5 +50,7 @@ namespace nseh.Gameplay.Minigames
                 }
             }
         }
+        #endregion
+
     }
 }

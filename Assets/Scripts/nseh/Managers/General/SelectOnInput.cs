@@ -12,16 +12,18 @@ namespace nseh.Managers.General
     public class SelectOnInput : MonoBehaviour
     {
 
+        #region Private Properties
+        private bool _buttonSelected;
+        #endregion
+
+        #region Public Properties
         public EventSystem eventSystem;
         public GameObject selectedGameObject;
+        #endregion
 
-        private bool _buttonSelected;
-        private float horizontal;
-        private float vertical;
-
-
+        #region Public Methods
         // Use this for initialization
-        void Start ()
+        public void Start ()
         {
             eventSystem = FindObjectOfType<EventSystem>();
             eventSystem.SetSelectedGameObject(selectedGameObject);
@@ -29,7 +31,7 @@ namespace nseh.Managers.General
         }
 	
 	    // Update is called once per frame
-	    void Update ()
+	    public void Update ()
         {
             //Debug.Log(Input.GetAxisRaw(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, 1)));
             if ((Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, 1)) != 0 || Input.GetAxisRaw(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, 1)) != 0) 
@@ -39,10 +41,13 @@ namespace nseh.Managers.General
                 _buttonSelected = true;
             }
 	    }
+        #endregion
 
+        #region Private Methods
         private void OnDisable()
         {
             _buttonSelected = false;
         }
+        #endregion
     }
 }

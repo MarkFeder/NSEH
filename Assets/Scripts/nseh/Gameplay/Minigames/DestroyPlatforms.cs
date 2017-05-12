@@ -7,34 +7,39 @@ namespace nseh.Gameplay.Minigames
     public class DestroyPlatforms : MonoBehaviour
     {
 
+        #region Public Properties
         public GameObject destructionPoint;
+        #endregion
 
+        #region Public Methods
         // Use this for initialization
-        void Start()
+        public void Start()
         {
             if (this.gameObject.name == "Cube 6(Clone)")
             {
                 destructionPoint = GameObject.Find("PlatformDestructionPointWall");
-            }else if (this.gameObject.name == "InitialPlatforms")
+            }
+
+            else if (this.gameObject.name == "InitialPlatforms")
             {
                 destructionPoint = GameObject.Find("PlatformDestructionPointWall");
             }
-
-          
+ 
             else
             {
                 destructionPoint = GameObject.Find("PlatformDestructionPoint");
             }
-
         }
 
         // Update is called once per frame
-        void Update()
+        public void Update()
         {
             if (transform.position.x < destructionPoint.transform.position.x)
             {
                 Destroy(gameObject);
             }
-        }
-    } 
+        }   
+        #endregion
+
+    }
 }
