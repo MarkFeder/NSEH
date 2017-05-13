@@ -1230,7 +1230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   current: {fileID: 8937661}
-  _playerTurnText: {fileID: 448353229}
+  playerTurnText: {fileID: 448353229}
   play: {fileID: 484148902}
   wrarr: {fileID: 2132610670}
   prospector: {fileID: 1058011063}
