@@ -9,7 +9,7 @@ namespace nseh.Gameplay.Animations.Behaviour
 {
     public class LocomotionSMB : BaseStateMachineBehaviour
     {
-        private IAction nextAction;
+        private IAction _nextAction;
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -23,10 +23,10 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            this.nextAction = _playerInfo.PlayerCombat.Actions.Where(action => action.ButtonHasBeenPressed()).FirstOrDefault();
-            if (nextAction != null && nextAction.ButtonHasBeenPressed())
+            _nextAction = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().Where(action => action.IsSimpleAttack && action.ButtonHasBeenPressed()).FirstOrDefault();
+            if (_nextAction != null && _nextAction.IsEnabled)
             {
-                this.nextAction.StartAction();
+                _nextAction.StartAction();
             }
         }
 

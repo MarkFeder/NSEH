@@ -1,19 +1,18 @@
-﻿using nseh.Gameplay.Animations.Receivers.Wrarr;
-using nseh.Gameplay.Entities.Player;
-using nseh.Utils.EditorCustomization;
+﻿using System.Linq;
+using nseh.Gameplay.Animations.Receivers.Wrarr;
+using nseh.Gameplay.Combat.Attack.Wrarr;
 using nseh.Utils.Helpers;
-using System.Linq;
 using UnityEngine;
 using Layers = nseh.Utils.Constants.Layers;
-using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Combat.Attack.SirProspector
 {
-    [HidePropertiesInInspector("_initialDamage")]
     public class WrarrHability : CharacterAttack
     {
         #region Private Properties
 
+        [SerializeField]
+        private WaveComponent _wave;
         [SerializeField]
         [Range(0, 1)]
         private float _startRoarTime;
@@ -22,14 +21,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         private float _stopRoarTime;
         [SerializeField]
         private float _force;
-        [SerializeField]
-        private float _distance;
-        [SerializeField]
-        private float _percent;
-        [SerializeField]
-        private float _seconds;
-        [SerializeField]
-        private float _reusedTime;
 
         private int _playerLayer;
 
@@ -61,9 +52,12 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
         public override void StartAction()
         {
-            if (_enabled)
+            if (_enabled && CanStartSpecialHability())
             {
+                ReduceEnergyOnSpecialHability();
                 base.StartAction();
+
+                _enabled = false;
             }
         }
 
@@ -98,31 +92,28 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         {
             // If hits enemies, then execute logic
             // Draw raycast
-            Vector3 forward = transform.TransformDirection(Vector3.forward) * _distance;
+            Vector3 forward = transform.TransformDirection(Vector3.forward);
             Debug.DrawRay(_playerInfo.particleBodyPos.position, forward, Color.green, 3.0f);
 
-            RaycastHit[] hits = Physics.RaycastAll(_playerInfo.particleBodyPos.position, forward, _distance);
-            for (int i = 0; i < hits.Length; ++i)
-            {
-                GameObject enemy = hits[i].transform.gameObject;
-                Debug.Log("Hitted: " + enemy.name);
-
-                if (enemy.CompareTag(Tags.PLAYER_BODY))
-                {
-                    PlayerInfo enemyInfo = enemy.GetComponent<PlayerInfo>();
-                    if (enemyInfo != null)
-                    {
-                        enemyInfo.Body.AddForceAtPosition(forward * _force, hits[i].point, ForceMode.Impulse);
-                        enemyInfo.PlayerMovement.DecreaseSpeedForSeconds(_percent, _seconds);
-                    }
-                }
-            }
+            // Activate warr's wave
+            _wave.enabled = true;
+            _wave.Sender = _playerInfo;
+            _wave.WaveCollider.enabled = true;
+            _wave.Damage = _currentDamage;
+            _wave.Force = _force;
         }
 
         private void OnEndRoar(AnimationEvent animationEvent)
         {
-            // Reestablish timer
-            _enabled = false;
+            // Deactivate Wrarr's wave
+            _wave.enabled = false;
+            _wave.Sender = null;
+            _wave.WaveCollider.enabled = false;
+            _wave.Damage = 0.0f;
+            _wave.Force = 0.0f;
+
+            // Activate this attack again
+            _enabled = true;
         }
 
         #endregion

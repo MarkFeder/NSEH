@@ -11,17 +11,10 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 
         private Collider _collider;
         private List<GameObject> _enemies;
-
-        private Vector3 _forceDirection;
         private PlayerInfo _senderInfo;
-        private float _damage;
 
-        [SerializeField]
+        private float _damage;
         private float _force;
-        [SerializeField]
-        private float _percent;
-        [SerializeField]
-        private float _seconds;
 
         #endregion
 
@@ -33,36 +26,38 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             set { _damage = value; }
         }
 
+        public float Force
+        {
+            get { return _force; }
+            set { _force = value; }
+        }
+
         public PlayerInfo Sender
         {
             get { return _senderInfo; }
             set { _senderInfo = value; }
         }
 
-        public Collider Wave
+        public Collider WaveCollider
         {
             get { return _collider; }
-        }
-
-        public Vector3 ForceDirection
-        {
-            get { return _forceDirection; }
-            set { _forceDirection = value; }
         }
 
         #endregion
 
         #region Private Methods
 
-        private void Start()
+        private void OnEnable()
         {
-            _collider = GetComponent<Collider>();
-            _enemies = new List<GameObject>();
+			_collider = GetComponent<Collider>();
+			_collider.enabled = false;
+
+			_enemies = new List<GameObject>();
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider collision)
         {
-            string colTag = collision.collider.tag;
+            string colTag = collision.tag;
 
             if (colTag == Tags.PLAYER_BODY)
             {
@@ -81,8 +76,7 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
                         enemyInfo.PlayerHealth.TakeDamage((int)_damage);
 
                         // Push enemy body
-                        enemyInfo.Body.AddForceAtPosition(_forceDirection * _force, collision.contacts[0].point,  ForceMode.Impulse);
-                        enemyInfo.PlayerMovement.DecreaseSpeedForSeconds(_percent, _seconds);
+                        enemyInfo.Body.AddForceAtPosition(_force * transform.forward, enemyInfo.ParticleBodyPos.position, ForceMode.Acceleration);
 
                         // Add this enemy to the list so as to cause damage again
                         _enemies.Add(enemyObj);

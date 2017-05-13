@@ -1656,15 +1656,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738aa3ac28a00ee43ad4246da6173b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialDamage: 5
+  _initialDamage: 10
   _attackType: 7
+  _wave: {fileID: 114333976357871034}
   _startRoarTime: 0.4
   _stopRoarTime: 0.9
-  _force: 1000
-  _distance: 10
-  _percent: 20
-  _seconds: 4
-  _reusedTime: 15
+  _force: 5000
 --- !u!114 &114190659147358852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1754,9 +1751,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b2f651c834ab314695614a7409661b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: 0
-  _percent: 0
-  _seconds: 0
 --- !u!114 &114437163869857748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1807,7 +1801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxEnergy: 200
-  _currentEnergy: 0
+  _currentEnergy: 200
 --- !u!114 &114736991629091880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1866,11 +1860,11 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1030838810342178}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
+  m_IsTrigger: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.5801738
-  m_Center: {x: -0.000000002736164, y: 0.0000000047787694, z: 0.08017404}
+  m_Radius: 0.8458715
+  m_Center: {x: -0.000000011803839, y: 0.000000020615667, z: 0.34587172}
 --- !u!135 &135115222219642246
 SphereCollider:
   m_ObjectHideFlags: 1
