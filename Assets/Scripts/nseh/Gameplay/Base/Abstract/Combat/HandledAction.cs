@@ -1,18 +1,18 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
+using nseh.Gameplay.Entities.Player;
+using System;
 using System.Linq;
 using UnityEngine;
-using System;
-using System.Collections;
-using nseh.Gameplay.Entities.Player;
 
 namespace nseh.Gameplay.Base.Abstract
 {
-    [Serializable]
     public abstract class HandledAction : MonoBehaviour, IAction
     {
         #region Protected Properties
 
         protected int _hash;
+
+        protected bool _enabled;
 
         protected string _stateName;
         protected string _button;
@@ -34,6 +34,8 @@ namespace nseh.Gameplay.Base.Abstract
         public string Button { get { return _button; } }
 
         public Animator Animator { get { return _animator; } }
+
+        public bool IsEnabled { get { return _enabled; } set { _enabled = value; } }
 
         #endregion
 

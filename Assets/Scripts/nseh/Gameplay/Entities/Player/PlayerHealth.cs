@@ -19,27 +19,25 @@ namespace nseh.Gameplay.Entities.Player
 
     public class PlayerHealth : MonoBehaviour, IHealth
     {
-        #region Public Properties
-
-        public int startingHealth = 100;
-        public int maxHealth = 100;
-
-        #endregion
-
         #region Private Properties
 
-        private BarComponent healthBar;
-        private List<Image> playerLives;
-        private PlayerInfo playerInfo;
-        private HealthMode healthMode;
+        [SerializeField]
+        public int _startingHealth = 100;
+        [SerializeField]
+        public int _maxHealth = 100;
+
+        private int _deathCount;
+        private float _bonificationDefense;
+        private float _currentHealth;
+
+        private BarComponent _healthBar;
+        private List<Image> _playerLives;
+        private PlayerInfo _playerInfo;
+        private HealthMode _healthMode;
         //private LevelProgress lvlProgress;
 
-        private float _bonificationDefense;
-        private float currentHealth;
         //private int lives;
-        private int deathCount;
-        private bool isDead;
-        private int animDead;
+        private bool _isDead;
 
         #endregion
 
@@ -53,105 +51,80 @@ namespace nseh.Gameplay.Entities.Player
 
         public float CurrentHealth
         {
-            get
-            {
-                return this.currentHealth;
-            }
-
+            get { return _currentHealth; }
             set
             {
-                this.currentHealth = value;
+                _currentHealth = value;
 
-                if (healthBar != null)
+                if (_healthBar != null)
                 {
-                    healthBar.Value = currentHealth;
+                    _healthBar.Value = _currentHealth;
                 }
             }
         }
 
         public HealthMode HealthMode
         {
-            get
-            {
-                return this.healthMode;
-            }
-
-            set
-            {
-                this.healthMode = value;
-            }
+            get { return _healthMode; }
+            set { _healthMode = value; }
         }
 
         public BarComponent HealthBar
         {
-            set
-            {
-                this.healthBar = value;
-            }
+            set { _healthBar = value; }
         }
         /*
         public LevelProgress LvlProgress
         {
             set
             {
-                this.lvlProgress = value;
+                lvlProgress = value;
             }
         }*/
 
         public int StartingHealth
         {
-            get { return this.startingHealth; }
-            set { this.startingHealth = value; }
+            get { return _startingHealth; }
+            set { _startingHealth = value; }
         }
 
         public int MaxHealth
         {
-            get
-            {
-                return maxHealth;
-            }
-
+            get { return _maxHealth; }
             set
             {
-                maxHealth = value;
+                _maxHealth = value;
 
-                if (healthBar != null)
+                if (_healthBar != null)
                 {
-                    healthBar.MaxValue = maxHealth;
+                    _healthBar.MaxValue = _maxHealth;
                 }
             }
         }
 
         public List<Image> PlayerLives
         {
-            get
-            {
-                return playerLives;
-            }
-
-            set
-            {
-                playerLives = value;
-            }
+            get { return _playerLives; }
+            set { _playerLives = value; }
         }
 
         #endregion
 
         protected virtual void Start()
         {
-            this.playerInfo = GetComponent<PlayerInfo>();
+            _playerInfo = GetComponent<PlayerInfo>();
 
             // Set initial health
-            this.MaxHealth = this.maxHealth;
-            this.CurrentHealth = this.startingHealth;
-            //this.lives = 3;
-            this.deathCount = 0;
-            this.isDead = false;
+            MaxHealth = _maxHealth;
+            CurrentHealth = _startingHealth;
+            //lives = 3;
+            _deathCount = 0;
+            _isDead = false;
         }
 
         protected virtual void Update()
         {
-           // Debug.Log("Current health of " + this.gameObject.name + " is " + this.CurrentHealth);
+           // Debug.Log("Current health of " + gameObject.name + " is " + CurrentHealth);
         }
 
         #region Public Methods
@@ -161,9 +134,9 @@ namespace nseh.Gameplay.Entities.Player
         /// </summary>
         public void ResetHealth()
         {
-            this.MaxHealth = this.maxHealth;
-            this.CurrentHealth = this.startingHealth;
-            this.isDead = false;
+            MaxHealth = _maxHealth;
+            CurrentHealth = _startingHealth;
+            _isDead = false;
         }
 
         /// <summary>
@@ -171,7 +144,7 @@ namespace nseh.Gameplay.Entities.Player
         /// </summary>
         public void ResetDeathCounter()
         {
-            this.deathCount = 0;
+            _deathCount = 0;
         }
 
         /// <summary>
@@ -187,7 +160,7 @@ namespace nseh.Gameplay.Entities.Player
                 }
             }
 
-            //this.lives = 3;
+            //lives = 3;
         }
 
         /// <summary>
@@ -198,7 +171,7 @@ namespace nseh.Gameplay.Entities.Player
         /// <returns></returns>
         public void IncreaseHealthForEverySecond(float percent, float totalSeconds)
         {
-            StartCoroutine(this.IncreaseHealthForEverySecondInternal(percent, totalSeconds));
+            StartCoroutine(IncreaseHealthForEverySecondInternal(percent, totalSeconds));
         }
 
         /// <summary>
@@ -209,7 +182,7 @@ namespace nseh.Gameplay.Entities.Player
         /// <returns></returns>
         public void DecreaseHealthForEverySecond(float percent, float totalSeconds)
         {
-            StartCoroutine(this.DecreaseHealthForEverySecondInternal(percent, totalSeconds));
+            StartCoroutine(DecreaseHealthForEverySecondInternal(percent, totalSeconds));
         }
 
         /// <summary>
@@ -220,7 +193,7 @@ namespace nseh.Gameplay.Entities.Player
         /// <returns></returns>
         public void InvulnerabilityModeForSeconds(float seconds)
         {
-            StartCoroutine(this.InvulnerabilityModeForSecondsInternal(seconds));
+            StartCoroutine(InvulnerabilityModeForSecondsInternal(seconds));
         }
 
         /// <summary>
@@ -241,18 +214,18 @@ namespace nseh.Gameplay.Entities.Player
         {
             if (percent > 0.0f)
             {
-                var oldHealth = this.CurrentHealth;
+                var oldHealth = CurrentHealth;
 
-                float amount = (this.MaxHealth * percent / 100.0f);
-                this.CurrentHealth += amount;
-                this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
+                float amount = (MaxHealth * percent / 100.0f);
+                CurrentHealth += amount;
+                CurrentHealth = (int)Mathf.Clamp(CurrentHealth, 0.0f, _maxHealth);
                 /*
-                if (lvlProgress.IsActivated && oldHealth != this.maxHealth)
+                if (lvlProgress.IsActivated && oldHealth != maxHealth)
                 {
-                    lvlProgress.DecreaseProgress(this.CurrentHealth-oldHealth);
+                    lvlProgress.DecreaseProgress(CurrentHealth-oldHealth);
                 }*/
 
-                Debug.Log(String.Format(LOGS.INCREASE_HEALTH, this.gameObject.name, oldHealth, percent, this.CurrentHealth));
+                Debug.Log(String.Format(LOGS.INCREASE_HEALTH, gameObject.name, oldHealth, percent, CurrentHealth));
             }
         }
 
@@ -262,28 +235,28 @@ namespace nseh.Gameplay.Entities.Player
         /// <param name="percent"></param>
         public void DecreaseHealth(float percent)
         {
-            if (this.healthMode == HealthMode.Normal && percent > 0.0f)
+            if (_healthMode == HealthMode.Normal && percent > 0.0f)
             {
-                var oldHealth = this.CurrentHealth;
+                var oldHealth = CurrentHealth;
 
-                float amount = (this.MaxHealth * percent / 100.0f);
-                this.CurrentHealth -= amount;
-                this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
+                float amount = (MaxHealth * percent / 100.0f);
+                CurrentHealth -= amount;
+                CurrentHealth = (int)Mathf.Clamp(CurrentHealth, 0.0f, _maxHealth);
                 /*
                 if (lvlProgress.IsActivated)
                 {
-                    lvlProgress.IncreaseProgress(oldHealth-this.CurrentHealth);
+                    lvlProgress.IncreaseProgress(oldHealth-CurrentHealth);
                 }*/
                 
-                Debug.Log(String.Format(LOGS.DECREASE_HEALTH, this.gameObject.name, oldHealth, percent, this.CurrentHealth));
+                Debug.Log(String.Format(LOGS.DECREASE_HEALTH, gameObject.name, oldHealth, percent, CurrentHealth));
 
-                /*if (this.CurrentHealth == 0.0f && !this.isDead && lives == 1)
+                /*if (CurrentHealth == 0.0f && !isDead && lives == 1)
                 {
-                    this.Death();
+                    Death();
                 }*/
-                if (this.CurrentHealth == 0.0f && !this.isDead /*&& lives > 0*/)
+                if (CurrentHealth == 0.0f && !_isDead /*&& lives > 0*/)
                 {
-                    StartCoroutine(this.LoseLife(3));
+                    StartCoroutine(LoseLife(3));
                 }
             }
         }
@@ -294,9 +267,9 @@ namespace nseh.Gameplay.Entities.Player
         /// <param name="amount"></param>
         public void TakeDamage(int amount)
         {
-            if (this.healthMode == HealthMode.Normal)
+            if (_healthMode == HealthMode.Normal)
             {
-                var oldHealth = this.CurrentHealth;
+                var oldHealth = CurrentHealth;
 
                 // Reduce current health and applying bonus defense if exists
                 float famount = (float)amount;
@@ -306,24 +279,24 @@ namespace nseh.Gameplay.Entities.Player
                     famount = famount - (famount * (_bonificationDefense / 100.0f));
                 }
 
-                this.CurrentHealth -= famount;
+                CurrentHealth -= famount;
 
                 // Play hit animation
-                this.playerInfo.Animator.SetTrigger(this.playerInfo.TakeDamageHash);
+                _playerInfo.Animator.SetTrigger(_playerInfo.TakeDamageHash);
 
                 // Clamp current health
-                this.CurrentHealth = (int)Mathf.Clamp(this.CurrentHealth, 0.0f, this.maxHealth);
-             
-                this.playerInfo.PlayerEnergy.IncreaseEnergy(oldHealth - this.CurrentHealth);
+                CurrentHealth = (int)Mathf.Clamp(CurrentHealth, 0.0f, _maxHealth);
 
-                /*if (this.CurrentHealth == 0.0f && !this.isDead && lives == 1)
+                _playerInfo.PlayerEnergy.IncreaseEnergy(oldHealth - CurrentHealth);
+
+                /*if (CurrentHealth == 0.0f && !isDead && lives == 1)
                 {
-                    this.Death();
+                    Death();
                 }*/
 
-                if(this.CurrentHealth == 0.0f && !this.isDead /*&& lives > 0*/)
+                if(CurrentHealth == 0.0f && !_isDead /*&& lives > 0*/)
                 {
-                    StartCoroutine(this.LoseLife(3));
+                    StartCoroutine(LoseLife(3));
                 }
             }
         }
@@ -338,7 +311,7 @@ namespace nseh.Gameplay.Entities.Player
 
             while (counterSeconds < seconds)
             {
-                this.DecreaseHealth(percent);
+                DecreaseHealth(percent);
                 counterSeconds++;
 
                 yield return new WaitForSeconds(1.0f);
@@ -351,7 +324,7 @@ namespace nseh.Gameplay.Entities.Player
 
             while (counterSeconds < seconds)
             {
-                this.IncreaseHealth(percent);
+                IncreaseHealth(percent);
                 counterSeconds++;
 
                 yield return new WaitForSeconds(1.0f);
@@ -360,15 +333,15 @@ namespace nseh.Gameplay.Entities.Player
 
         private IEnumerator InvulnerabilityModeForSecondsInternal(float seconds)
         {
-            this.healthMode = HealthMode.Invulnerability;
+            _healthMode = HealthMode.Invulnerability;
 
-            Debug.Log(string.Format(LOGS.INVULNERABILITY_MODE_ACTIVATED, this.gameObject.name));
+            Debug.Log(string.Format(LOGS.INVULNERABILITY_MODE_ACTIVATED, gameObject.name));
 
             yield return new WaitForSeconds(seconds);
 
-            Debug.Log(string.Format(LOGS.INVULNERABILITY_MODE_DEACTIVATED, this.gameObject.name));
+            Debug.Log(string.Format(LOGS.INVULNERABILITY_MODE_DEACTIVATED, gameObject.name));
 
-            this.healthMode = HealthMode.Normal;
+            _healthMode = HealthMode.Normal;
         }
 
         private IEnumerator BonificationDefenseForSecondsInternal(float percent, float seconds)
@@ -406,23 +379,23 @@ namespace nseh.Gameplay.Entities.Player
         {
             //DisableLife(lives);
             //lives--;
-            this.deathCount++;
-            this.isDead = true;
+            _deathCount++;
+            _isDead = true;
 
             // Disable player
-            this.playerInfo.Animator.SetTrigger(this.playerInfo.DeadHash);
-            this.playerInfo.PlayerMovement.DisableMovement();
-            this.playerInfo.PlayerCollider.enabled = false;
+            _playerInfo.Animator.SetTrigger(_playerInfo.DeadHash);
+            _playerInfo.PlayerMovement.DisableMovement();
+            _playerInfo.PlayerCollider.enabled = false;
         }
 
         private IEnumerator LoseLife(float respawnTime)
         {
-            this.Death();
+            Death();
 
             yield return new WaitForSeconds(respawnTime);
 
-            GameManager.Instance.Find<LevelManager>().RespawnPlayerFromDeath(this.playerInfo.Player);
-            this.isDead = false;
+            GameManager.Instance.Find<LevelManager>().RespawnPlayerFromDeath(_playerInfo.Player);
+            _isDead = false;
 
         }
         #endregion

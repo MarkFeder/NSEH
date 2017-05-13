@@ -31,7 +31,6 @@ namespace nseh.Gameplay.Combat
         protected float _currentDamage;
 
         protected bool _critical;
-        protected bool _enabled;
 
         #endregion
 
@@ -48,8 +47,6 @@ namespace nseh.Gameplay.Combat
         public float CurrentDamage { get { return _currentDamage; } set { _currentDamage = value; } }
 
         public bool Critical { get { return _critical;  } set { _critical = value; } }
-
-        public bool EnabledAttack { get { return _enabled; } set { _enabled = value; } }
 
         public bool IsCombo
         {
@@ -76,6 +73,8 @@ namespace nseh.Gameplay.Combat
 
         #endregion
 
+        #region Protected Methods
+
         protected virtual void Start()
         {
             _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
@@ -92,6 +91,52 @@ namespace nseh.Gameplay.Combat
             _enabled = true;
             _critical = false;
         }
+
+        /// <summary>
+        /// Check if this player can do special habilities.
+        /// </summary>
+        /// <returns>True if this player can do the special hability.</returns>
+        protected bool CanStartSpecialHability()
+        {
+            bool doHability = false;
+
+            if (_attackType == AttackType.CharacterDefinitive &&
+                _playerInfo.PlayerEnergy.CanUseEnergyForDefinitive)
+            {
+                doHability = true;
+            }
+            else if (_attackType == AttackType.CharacterHability &&
+                _playerInfo.PlayerEnergy.CanUseEnergyForHability)
+            {
+                doHability = true;
+            }
+
+            if (!doHability)
+            {
+                Debug.Log(string.Format("Player {0} [{1}] can't do [{2}]", _playerInfo.Player, _playerInfo.PlayerName, _attackType));
+            }
+
+            return doHability;
+        }
+
+        /// <summary>
+        /// Reduce energy if the player can do special habilities.
+        /// </summary>
+        protected void ReduceEnergyOnSpecialHability()
+        {
+            if (_attackType == AttackType.CharacterDefinitive)
+            {
+                _playerInfo.PlayerEnergy.ResetEnergy();
+            }
+            else if (_attackType == AttackType.CharacterHability)
+            {
+                _playerInfo.PlayerEnergy.DecreaseEnergyByPercent(25.0f);
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Init this attack action (for external calls).
@@ -117,8 +162,6 @@ namespace nseh.Gameplay.Combat
             _enabled = true;
             _critical = false;
         }
-
-        #region Public Methods
 
         /// <summary>
         /// Start attack action.

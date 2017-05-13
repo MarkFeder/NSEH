@@ -252,7 +252,7 @@ namespace nseh.Managers.Main
                         {
                             _currentState = _nextState;
                             //DEBUG SOMEDAY
-                            Find<LevelManager>().Setup(this);
+                            // Find<LevelManager>().Setup(this);
                             Find<LevelManager>().Activate();
 
                         }

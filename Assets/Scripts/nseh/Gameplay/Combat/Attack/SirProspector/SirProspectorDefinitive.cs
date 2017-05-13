@@ -42,6 +42,8 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         {
             base.Start();
 
+            _initialDamage = 0.0f;
+
             _sword.enabled = false;
             _shovel.enabled = true;
 
@@ -54,39 +56,53 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
         public override void StartAction()
         {
-            if (_enabled)
+            if (_enabled && CanStartSpecialHability())
             {
+                ReduceEnergyOnSpecialHability();
+
                 base.StartAction();
                 StartCoroutine(ExecuteDefinitiveAction());
             }
-        } 
+        }
 
         #endregion
 
         #region Private Methods
 
+        private IEnumerator ExecuteDefinitiveAction()
+        {
+            // Deactivate/Activate items
+            _enabled = false;
+            _shovel.enabled = false;
+            _sword.enabled = false;
+
+            // Trigger damage increment
+            var attacks = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>();
+            RunInfo info = null;
+
+            foreach (CharacterAttack attack in attacks)
+            {
+                info = attack.IncreaseDamageForSecondsExternal(_percent, _seconds).ParallelCoroutine(_coroutinesGroup);
+            }
+            while (info.count > 0) yield return null;
+
+            // Deactivate/Activate items
+            _shovel.enabled = true;
+            _sword.enabled = false;
+            _enabled = true;
+        }
+
         private void SetupAnimationEvents()
         {
             // Get this animation clip
             _animationClip = _playerInfo.Animator.runtimeAnimatorController.animationClips
-                               .Where(clip => clip.name == _clipName).FirstOrDefault();
+                             .Where(clip => clip.name == _clipName).FirstOrDefault();
 
             if (_animationClip != null)
             {
-
                 // Setup events
-                AnimationEvent hideSwordEvent = new AnimationEvent();
-                hideSwordEvent.functionName = "OnHideSword";
-                hideSwordEvent.messageOptions = SendMessageOptions.RequireReceiver;
-                hideSwordEvent.time = _animationClip.length * _hideSwordTime;
-
-                AnimationEvent showSwordEvent = new AnimationEvent();
-                showSwordEvent.functionName = "OnShowSword";
-                showSwordEvent.messageOptions = SendMessageOptions.RequireReceiver;
-                showSwordEvent.time = _animationClip.length * _showSwordTime;
-
-                // Add events to this animation clip
-                _animationClip.events = new AnimationEvent[] { hideSwordEvent, showSwordEvent };
+                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnHideSword", _hideSwordTime * _animationClip.length);
+                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnShowSword", _showSwordTime * _animationClip.length);
 
                 // Setup proxy receivers
                 _receiver = transform.root.gameObject.GetComponent<SirProspectorAnimationEventReceiver>();
@@ -111,31 +127,9 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
         private void OnDestroy()
         {
+            // Unsubscribe events
             _receiver.OnHideSwordCallback -= OnHideSword;
             _receiver.OnShowSwordCallback -= OnShowSword;
-        }
-
-        private IEnumerator ExecuteDefinitiveAction()
-        {
-            // Deactivate/Activate items
-            _enabled = false;
-            _shovel.enabled = false;
-            _sword.enabled = false;
-
-            // Trigger damage increment
-            var attacks = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>();
-            RunInfo info = null;
-
-            foreach (CharacterAttack attack in attacks)
-            {
-                info = attack.IncreaseDamageForSecondsExternal(_percent, _seconds).ParallelCoroutine(_coroutinesGroup);
-            }
-            while (info.count > 0) yield return null;
-
-            // Deactivate/Activate items
-            _shovel.enabled = true;
-            _sword.enabled = false;
-            _enabled = true;
         }
 
         #endregion

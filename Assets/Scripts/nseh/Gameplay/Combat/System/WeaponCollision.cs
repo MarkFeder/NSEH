@@ -166,6 +166,12 @@ namespace nseh.Gameplay.Combat.System
 
         #endregion
 
+        #region Public Methods
+
+
+
+        #endregion
+
         #region Combat System
 
         // Enemy is taken aback

@@ -94,7 +94,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
             if (definitiveAttack != null)
             {
-                definitiveAttack.EnabledAttack = true;
+                definitiveAttack.IsEnabled = true;
             }
         }
 

@@ -6,6 +6,8 @@ namespace nseh.Gameplay.Base.Interfaces
     {
         int Hash { get; }
 
+        bool IsEnabled { get; set; }
+
         void StartAction(float value);
 
         void StartAction(int value);

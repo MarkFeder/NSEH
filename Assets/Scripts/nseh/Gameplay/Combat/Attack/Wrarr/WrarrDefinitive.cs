@@ -54,8 +54,9 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 
         public override void StartAction()
         {
-            if (_enabled)
+            if (_enabled && CanStartSpecialHability())
             {
+                ReduceEnergyOnSpecialHability();
                 base.StartAction();
             }
         }
@@ -68,23 +69,13 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
         {
             // Get this animation clip
             _animationClip = _playerInfo.Animator.runtimeAnimatorController.animationClips
-                               .Where(clip => clip.name == _clipName).FirstOrDefault();
+                             .Where(clip => clip.name == _clipName).FirstOrDefault();
 
             if (_animationClip != null)
             {
                 // Setup events
-                AnimationEvent startLaunchRockEvent = new AnimationEvent();
-                startLaunchRockEvent.functionName = "OnStartLaunchRock";
-                startLaunchRockEvent.messageOptions = SendMessageOptions.RequireReceiver;
-                startLaunchRockEvent.time = _animationClip.length * _startTime;
-
-                AnimationEvent stopLaunchRockEvent = new AnimationEvent();
-                stopLaunchRockEvent.functionName = "OnStopLaunchRock";
-                stopLaunchRockEvent.messageOptions = SendMessageOptions.RequireReceiver;
-                stopLaunchRockEvent.time = _animationClip.length * _endTime;
-
-                // Add events to this animation clip
-                _animationClip.events = new AnimationEvent[] { startLaunchRockEvent, stopLaunchRockEvent };
+                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnStartLaunchRock", _startTime * _animationClip.length);
+                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnStopLaunchRock", _endTime * _animationClip.length);
 
                 // Setup proxy receivers
                 _receiver = transform.root.gameObject.GetComponent<WrarrAnimationEventReceiver>();
@@ -99,11 +90,13 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 
         private void OnStartLaunchRock(AnimationEvent animationEvent)
         {
+            // Setup rock on runtime
             _rockRuntime = Instantiate(_rockMesh, _bone.position, Quaternion.identity);
             RockComponent component = _rockRuntime.transform.GetChild(0).GetComponent<RockComponent>();
             component.Damage = _currentDamage;
-            component.Player = _playerInfo.Player;
+            component.Sender = _playerInfo;
 
+            // Set the rock to use parent's local position and rotation
             _rockRuntime.transform.parent = _bone.transform;
             _rockRuntime.transform.localPosition = Vector3.zero;
             _rockRuntime.transform.localRotation = _bone.localRotation;

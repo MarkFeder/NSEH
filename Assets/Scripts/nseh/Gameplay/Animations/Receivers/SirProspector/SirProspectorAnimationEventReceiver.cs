@@ -10,6 +10,9 @@ namespace nseh.Gameplay.Animations.Receivers.SirProspector
         private AnimationEventDelegate _onShowSwordCallback;
         private AnimationEventDelegate _onHideSwordCallback;
 
+        private AnimationEventDelegate _onActivateItemCallback;
+        private AnimationEventDelegate _onDeactivateItemCallback;
+
         private const string errorMessage = "AnimationEventReceiver callback delegate has not been set for animation event"; 
 
         #endregion
@@ -26,6 +29,18 @@ namespace nseh.Gameplay.Animations.Receivers.SirProspector
         {
             get { return _onHideSwordCallback; }
             set { _onHideSwordCallback = value; }
+        }
+
+        public AnimationEventDelegate OnActivateItemCallback
+        {
+            get { return _onActivateItemCallback; }
+            set { _onActivateItemCallback = value; }
+        }
+
+        public AnimationEventDelegate OnDeactivateItemCallback
+        {
+            get { return _onDeactivateItemCallback; }
+            set { _onDeactivateItemCallback = value; }
         }
 
         #endregion
@@ -52,7 +67,29 @@ namespace nseh.Gameplay.Animations.Receivers.SirProspector
             }
 
             _onShowSwordCallback(animationEvent);
-        } 
+        }
+
+        public void OnActivateItem(AnimationEvent animationEvent)
+        {
+            if (_onActivateItemCallback == null)
+            {
+                Debug.Log(errorMessage);
+                return;
+            }
+
+            _onActivateItemCallback(animationEvent);
+        }
+
+        public void OnDeactivateItem(AnimationEvent animationEvent)
+        {
+            if (_onDeactivateItemCallback == null)
+            {
+                Debug.Log(errorMessage);
+                return;
+            }
+
+            _onDeactivateItemCallback(animationEvent);
+        }
 
         #endregion
     }

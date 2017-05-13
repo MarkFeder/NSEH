@@ -3141,6 +3141,110 @@ Prefab:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 100042, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100036, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100024, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100046, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100048, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100038, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100044, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100040, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100028, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100034, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100050, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100026, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100030, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100022, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100032, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
+      propertyPath: m_TagString
+      value: Plataform
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dcf20101a7ba93d4c9d7e0ab913f12ff, type: 3}
   m_IsPrefabParent: 0

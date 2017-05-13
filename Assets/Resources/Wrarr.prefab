@@ -41,6 +41,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1030838810342178
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4874638846830590}
+  - component: {fileID: 135023701683560116}
+  - component: {fileID: 114333976357871034}
+  m_Layer: 0
+  m_Name: Wave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1037701147626610
 GameObject:
   m_ObjectHideFlags: 1
@@ -599,6 +616,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1843774227186864
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4339801798783264}
+  m_Layer: 8
+  m_Name: WaveBone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1855465091862338
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,6 +1004,20 @@ Transform:
   m_Father: {fileID: 4202245461544618}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4339801798783264
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1843774227186864}
+  m_LocalRotation: {x: 0.55657035, y: -0.43614957, z: -0.55657256, w: -0.43615374}
+  m_LocalPosition: {x: -0.089, y: 0.192, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4874638846830590}
+  m_Father: {fileID: 4408514856018768}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4346117484649892
 Transform:
   m_ObjectHideFlags: 1
@@ -1009,6 +1055,7 @@ Transform:
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1}
   m_Children:
   - {fileID: 4046243254463390}
+  - {fileID: 4339801798783264}
   m_Father: {fileID: 4650402726015404}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1349,6 +1396,19 @@ Transform:
   m_Father: {fileID: 4749208360895912}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4874638846830590
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030838810342178}
+  m_LocalRotation: {x: 0.000000014969572, y: -0, z: 0.000000014969572, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0.515}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4339801798783264}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4895315981747306
 Transform:
   m_ObjectHideFlags: 1
@@ -1598,10 +1658,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 5
   _attackType: 7
-  _roarSound: {fileID: 0}
   _startRoarTime: 0.4
   _stopRoarTime: 0.9
-  _force: 5000
+  _force: 1000
   _distance: 10
   _percent: 20
   _seconds: 4
@@ -1684,6 +1743,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentMode: 1
+--- !u!114 &114333976357871034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030838810342178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2f651c834ab314695614a7409661b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _force: 0
+  _percent: 0
+  _seconds: 0
 --- !u!114 &114437163869857748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1733,6 +1806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac97389723fd0644389ba40878d49c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxEnergy: 200
+  _currentEnergy: 0
 --- !u!114 &114736991629091880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1744,8 +1819,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a1fd6ca95e1d446bbd022703826d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
-  maxHealth: 100
+  _startingHealth: 100
+  _maxHealth: 100
 --- !u!114 &114792759668558198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1784,6 +1859,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 10
   _attackType: 5
+--- !u!135 &135023701683560116
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030838810342178}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5801738
+  m_Center: {x: -0.000000002736164, y: 0.0000000047787694, z: 0.08017404}
 --- !u!135 &135115222219642246
 SphereCollider:
   m_ObjectHideFlags: 1

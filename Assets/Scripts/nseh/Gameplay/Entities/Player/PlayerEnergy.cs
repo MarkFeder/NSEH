@@ -1,104 +1,136 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using nseh.Gameplay.Base.Abstract.Gameflow;
-using nseh.Managers.Level;
+﻿using nseh.Gameplay.Combat;
 using nseh.Managers.General;
-using nseh.Managers.Main;
-using nseh.Utils;
-using System;
+using UnityEngine;
 
 namespace nseh.Gameplay.Entities.Player
 {
     public class PlayerEnergy : MonoBehaviour
     {
         #region Private Properties
+
         private BarComponent _energyBar;
-        private PlayerInfo playerInfo;
+        private PlayerInfo _playerInfo;
+
+        [SerializeField]
         private float _maxEnergy;
+        [SerializeField]
         private float _currentEnergy;
+
         #endregion
 
         #region Public C# Properties
+
         public float MaxEnergy
         {
-            get
-            {
-                return this._maxEnergy;
-            }
-
+            get { return _maxEnergy; }
             set
             {
-                this._maxEnergy = value;
-                if(this._energyBar != null)
+                _maxEnergy = value;
+                if(_energyBar != null)
                 {
-                    this._energyBar.MaxValue = this._maxEnergy;
+                    _energyBar.MaxValue = _maxEnergy;
                 }
             }
         }
 
         public float CurrentEnergy
         {
-            get
-            {
-                return this._currentEnergy;
-            }
-
+            get { return _currentEnergy; }
             set
             {
-                this._currentEnergy = value;
-                if (this._energyBar != null)
+                _currentEnergy = value;
+                if (_energyBar != null)
                 {
-                    this._energyBar.Value = this._currentEnergy;
+                    _energyBar.Value = _currentEnergy;
                 }
             }
         }
 
+        public bool IsValidEnergy
+        {
+            get { return _currentEnergy >= _maxEnergy && 
+                        (_currentEnergy > 0.0f && _maxEnergy > 0.0f); }
+        }
+
+        public bool CanUseEnergyForDefinitive
+        {
+            get { return _currentEnergy >= _maxEnergy; }
+        }
+
+        public bool CanUseEnergyForHability
+        {
+            get { return _currentEnergy > 0.0f && 
+                        (_currentEnergy - _currentEnergy * 0.25f) > 0.0f; }
+        }
+
         public BarComponent EnergyBar
         {
-            set
-            {
-                _energyBar = value;
-            }
+            set { _energyBar = value; }
         }
+
         #endregion
 
         public void Start()
         {
-            this.playerInfo = this.GetComponent<PlayerInfo>();
-            this.MaxEnergy = 200;
-            this.CurrentEnergy = 0;
+            _playerInfo = GetComponent<PlayerInfo>();
+
+            MaxEnergy = _maxEnergy;
+            CurrentEnergy = _currentEnergy;
+            // CurrentEnergy = 0;
         }
 
         public void Update()
         {
-            if (CurrentEnergy >= MaxEnergy)
+            if (CurrentEnergy >= MaxEnergy && IsValidEnergy)
             {
-                Debug.Log("YOU ARE SO EPIC " + this.gameObject.name + "! Energy (" + this.CurrentEnergy + ").");
+                Debug.Log("YOU ARE SO EPIC " + gameObject.name + "! Energy (" + CurrentEnergy + ").");
             }
             else
             {
-                Debug.Log("Current energy of " + this.gameObject.name + "is " + this.CurrentEnergy);
+                Debug.Log("Current energy of " + gameObject.name + "is " + CurrentEnergy);
             }
         }
 
         public void ResetEnergy()
         {
-            this.CurrentEnergy = 0;
+            CurrentEnergy = 0;
+
+            Debug.Log("The energy was reseted to 0");
         }
 
         #region Public Methods
 
         public void IncreaseEnergy(float amount)
         {
-            this.CurrentEnergy += amount;
-            this.CurrentEnergy = Mathf.Clamp(this.CurrentEnergy, 0.0f, this.MaxEnergy);
+            float oldEnergy = _currentEnergy;
+
+            CurrentEnergy += amount;
+            CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0.0f, MaxEnergy);
+
+            Debug.Log(string.Format("Energy has been increased from: {0} to: {1}", oldEnergy, _currentEnergy));
         }
 
         public void DecreaseEnergy(float amount)
         {
-            this.CurrentEnergy -= amount;
-            this.CurrentEnergy = Mathf.Clamp(this.CurrentEnergy, 0.0f, this.MaxEnergy);
+            float oldEnergy = _currentEnergy;
+
+            CurrentEnergy -= amount;
+            CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0.0f, MaxEnergy);
+
+            Debug.Log(string.Format("Energy has been reduced from: {0} to: {1}", oldEnergy, _currentEnergy));
+        }
+
+
+        /// <summary>
+        /// Decrease energy by a x percent
+        /// </summary>
+        /// <param name="percent">It should be of this type: 20(%), 30(%), etc.</param>
+        public void DecreaseEnergyByPercent(float percent)
+        {
+            CurrentEnergy -= (CurrentEnergy * (percent / 100.0f));
+            CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0.0f, MaxEnergy);
+
+            Debug.Log(string.Format("Energy has been reduced in: {0}%", percent));
         }
 
         #endregion

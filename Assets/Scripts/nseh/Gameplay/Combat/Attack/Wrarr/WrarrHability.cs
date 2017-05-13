@@ -1,6 +1,7 @@
 ﻿using nseh.Gameplay.Animations.Receivers.Wrarr;
 using nseh.Gameplay.Entities.Player;
 using nseh.Utils.EditorCustomization;
+using nseh.Utils.Helpers;
 using System.Linq;
 using UnityEngine;
 using Layers = nseh.Utils.Constants.Layers;
@@ -12,9 +13,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
     public class WrarrHability : CharacterAttack
     {
         #region Private Properties
-
-        [SerializeField]
-        private AudioClip _roarSound;
 
         [SerializeField]
         [Range(0, 1)]
@@ -33,7 +31,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         [SerializeField]
         private float _reusedTime;
 
-        private float _timer;
         private int _playerLayer;
 
         private AnimationClip _animationClip;
@@ -55,21 +52,7 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             }
 
             _playerLayer = LayerMask.NameToLayer(Layers.PLAYER);
-            _timer = 0.0f;
-
             SetupAnimationEvents();
-        }
-
-        protected void Update()
-        {
-            _timer += Time.deltaTime;
-
-            if (!_enabled && _timer > _reusedTime)
-            {
-                // Enable attack again
-                _enabled = true;
-                _timer = 0.0f;
-            }
         }
 
         #endregion
@@ -92,23 +75,13 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         {
             // Get this animation clip
             _animationClip = _playerInfo.Animator.runtimeAnimatorController.animationClips
-                               .Where(clip => clip.name == _clipName).FirstOrDefault();
+                             .Where(clip => clip.name == _clipName).FirstOrDefault();
 
             if (_animationClip != null)
             {
                 // Setup events
-                AnimationEvent startRoarEvent = new AnimationEvent();
-                startRoarEvent.functionName = "OnStartRoar";
-                startRoarEvent.messageOptions = SendMessageOptions.RequireReceiver;
-                startRoarEvent.time = _animationClip.length * _startRoarTime;
-
-                AnimationEvent endRoarEvent = new AnimationEvent();
-                endRoarEvent.functionName = "OnEndRoar";
-                endRoarEvent.messageOptions = SendMessageOptions.RequireReceiver;
-                endRoarEvent.time = _animationClip.length * _stopRoarTime;
-
-                // Add events to this animation clip
-                _animationClip.events = new AnimationEvent[] { startRoarEvent, endRoarEvent };
+                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnStartRoar", _startRoarTime * _animationClip.length);
+                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnEndRoar", _stopRoarTime * _animationClip.length);
 
                 // Setup proxy receivers
                 _receiver = transform.root.gameObject.GetComponent<WrarrAnimationEventReceiver>();
@@ -123,25 +96,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
         private void OnStartRoar(AnimationEvent animationEvent)
         {
-            OnMakeRoar();
-        }
-
-        private void OnEndRoar(AnimationEvent animationEvent)
-        {
-            // Reestablish timer
-            _enabled = false;
-            _timer = 0.0f;
-        }
-
-        private void OnMakeRoar()
-        {
-            // Wrarr roars
-            if (_roarSound != null)
-            {
-                _playerInfo.SoundPlayer.clip = _roarSound;
-                _playerInfo.SoundPlayer.Play();
-            }
-
             // If hits enemies, then execute logic
             // Draw raycast
             Vector3 forward = transform.TransformDirection(Vector3.forward) * _distance;
@@ -158,11 +112,17 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
                     PlayerInfo enemyInfo = enemy.GetComponent<PlayerInfo>();
                     if (enemyInfo != null)
                     {
-                        enemyInfo.Body.AddForceAtPosition(forward * _force, hits[i].point, ForceMode.Force);
+                        enemyInfo.Body.AddForceAtPosition(forward * _force, hits[i].point, ForceMode.Impulse);
                         enemyInfo.PlayerMovement.DecreaseSpeedForSeconds(_percent, _seconds);
                     }
                 }
             }
+        }
+
+        private void OnEndRoar(AnimationEvent animationEvent)
+        {
+            // Reestablish timer
+            _enabled = false;
         }
 
         #endregion

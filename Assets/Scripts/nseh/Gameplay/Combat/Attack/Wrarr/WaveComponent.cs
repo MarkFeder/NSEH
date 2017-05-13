@@ -5,19 +5,23 @@ using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Combat.Attack.Wrarr
 {
-    public class RockComponent : MonoBehaviour
+    public class WaveComponent : MonoBehaviour
     {
         #region Private Properties
 
-        private Rigidbody _body;
         private Collider _collider;
         private List<GameObject> _enemies;
 
+        private Vector3 _forceDirection;
         private PlayerInfo _senderInfo;
         private float _damage;
 
         [SerializeField]
-        private float _destructionTime;
+        private float _force;
+        [SerializeField]
+        private float _percent;
+        [SerializeField]
+        private float _seconds;
 
         #endregion
 
@@ -35,17 +39,25 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             set { _senderInfo = value; }
         }
 
+        public Collider Wave
+        {
+            get { return _collider; }
+        }
+
+        public Vector3 ForceDirection
+        {
+            get { return _forceDirection; }
+            set { _forceDirection = value; }
+        }
+
         #endregion
 
         #region Private Methods
 
         private void Start()
         {
-            _body = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             _enemies = new List<GameObject>();
-
-            Destroy(transform.parent.gameObject, _destructionTime);
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -68,15 +80,14 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
                         // Set health
                         enemyInfo.PlayerHealth.TakeDamage((int)_damage);
 
+                        // Push enemy body
+                        enemyInfo.Body.AddForceAtPosition(_forceDirection * _force, collision.contacts[0].point,  ForceMode.Impulse);
+                        enemyInfo.PlayerMovement.DecreaseSpeedForSeconds(_percent, _seconds);
+
                         // Add this enemy to the list so as to cause damage again
                         _enemies.Add(enemyObj);
                     }
                 }
-            }
-            else if (colTag == Tags.PLATFORM)
-            {
-                _body.isKinematic = true;
-                Destroy(transform.parent.gameObject, _destructionTime);
             }
         }
 

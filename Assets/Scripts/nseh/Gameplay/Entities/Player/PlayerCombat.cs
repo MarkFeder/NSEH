@@ -85,14 +85,6 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
-        private void Update()
-        {
-            if (CurrentAction != null)
-            {
-                Debug.Log(string.Format("[{0}] - Current action is: {1}", _playerInfo.PlayerName, CurrentAction.ToString()));
-            }
-        } 
-
         #endregion
 
         #region Public Methods
