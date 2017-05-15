@@ -60,7 +60,7 @@ namespace nseh.Gameplay.Entities.Player
         public bool CanUseEnergyForHability
         {
             get { return _currentEnergy > 0.0f && 
-                        (_currentEnergy - _currentEnergy * 0.25f) > 0.0f; }
+                        (_currentEnergy - _maxEnergy * 0.25f) > 0.0f; }
         }
 
         public BarComponent EnergyBar
@@ -127,7 +127,7 @@ namespace nseh.Gameplay.Entities.Player
         /// <param name="percent">It should be of this type: 20(%), 30(%), etc.</param>
         public void DecreaseEnergyByPercent(float percent)
         {
-            CurrentEnergy -= (CurrentEnergy * (percent / 100.0f));
+            CurrentEnergy -= (MaxEnergy * (percent / 100.0f));
             CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0.0f, MaxEnergy);
 
             Debug.Log(string.Format("Energy has been reduced in: {0}%", percent));
