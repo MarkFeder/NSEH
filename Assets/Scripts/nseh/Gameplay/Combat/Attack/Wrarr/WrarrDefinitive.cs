@@ -26,6 +26,9 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
         [Range(0, 1)]
         private float _endTime;
 
+        [SerializeField]
+        private GameObject _particle;
+
 
         private AnimationClip _animationClip;
         private WrarrAnimationEventReceiver _receiver;

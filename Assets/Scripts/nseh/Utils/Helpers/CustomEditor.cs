@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 
 namespace nseh.Utils.EditorCustomization
 {
-    [UnityEditor.CustomEditor(typeof(MonoBehaviour), true)]
-    public class CustomEditor : Editor
+    //[UnityEditor.CustomEditor(typeof(MonoBehaviour), true)]
+    public class CustomEditor : MonoBehaviour
     {
         #region Private Properties
-
+/*
         private string[] _hiddenProperties;
 
         #endregion
@@ -76,7 +76,7 @@ namespace nseh.Utils.EditorCustomization
 
             return EditorGUI.EndChangeCheck();
         }
-
+*/
         #endregion
     }
 }

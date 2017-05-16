@@ -21,6 +21,9 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
         [SerializeField]
         private float _destructionTime;
 
+        [SerializeField]
+        private GameObject _particle;
+
         #endregion
 
         #region Public Properties
@@ -54,6 +57,14 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
         {
             string colTag = collision.collider.tag;
             GameObject enemyObj = collision.gameObject;
+
+            GameObject particleGameObject = Instantiate(_particle, transform.position, transform.rotation);
+            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Play();
+            }
+
+            Destroy(particleGameObject, 3f);
 
             if (colTag == Tags.PLAYER_BODY)
             {

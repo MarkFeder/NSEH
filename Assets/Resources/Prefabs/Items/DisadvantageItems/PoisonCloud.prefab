@@ -138,16 +138,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animation: {fileID: 0}
-  _sound: {fileID: 0}
+  _sound: {fileID: 8300000, guid: a4a9327e98855524c846cc8e2f559e96, type: 3}
   _uses: 1
   _displayName: 
-  _particlePrefab: {fileID: 1716269738020152, guid: 3029fbedd9c1bf54fa505d0d5ad7c3f8,
+  _particlePrefab: {fileID: 1953528035436002, guid: d632334c61e5945489b5b534f42ac395,
     type: 2}
   _destructionTime: 0
-  _timeToDisplayText: 0
+  _timeToDisplayText: 2
   _chestType: 2
-  _percent: 8
-  _seconds: 3
+  _percent: 1
+  _seconds: 20
 --- !u!212 &212647592994309748
 SpriteRenderer:
   m_ObjectHideFlags: 1

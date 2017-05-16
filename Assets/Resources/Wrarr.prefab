@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 4202245461544618}
   - component: {fileID: 135514339076783878}
   - component: {fileID: 114070606057771824}
+  - component: {fileID: 96211370116551420}
   m_Layer: 8
   m_Name: Bip002 L Hand
   m_TagString: Weapon
@@ -664,6 +665,7 @@ GameObject:
   - component: {fileID: 4022378891723576}
   - component: {fileID: 135115222219642246}
   - component: {fileID: 114792759668558198}
+  - component: {fileID: 96470662027340412}
   m_Layer: 8
   m_Name: Bip002 R Hand
   m_TagString: Weapon
@@ -1011,7 +1013,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1843774227186864}
   m_LocalRotation: {x: 0.55657035, y: -0.43614957, z: -0.55657256, w: -0.43615374}
-  m_LocalPosition: {x: -0.089, y: 0.192, z: 0}
+  m_LocalPosition: {x: 0.16, y: -0.83, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4874638846830590}
@@ -1560,6 +1562,198 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!96 &96211370116551420
+TrailRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324920165775392}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 22cb74fc34de27c4ba6427eb65d6f577, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Time: 1
+  m_Parameters:
+    serializedVersion: 2
+    widthMultiplier: 1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0.1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.5
+        value: 0.2
+        inSlope: 0.09763986
+        outSlope: 0.09763986
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.86528015
+        value: 0.1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+  m_MinVertexDistance: 0.1
+  m_Autodestruct: 0
+--- !u!96 &96470662027340412
+TrailRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1868302112566618}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 22cb74fc34de27c4ba6427eb65d6f577, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Time: 1
+  m_Parameters:
+    serializedVersion: 2
+    widthMultiplier: 1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0.1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.5
+        value: 0.2
+        inSlope: 0.09763986
+        outSlope: 0.09763986
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.86528015
+        value: 0.1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+  m_MinVertexDistance: 0.1
+  m_Autodestruct: 0
 --- !u!102 &102276530985342558
 TextMesh:
   serializedVersion: 3
@@ -1645,6 +1839,7 @@ MonoBehaviour:
   _rockForce: 700
   _startTime: 0.35
   _endTime: 0.72
+  _particle: {fileID: 0}
 --- !u!114 &114161931219264344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1662,6 +1857,7 @@ MonoBehaviour:
   _startRoarTime: 0.4
   _stopRoarTime: 0.9
   _force: 5000
+  _particle: {fileID: 1242950439485562, guid: f24bb7c03ea2e9d49bdb0e7892dd61dd, type: 2}
 --- !u!114 &114190659147358852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1700,19 +1896,24 @@ MonoBehaviour:
   particleFootPos: {fileID: 0}
   particleWeaponPos: {fileID: 0}
   particleDestructionTime: 1
-  particleAttackA: {fileID: 100672, guid: 7dc0b63f67faaf9479803bcfdff7f71e, type: 2}
-  particleAttackB: {fileID: 123640, guid: 9242b15a276bc5a4babd09239e5fa709, type: 2}
-  particleComboAAA: {fileID: 138338, guid: cd1ff9e92aad8ac4db78b6ffd5f1eab7, type: 2}
-  particleComboBB: {fileID: 136674, guid: 8d3a7fbc62f810c43b8c42fdb2978ef4, type: 2}
+  particleAttackA: {fileID: 1174489842537230, guid: 615a2ed8be64e974b8bdf7f806e56f4b,
+    type: 2}
+  particleAttackB: {fileID: 1174489842537230, guid: 615a2ed8be64e974b8bdf7f806e56f4b,
+    type: 2}
+  particleComboAAA: {fileID: 1174489842537230, guid: 615a2ed8be64e974b8bdf7f806e56f4b,
+    type: 2}
+  particleComboBB: {fileID: 1174489842537230, guid: 615a2ed8be64e974b8bdf7f806e56f4b,
+    type: 2}
   particleComboBSharp: {fileID: 153390, guid: 3c2d41265118fc14f8065fbfc45391d0, type: 2}
-  particleDefinitive: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
-  particleHability: {fileID: 153390, guid: 3c2d41265118fc14f8065fbfc45391d0, type: 2}
+  particleDefinitive: {fileID: 1824505592546646, guid: 1bfcc612fcb318c40a8b82682192c81d,
+    type: 2}
+  particleHability: {fileID: 1242950439485562, guid: f24bb7c03ea2e9d49bdb0e7892dd61dd,
+    type: 2}
   particleDefense: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
-  _gamepadIndex: 1
-  _player: 0
+  _gamepadIndex: 0
+  _player: 1
   _playerName: Wrarr
   _characterPortrait: {fileID: 21300000, guid: 666c9329772596f43b834495fda8e204, type: 3}
-  _bavaScene: 0
 --- !u!114 &114265241072407274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1724,6 +1925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e245d3be634e89e49975c6e74c26eaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSpeed: 0
   dampAir: 0.5
   jumpAirSpeed: 5
   jumpHeight: 15
@@ -1801,7 +2003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxEnergy: 200
-  _currentEnergy: 200
+  _currentEnergy: 0
 --- !u!114 &114736991629091880
 MonoBehaviour:
   m_ObjectHideFlags: 1

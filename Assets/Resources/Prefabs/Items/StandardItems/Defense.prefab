@@ -141,13 +141,13 @@ MonoBehaviour:
   _sound: {fileID: 8300000, guid: a4a9327e98855524c846cc8e2f559e96, type: 3}
   _uses: 1
   _displayName: 
-  _particlePrefab: {fileID: 1590681934489724, guid: 6454288b1901fc64094150208af67e27,
+  _particlePrefab: {fileID: 1707542549839792, guid: d6a6764285c498142b46a489d548e0c4,
     type: 2}
   _destructionTime: 0
   _timeToDisplayText: 2
   chestType: 5
-  percent: 20
-  time: 3
+  percent: 10
+  time: 15
 --- !u!212 &212855882238391746
 SpriteRenderer:
   m_ObjectHideFlags: 1

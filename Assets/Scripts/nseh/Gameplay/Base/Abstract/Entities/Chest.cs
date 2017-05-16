@@ -140,8 +140,11 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		protected void ParticleAnimation(GameObject particle, float timeToDisplayParticles, Transform particlesPos)
 		{
-			GameObject particleGameObject = Instantiate(particle, particlesPos.position, particlesPos.rotation, _target.transform);
-			particleGameObject.GetComponent<ParticleSystem>().Play();
+			GameObject particleGameObject = Instantiate(particle, particlesPos.position, particlesPos.rotation, particlesPos.transform);
+            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Play();
+            }
 
 			Destroy(particleGameObject, timeToDisplayParticles);
 		}

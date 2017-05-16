@@ -31,13 +31,14 @@ namespace nseh.Managers.Level
         /// <param name="poolName">The name of the pool this particle belongs to.</param>
         /// <param name="particle">The particle itself.</param>
         /// <param name="position">The position where we want to play the particle.</param>
-        public void PlayParticleAtPosition(GameObject particle, string poolName, Vector3 position)
+        public void PlayParticleAtPosition(GameObject particle, string poolName, Transform position)
         {
             if (particle != null)
             {
                 // Setup particle's pos and rot
-                particle.transform.position = position;
+                particle.transform.position = position.position;
                 particle.transform.rotation = Quaternion.identity;
+                particle.transform.parent = position;
 
                 // Play particle
                 ParticleSystem system = particle.GetComponent<ParticleSystem>();

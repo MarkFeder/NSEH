@@ -11,7 +11,9 @@ namespace nseh.Gameplay.Entities.Environment
     {
         #region Private Properties
         [SerializeField] //Just debug purposes. Don't change its value on Unity Inspector please.
-        private bool isFree;
+        private bool _isFree;
+        [SerializeField]
+        private GameObject _particle;
         #endregion
 
         #region Public C# Properties
@@ -19,14 +21,27 @@ namespace nseh.Gameplay.Entities.Environment
         {
             get
             {
-                return this.isFree;
+                return _isFree;
+            }
+        }
+
+        public GameObject Particle
+        {
+            get
+            {
+                return _particle;
+            }
+
+            set
+            {
+                _particle = value;
             }
         }
         #endregion
 
         void Start()
         {
-            this.isFree = true;
+            _isFree = true;
 
             if (SceneManager.GetActiveScene().name == "Game")
             {
@@ -39,8 +54,8 @@ namespace nseh.Gameplay.Entities.Environment
         {
             if (other.CompareTag("PlayerBody"))
             {
-                this.isFree = false;
-                Debug.Log("Character inside spawn Point. Property IsFree = " + this.isFree);
+                _isFree = false;
+                Debug.Log("Character inside spawn Point. Property IsFree = " + _isFree);
             }
         }
 
@@ -48,18 +63,30 @@ namespace nseh.Gameplay.Entities.Environment
         {
             if (other.CompareTag("PlayerBody"))
             {
-                this.isFree = true;
-                Debug.Log("Character has left the spawn Point. Property IsFree = " + this.isFree);
+                _isFree = true;
+                Debug.Log("Character has left the spawn Point. Property IsFree = " + _isFree);
             }
         }
 
         #region Public Methods
         public void SetFree()
         {
-            this.isFree = true;
+            _isFree = true;
+        }
+
+
+        public void ParticleAnimation(Transform player)
+        {
+            GameObject particleGameObject = Instantiate(Particle, transform.position, transform.rotation, player);
+            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Play();
+            }
+
+            Destroy(particleGameObject, 1f);
         }
         #endregion
 
-        
+
     }
 }

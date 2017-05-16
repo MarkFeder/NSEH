@@ -98,7 +98,10 @@ namespace nseh.Managers.Level
             if (freePlayerSpawnPoints.Count != 0)
             {
                 int randomSpawn = (int)UnityEngine.Random.Range(0, freePlayerSpawnPoints.Count);
+
+                
                 _playerPrefab.transform.position = freePlayerSpawnPoints[randomSpawn].transform.position;
+                freePlayerSpawnPoints[randomSpawn].GetComponent<PlayerSpawnPoint>().ParticleAnimation(_playerPrefab.transform);
             }
             else
             {

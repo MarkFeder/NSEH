@@ -22,6 +22,10 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         [SerializeField]
         private float _force;
 
+
+        [SerializeField]
+        private GameObject _particle;
+
         private int _playerLayer;
 
         private AnimationClip _animationClip;
@@ -56,7 +60,13 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             {
                 ReduceEnergyOnSpecialHability();
                 base.StartAction();
+                GameObject particleGameObject = Instantiate(_particle, _playerInfo.particleBodyPos.transform.position, _playerInfo.particleBodyPos.transform.rotation, _playerInfo.particleBodyPos.transform);
+                foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+                {
+                    particle_aux.Play();
+                }
 
+                Destroy(particleGameObject, 3f);
                 _enabled = false;
             }
         }

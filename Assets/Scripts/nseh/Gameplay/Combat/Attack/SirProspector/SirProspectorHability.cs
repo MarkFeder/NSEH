@@ -31,6 +31,10 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         [SerializeField]
         private float _seconds;
 
+
+        [SerializeField]
+        private GameObject _particle;
+
         private float _usedTime;
 
         private SirProspectorAnimationEventReceiver _receiver;
@@ -72,7 +76,13 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             {
                 ReduceEnergyOnSpecialHability();
                 base.StartAction();
+                GameObject particleGameObject = Instantiate(_particle, _playerInfo.particleBodyPos.transform.position, _playerInfo.particleBodyPos.transform.rotation, _playerInfo.particleBodyPos.transform);
+                foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+                {
+                    particle_aux.Play();
+                }
 
+                Destroy(particleGameObject, 3f);
                 // Disable this attack until it can be used again
                 _enabled = false;
 

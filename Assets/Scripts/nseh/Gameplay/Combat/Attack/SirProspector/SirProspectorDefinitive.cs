@@ -24,6 +24,9 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         private float _seconds;
 
         [SerializeField]
+        private GameObject _particle;
+
+        [SerializeField]
         private MeshRenderer _sword;
         [SerializeField]
         private MeshRenderer _shovel;
@@ -61,7 +64,17 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
                 ReduceEnergyOnSpecialHability();
 
                 base.StartAction();
+/*
+                GameObject particleGameObject = Instantiate(_particle, _playerInfo.particleBodyPos.transform.position, _playerInfo.particleBodyPos.transform.rotation, _playerInfo.transform);
+                foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+                {
+                    particle_aux.Play();
+                }
+
+                Destroy(particleGameObject, 3f);
+                */
                 StartCoroutine(ExecuteDefinitiveAction());
+
             }
         }
 

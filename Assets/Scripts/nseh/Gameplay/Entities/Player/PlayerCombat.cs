@@ -5,6 +5,7 @@ using nseh.Gameplay.Combat.Defense;
 using nseh.Gameplay.Combat.System;
 using nseh.Utils.Helpers;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -129,16 +130,19 @@ namespace nseh.Gameplay.Entities.Player
                 {
                     Collider collider = _colliders[i];
                     WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
+                    TrailRenderer trail = collider.GetComponent<TrailRenderer>();
 
                     if (weaponCollision.Index != index)
                     {
                         collider.enabled = false;
                         weaponCollision.enabled = false;
+                        trail.enabled = false;
                     }
                     else
                     {
                         collider.enabled = true;
                         weaponCollision.enabled = true;
+                        trail.enabled = true;
                     }
                 }
             }
@@ -161,15 +165,23 @@ namespace nseh.Gameplay.Entities.Player
                 {
                     Collider collider = _colliders[i];
                     WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
-
+                    TrailRenderer trail = collider.GetComponent<TrailRenderer>();
                     collider.enabled = false;
                     weaponCollision.enabled = false;
+                    StartCoroutine("Trail", trail);
+                    
                 }
             }
             else
             {
                 Debug.Log(String.Format("DeactivateCollider({0}): colliders are 0 or null", index));
             }
+        }
+
+        IEnumerator Trail(TrailRenderer trail)
+        {
+            yield return new WaitForSeconds(0.5f);
+            trail.enabled = false;
         }
 
         #endregion

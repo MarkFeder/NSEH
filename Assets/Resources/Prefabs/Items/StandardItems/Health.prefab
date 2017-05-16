@@ -141,7 +141,7 @@ MonoBehaviour:
   _sound: {fileID: 8300000, guid: a4a9327e98855524c846cc8e2f559e96, type: 3}
   _uses: 1
   _displayName: 
-  _particlePrefab: {fileID: 1071934384311410, guid: a335bf16348b3ce4e93a0ec4967e2c4e,
+  _particlePrefab: {fileID: 1722362727974188, guid: f036b5a181f28c64da337a53b291c334,
     type: 2}
   _destructionTime: 0
   _timeToDisplayText: 2

@@ -151,7 +151,7 @@ namespace nseh.Gameplay.Gameflow
             _ready.text = "RUUUUUUN!!!";
             yield return new WaitForSeconds(1);
             _ready.text = "";
-            _timeRemaining = 3;
+            _timeRemaining = 30;
             Camera.main.GetComponent<CameraScript>().started = true;
             GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().started = true;    
             _CubeDeath.GetComponent<CubeDeath>().started = true;

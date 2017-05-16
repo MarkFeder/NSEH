@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destructionTime: 2
+  _particle: {fileID: 1824505592546646, guid: 1bfcc612fcb318c40a8b82682192c81d, type: 2}
 --- !u!135 &135989003078531144
 SphereCollider:
   m_ObjectHideFlags: 1

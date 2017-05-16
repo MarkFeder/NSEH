@@ -60,7 +60,7 @@ namespace nseh.Gameplay.Entities.Player
         public bool CanUseEnergyForHability
         {
             get { return _currentEnergy > 0.0f && 
-                        (_currentEnergy - _maxEnergy * 0.25f) > 0.0f; }
+                        (_currentEnergy - _maxEnergy * 0.25f) >= 0.0f; }
         }
 
         public BarComponent EnergyBar

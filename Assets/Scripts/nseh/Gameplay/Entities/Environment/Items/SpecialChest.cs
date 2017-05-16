@@ -49,7 +49,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     CriticalDamage(percent, seconds);
                     _spawnItemPoint.DisplayText(_itemText, SpecialItems.CRITICAL, _timeToDisplayText);
-                    ParticleAnimation(_particlePrefab, 3.0f, _particlesSpawnPoints.ParticleBodyPos);
+                    ParticleAnimation(_particlePrefab, seconds, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -57,7 +57,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     UnlockDefinitiveMode();
                     _spawnItemPoint.DisplayText(_itemText, SpecialItems.ULTIMATE, _timeToDisplayText);
-                    ParticleAnimation(_particlePrefab, 1.0f, _particlesSpawnPoints.ParticleBodyPos);
+                    ParticleAnimation(_particlePrefab, seconds, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
 
@@ -90,12 +90,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
         private void UnlockDefinitiveMode()
         {
-            CharacterAttack definitiveAttack = _target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().Where(act => act.AttackType == AttackType.CharacterDefinitive).FirstOrDefault();
-
-            if (definitiveAttack != null)
-            {
-                definitiveAttack.IsEnabled = true;
-            }
+            _target.GetComponent<PlayerEnergy>().IncreaseEnergy(200);
         }
 
         #endregion
