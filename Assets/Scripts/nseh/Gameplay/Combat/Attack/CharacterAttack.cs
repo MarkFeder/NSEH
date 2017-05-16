@@ -46,8 +46,6 @@ namespace nseh.Gameplay.Combat
 
         public float CurrentDamage { get { return _currentDamage; } set { _currentDamage = value; } }
 
-        public bool Critical { get { return _critical;  } set { _critical = value; } }
-
         public bool IsCombo
         {
             get
@@ -89,7 +87,6 @@ namespace nseh.Gameplay.Combat
             _paramType = TypeOfParamAnimator(_hash);
 
             _enabled = true;
-            _critical = false;
         }
 
         /// <summary>
@@ -160,7 +157,6 @@ namespace nseh.Gameplay.Combat
             _paramType = TypeOfParamAnimator(_hash);
 
             _enabled = true;
-            _critical = false;
         }
 
         /// <summary>
@@ -170,11 +166,10 @@ namespace nseh.Gameplay.Combat
         {
             if (_enabled)
             {
-                if (IsSimpleAttack && _critical)
+                if (IsSimpleAttack)
                 {
                     base.StartAction();
 
-                    _critical = false;
                     _currentDamage = _initialDamage;
                 }
                 else

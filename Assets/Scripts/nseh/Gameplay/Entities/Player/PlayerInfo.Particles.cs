@@ -175,37 +175,68 @@ namespace nseh.Gameplay.Entities.Player
             StringBuilder sb = new StringBuilder();
             List<bool> checkers = new List<bool>();
 
-            sb.AppendFormat(ParticlePools.PLAYER_ATTACK_A, _playerName);
-            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleAttackA, 10));
-            sb.Clear();
 
-            sb.AppendFormat(ParticlePools.PLAYER_ATTACK_B, _playerName);
-            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleAttackB, 10));
-            sb.Clear();
+            if (!_bavaScene)
+            {
+                if (this.particleAttackA != null)
+                {
+                    sb.AppendFormat(ParticlePools.PLAYER_ATTACK_A, _playerName);
+                    checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleAttackA, 10));
+                    sb.Clear();
+                }
 
-            sb.AppendFormat(ParticlePools.PLAYER_COMBO_AAA, _playerName);
-            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboAAA, 10));
-            sb.Clear();
+                if (this.particleAttackB != null)
+                {
 
-            sb.AppendFormat(ParticlePools.PLAYER_COMBO_BB, _playerName);
-            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboBB, 10));
-            sb.Clear();
+                    sb.AppendFormat(ParticlePools.PLAYER_ATTACK_B, _playerName);
+                    checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleAttackB, 10));
+                    sb.Clear();
+                }
 
-            sb.AppendFormat(ParticlePools.PLAYER_COMBO_B_SHARP, _playerName);
-            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboBSharp, 5));
-            sb.Clear();
+                if (this.particleComboAAA != null)
+                {
+                    sb.AppendFormat(ParticlePools.PLAYER_COMBO_AAA, _playerName);
+                    checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboAAA, 10));
+                    sb.Clear();
+                }
 
-            sb.AppendFormat(ParticlePools.PLAYER_DEFINITIVE, _playerName);
-            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleDefinitive, 5));
-            sb.Clear();
+                if (this.particleComboBB != null)
+                {
 
-            sb.AppendFormat(ParticlePools.PLAYER_HABILITY, _playerName);
-            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleHability, 5));
-            sb.Clear();
+                    sb.AppendFormat(ParticlePools.PLAYER_COMBO_BB, _playerName);
+                    checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboBB, 10));
+                    sb.Clear();
+                }
 
-            sb.AppendFormat(ParticlePools.PLAYER_DEFENSE, _playerName);
-            checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleDefense, 5));
-            sb.Clear();
+                if (this.particleComboBSharp != null)
+                {
+                    sb.AppendFormat(ParticlePools.PLAYER_COMBO_B_SHARP, _playerName);
+                    checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleComboBSharp, 5));
+                    sb.Clear();
+                }
+
+                if (this.particleDefinitive != null)
+                {
+                    sb.AppendFormat(ParticlePools.PLAYER_DEFINITIVE, _playerName);
+                    checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleDefinitive, 5));
+                    sb.Clear();
+                }
+
+                if (this.particleHability != null)
+                {
+
+                    sb.AppendFormat(ParticlePools.PLAYER_HABILITY, _playerName);
+                    checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleHability, 5));
+                    sb.Clear();
+                }
+
+                if (this.particleDefense != null)
+                {
+                    sb.AppendFormat(ParticlePools.PLAYER_DEFENSE, _playerName);
+                    checkers.Add(GameManager.Instance.LevelManager.ObjectPoolManager.CreatePool(sb.ToString(), this.particleDefense, 5));
+                    sb.Clear();
+                } 
+            }
 
             sb = null;
 

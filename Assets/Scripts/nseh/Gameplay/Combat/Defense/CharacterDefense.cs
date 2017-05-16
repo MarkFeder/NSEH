@@ -1,5 +1,4 @@
 ﻿using nseh.Gameplay.Base.Abstract;
-using nseh.Gameplay.Base.Interfaces;
 using nseh.Gameplay.Entities.Player;
 using UnityEngine;
 

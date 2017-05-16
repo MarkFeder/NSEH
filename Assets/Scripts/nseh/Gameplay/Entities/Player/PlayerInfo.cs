@@ -1,7 +1,7 @@
-﻿using nseh.Gameplay.Combat;
+﻿using nseh.Gameplay.Base.Interfaces.Entities;
+using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
 using System;
-using System.Collections;
 using UnityEngine;
 using Inputs = nseh.Utils.Constants.Input;
 using InputUE = UnityEngine.Input;
@@ -26,6 +26,9 @@ namespace nseh.Gameplay.Entities.Player
         private string _playerName;
         [SerializeField]
         private Sprite _characterPortrait;
+
+        [SerializeField]
+        private bool _bavaScene;
 
         [Space(20)]
 

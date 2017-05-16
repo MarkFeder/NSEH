@@ -1,5 +1,6 @@
 ﻿using nseh.Gameplay.Base.Abstract;
 using nseh.Gameplay.Combat.Defense;
+using nseh.Gameplay.Entities.Enemies;
 using nseh.Gameplay.Entities.Player;
 using nseh.Managers.Main;
 using nseh.Utils.Helpers;
@@ -109,14 +110,15 @@ namespace nseh.Gameplay.Combat.System
         private void OnTriggerEnter(Collider collider)
         {
             GameObject enemy = collider.gameObject;
-
+            string tag = enemy.tag;
+            
             //// For Debugging
             //foreach (ContactPoint contact in collision.contacts)
             //{
             //    Debug.DrawRay(contact.point, contact.normal, Color.red, 5.0f);
             //}
 
-            if (enemy.CompareTag(Tags.PLAYER_BODY) && !_enemyTargets.Contains(enemy))
+            if (tag == Tags.PLAYER_BODY && !_enemyTargets.Contains(enemy))
             {
                 PlayerInfo enemyInfo = enemy.GetComponent<PlayerInfo>();
 
@@ -148,6 +150,25 @@ namespace nseh.Gameplay.Combat.System
 
                             PerformDamage(ref _rootCharacter, ref attack, ref _playerInfo, ref _enemyTargets);
                         }
+                    }
+                }
+            }
+            else if (tag == Tags.ENEMY && !_enemyTargets.Contains(enemy))
+            {
+                Debug.Log("Targeting enemy: " + enemy.name);
+
+                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    CharacterAttack currentAttack = _playerInfo.PlayerCombat.CurrentAction as CharacterAttack;
+
+                    if (currentAttack != null)
+                    {
+                        Debug.Log(String.Format("<color={0}> {1} does the attack: {2}</color>", Colors.FUCHSIA, _parentObjName, currentAttack.StateName));
+
+                        _enemyTargets.Add(enemy);
+
+                        enemyHealth.TakeDamage((int) currentAttack.CurrentDamage);
                     }
                 }
             }
@@ -338,9 +359,9 @@ namespace nseh.Gameplay.Combat.System
         }
 
         private void NoneCollisionHandler(ref CharacterAttack senderAction,
-                                            ref PlayerInfo senderInfo,
-                                            ref CharacterAttack enemyAction,
-                                            ref PlayerInfo enemyInfo)
+                                          ref PlayerInfo senderInfo,
+                                          ref CharacterAttack enemyAction,
+                                          ref PlayerInfo enemyInfo)
         {
             Debug.Log("NoneCollisionHandler()");
 

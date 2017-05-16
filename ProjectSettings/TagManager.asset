@@ -12,6 +12,7 @@ TagManager:
   - Plataform
   - Pause
   - PlayerBody
+  - Enemy
   layers:
   - Default
   - TransparentFX

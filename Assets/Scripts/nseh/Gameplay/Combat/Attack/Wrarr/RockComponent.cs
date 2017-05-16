@@ -1,4 +1,6 @@
-﻿using nseh.Gameplay.Entities.Player;
+﻿using nseh.Gameplay.Base.Interfaces;
+using nseh.Gameplay.Entities.Enemies;
+using nseh.Gameplay.Entities.Player;
 using System.Collections.Generic;
 using UnityEngine;
 using Tags = nseh.Utils.Constants.Tags;
@@ -51,11 +53,10 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
         private void OnCollisionEnter(Collision collision)
         {
             string colTag = collision.collider.tag;
+            GameObject enemyObj = collision.gameObject;
 
             if (colTag == Tags.PLAYER_BODY)
             {
-                GameObject enemyObj = collision.gameObject;
-
                 if (!_enemies.Contains(enemyObj))
                 {
                     PlayerInfo enemyInfo = enemyObj.GetComponent<PlayerInfo>();
@@ -69,6 +70,21 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
                         enemyInfo.PlayerHealth.TakeDamage((int)_damage);
 
                         // Add this enemy to the list so as to cause damage again
+                        _enemies.Add(enemyObj);
+                    }
+                }
+            }
+            else if (colTag == Tags.ENEMY)
+            {
+                if (!_enemies.Contains(enemyObj))
+                {
+                    IHealth enemyHealth = enemyObj.GetComponent<IHealth>();
+                    if (enemyHealth != null)
+                    {
+                        // Set health
+                        enemyHealth.TakeDamage((int)_damage);
+
+                        // Add this enemy to the list so as not to cause damage again
                         _enemies.Add(enemyObj);
                     }
                 }

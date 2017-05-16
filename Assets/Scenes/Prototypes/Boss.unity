@@ -191,7 +191,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 179487696}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -321,9 +321,10 @@ GameObject:
   - component: {fileID: 222717440}
   - component: {fileID: 222717441}
   - component: {fileID: 222717437}
+  - component: {fileID: 222717442}
   m_Layer: 0
   m_Name: Bava Dongo
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -353,13 +354,13 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 222717433}
   serializedVersion: 2
-  m_Mass: 60
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 96
   m_CollisionDetection: 0
 --- !u!23 &222717436
 MeshRenderer:
@@ -465,6 +466,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &222717442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 222717433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d470cfe9541bb4e806c2373cafdae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startingHealth: 500
+  _maxHealth: 500
 --- !u!1 &252557465
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,6 +487,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 252557466}
+  - component: {fileID: 252557467}
+  - component: {fileID: 252557468}
   m_Layer: 0
   m_Name: Bip001 L Foot
   m_TagString: Untagged
@@ -496,6 +512,31 @@ Transform:
   m_Father: {fileID: 295455427}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &252557467
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 252557465}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &252557468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 252557465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7127c59a1c0c72c448186ef93e1c3f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 5
+  _index: 0
 --- !u!1 &258501854
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +561,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 258501854}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -693,7 +734,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 330694746}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -1299,6 +1340,63 @@ Transform:
   m_Father: {fileID: 428304127}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &819441316
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4017786493705962, guid: e574c0b7543dbf248a901a090f88004d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017786493705962, guid: e574c0b7543dbf248a901a090f88004d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017786493705962, guid: e574c0b7543dbf248a901a090f88004d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017786493705962, guid: e574c0b7543dbf248a901a090f88004d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017786493705962, guid: e574c0b7543dbf248a901a090f88004d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017786493705962, guid: e574c0b7543dbf248a901a090f88004d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017786493705962, guid: e574c0b7543dbf248a901a090f88004d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017786493705962, guid: e574c0b7543dbf248a901a090f88004d, type: 2}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114196002245353524, guid: e574c0b7543dbf248a901a090f88004d,
+        type: 2}
+      propertyPath: _bavaScene
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114196002245353524, guid: e574c0b7543dbf248a901a090f88004d,
+        type: 2}
+      propertyPath: _gamepadIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54036093165125992, guid: e574c0b7543dbf248a901a090f88004d,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 120
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e574c0b7543dbf248a901a090f88004d, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &848279434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2506,6 +2604,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1665351182}
+  - component: {fileID: 1665351183}
+  - component: {fileID: 1665351184}
   m_Layer: 0
   m_Name: Bip001 R Foot
   m_TagString: Untagged
@@ -2529,6 +2629,31 @@ Transform:
   m_Father: {fileID: 1489477044}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1665351183
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1665351181}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1665351184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1665351181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7127c59a1c0c72c448186ef93e1c3f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 5
+  _index: 1
 --- !u!1 &1683686392
 GameObject:
   m_ObjectHideFlags: 0
@@ -2619,7 +2744,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 387424972}
-  - component: {fileID: 1685369229}
   m_Layer: 0
   m_Name: Bavadongo
   m_TagString: Untagged
@@ -2627,24 +2751,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &1685369229
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 5122723482ea9a24598ebceee5cde558,
-    type: 3}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1685369228}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 5122723482ea9a24598ebceee5cde558, type: 3}
-  m_Controller: {fileID: 9100000, guid: 439ec1f81110c684da1c55d1a11d9ff0, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1703230447
 GameObject:
   m_ObjectHideFlags: 0
