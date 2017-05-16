@@ -1,4 +1,5 @@
 ﻿using nseh.Gameplay.Base.Abstract;
+using nseh.Gameplay.Base.Interfaces;
 using nseh.Gameplay.Entities.Player;
 using UnityEngine;
 
@@ -35,6 +36,8 @@ namespace nseh.Gameplay.Combat.Defense
             _button = _playerInfo.GetButton(_currentMode);
 
             _paramType = TypeOfParamAnimator(_hash);
+
+            _enabled = true;
         }
 
         /// <summary>
