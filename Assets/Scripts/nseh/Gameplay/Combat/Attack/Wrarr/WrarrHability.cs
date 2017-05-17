@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using nseh.Gameplay.Animations.Receivers.Wrarr;
+﻿using nseh.Gameplay.Animations.Receivers.Wrarr;
 using nseh.Gameplay.Combat.Attack.Wrarr;
-using nseh.Utils.Helpers;
 using UnityEngine;
 using Layers = nseh.Utils.Constants.Layers;
 
@@ -14,37 +12,20 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         [SerializeField]
         private WaveComponent _wave;
         [SerializeField]
-        [Range(0, 1)]
-        private float _startRoarTime;
-        [SerializeField]
-        [Range(0, 1)]
-        private float _stopRoarTime;
-        [SerializeField]
         private float _force;
-
-
         [SerializeField]
         private GameObject _particle;
-
+        
+        private WrarrAnimationEventReceiver _receiver;
         private int _playerLayer;
 
-        private AnimationClip _animationClip;
-        private WrarrAnimationEventReceiver _receiver;
-        private const string _clipName = "WrarrBasicSkill";
-
         #endregion
-
+        
         #region Protected Methods
 
         protected override void Start()
         {
             base.Start();
-
-            if (!(_startRoarTime < _stopRoarTime))
-            {
-                Debug.LogError("startRoarTime must be less than stopRoarTime");
-                return;
-            }
 
             _playerLayer = LayerMask.NameToLayer(Layers.PLAYER);
             SetupAnimationEvents();
@@ -60,6 +41,7 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             {
                 ReduceEnergyOnSpecialHability();
                 base.StartAction();
+
                 GameObject particleGameObject = Instantiate(_particle, _playerInfo.particleBodyPos.transform.position, _playerInfo.particleBodyPos.transform.rotation, _playerInfo.particleBodyPos.transform);
                 foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
                 {
@@ -75,29 +57,21 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
         #region Private Methods
 
+        /// <summary>
+        /// Setup the callbacks on this class to trigger animation events.
+        /// </summary>
         private void SetupAnimationEvents()
         {
-            // Get this animation clip
-            _animationClip = _playerInfo.Animator.runtimeAnimatorController.animationClips
-                             .Where(clip => clip.name == _clipName).FirstOrDefault();
-
-            if (_animationClip != null)
-            {
-                // Setup events
-                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnStartRoar", _startRoarTime * _animationClip.length);
-                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnEndRoar", _stopRoarTime * _animationClip.length);
-
-                // Setup proxy receivers
-                _receiver = transform.root.gameObject.GetComponent<WrarrAnimationEventReceiver>();
-                _receiver.OnStartRoarCallback += OnStartRoar;
-                _receiver.OnEndRoarCallback += OnEndRoar;
-            }
-            else
-            {
-                Debug.LogError("Could not setup animation events for Wrarr hability");
-            }
+            // Setup proxy receivers
+            _receiver = transform.root.gameObject.GetComponent<WrarrAnimationEventReceiver>();
+            _receiver.OnStartRoarCallback += OnStartRoar;
+            _receiver.OnEndRoarCallback += OnEndRoar;
         }
 
+        /// <summary>
+        /// This is an animation event triggered by the animation. Wrarr starts roaring.
+        /// </summary>
+        /// <param name="animationEvent"></param>
         private void OnStartRoar(AnimationEvent animationEvent)
         {
             // If hits enemies, then execute logic
@@ -113,6 +87,10 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _wave.Force = _force;
         }
 
+        /// <summary>
+        /// This is an animation event triggered by the animation. Wrarr stops roaring.
+        /// </summary>
+        /// <param name="animationEvent"></param>
         private void OnEndRoar(AnimationEvent animationEvent)
         {
             // Deactivate Wrarr's wave

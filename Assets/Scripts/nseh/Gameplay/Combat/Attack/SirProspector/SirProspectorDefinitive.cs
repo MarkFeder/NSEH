@@ -13,28 +13,17 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         #region Private Properties
 
         [SerializeField]
-        [Range(0,1)]
-        private float _hideSwordTime;
-        [SerializeField]
-        [Range(0, 1)]
-        private float _showSwordTime;
-        [SerializeField]
         private float _percent;
         [SerializeField]
         private float _seconds;
-
         [SerializeField]
         private GameObject _particle;
-
         [SerializeField]
         private MeshRenderer _sword;
         [SerializeField]
         private MeshRenderer _shovel;
 
         private SirProspectorAnimationEventReceiver _receiver;
-        private AnimationClip _animationClip;
-
-        private const string _clipName = "ULTIMATESKILL";
         private const string _coroutinesGroup = "SirProspectorDefinitive";
 
         #endregion
@@ -62,7 +51,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             if (_enabled && CanStartSpecialHability())
             {
                 ReduceEnergyOnSpecialHability();
-
                 base.StartAction();
 /*
                 GameObject particleGameObject = Instantiate(_particle, _playerInfo.particleBodyPos.transform.position, _playerInfo.particleBodyPos.transform.rotation, _playerInfo.transform);
@@ -73,8 +61,8 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
                 Destroy(particleGameObject, 3f);
                 */
-                StartCoroutine(ExecuteDefinitiveAction());
 
+                StartCoroutine(ExecuteDefinitiveAction());
             }
         }
 
@@ -82,6 +70,10 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
         #region Private Methods
 
+        /// <summary>
+        /// Execute SirProspector's definitive attack.
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator ExecuteDefinitiveAction()
         {
             // Deactivate/Activate items
@@ -105,44 +97,33 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _enabled = true;
         }
 
+        /// <summary>
+        /// Setup the callbacks on this class to trigger animation events.
+        /// </summary>
         private void SetupAnimationEvents()
         {
-            // Get this animation clip
-            _animationClip = _playerInfo.Animator.runtimeAnimatorController.animationClips
-                             .Where(clip => clip.name == _clipName).FirstOrDefault();
-
-            if (_animationClip != null)
-            {
-                // Setup events
-                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnHideSword", _hideSwordTime * _animationClip.length);
-                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnShowSword", _showSwordTime * _animationClip.length);
-
-                // Setup proxy receivers
-                _receiver = transform.root.gameObject.GetComponent<SirProspectorAnimationEventReceiver>();
-                _receiver.OnHideSwordCallback += OnHideSword;
-                _receiver.OnShowSwordCallback += OnShowSword; 
-            }
-            else
-            {
-                Debug.LogError("Could not setup animation events for SirProspector definitive");
-            }
+            // Setup proxy receivers
+            _receiver = transform.root.gameObject.GetComponent<SirProspectorAnimationEventReceiver>();
+            _receiver.OnHideSwordCallback += OnHideSword;
+            _receiver.OnShowSwordCallback += OnShowSword; 
         }
 
+        /// <summary>
+        /// This is an animation event triggered by the animation. It hides SirProspector's sword.
+        /// </summary>
+        /// <param name="animationEvent"></param>
         private void OnHideSword(AnimationEvent animationEvent)
         {
             _sword.enabled = false;
         }
 
+        /// <summary>
+        /// This is an animation event triggered by the animation. It shows SirProspector's sword.
+        /// </summary>
+        /// <param name="animationEvent"></param>
         private void OnShowSword(AnimationEvent animationEvent)
         {
             _sword.enabled = true;
-        }
-
-        private void OnDestroy()
-        {
-            // Unsubscribe events
-            _receiver.OnHideSwordCallback -= OnHideSword;
-            _receiver.OnShowSwordCallback -= OnShowSword;
         }
 
         #endregion

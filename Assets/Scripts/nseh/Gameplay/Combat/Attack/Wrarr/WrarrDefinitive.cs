@@ -11,28 +11,16 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 
         private GameObject _rockRuntime;
         private Rigidbody _rockBody;
+        private WrarrAnimationEventReceiver _receiver;
 
         [SerializeField]
         private GameObject _rockMesh;
         [SerializeField]
         private Transform _bone;
-
         [SerializeField]
         private float _rockForce;
         [SerializeField]
-        [Range(0, 1)]
-        private float _startTime;
-        [SerializeField]
-        [Range(0, 1)]
-        private float _endTime;
-
-        [SerializeField]
         private GameObject _particle;
-
-
-        private AnimationClip _animationClip;
-        private WrarrAnimationEventReceiver _receiver;
-        private const string _clipName = "WrarrUltimateSkill";
 
         #endregion
 
@@ -41,12 +29,6 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
         protected override void Start()
         {
             base.Start();
-
-            //if (!(_startTime < _endTime))
-            //{
-            //    Debug.LogError("startTime must be less than endTime");
-            //    return;
-            //}
 
             SetupAnimationEvents();
         }
@@ -68,6 +50,9 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 
         #region Private Methods
 
+        /// <summary>
+        /// Setup the callbacks on this class to trigger animation events.
+        /// </summary>
         private void SetupAnimationEvents()
         {
             // Setup proxy receivers
@@ -76,29 +61,10 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             _receiver.OnStopLaunchRockCallback += OnStopLaunchRock;
         }
 
-        //private void SetupAnimationEvents()
-        //{
-        //    // Get this animation clip
-        //    _animationClip = _playerInfo.Animator.runtimeAnimatorController.animationClips
-        //                     .Where(clip => clip.name == _clipName).FirstOrDefault();
-
-        //    if (_animationClip != null)
-        //    {
-        //        // Setup events
-        //        AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnStartLaunchRock", _startTime * _animationClip.length);
-        //        AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnStopLaunchRock", _endTime * _animationClip.length);
-
-        //        // Setup proxy receivers
-        //        _receiver = transform.root.gameObject.GetComponent<WrarrAnimationEventReceiver>();
-        //        _receiver.OnStartLaunchRockCallback += OnStartLaunchRock;
-        //        _receiver.OnStopLaunchRockCallback += OnStopLaunchRock;
-        //    }
-        //    else
-        //    {
-        //        Debug.LogError("Could not setup animation events for Wrarr definitive");
-        //    }
-        //}
-
+        /// <summary>
+        /// This is an animation event triggered by the animation. It creates the rock.
+        /// </summary>
+        /// <param name="animationEvent"></param>
         private void OnStartLaunchRock(AnimationEvent animationEvent)
         {
             if (_rockRuntime == null)
@@ -121,6 +87,10 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             }
         }
 
+        /// <summary>
+        /// This is an animation event triggered by the animation. It detaches the rock from wrarr in forward direction.
+        /// </summary>
+        /// <param name="animationEvent"></param>
         private void OnStopLaunchRock(AnimationEvent animationEvent)
         {
             if (_rockRuntime != null)
@@ -139,6 +109,9 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             }
         }
 
+        /// <summary>
+        /// Set the rock to be unmovable.
+        /// </summary>
         private void SetUnMovableRock()
         {
             _rockBody = _rockRuntime.transform.GetChild(0).GetComponent<Rigidbody>();
@@ -147,6 +120,9 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             _rockBody.isKinematic = true;
         }
 
+        /// <summary>
+        /// Set the rock to be movable.
+        /// </summary>
         private void SetMovableRock()
         {
             _rockBody.useGravity = true;

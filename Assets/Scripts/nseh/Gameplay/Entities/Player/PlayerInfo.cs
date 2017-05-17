@@ -1,5 +1,4 @@
-﻿using nseh.Gameplay.Base.Interfaces.Entities;
-using nseh.Gameplay.Combat;
+﻿using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
 using System;
 using UnityEngine;

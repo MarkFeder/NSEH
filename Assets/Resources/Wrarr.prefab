@@ -1837,8 +1837,6 @@ MonoBehaviour:
   _rockMesh: {fileID: 1389682234776032, guid: ad01807142f3e164886e00fbe58d7e32, type: 2}
   _bone: {fileID: 4022378891723576}
   _rockForce: 700
-  _startTime: 0.35
-  _endTime: 0.72
   _particle: {fileID: 0}
 --- !u!114 &114161931219264344
 MonoBehaviour:
@@ -1854,8 +1852,6 @@ MonoBehaviour:
   _initialDamage: 10
   _attackType: 7
   _wave: {fileID: 114333976357871034}
-  _startRoarTime: 0.4
-  _stopRoarTime: 0.9
   _force: 5000
   _particle: {fileID: 1242950439485562, guid: f24bb7c03ea2e9d49bdb0e7892dd61dd, type: 2}
 --- !u!114 &114190659147358852
@@ -1914,6 +1910,7 @@ MonoBehaviour:
   _player: 1
   _playerName: Wrarr
   _characterPortrait: {fileID: 21300000, guid: 666c9329772596f43b834495fda8e204, type: 3}
+  _bavaScene: 0
 --- !u!114 &114265241072407274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1925,7 +1922,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e245d3be634e89e49975c6e74c26eaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpeed: 0
   dampAir: 0.5
   jumpAirSpeed: 5
   jumpHeight: 15

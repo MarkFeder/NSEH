@@ -1,7 +1,5 @@
 ﻿using nseh.Gameplay.Animations.Receivers.SirProspector;
 using nseh.Utils.EditorCustomization;
-using nseh.Utils.Helpers;
-using System.Linq;
 using UnityEngine;
 
 namespace nseh.Gameplay.Combat.Attack.SirProspector
@@ -13,33 +11,19 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
         [SerializeField]
         private MeshRenderer _specialItem;
-
         [SerializeField]
         private GameObject _sword;
         [SerializeField]
         private GameObject _shovel;
-
-        [SerializeField]
-        [Range(0, 1)]
-        private float _deactivateItemTime;
-        [SerializeField]
-        [Range(0, 1)]
-        private float _activateItemTime;
-
         [SerializeField]
         private float _bonification;
         [SerializeField]
         private float _seconds;
-
-
         [SerializeField]
         private GameObject _particle;
 
         private float _usedTime;
-
         private SirProspectorAnimationEventReceiver _receiver;
-        private AnimationClip _animationClip;
-        private const string _clipName = "SPECIALSKILL";
 
         #endregion
 
@@ -76,6 +60,7 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             {
                 ReduceEnergyOnSpecialHability();
                 base.StartAction();
+
                 GameObject particleGameObject = Instantiate(_particle, _playerInfo.particleBodyPos.transform.position, _playerInfo.particleBodyPos.transform.rotation, _playerInfo.particleBodyPos.transform);
                 foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
                 {
@@ -95,29 +80,21 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
 
         #region Private Methods
 
+        /// <summary>
+        /// Setup the callbacks on this class to trigger animation events.
+        /// </summary>
         private void SetupAnimationEvents()
         {
-            // Get this animation clip
-            _animationClip = _playerInfo.Animator.runtimeAnimatorController.animationClips
-                             .Where(clip => clip.name == _clipName).FirstOrDefault();
-
-            if (_animationClip != null)
-            {
-                // Setup events
-                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnDeactivateItem", _deactivateItemTime * _animationClip.length);
-                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnActivateItem", _activateItemTime * _animationClip.length);
-
-                // Setup proxy receivers
-                _receiver = transform.root.gameObject.GetComponent<SirProspectorAnimationEventReceiver>();
-                _receiver.OnDeactivateItemCallback += OnDeactivateItem;
-                _receiver.OnActivateItemCallback += OnActivateItem;
-            }
-            else
-            {
-                Debug.LogError("Could not setup animation events for SirProspector hability");
-            }
+            // Setup proxy receivers
+            _receiver = transform.root.gameObject.GetComponent<SirProspectorAnimationEventReceiver>();
+            _receiver.OnDeactivateItemCallback += OnDeactivateItem;
+            _receiver.OnActivateItemCallback += OnActivateItem;
         }
 
+        /// <summary>
+        /// This is an animation event triggered by the animation. It deactivates the special item.
+        /// </summary>
+        /// <param name="animationEvent"></param>
         private void OnDeactivateItem(AnimationEvent animationEvent)
         {
             // Deactivate special item
@@ -127,6 +104,10 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             }
         }
 
+        /// <summary>
+        /// This is an animation event triggered by the animation. It activates the special item.
+        /// </summary>
+        /// <param name="animationEvent"></param>
         private void OnActivateItem(AnimationEvent animationEvent)
         {
             // Activate special item
@@ -134,13 +115,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             {
                 _specialItem.enabled = true;
             }
-        }
-
-        private void OnDestroy()
-        {
-            // Unsubscribe events
-            _receiver.OnDeactivateItemCallback -= OnDeactivateItem;
-            _receiver.OnActivateItemCallback -= OnActivateItem;
         }
 
         #endregion
