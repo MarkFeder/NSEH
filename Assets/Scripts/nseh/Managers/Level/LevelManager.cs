@@ -322,7 +322,7 @@ namespace nseh.Managers.Level
 
                 // Release managers
                 Find<CameraManager>().EventRelease();
-
+                Find<MinigameEvent>().EventRelease();
                 // Reset all player spawn points
                 ResetPlayerSpawnPoint();
 
