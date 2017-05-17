@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -178,9 +178,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462359892e3667d41a91e8b76f3072a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   started: 0
   num: 0
+  speed: 5
 --- !u!1 &115355281
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,9 +238,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109830daf3379c949a244d1b0363eac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   started: 0
   num: 0
+  speed: 5
 --- !u!54 &177813443
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -448,15 +448,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3077594d12b05744ab94bbd7b83cf7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _specialPlatforms:
+  - {fileID: 1332765135261376, guid: 9b2bf48dd9070044f8a995fcc13feed1, type: 2}
+  - {fileID: 1366069324876734, guid: 8bee554486f2f9940b68dcdf6fc81b71, type: 2}
+  - {fileID: 1712569951581674, guid: a145e2bf2afc6bd458c38784d023459c, type: 2}
   platform: {fileID: 1260648925623526, guid: 0acbe44af4bb5c444a6d82cf9237ec19, type: 2}
   platformChest: {fileID: 1085781941423436, guid: fc56d9115b67e2c489e06be711ed1363,
     type: 2}
   platformInitial: {fileID: 0}
   generationPoint: {fileID: 798807408}
-  SpecialPlatforms:
-  - {fileID: 1332765135261376, guid: 9b2bf48dd9070044f8a995fcc13feed1, type: 2}
-  - {fileID: 1712569951581674, guid: a145e2bf2afc6bd458c38784d023459c, type: 2}
-  - {fileID: 1366069324876734, guid: 8bee554486f2f9940b68dcdf6fc81b71, type: 2}
 --- !u!4 &320675292
 Transform:
   m_ObjectHideFlags: 0
@@ -842,15 +842,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3077594d12b05744ab94bbd7b83cf7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _specialPlatforms:
+  - {fileID: 1332765135261376, guid: 9b2bf48dd9070044f8a995fcc13feed1, type: 2}
+  - {fileID: 1366069324876734, guid: 8bee554486f2f9940b68dcdf6fc81b71, type: 2}
+  - {fileID: 1712569951581674, guid: a145e2bf2afc6bd458c38784d023459c, type: 2}
   platform: {fileID: 1260648925623526, guid: 0acbe44af4bb5c444a6d82cf9237ec19, type: 2}
   platformChest: {fileID: 1085781941423436, guid: fc56d9115b67e2c489e06be711ed1363,
     type: 2}
   platformInitial: {fileID: 0}
   generationPoint: {fileID: 798807408}
-  SpecialPlatforms:
-  - {fileID: 1332765135261376, guid: 9b2bf48dd9070044f8a995fcc13feed1, type: 2}
-  - {fileID: 1712569951581674, guid: a145e2bf2afc6bd458c38784d023459c, type: 2}
-  - {fileID: 1366069324876734, guid: 8bee554486f2f9940b68dcdf6fc81b71, type: 2}
 --- !u!1 &1547179771
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,15 +906,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3077594d12b05744ab94bbd7b83cf7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _specialPlatforms:
+  - {fileID: 1332765135261376, guid: 9b2bf48dd9070044f8a995fcc13feed1, type: 2}
+  - {fileID: 1366069324876734, guid: 8bee554486f2f9940b68dcdf6fc81b71, type: 2}
+  - {fileID: 1712569951581674, guid: a145e2bf2afc6bd458c38784d023459c, type: 2}
   platform: {fileID: 1260648925623526, guid: 0acbe44af4bb5c444a6d82cf9237ec19, type: 2}
   platformChest: {fileID: 1085781941423436, guid: fc56d9115b67e2c489e06be711ed1363,
     type: 2}
   platformInitial: {fileID: 0}
   generationPoint: {fileID: 798807408}
-  SpecialPlatforms:
-  - {fileID: 1332765135261376, guid: 9b2bf48dd9070044f8a995fcc13feed1, type: 2}
-  - {fileID: 1712569951581674, guid: a145e2bf2afc6bd458c38784d023459c, type: 2}
-  - {fileID: 1366069324876734, guid: 8bee554486f2f9940b68dcdf6fc81b71, type: 2}
 --- !u!4 &1576450962
 Transform:
   m_ObjectHideFlags: 0
@@ -959,9 +959,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05079eb2a9f1b7f4d8affb081e60f710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starting: 0
   started: 0
   num: 0
-  starting: 0
 --- !u!81 &1646580342
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1059,15 +1059,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3077594d12b05744ab94bbd7b83cf7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _specialPlatforms:
+  - {fileID: 1332765135261376, guid: 9b2bf48dd9070044f8a995fcc13feed1, type: 2}
+  - {fileID: 1366069324876734, guid: 8bee554486f2f9940b68dcdf6fc81b71, type: 2}
+  - {fileID: 1712569951581674, guid: a145e2bf2afc6bd458c38784d023459c, type: 2}
   platform: {fileID: 1260648925623526, guid: 0acbe44af4bb5c444a6d82cf9237ec19, type: 2}
   platformChest: {fileID: 1085781941423436, guid: fc56d9115b67e2c489e06be711ed1363,
     type: 2}
   platformInitial: {fileID: 0}
   generationPoint: {fileID: 798807408}
-  SpecialPlatforms:
-  - {fileID: 1332765135261376, guid: 9b2bf48dd9070044f8a995fcc13feed1, type: 2}
-  - {fileID: 1712569951581674, guid: a145e2bf2afc6bd458c38784d023459c, type: 2}
-  - {fileID: 1366069324876734, guid: 8bee554486f2f9940b68dcdf6fc81b71, type: 2}
 --- !u!4 &1659324297
 Transform:
   m_ObjectHideFlags: 0
@@ -1236,13 +1236,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3077594d12b05744ab94bbd7b83cf7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _specialPlatforms: []
   platform: {fileID: 1260648925623526, guid: 0acbe44af4bb5c444a6d82cf9237ec19, type: 2}
   platformChest: {fileID: 1260648925623526, guid: 0acbe44af4bb5c444a6d82cf9237ec19,
     type: 2}
   platformInitial: {fileID: 1260648925623526, guid: 0acbe44af4bb5c444a6d82cf9237ec19,
     type: 2}
   generationPoint: {fileID: 798807408}
-  SpecialPlatforms: []
 --- !u!1 &2099892325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,9 +1274,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05079eb2a9f1b7f4d8affb081e60f710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starting: 0
   started: 0
   num: 0
-  starting: 0
 --- !u!81 &2099892327
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1409,13 +1409,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3077594d12b05744ab94bbd7b83cf7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _specialPlatforms: []
   platform: {fileID: 1083709043600800, guid: 85fb380b2969a8448a47011c34b2d074, type: 2}
   platformChest: {fileID: 1083709043600800, guid: 85fb380b2969a8448a47011c34b2d074,
     type: 2}
   platformInitial: {fileID: 1083709043600800, guid: 85fb380b2969a8448a47011c34b2d074,
     type: 2}
   generationPoint: {fileID: 798807408}
-  SpecialPlatforms: []
 --- !u!4 &2144385150
 Transform:
   m_ObjectHideFlags: 0
