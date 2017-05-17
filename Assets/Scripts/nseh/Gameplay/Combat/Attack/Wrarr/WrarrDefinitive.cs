@@ -42,11 +42,11 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
         {
             base.Start();
 
-            if (!(_startTime < _endTime))
-            {
-                Debug.LogError("startTime must be less than endTime");
-                return;
-            }
+            //if (!(_startTime < _endTime))
+            //{
+            //    Debug.LogError("startTime must be less than endTime");
+            //    return;
+            //}
 
             SetupAnimationEvents();
         }
@@ -70,41 +70,55 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 
         private void SetupAnimationEvents()
         {
-            // Get this animation clip
-            _animationClip = _playerInfo.Animator.runtimeAnimatorController.animationClips
-                             .Where(clip => clip.name == _clipName).FirstOrDefault();
-
-            if (_animationClip != null)
-            {
-                // Setup events
-                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnStartLaunchRock", _startTime * _animationClip.length);
-                AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnStopLaunchRock", _endTime * _animationClip.length);
-
-                // Setup proxy receivers
-                _receiver = transform.root.gameObject.GetComponent<WrarrAnimationEventReceiver>();
-                _receiver.OnStartLaunchRockCallback += OnStartLaunchRock;
-                _receiver.OnStopLaunchRockCallback += OnStopLaunchRock;
-            }
-            else
-            {
-                Debug.LogError("Could not setup animation events for Wrarr definitive");
-            }
+            // Setup proxy receivers
+            _receiver = transform.root.gameObject.GetComponent<WrarrAnimationEventReceiver>();
+            _receiver.OnStartLaunchRockCallback += OnStartLaunchRock;
+            _receiver.OnStopLaunchRockCallback += OnStopLaunchRock;
         }
+
+        //private void SetupAnimationEvents()
+        //{
+        //    // Get this animation clip
+        //    _animationClip = _playerInfo.Animator.runtimeAnimatorController.animationClips
+        //                     .Where(clip => clip.name == _clipName).FirstOrDefault();
+
+        //    if (_animationClip != null)
+        //    {
+        //        // Setup events
+        //        AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnStartLaunchRock", _startTime * _animationClip.length);
+        //        AnimationEventExtensions.CreateAnimationEventForClip(ref _animationClip, "OnStopLaunchRock", _endTime * _animationClip.length);
+
+        //        // Setup proxy receivers
+        //        _receiver = transform.root.gameObject.GetComponent<WrarrAnimationEventReceiver>();
+        //        _receiver.OnStartLaunchRockCallback += OnStartLaunchRock;
+        //        _receiver.OnStopLaunchRockCallback += OnStopLaunchRock;
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError("Could not setup animation events for Wrarr definitive");
+        //    }
+        //}
 
         private void OnStartLaunchRock(AnimationEvent animationEvent)
         {
-            // Setup rock on runtime
-            _rockRuntime = Instantiate(_rockMesh, _bone.position, Quaternion.identity);
-            RockComponent component = _rockRuntime.transform.GetChild(0).GetComponent<RockComponent>();
-            component.Damage = _currentDamage;
-            component.Sender = _playerInfo;
+            if (_rockRuntime == null)
+            {
+                // Disable this attack until rock has been launched
+                _enabled = false;
 
-            // Set the rock to use parent's local position and rotation
-            _rockRuntime.transform.parent = _bone.transform;
-            _rockRuntime.transform.localPosition = Vector3.zero;
-            _rockRuntime.transform.localRotation = _bone.localRotation;
+                // Setup rock on runtime
+                _rockRuntime = Instantiate(_rockMesh, _bone.position, Quaternion.identity);
+                RockComponent component = _rockRuntime.transform.GetChild(0).GetComponent<RockComponent>();
+                component.Damage = _currentDamage;
+                component.Sender = _playerInfo;
 
-            SetUnMovableRock();
+                // Set the rock to use parent's local position and rotation
+                _rockRuntime.transform.parent = _bone.transform;
+                _rockRuntime.transform.localPosition = Vector3.zero;
+                _rockRuntime.transform.localRotation = _bone.localRotation;
+
+                SetUnMovableRock(); 
+            }
         }
 
         private void OnStopLaunchRock(AnimationEvent animationEvent)
@@ -113,10 +127,15 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             {
                 SetMovableRock();
 
+                // Detach rock from parent
                 _rockRuntime.transform.parent = null;
 
+                // Apply force in forward direction
                 Vector3 vForward = transform.TransformDirection(Vector3.forward);
                 _rockBody.AddForce(vForward * _rockForce, ForceMode.Force);
+
+                // Enable this attack again
+                _enabled = true;
             }
         }
 
