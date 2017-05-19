@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using nseh.Managers.Main;
+using nseh.Gameplay.Entities.Enemies;
 
 
 namespace nseh.Gameplay.AI
@@ -14,8 +15,7 @@ namespace nseh.Gameplay.AI
         public Transform left_Limit;
         public Transform right_Limit;
         public GameObject spike;
-        public GameObject platform;
-        public float Health;
+        public GameObject platform;      
         public float maxPlayers;
         public float numPlayers;
         #endregion
@@ -34,6 +34,8 @@ namespace nseh.Gameplay.AI
         private float _prob_Patrol_in;
         private float _prob_AttackSpikes_in;
         private float _prob_AttackRoll_in;
+        private float _health;
+        private float _maxHealth;
         #endregion
 
         #region Public Methods
@@ -48,7 +50,8 @@ namespace nseh.Gameplay.AI
             _agent.SetDestination(_nextPoint.position);
             _prob_Patrol_in = 0.5f;
             _prob_AttackSpikes_in = 1f;
-            Health = 100;
+            _health = GetComponent<EnemyHealth>().CurrentHealth;
+            _maxHealth = GetComponent<EnemyHealth>().MaxHealth;
             _frenzy = false;
             _wait = 2;
             _animator.SetBool("Appear", true);
@@ -63,14 +66,15 @@ namespace nseh.Gameplay.AI
         // Update is called once per frame
         public void Update()
         {
-            if (Health < 0 && _isDeath == false)
+            _health = GetComponent<EnemyHealth>().CurrentHealth;
+            if (_health <= 0 && _isDeath == false)
             {
                 _isDeath = true;
                 _animator.SetBool("Death", true);
             }
             else
             {
-                if (Health < 30 && _frenzy == false)
+                if (_health <= ((_maxHealth * 30) / 100) && _frenzy == false)
                 {
                     _frenzy = true;
                     _animator.SetBool("Frenzy", true);

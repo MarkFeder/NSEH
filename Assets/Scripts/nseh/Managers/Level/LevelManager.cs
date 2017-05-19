@@ -508,7 +508,7 @@ namespace nseh.Managers.Level
             //When player goes to main menu from game scene,
             //the player list must be restarted to avoid conflicts when a new game scene is created.
             _players = new List<PlayerManager>();
-
+            Find<MinigameEvent>().EventRelease();
             _playerSpawnPoints = new List<GameObject>();
             //_canvasGameOverManager.DisableCanvas();
             //_canvasPausedManager.DisableCanvas();

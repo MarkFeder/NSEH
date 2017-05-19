@@ -26,6 +26,11 @@ namespace nseh.Gameplay.Entities.Enemies
             set { _currentHealth = value; }
         }
 
+        public int MaxHealth
+        {
+            get { return _maxHealth; }
+        }
+
         #endregion
 
         #region Private Methods

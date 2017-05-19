@@ -82,6 +82,7 @@ namespace nseh.Gameplay.Gameflow
 
         override public void EventTick()
         {
+            Debug.Log("TICK");
             if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))) && _timeRemaining>0)
             {
                 _isPaused = !_isPaused;
@@ -138,7 +139,8 @@ namespace nseh.Gameplay.Gameflow
         #region Private Methods
         private void StartMinigame(MonoBehaviour myMonoBehaviour)
         {
-            Camera.main.GetComponent<CameraScript>().num = LvlManager.numPlayers;  
+            Camera.main.GetComponent<CameraScript>().num = LvlManager.numPlayers;
+            GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().num= LvlManager.numPlayers;
             myMonoBehaviour.StartCoroutine(CountDown());         
         }
 
