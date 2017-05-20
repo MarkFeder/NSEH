@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 72d9e4f84e543f6419a6b957338682e8
+guid: e846829e5f940bb4496a315c165f8445
 timeCreated: 1495279265
 licenseType: Free
 ModelImporter:
@@ -55,6 +55,7 @@ ModelImporter:
     100094: Bip001 Tail3
     100096: Bip001 Tail4
     100098: Bip001 TailNub
+    100100: Crown
     400000: //RootNode
     400002: Bip001
     400004: Bip001 Footsteps
@@ -105,6 +106,10 @@ ModelImporter:
     400094: Bip001 Tail3
     400096: Bip001 Tail4
     400098: Bip001 TailNub
+    400100: Crown
+    2300000: Crown
+    3300000: Crown
+    4300000: Crown
     7400000: Take 001
     9500000: //RootNode
   materials:

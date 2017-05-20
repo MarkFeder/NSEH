@@ -149,7 +149,9 @@ namespace nseh.Gameplay.AI
                 _animator.SetBool("Walk", true);
                 //funcion caminar
                 Debug.Log("PATROL");
-                _agent.SetDestination(_nextPoint.position);
+                _agent.enabled = false;
+                //_agent.SetDestination(_nextPoint.position);
+                //_agent.speed = 0;
             }
 
             else if (_dice < prob_AttackRoll)
@@ -157,6 +159,7 @@ namespace nseh.Gameplay.AI
                 _animator.SetBool("AttackRoll", true);
                 //funcion rodar
                 Debug.Log("ATTACKROLL");
+                _agent.enabled = true;
                 _agent.SetDestination(_nextPoint.position);
             }
 
@@ -168,7 +171,12 @@ namespace nseh.Gameplay.AI
                 Debug.Log("ATTACKSPIKES"); 
                 GameObject clone = Instantiate(spike, this.transform.position, spike.transform.rotation);
                 if(_nextPoint == left_Limit)
+                {
+                    clone.transform.Rotate(0, 180, 0);
                     clone.GetComponent<Rigidbody>().AddForce(-8000, 8000, 0);
+
+                }
+                    
                 else
                 clone.GetComponent<Rigidbody>().AddForce(8000,8000,0);
                 Destroy(clone, 2);

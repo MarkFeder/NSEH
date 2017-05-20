@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0d03f8ed2529726458087643ff20652a
-timeCreated: 1495279264
+guid: 1b963626e93f5754a8536539a0bdcbaa
+timeCreated: 1495287345
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -55,6 +55,7 @@ ModelImporter:
     100094: Bip001 Tail3
     100096: Bip001 Tail4
     100098: Bip001 TailNub
+    100100: Character001
     400000: //RootNode
     400002: Bip001
     400004: Bip001 Footsteps
@@ -105,7 +106,8 @@ ModelImporter:
     400094: Bip001 Tail3
     400096: Bip001 Tail4
     400098: Bip001 TailNub
-    7400000: BavaIDLE
+    400100: Character001
+    7400000: DASDASDA
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -116,7 +118,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: Bip001/Character001
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -131,10 +133,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: BavaIDLE
+      name: DASDASDA
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -288,9 +290,11 @@ ModelImporter:
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Tail/Bip001 Tail1/Bip001 Tail2/Bip001
           Tail3/Bip001 Tail4/Bip001 TailNub
         weight: 1
+      - path: Bip001/Character001
+        weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 106
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -326,7 +330,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Character001
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0

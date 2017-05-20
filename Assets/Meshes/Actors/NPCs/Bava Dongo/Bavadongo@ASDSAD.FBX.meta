@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0d03f8ed2529726458087643ff20652a
-timeCreated: 1495279264
+guid: 5b2737b691d651f49b31f57dc2aa2e8b
+timeCreated: 1495287263
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -105,7 +105,7 @@ ModelImporter:
     400094: Bip001 Tail3
     400096: Bip001 Tail4
     400098: Bip001 TailNub
-    7400000: BavaIDLE
+    7400000: ASDSAD
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -116,7 +116,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: Bip001/Bip001 Footsteps
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -131,10 +131,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: BavaIDLE
+      name: ASDSAD
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -142,7 +142,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
