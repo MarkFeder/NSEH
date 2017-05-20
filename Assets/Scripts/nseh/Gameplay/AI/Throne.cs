@@ -20,13 +20,13 @@ namespace nseh.Gameplay.AI
         #region Private Methods
         private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.tag == "PlayerBody")
+            if(other.gameObject.tag == "Player")
                 players_throne++;
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.tag == "PlayerBody")
+            if (other.gameObject.tag == "Player")
                 players_throne--;
         }
         #endregion

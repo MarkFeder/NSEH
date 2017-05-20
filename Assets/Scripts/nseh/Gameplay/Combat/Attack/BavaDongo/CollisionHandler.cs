@@ -56,7 +56,7 @@ namespace nseh.Gameplay.Combat.Attack.BavaDongo
             GameObject enemyObj = other.gameObject;
             string colTag = other.tag;
 
-            if (colTag == Tags.PLAYER_BODY)
+            if (colTag == Tags.PLAYER)
             {
                 PlayerInfo enemyInfo = enemyObj.GetComponent<PlayerInfo>();
                 if (enemyInfo != null)

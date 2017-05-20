@@ -59,13 +59,13 @@ namespace nseh.Gameplay.AI
             _frenzy = false;
             _wait = 2;
             _animator.speed = 1;
+            _agent.enabled = false;
             _animator.SetBool("Appear", true);
-            _animator.SetBool("Appear", false);
+            _animator.SetTrigger("Appear");
             _throne = GameObject.Find("throne");
-            //maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
-            maxPlayers = 1;
-            _animator.SetBool("Walk", true);
-            _isDice = true;
+            maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
+            //_animator.SetBool("Walk", true);
+            _isDice = false;
         }
 
         // Update is called once per frame
@@ -74,16 +74,21 @@ namespace nseh.Gameplay.AI
             _health = GetComponent<EnemyHealth>().CurrentHealth;
             if (_health <= 0 && _isDeath == false)
             {
+                Debug.Log("ME MUERO");
                 _isDeath = true;
-                _animator.SetBool("Death", true);
+                _agent.enabled = false;
+                _animator.SetTrigger("Death");
+                _animator.SetBool("Walk", false);
+                _animator.SetBool("AttackRoll", false);
             }
             else
             {
                 if (_health <= _frenzyHealth && _frenzy == false)
                 {
+                    Debug.Log("ME CABREO");
                     _agent.enabled = false;
                     _frenzy = true;
-                    _animator.SetTrigger("Frenzy");
+                   _animator.SetTrigger("Frenzy");
                     _prob_Patrol_in = 0.25f;
                     _prob_AttackSpikes_in = 1f;
                     _agent.speed = agentSpeedFrenzy;
@@ -93,7 +98,7 @@ namespace nseh.Gameplay.AI
                 
                 }
                 //Debug.Log("0 " + animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle")+ " "+isDice);
-                if (Mathf.Abs(this.gameObject.transform.position.x - _nextPoint.transform.position.x) <= 1f)
+                if (Mathf.Abs(this.gameObject.transform.position.x - _nextPoint.transform.position.x) <= 1f && _isDeath == false)
                 {
                     _animator.SetBool("Walk", false);
                     _animator.SetBool("AttackRoll", false);
@@ -123,6 +128,15 @@ namespace nseh.Gameplay.AI
                         Invoke("SelectAttack", _wait);
                     }
 
+                }else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk2"))
+                {
+                    Debug.Log("WALK2");
+                    _agent.enabled = false;
+                }else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+                {
+                    Debug.Log("WALK1");
+                    _agent.enabled = true;
+                    _agent.SetDestination(_nextPoint.position);
                 }
             }
         }
@@ -134,11 +148,10 @@ namespace nseh.Gameplay.AI
         {          
             _dice = Random.Range(0.0f, 1.0f);
             numPlayers = throne.GetComponent<Throne>().players_throne;
-            //numPlayers = 1;
             float prob_AttackRoll = _prob_AttackSpikes_in - ((_prob_AttackSpikes_in - _prob_Patrol_in) * numPlayers / maxPlayers);
             Debug.Log("Dice " + _dice + " " + _prob_AttackSpikes_in + " "+ _prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
-            float angle = 179;
-
+            float angle = 175;
+            Debug.Log(Vector3.Angle(this.transform.forward, _nextPoint.transform.position - this.transform.position));
             if (Vector3.Angle(this.transform.forward, _nextPoint.transform.position - this.transform.position) > angle)
             {
                 this.gameObject.transform.Rotate(0, 180, 0);
@@ -149,8 +162,8 @@ namespace nseh.Gameplay.AI
                 _animator.SetBool("Walk", true);
                 //funcion caminar
                 Debug.Log("PATROL");
-                _agent.enabled = false;
-                //_agent.SetDestination(_nextPoint.position);
+                //_agent.enabled = false;
+                _agent.SetDestination(_nextPoint.position);
                 //_agent.speed = 0;
             }
 
@@ -170,7 +183,7 @@ namespace nseh.Gameplay.AI
                 //funcion pinchos
                 Debug.Log("ATTACKSPIKES"); 
                 GameObject clone = Instantiate(spike, this.transform.position, spike.transform.rotation);
-                if(_nextPoint == left_Limit)
+                if(_nextPoint == right_Limit)
                 {
                     clone.transform.Rotate(0, 180, 0);
                     clone.GetComponent<Rigidbody>().AddForce(-8000, 8000, 0);

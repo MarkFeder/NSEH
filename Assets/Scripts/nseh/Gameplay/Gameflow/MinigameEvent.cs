@@ -44,14 +44,14 @@ namespace nseh.Gameplay.Gameflow
             _SpawPoints = GameObject.Find("SpawnPoints");
             _platformGenerators = GameObject.Find("PlatformGenerators");
 
-            for (int i=0; i< _levelManager.MyGame._characters.Count; i++)
+            for (int i = 0; i < _levelManager.MyGame._characters.Count; i++)
             {
                 Debug.Log(_levelManager.MyGame._characters[i].name);
-                if(_levelManager.MyGame._characters[i].name== "SirProspector")
+                if (_levelManager.MyGame._characters[i].name == "SirProspector")
                 {
-                    _aux= UnityEngine.Object.Instantiate(Resources.Load("SirProspectorMinigame") as GameObject);
+                    _aux = UnityEngine.Object.Instantiate(Resources.Load("SirProspectorMinigame") as GameObject);
                     _aux.transform.position = _SpawPoints.transform.GetChild(i).transform.position;
-                    _aux.transform.GetChild(1).GetComponent<TextMinigame>().playerText= i + 1;
+                    _aux.transform.GetChild(1).GetComponent<TextMinigame>().playerText = i + 1;
                     _aux.GetComponent<Minigame>().gamepadIndex = i + 1;
                     _platformGenerators.transform.GetChild(i).gameObject.SetActive(true);
                     _players.Add(_aux);
@@ -67,7 +67,7 @@ namespace nseh.Gameplay.Gameflow
                 }
             }
             _CubeDeath = GameObject.Find("Tar/Tar");
-            _CubeDeath.GetComponent<CubeDeath>().num = 50+ (4 -_levelManager.MyGame._numberPlayers)*50;
+            _CubeDeath.GetComponent<CubeDeath>().num = 50 + (4 - _levelManager.MyGame._numberPlayers) * 50;
             _Goal = GameObject.Find("Goal");
             _clock = _levelManager.CanvasClockMinigameManager._clockText;
             _clock.text = "";
@@ -80,10 +80,10 @@ namespace nseh.Gameplay.Gameflow
 
         }
 
-        public override void EventTick()
+        override public void EventTick()
         {
             Debug.Log("TICK");
-            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))) && _timeRemaining>0)
+            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))) && _timeRemaining > 0)
             {
                 _isPaused = !_isPaused;
 
@@ -99,7 +99,7 @@ namespace nseh.Gameplay.Gameflow
                 }
             }
 
-            if(_timeRemaining != -1)
+            if (_timeRemaining != -1)
             {
                 _timeRemaining -= Time.deltaTime;
 
@@ -123,14 +123,15 @@ namespace nseh.Gameplay.Gameflow
                 if (character.GetComponent<Minigame>().position != 0)
                 {
                     _levelManager.MyGame._score[(character.GetComponent<Minigame>().gamepadIndex) - 1, 1] = character.GetComponent<Minigame>().position;
-                }                
+                }
             }
         }
 
 
-        public override void EventRelease()
+        override public void EventRelease()
         {
             _players = new List<GameObject>();
+
             _isActivated = false;
         }
 
@@ -140,8 +141,8 @@ namespace nseh.Gameplay.Gameflow
         private void StartMinigame(MonoBehaviour myMonoBehaviour)
         {
             Camera.main.GetComponent<CameraScript>().num = _levelManager.numPlayers;
-            GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().num= _levelManager.numPlayers;
-            myMonoBehaviour.StartCoroutine(CountDown());         
+            GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().num = _levelManager.numPlayers;
+            myMonoBehaviour.StartCoroutine(CountDown());
         }
 
         private IEnumerator CountDown()
@@ -153,9 +154,9 @@ namespace nseh.Gameplay.Gameflow
             _ready.text = "RUUUUUUN!!!";
             yield return new WaitForSeconds(1);
             _ready.text = "";
-            _timeRemaining = 30;
+            _timeRemaining = 3;
             Camera.main.GetComponent<CameraScript>().started = true;
-            GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().started = true;    
+            GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().started = true;
             _CubeDeath.GetComponent<CubeDeath>().started = true;
             _Goal.GetComponent<Goal>().started = true;
             foreach (GameObject character in _players)
@@ -169,11 +170,12 @@ namespace nseh.Gameplay.Gameflow
             _clock.text = "SAFE!";
             Camera.main.GetComponent<CameraScript>().started = false;
             _CubeDeath.GetComponent<CubeDeath>().started = false;
+            GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().started = false;
             _Goal.GetComponent<Goal>().started = false;
-            yield return new WaitForSeconds(3);
-            _levelManager.GoToMainMenuScore();
+            yield return new WaitForSeconds(5);
+            //LvlManager.GoToMainMenuScore();
             //LvlManager.CanvasGameOverMinigameManager.EnableCanvas();         
-            //LvlManager.ChangeState(LevelManager.States.BossFight);       
+            _levelManager.ChangeState(LevelManager.States.LoadingBoss);
         }
         #endregion
     }

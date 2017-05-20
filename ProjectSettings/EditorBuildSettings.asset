@@ -20,3 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prototypes/Score.unity
     guid: 1b2ed815eb1a62d45bd8264c7fdebbb6
+  - enabled: 1
+    path: Assets/Scenes/Prototypes/Boss.unity
+    guid: 62ded9c859968f749905de1db26fd061

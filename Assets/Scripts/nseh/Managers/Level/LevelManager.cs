@@ -20,7 +20,7 @@ namespace nseh.Managers.Level
     {
         #region Public Properties
 
-        public enum States { LevelEvent, LoadingMinigame, Minigame, LoadingLevel };
+        public enum States { LevelEvent, LoadingMinigame, Minigame, LoadingLevel, Boss, LoadingBoss};
         public States _currentState;
 
         #endregion
@@ -41,6 +41,7 @@ namespace nseh.Managers.Level
         private GameObject _canvasPausedMinigameObj;
         private GameObject _canvasClockMinigameObj;
         private GameObject _canvasGameOverMinigameObj;
+        private GameObject _canvasPausedBossObj;
 
         private CanvasPausedHUDManager _canvasPausedManager;
         private CanvasClockHUDManager _canvasClockManager;
@@ -51,6 +52,7 @@ namespace nseh.Managers.Level
         private CanvasPlayersHUDManager _canvasPlayersManager;
         private CanvasItemsHUDManager _canvasItemsManager;
         private CanvasProgressHUDManager _canvasProgressManager;
+        private CanvasPausedBossHUDManager _canvasPauseBossManager;
 
         private List<PlayerManager> _players;
         private List<Vector3> _playersPos;
@@ -103,6 +105,11 @@ namespace nseh.Managers.Level
             get { return _canvasGameOverMinigameManager; }
         }
 
+        public CanvasPausedBossHUDManager CanvasPausedBossManager
+        {
+            get { return _canvasPauseBossManager; }
+        }
+
         public CanvasPlayersHUDManager CanvasPlayersManager
         {
             get { return _canvasPlayersManager; }
@@ -117,6 +124,7 @@ namespace nseh.Managers.Level
         {
             get { return _canvasProgressManager; }
         }
+
 
         public List<PlayerManager> Players
         {
@@ -216,6 +224,7 @@ namespace nseh.Managers.Level
                         Find<Tar_Event>().EventRelease();
                         Find<CameraManager>().EventRelease();
                         Find<ItemSpawn_Event>().EventRelease();
+                        _playerSpawnPoints = new List<GameObject>();
                         foreach (PlayerManager character in Players)
                         {
                             MyGame._score[character.PlayerRunTimeInfo.Player - 1, 0] = character.PlayerRunTimeInfo.Score;
@@ -246,6 +255,23 @@ namespace nseh.Managers.Level
 
                         _currentState = _nextState;
                         break;
+
+
+                    case States.LoadingBoss:
+                        Find<MinigameEvent>().EventRelease();
+                        SceneManager.LoadScene("Boss");
+                        Find<LoadingEvent>().ActivateEvent();
+                        _currentState = _nextState;
+                        break;
+
+
+                    case States.Boss:
+                        Time.timeScale = 1;
+                        SetupBossCanvas();
+                        Find<BossEvent>().ActivateEvent();
+                        _currentState = _nextState;
+                        break;
+
                 }
             }
         }
@@ -330,6 +356,12 @@ namespace nseh.Managers.Level
 
             _canvasLoaded = false;
             MyGame.ChangeState(Main.GameManager.States.Score);
+
+            /*
+            foreach (PlayerManager character in Players)
+            {
+            MyGame._score[character.PlayerRunTimeInfo.Player - 1, 2] = 2;
+            }*/
         }
 
         public GameObject GetPlayer1()
@@ -398,6 +430,7 @@ namespace nseh.Managers.Level
             Add<LoadingEvent>();
             Add<ParticlesManager>();
             Add<ObjectPoolManager>();
+            Add<BossEvent>();
 
             // Cached submanagers
             _particlesManager = Find<ParticlesManager>();
@@ -531,6 +564,26 @@ namespace nseh.Managers.Level
             _canvasGameOverMinigameManager = _canvasGameOverObj.GetComponent<CanvasGameOverMinigameHUDManager>();
         }
 
+
+        private void SetupBossCanvas()
+        {
+            _canvasLoaded = true;
+
+            _canvasPausedBossObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PAUSED_BOSS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
+            //_canvasProgressObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PROGRESS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
+            _canvasPlayersHUDObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PLAYERS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
+            _canvasItemsObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_ITEMS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
+            
+            _canvasPauseBossManager = _canvasPausedBossObj.GetComponent<CanvasPausedBossHUDManager>();
+            //_canvasProgressManager = _canvasProgressObj.GetComponent<CanvasProgressHUDManager>();
+            _canvasPlayersManager = _canvasPlayersHUDObj.GetComponent<CanvasPlayersHUDManager>();
+            _canvasItemsManager = _canvasItemsObj.GetComponent<CanvasItemsHUDManager>();
+            _canvasPlayersManager.DisableAllHuds();
+            SetupPlayersTransformsBoss();
+            SpawnAllPlayersBoss();
+            
+        }
+
         private void SetupPlayersTransforms()
         {
             switch (_numPlayers)
@@ -591,6 +644,64 @@ namespace nseh.Managers.Level
             }
         }
 
+        private void SetupPlayersTransformsBoss()
+        {
+            switch (_numPlayers)
+            {
+                case 1:
+
+                    _playersPos = new List<Vector3>()
+                    {
+                        new Vector3(0, 0, 0)
+                    };
+
+                    _playersRots = new List<Vector3>()
+                    {
+                        new Vector3(0, -90, 0)
+                    };
+
+                    break;
+
+                case 2:
+
+                    _playersPos = new List<Vector3>()
+                    {
+                        new Vector3(1, 1, 0),
+                        new Vector3(-15, 1, 0)
+                    };
+
+                    _playersRots = new List<Vector3>()
+                    {
+                        new Vector3(0, -90, 0),
+                        new Vector3(0, 90, 0)
+                    };
+
+                    break;
+
+                case 4:
+
+                    _playersPos = new List<Vector3>()
+                    {
+                        new Vector3(1, 1, 0),
+                        new Vector3(-15, 1, 0),
+                        new Vector3(-5, 5, 0),
+                        new Vector3(-10, 5, 0)
+                    };
+
+                    _playersRots = new List<Vector3>()
+                    {
+                        new Vector3(0, -90, 0),
+                        new Vector3(0, 90, 0),
+                        new Vector3(0, -90, 0),
+                        new Vector3(0, 90, 0)
+                    };
+
+                    break;
+
+                    // Handle other cases here
+            }
+        }
+
         private void SpawnAllPlayers()
         {
             for (int i = 0; i < _numPlayers; i++)
@@ -603,6 +714,26 @@ namespace nseh.Managers.Level
                 _players[i].Setup(GameManager.Instance._characters[i], _playersPos[i],
                                   _playersRots[i], _playerSpawnPoints, i + 1, _canvasPlayersManager.GetHealthBarComponentForPlayer(i + 1),
                                   _canvasPlayersManager.GetEnergyBarComponentForPlayer(i + 1), _canvasPlayersManager.GetLivesForPlayer(i + 1));
+
+                // Change player's portrait from hud manager
+                _canvasPlayersManager.ChangePortrait(i + 1, _players[i].PlayerRunTimeInfo.CharacterPortrait);
+                _canvasPlayersManager.DisableLivesForPlayer(i + 1);
+            }
+        }
+
+        private void SpawnAllPlayersBoss()
+        {
+            for (int i = 0; i < _numPlayers; i++)
+            {
+                // Enable each hud
+                _canvasPlayersManager.EnableHud(i + 1);
+
+                // Add new player manager
+                _players.AddNotDuplicate(new PlayerManager());
+
+                _players[i].Setup(GameManager.Instance._characters[i], _playersPos[i],
+                                  _playersRots[i], _playerSpawnPoints, i + 1, _canvasPlayersManager.GetHealthBarComponentForPlayer(i + 1),
+                                  _canvasPlayersManager.GetEnergyBarComponentForPlayer(i + 1), _canvasPlayersManager.GetLivesForPlayer(i + 1), "Player");
 
                 // Change player's portrait from hud manager
                 _canvasPlayersManager.ChangePortrait(i + 1, _players[i].PlayerRunTimeInfo.CharacterPortrait);

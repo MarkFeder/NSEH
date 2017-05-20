@@ -73,6 +73,40 @@ namespace nseh.Managers.Level
             _playerInfo.Animator.Play(_playerInfo.IdleHash);
         }
 
+        public void Setup(GameObject prefab, Vector3 pos, Vector3 rot, List<GameObject> spawnPoints, int playerNumber, BarComponent playerHealthBarComponent, BarComponent playerEnergyBarComponent, List<Image> playerLives, String Tag/*, LevelProgress lvlProgress*/)
+        {
+            // Setup prefab
+            _playerPrefab = GameObject.Instantiate(prefab, pos, Quaternion.Euler(rot));
+            _playerNumber = playerNumber;
+            _spawnPosition = pos;
+            _spawnRotation = rot;
+            _spawnPoints = spawnPoints;
+
+            // Get references to the components
+            _playerInfo = _playerPrefab.GetComponent<PlayerInfo>();
+
+            // Set player number to be consistent across the scripts
+            _playerInfo.GamepadIndex = playerNumber;
+            _playerInfo.Player = playerNumber;
+            // Setup bar components
+            _playerInfo.PlayerHealth.HealthBar = playerHealthBarComponent;
+            _playerInfo.PlayerEnergy.EnergyBar = playerEnergyBarComponent;
+
+            // Setup player lives
+            _playerInfo.PlayerHealth.PlayerLives = playerLives;
+
+            // Let the player moves
+            _playerInfo.PlayerMovement.EnableMovement();
+
+            // Activate collider
+            _playerInfo.PlayerCollider.enabled = true;
+
+            // Set player to idle state
+            _playerInfo.Animator.Play(_playerInfo.IdleHash);
+
+            _playerPrefab.tag = Tag;
+        }
+
         public void Reset()
         {
             _playerPrefab.transform.position = _spawnPosition;

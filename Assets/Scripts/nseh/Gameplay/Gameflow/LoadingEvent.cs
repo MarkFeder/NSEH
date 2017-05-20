@@ -35,14 +35,18 @@ namespace nseh.Gameplay.Gameflow
         public override void EventRelease()
         {
             _isActivated = false;
-            if (SceneManager.GetActiveScene().name=="Minigame")
+            if (SceneManager.GetActiveScene().name == "Minigame")
             {
                 _levelManager.ChangeState(LevelManager.States.Minigame);
+            }
+            else if ((SceneManager.GetActiveScene().name == "Boss"))
+            {
+                _levelManager.ChangeState(LevelManager.States.Boss);
             }
             else
             {
                 _levelManager.ChangeState(LevelManager.States.LevelEvent);
-            }  
+            }
         }
         #endregion
 

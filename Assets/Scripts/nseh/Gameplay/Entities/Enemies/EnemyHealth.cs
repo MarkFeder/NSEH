@@ -1,4 +1,5 @@
 ﻿using nseh.Gameplay.Base.Interfaces;
+using nseh.Managers.General;
 using UnityEngine;
 
 namespace nseh.Gameplay.Entities.Enemies
@@ -11,10 +12,12 @@ namespace nseh.Gameplay.Entities.Enemies
         private int _startingHealth;
         [SerializeField]
         private int _maxHealth;
+        [SerializeField]
         private int _currentHealth;
 
         private bool _isDead;
         private int _deathCounter;
+        private BarComponent _lifeBar;
 
         #endregion
 
@@ -23,12 +26,15 @@ namespace nseh.Gameplay.Entities.Enemies
         public int CurrentHealth
         {
             get { return _currentHealth; }
-            set { _currentHealth = value; }
+            set { _currentHealth = value;
+                _lifeBar.Value = _currentHealth;
+                }
         }
 
         public int MaxHealth
         {
             get { return _maxHealth; }
+                
         }
 
         #endregion
@@ -52,7 +58,7 @@ namespace nseh.Gameplay.Entities.Enemies
         private void Death()
         {
             _deathCounter++;
-            _currentHealth = _maxHealth;
+            //_currentHealth = _maxHealth;
             _isDead = true;
 
             Debug.Log(string.Format("[{0}] has died: {1} times", gameObject.name, _deathCounter));

@@ -111,7 +111,7 @@ namespace nseh.Gameplay.Combat.System
         {
             GameObject enemy = collider.gameObject;
             string tag = enemy.tag;
-            
+
             //// For Debugging
             //foreach (ContactPoint contact in collision.contacts)
             //{
@@ -168,7 +168,10 @@ namespace nseh.Gameplay.Combat.System
 
                         _enemyTargets.Add(enemy);
 
-                        enemyHealth.TakeDamage((int) currentAttack.CurrentDamage);
+                        enemyHealth.TakeDamage((int)currentAttack.CurrentDamage);
+
+                        _playerInfo.Score += (int)currentAttack.CurrentDamage;
+                        _playerInfo.PlayerEnergy.IncreaseEnergy((int)currentAttack.CurrentDamage);
                     }
                 }
             }
@@ -214,7 +217,7 @@ namespace nseh.Gameplay.Combat.System
                 senderInfo.Score += amountDamage;
 
                 // Display effects
-                GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType), 
+                GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType),
                                                                                           senderInfo.CurrentPoolParticle,
                                                                                           enemyInfo.ParticleBodyPos);
             }
@@ -236,7 +239,7 @@ namespace nseh.Gameplay.Combat.System
                     var enemy = targetEnemies[i];
 
                     PlayerInfo enemyInfo = enemy.GetComponent<PlayerInfo>();
-                    
+
                     // Check if sender is not the enemy
                     if (senderInfo.Player != enemyInfo.Player)
                     {
@@ -337,9 +340,9 @@ namespace nseh.Gameplay.Combat.System
 
         #region Collision Handlers - Attacks
 
-        private void CancelCollisionHandler(ref CharacterAttack senderAction, 
-                                            ref PlayerInfo senderInfo, 
-                                            ref CharacterAttack enemyAction, 
+        private void CancelCollisionHandler(ref CharacterAttack senderAction,
+                                            ref PlayerInfo senderInfo,
+                                            ref CharacterAttack enemyAction,
                                             ref PlayerInfo enemyInfo)
         {
             Debug.Log("CancelCollisionHandler()");
@@ -486,7 +489,7 @@ namespace nseh.Gameplay.Combat.System
                 senderInfo.PlayerEnergy.IncreaseEnergy(senderAttack.CurrentDamage / 4);
 
                 // Increase score
-                senderInfo.Score += (int)senderAttack.CurrentDamage/2;
+                senderInfo.Score += (int)senderAttack.CurrentDamage / 2;
 
                 // Display effects
                 GameManager.Instance.LevelManager.ParticlesManager.PlayParticleAtPosition(senderInfo.GetParticleAttack(senderAttack.AttackType),
