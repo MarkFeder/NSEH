@@ -1,7 +1,8 @@
-﻿using nseh.Gameplay.Base.Abstract;
-using nseh.Gameplay.Entities.Player;
-using System;
+﻿using System;
 using System.Collections;
+using nseh.Gameplay.Base.Abstract;
+using nseh.Gameplay.Entities.Player;
+using nseh.Managers.Main;
 using UnityEngine;
 
 namespace nseh.Gameplay.Combat
@@ -29,7 +30,6 @@ namespace nseh.Gameplay.Combat
         protected AttackType _attackType;
 
         protected float _currentDamage;
-
         protected bool _critical;
 
         #endregion
@@ -73,19 +73,22 @@ namespace nseh.Gameplay.Combat
 
         #region Protected Methods
 
-        protected virtual void Start()
+        protected override void Start()
         {
-            _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
+			// Register info
+			base.Start();
+
+			_playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
             _animator = _playerInfo.Animator;
 
             _currentDamage = _initialDamage;
 
             _hash = _playerInfo.GetHash(_attackType);
-            _stateName = _playerInfo.GetStateNameInfo(_attackType);
+			_paramType = TypeOfParamAnimator(_hash);
+			_stateName = _playerInfo.GetStateNameInfo(_attackType);
             _button = _playerInfo.GetButton(_attackType);
 
-            _paramType = TypeOfParamAnimator(_hash);
-
+            // Set this attack to be enabled from the start
             _enabled = true;
         }
 
@@ -136,46 +139,22 @@ namespace nseh.Gameplay.Combat
         #region Public Methods
 
         /// <summary>
-        /// Init this attack action (for external calls).
-        /// </summary>
-        /// <param name="currentDamage">The current damage of this attack.</param>
-        /// <param name="initialDamage">The initial damage of this attack.</param>
-        /// <param name="attackType">The type of this attack.</param>
-        public void InitAttackAction(float currentDamage, float initialDamage, AttackType attackType)
-        {
-            _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
-            _animator = _playerInfo.Animator;
-
-            _attackType = attackType;
-            _currentDamage = currentDamage;
-            _initialDamage = initialDamage;
-
-            _hash = _playerInfo.GetHash(_attackType);
-            _stateName = _playerInfo.GetStateNameInfo(_attackType);
-            _button = _playerInfo.GetButton(_attackType);
-
-            _paramType = TypeOfParamAnimator(_hash);
-
-            _enabled = true;
-        }
-
-        /// <summary>
         /// Start attack action.
         /// </summary>
         public override void StartAction()
         {
             if (_enabled)
             {
-                if (IsSimpleAttack)
-                {
-                    base.StartAction();
+                base.StartAction();
 
-                    _currentDamage = _initialDamage;
-                }
-                else
+                // Play audio if audioControllers are available
+                if (_audioControllers.Count > 0)
                 {
-                    base.StartAction();
-                } 
+					Debug.Log("Playing sound for " + _attackType.ToString());
+					
+                    // UnityEngine.Random.Range(0, _audioControllers.Count-1)
+					GameManager.Instance.SoundManager.PlayAudio(_audioControllers[0]);
+                }
             }
         }
 

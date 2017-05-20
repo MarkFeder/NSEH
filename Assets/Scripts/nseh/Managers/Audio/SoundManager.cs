@@ -58,7 +58,7 @@ namespace nseh.Managers.Audio
         }
 
         /// <summary>
-        /// Mute global sound (for fx and music)
+        /// Mute global sound (for FX and music)
         /// </summary>
         public bool Paused
         {
@@ -76,9 +76,11 @@ namespace nseh.Managers.Audio
 
         #region Public Methods
 
+        #region Service Methods
+
         public override void Activate()
         {
-            IsActivated = true;
+            _isActivated = true;
 
             _dictionarySoundFX = new Dictionary<AudioController, AudioSource>();
             _dictionaryMusic = new Dictionary<AudioController, AudioSource>();
@@ -93,15 +95,18 @@ namespace nseh.Managers.Audio
 
         public override void Release()
         {
-            IsActivated = false;
+            _isActivated = false;
 
-            Paused = true;
             _dictionarySoundFX.Clear();
             _dictionaryMusic.Clear();
 
             _volumeSoundFX = 0.0f;
             _volumeMusic = 0.0f;
         }
+
+        #endregion
+
+        #region Loader Methods
 
         /// <summary>
         /// Load specific music.
@@ -118,7 +123,22 @@ namespace nseh.Managers.Audio
         }
 
         /// <summary>
-        /// Load specific fx sound.
+        /// Load specific music from an AudioClip.
+        /// </summary>
+        /// <returns>The music.</returns>
+        /// <param name="audioClip">The Audio clip.</param>
+        /// <param name="priority">The priority of this audio.</param>
+        /// <param name="maxVolume">The maximum volume this audio has.</param>
+        /// <param name="pitch">The pitch of the AudioSource.</param>
+        /// <param name="stereoPan">The pan of the AudioSource.</param>
+        /// <returns>The AudioController for this Music.</returns>
+        public AudioController LoadMusic(AudioClip audioClip, bool is2D, int priority = 128, float maxVolume = 1.0f, float pitch = 1.0f, float stereoPan = 0.0f)
+        {
+            return LoadAudioInternalFromClip(audioClip, ref _dictionarySoundFX, is2D, priority, maxVolume, pitch, stereoPan);
+        }
+
+        /// <summary>
+        /// Load specific FX sound.
         /// </summary>
         /// <param name="strAudioName">The name of the audio.</param>
         /// <param name="is2D">Is this audio a 2d audio?.</param>
@@ -129,8 +149,27 @@ namespace nseh.Managers.Audio
         /// <returns>The AudioController for this FX sound.</returns>
         public AudioController LoadSoundFX(string strAudioName, bool is2D, int priority = 128, float maxVolume = 1.0f, float pitch = 1.0f, float stereoPan = 0.0f)
         {
-            return LoadSoundFX(strAudioName, is2D, priority, maxVolume, pitch, stereoPan);
+            return LoadAudioInternal(strAudioName, ref _dictionarySoundFX, is2D, priority, maxVolume, pitch, stereoPan);
         }
+
+        /// <summary>
+        /// Load specific FX sound from an AudioClip.
+        /// </summary>
+        /// <returns>The music.</returns>
+        /// <param name="audioClip">The Audio clip.</param>
+        /// <param name="priority">The priority of this audio.</param>
+        /// <param name="maxVolume">The maximum volume this audio has.</param>
+        /// <param name="pitch">The pitch of the AudioSource.</param>
+        /// <param name="stereoPan">The pan of the AudioSource.</param>
+        /// <returns>The AudioController for this Music.</returns>
+        public AudioController LoadSoundFX(AudioClip audioClip, bool is2D, int priority = 128, float maxVolume = 1.0f, float pitch = 1.0f, float stereoPan = 0.0f)
+        {
+            return LoadAudioInternalFromClip(audioClip, ref _dictionarySoundFX, is2D, priority, maxVolume, pitch, stereoPan);
+        }
+
+        #endregion
+
+        #region AudioController Methods
 
         /// <summary>
         /// Establish AudioController maximum value. This value is going to be scaled acording to maximum Music and FX sounds.
@@ -243,6 +282,34 @@ namespace nseh.Managers.Audio
         }
 
         /// <summary>
+        /// Frees all FX sounds.
+        /// </summary>
+        public void FreeAllFXSounds()
+        {
+			foreach (KeyValuePair<AudioController, AudioSource> audioControllerPair in _dictionarySoundFX)
+			{
+                GameObject.Destroy(audioControllerPair.Key.AudioSource);
+                _dictionarySoundFX.Remove((audioControllerPair.Key));
+			}
+
+            Debug.Log("All AudioControllers for FX sounds have been freed");
+        }
+
+		/// <summary>
+		/// Frees all Music sounds.
+		/// </summary>
+		public void FreeAllMusicSounds()
+		{
+            foreach (KeyValuePair<AudioController, AudioSource> audioControllerPair in _dictionaryMusic)
+			{
+				GameObject.Destroy(audioControllerPair.Key.AudioSource);
+				_dictionaryMusic.Remove((audioControllerPair.Key));
+			}
+
+			Debug.Log("All AudioControllers for music sounds have been freed");
+		}
+
+        /// <summary>
         /// Searches for the AudioController of the music audio passed by argument.
         /// </summary>
         /// <param name="audioName">Sound file (path inside Resources folder).</param>
@@ -279,6 +346,8 @@ namespace nseh.Managers.Audio
             Debug.LogError(string.Format("The AudioController for {0} could not be found", audioName));
             return null;
         }
+
+        #endregion
 
         #endregion
 
@@ -322,6 +391,43 @@ namespace nseh.Managers.Audio
             dictionary.Add(newAudio, newAudioSource);
 
             return newAudio;
+        }
+
+		/// <summary>
+		/// Load the AudioClip and create a new AudioSource for it and insert all
+		/// the information in the dictionary.
+		/// </summary>
+		/// <param name="audioClip">The Audio clip.</param>
+		/// <param name="dictionary">The dictionary this.</param>
+		/// <param name="is2d">Is this audio a 2d audio?.</param>
+		/// <param name="priority">The priority of this audio.</param>
+		/// <param name="maxVolume">The maximum volume this audio has.</param>
+		/// <param name="pitch">The pitch of the AudioSource.</param>
+		/// <param name="stereoPan">The pan of the AudioSource.</param>
+		/// <returns></returns>
+		private AudioController LoadAudioInternalFromClip(AudioClip audioClip, ref Dictionary<AudioController, AudioSource> dictionary, bool is2d, int priority = 128, float maxVolume = 1.0f, float pitch = 1.0f, float stereoPan = 0.0f)
+        {
+            if (audioClip == null)
+            {
+                Debug.LogError(string.Format("There was a problem trying to load audio {0}", audioClip.name));
+				return null;
+            }
+
+			// Create new AudioSource for this Audioclip and attach it to a new gameobject
+			GameObject audioGameObject = new GameObject("Audio " + audioClip.name);
+			AudioSource newAudioSource = audioGameObject.AddComponent<AudioSource>();
+			newAudioSource.clip = audioClip;
+			newAudioSource.playOnAwake = false;
+			newAudioSource.priority = priority;
+			newAudioSource.pitch = pitch;
+			newAudioSource.panStereo = stereoPan;
+			newAudioSource.spatialBlend = is2d ? 0.0f : 1.0f;
+
+			// Add new AudioSource to the dictionary
+            AudioController newAudio = new AudioController(newAudioSource, audioClip.name, maxVolume);
+			dictionary.Add(newAudio, newAudioSource);
+
+			return newAudio;
         }
 
         #endregion

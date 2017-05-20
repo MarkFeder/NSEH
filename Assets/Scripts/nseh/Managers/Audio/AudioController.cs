@@ -54,11 +54,11 @@ namespace nseh.Managers.Audio
         #region Public Methods
 
         /// <summary>
-        /// Main Constructor for AudioController
+        /// Main Constructor for AudioController.
         /// </summary>
-        /// <param name="audioSource">The Unity's AudioSource</param>
-        /// <param name="audioName">The audio's file name</param>
-        /// <param name="maxVolume">The Unity's internal max volume</param>
+        /// <param name="audioSource">The Unity's AudioSource.</param>
+        /// <param name="audioName">The audio's file name (or the audioClip name).</param>
+        /// <param name="maxVolume">The Unity's internal max volume.</param>
         public AudioController(AudioSource audioSource, string audioName, float maxVolume)
         {
             _audioSource = audioSource;

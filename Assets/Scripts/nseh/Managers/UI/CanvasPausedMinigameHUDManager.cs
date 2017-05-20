@@ -44,9 +44,7 @@ namespace nseh.Managers.UI
             _levelManager.MyGame.ChangeState(GameManager.States.Playing);
             _levelManager.ChangeState(LevelManager.States.LevelEvent);
             */
-
         }
-
 
         public void GoToMainMenu()
         {

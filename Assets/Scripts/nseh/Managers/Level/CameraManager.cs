@@ -52,14 +52,14 @@ namespace nseh.Managers.Level
 
         #region Public Methods
 
-        public override void Setup(LevelManager lvlManager)
+        public override void Setup(LevelManager levelManager)
         {
-            base.Setup(lvlManager);
+            base.Setup(levelManager);
         }
 
         public override void ActivateEvent()
         {
-            IsActivated = true;
+            _isActivated = true;
             _sceneCameras = new List<GameObject>();
 
             // TODO: it would be nice to add a switch which controls the camera 
@@ -83,7 +83,7 @@ namespace nseh.Managers.Level
             {
                 case 1:
 
-                    _player1position = LvlManager.GetPlayer1().transform.position;
+                    _player1position = _levelManager.GetPlayer1().transform.position;
 
                     foreach (GameObject thisCamera in _sceneCameras)
                     {
@@ -94,8 +94,8 @@ namespace nseh.Managers.Level
 
                 case 2:
 
-                    _player1position = LvlManager.GetPlayer1().transform.position;
-                    _player2position = LvlManager.GetPlayer2().transform.position;
+                    _player1position = _levelManager.GetPlayer1().transform.position;
+                    _player2position = _levelManager.GetPlayer2().transform.position;
 
                     foreach (GameObject thisCamera in _sceneCameras)
                     {
@@ -106,10 +106,10 @@ namespace nseh.Managers.Level
 
                 case 4:
 
-                    _player1position = LvlManager.GetPlayer1().transform.position;
-                    _player2position = LvlManager.GetPlayer2().transform.position;
-                    _player3position = LvlManager.GetPlayer3().transform.position;
-                    _player4position = LvlManager.GetPlayer4().transform.position;
+                    _player1position = _levelManager.GetPlayer1().transform.position;
+                    _player2position = _levelManager.GetPlayer2().transform.position;
+                    _player3position = _levelManager.GetPlayer3().transform.position;
+                    _player4position = _levelManager.GetPlayer4().transform.position;
 
                     foreach (GameObject thisCamera in _sceneCameras)
                     {
@@ -127,7 +127,7 @@ namespace nseh.Managers.Level
                 GameObject.Destroy(thisCamera);
             }
             _sceneCameras = new List<GameObject>();
-            IsActivated = false;
+            _isActivated = false;
         }
 
         #endregion

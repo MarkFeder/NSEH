@@ -104,11 +104,10 @@ namespace nseh.Managers.Main
             // Cache some managers
             _levelManager = Find<LevelManager>();
             _soundManager = Find<SoundManager>();
-            _soundManager.Activate();
-            _soundManager.LoadMusic(AudioResources.SOUNDS_MUSIC_MAIN_SOUNTRACK).AudioSource.Play();
 
             // Find managers and activate them
             Find<MenuManager>().Activate();
+            _soundManager.Activate();
         }
 
         #endregion
@@ -193,6 +192,8 @@ namespace nseh.Managers.Main
             Service serviceToAdd = new T() as Service;
             serviceToAdd.Setup(this);
             _servicesList.Add(serviceToAdd);
+
+            Debug.Log(string.Format("{0} added on GameManager", serviceToAdd));
         }
 
         /// <summary>
@@ -346,8 +347,7 @@ namespace nseh.Managers.Main
         }
 
         /// <summary>
-        /// Function for use in the States that have no access to Unity functions. 
-        /// Call an IEnumerator through this GameObject.
+        /// Function for use in the States that have no access to Unity functions.
         /// </summary>
         /// <param name="_coroutine">The name of the method.</param>
         public void StopChildCoroutine(string methodName)

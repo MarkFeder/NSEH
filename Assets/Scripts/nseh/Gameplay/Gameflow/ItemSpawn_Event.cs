@@ -18,15 +18,15 @@ namespace nseh.Gameplay.Gameflow
 
         #endregion
 
-        override public void Setup(LevelManager lvlManager)
+        public override void Setup(LevelManager levelManager)
         {
-            base.Setup(lvlManager);
+            base.Setup(levelManager);
             _spawnItemPoints = new List<GameObject>();
         }
 
         public override void ActivateEvent()
         {
-            IsActivated = true;
+            _isActivated = true;
             _elapsedTime = 0;
 
             if(_lastSpawnItemPoint != null)
@@ -43,7 +43,7 @@ namespace nseh.Gameplay.Gameflow
         public override void EventRelease()
         {
             _spawnItemPoints = new List<GameObject>();
-            IsActivated = false;
+            _isActivated = false;
         }
 
         public override void EventTick()

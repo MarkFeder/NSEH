@@ -4,25 +4,53 @@ namespace nseh.Gameplay.Base.Abstract.Gameflow
 {
     public abstract class LevelEvent
     {
-        //public GameManager MyGame;
-        public LevelManager LvlManager;
-        public bool IsActivated;
+		#region Protected Properties
 
-        //Setup the event providing the current game instance. The event is not active here yet.
-        public virtual void Setup(/*GameManager myGame, */LevelManager lvlManager)
+		protected LevelManager _levelManager;
+		protected bool _isActivated;
+
+        #endregion
+
+        #region Public Properties
+
+        public bool IsActivated
         {
-            //MyGame = myGame;
-            LvlManager = lvlManager;
+            get { return _isActivated; }
         }
 
-        //Activate the event execution.
-        public abstract void ActivateEvent();
+        #endregion
 
-        //Event execution.
-        public abstract void EventTick();
+        #region Public Methods
 
-        //Deactivates the event
-        public abstract void EventRelease();
+        /// <summary>
+        /// Setup the sublevel manager providing the current levelManager instance. 
+        /// The submanager is not active here yet.
+        /// </summary>
+        /// <param name="levelManager">The levelManager this LevelEvent is attached to.</param>
+        public virtual void Setup(LevelManager levelManager)
+		{
+			_levelManager = levelManager;
+		}
+
+        #endregion
+
+		#region Abstract Methods
+
+		/// <summary>
+		/// Activate the submanager execution.
+		/// </summary>
+		public abstract void ActivateEvent();
+
+		/// <summary>
+		/// Submanager execution.
+		/// </summary>
+		public abstract void EventTick();
+
+		/// <summary>
+		/// Deactivates the submanager.
+		/// </summary>
+		public abstract void EventRelease();
+
+		#endregion
     }
-
 }

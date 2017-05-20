@@ -1,31 +1,61 @@
-﻿namespace nseh.Managers
+﻿using nseh.Managers.Main;
+
+namespace nseh.Managers
 {
     public abstract class Service
     {
+        #region Protected Properties
+
+        protected GameManager _myGame;
+        protected bool _isActivated;
+
+        #endregion
+
         #region Public Properties
 
-        public nseh.Managers.Main.GameManager MyGame;
-        public bool IsActivated;
-
-        #endregion
-
-        #region Virtual Methods
-        //Setup the Service providing the current game instance. The Service is not active here yet.
-        virtual public void Setup(nseh.Managers.Main.GameManager myGame)
+        public bool IsActivated
         {
-            MyGame = myGame;
+            get { return _isActivated; }
         }
-        #endregion
 
-        #region Abstract Methods
-        //Activate the Service execution.
-        abstract public void Activate();
+        public GameManager MyGame
+        {
+            get { return _myGame; }
+        }
 
-        //Service execution.
-        abstract public void Tick();
+		#endregion
 
-        //Deactivates the Service
-        abstract public void Release();
-        #endregion
-    }
+		#region Public Methods
+
+		/// <summary>
+		/// Setup the sublevel manager providing the current levelManager instance. 
+		/// The submanager is not active here yet.
+		/// </summary>
+		/// <param name="myGame">The GameManager this Service is attached to.</param>
+		public virtual void Setup(GameManager myGame)
+		{
+			_myGame = myGame;
+		}
+
+		#endregion
+
+		#region Abstract Methods
+
+		/// <summary>
+		/// Activate the service.
+		/// </summary>
+		public abstract void Activate();
+
+		/// <summary>
+		/// Service execution.
+		/// </summary>
+		public abstract void Tick();
+
+		/// <summary>
+		/// Deactivates the service.
+		/// </summary>
+		public abstract void Release();
+
+		#endregion
+	}
 }

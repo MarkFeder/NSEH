@@ -30,7 +30,8 @@ namespace nseh.Gameplay.Gameflow
         //Activate the event execution.
         override public void ActivateEvent()
         {
-            IsActivated = true;
+            _isActivated = true;
+
             ResetTarComponents();
             eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
             elapsedTime = 0;
@@ -76,7 +77,8 @@ namespace nseh.Gameplay.Gameflow
             eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
             elapsedTime = 0;
             isUp = false;
-            IsActivated = false;
+
+            _isActivated = false;
         }
         /*
             public void RegisterLight(MonoBehaviour componentToRegister)

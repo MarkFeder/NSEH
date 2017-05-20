@@ -19,7 +19,7 @@ namespace nseh.Gameplay.Gameflow
         #region Public Methods
         public override void ActivateEvent()
         {
-            IsActivated = true;
+            _isActivated = true;
             _aux = SceneManager.GetActiveScene().name;
         }
 
@@ -34,14 +34,14 @@ namespace nseh.Gameplay.Gameflow
 
         public override void EventRelease()
         {
-            IsActivated = false;
+            _isActivated = false;
             if (SceneManager.GetActiveScene().name=="Minigame")
             {
-                LvlManager.ChangeState(LevelManager.States.Minigame);
+                _levelManager.ChangeState(LevelManager.States.Minigame);
             }
             else
             {
-                LvlManager.ChangeState(LevelManager.States.LevelEvent);
+                _levelManager.ChangeState(LevelManager.States.LevelEvent);
             }  
         }
         #endregion

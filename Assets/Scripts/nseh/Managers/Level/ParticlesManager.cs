@@ -1,22 +1,22 @@
-﻿using nseh.Gameplay.Base.Abstract.Gameflow;
+﻿using System.Collections;
+using nseh.Gameplay.Base.Abstract.Gameflow;
 using nseh.Managers.Main;
-using System.Collections;
 using UnityEngine;
 
 namespace nseh.Managers.Level
 {
-    public class ParticlesManager : SubLevelManager
+    public class ParticlesManager : LevelEvent
     {
-        #region SubLevelManager Methods
+		#region Service Methods
 
-        public override void ActivateSubManager()
+		public override void ActivateEvent()
         {
             _isActivated = true;
         }
 
-        public override void SubManagerTick() {}
+        public override void EventTick() {}
 
-        public override void ReleaseSubManager()
+        public override void EventRelease()
         {
             GameManager.Instance.StopAllCoroutines();
         }

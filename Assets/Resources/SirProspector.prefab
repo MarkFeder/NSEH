@@ -2360,6 +2360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 2
   _attackType: 2
 --- !u!114 &114072911916261098
@@ -2373,6 +2374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 5
   _attackType: 3
 --- !u!114 &114229055252415370
@@ -2386,6 +2388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 2
   _attackType: 1
 --- !u!114 &114242311106287240
@@ -2422,6 +2425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 7
   _attackType: 5
 --- !u!114 &114298136127664010
@@ -2458,13 +2462,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4378dcea76b7c0240ad5a7de5e7c7d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 5
   _attackType: 7
   _specialItem: {fileID: 0}
   _sword: {fileID: 1034366027164950}
   _shovel: {fileID: 1339237284239440}
-  _deactivateItemTime: 1
-  _activateItemTime: 0
   _bonification: 50
   _seconds: 10
   _particle: {fileID: 1793232033687176, guid: 4b6ebe9736506d44dbdb327ea72dae11, type: 2}
@@ -2479,10 +2482,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b186416722b5a4694ec25280d635b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 20
   _attackType: 8
-  _hideSwordTime: 0.1
-  _showSwordTime: 0.64
   _percent: 100
   _seconds: 15
   _particle: {fileID: 0}
@@ -2586,6 +2588,7 @@ MonoBehaviour:
   _player: 1
   _playerName: SirProspector
   _characterPortrait: {fileID: 21300000, guid: d1cb5f9b810fe5c41ae98ad8a60289fe, type: 3}
+  _bavaScene: 0
 --- !u!114 &114949588210931934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2597,6 +2600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de0100a03b96b31498291755067f2aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _currentMode: 1
 --- !u!114 &114969698066972448
 MonoBehaviour:
@@ -2609,6 +2613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 5
   _attackType: 4
 --- !u!135 &135989348980882486

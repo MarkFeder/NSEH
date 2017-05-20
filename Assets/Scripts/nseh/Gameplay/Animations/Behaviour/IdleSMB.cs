@@ -9,7 +9,13 @@ namespace nseh.Gameplay.Animations.Behaviour
 {
     public class IdleSMB : BaseStateMachineBehaviour
     {
+        #region Private Properties
+
         private IAction _nextAction;
+
+        #endregion
+
+        #region Public Methods
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -30,13 +36,19 @@ namespace nseh.Gameplay.Animations.Behaviour
             }
         }
 
+        #endregion
+
+        #region Private Methods
+
         private void ClearParams(ref Animator animator)
         {
             IEnumerator<CharacterAttack> enumerator = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().GetEnumerator();
-            while(enumerator.MoveNext())
+            while (enumerator.MoveNext())
             {
                 animator.ResetTrigger(enumerator.Current.Hash);
             }
         }
+
+        #endregion
     }
 }

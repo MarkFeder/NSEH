@@ -1,6 +1,4 @@
-﻿using nseh.Managers;
-using nseh.Managers.Main;
-using UnityEngine;
+﻿using nseh.Managers.Main;
 using UnityEngine.SceneManagement;
 
 namespace nseh.Managers
@@ -9,20 +7,22 @@ namespace nseh.Managers
     {
 
         #region Private Methods
+
         private string _aux;
-        nseh.Managers.Main.GameManager.States state;
+        GameManager.States state;
+
         #endregion
 
         #region Public Methods
-        // Use this for initialization
-        public override void Setup(nseh.Managers.Main.GameManager myGame)
+
+        public override void Setup(GameManager myGame)
         {
             base.Setup(myGame);
         }
 
         public override void Activate()
         {
-            IsActivated = true;
+            _isActivated = true;
             state = MyGame._nextState;
             _aux = SceneManager.GetActiveScene().name;
         }
@@ -39,20 +39,21 @@ namespace nseh.Managers
         public override void Release()
         {
            
-            if (state == nseh.Managers.Main.GameManager.States.Playing)
+            if (state == GameManager.States.Playing)
             {
-                nseh.Managers.Main.GameManager.Instance.ChangeState(nseh.Managers.Main.GameManager.States.Playing);
+                GameManager.Instance.ChangeState(GameManager.States.Playing);
             }
-            else if (state == nseh.Managers.Main.GameManager.States.MainMenu)
+            else if (state == GameManager.States.MainMenu)
             {
-                nseh.Managers.Main.GameManager.Instance.ChangeState(nseh.Managers.Main.GameManager.States.MainMenu);
+                GameManager.Instance.ChangeState(GameManager.States.MainMenu);
             }
 
-            else if (state == nseh.Managers.Main.GameManager.States.Score)
+            else if (state == GameManager.States.Score)
             {
-                nseh.Managers.Main.GameManager.Instance.ChangeState(nseh.Managers.Main.GameManager.States.Score);
+                GameManager.Instance.ChangeState(GameManager.States.Score);
             }
-            IsActivated = false;
+
+            _isActivated = false;
         }
         #endregion
 

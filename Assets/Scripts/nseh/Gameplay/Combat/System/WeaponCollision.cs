@@ -1,12 +1,12 @@
-﻿using nseh.Gameplay.Base.Abstract;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using nseh.Gameplay.Base.Abstract;
 using nseh.Gameplay.Combat.Defense;
 using nseh.Gameplay.Entities.Enemies;
 using nseh.Gameplay.Entities.Player;
 using nseh.Managers.Main;
 using nseh.Utils.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Colors = nseh.Utils.Constants.Colors;
 using SystemObject = System.Object;

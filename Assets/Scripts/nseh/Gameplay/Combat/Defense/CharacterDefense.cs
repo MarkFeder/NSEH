@@ -25,8 +25,11 @@ namespace nseh.Gameplay.Combat.Defense
 
         #endregion
 
-        protected virtual void Start()
+        protected override void Start()
         {
+			// Register info
+            base.Start();
+
             _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
             _animator = _playerInfo.Animator;
 
@@ -36,25 +39,8 @@ namespace nseh.Gameplay.Combat.Defense
 
             _paramType = TypeOfParamAnimator(_hash);
 
-            _enabled = true;
-        }
-
-        /// <summary>
-        /// Init this defense action.
-        /// </summary>
-        /// <param name="currentMode">The type of this defense.</param>
-        public void InitDefenseAction(DefenseType currentMode)
-        {
-            _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
-            _animator = _playerInfo.Animator;
-
-            _currentMode = currentMode;
-
-            _hash = _playerInfo.GetHash(_currentMode);
-            _stateName = _playerInfo.GetStateNameInfo(_currentMode);
-            _button = _playerInfo.GetButton(_currentMode);
-
-            _paramType = TypeOfParamAnimator(_hash);
+			// Set this defense to be enabled from the start
+			_enabled = true;
         }
     }
 }

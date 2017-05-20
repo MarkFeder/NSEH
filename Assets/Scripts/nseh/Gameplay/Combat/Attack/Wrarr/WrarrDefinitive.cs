@@ -129,6 +129,15 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             _rockBody.isKinematic = false;
         }
 
+		/// <summary>
+		/// Unsubscribe from events.
+		/// </summary>
+		private void OnDestroy()
+		{
+			_receiver.OnStartLaunchRockCallback -= OnStartLaunchRock;
+			_receiver.OnStopLaunchRockCallback -= OnStopLaunchRock;
+		}
+
         #endregion
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace nseh.Managers.Pool
 {
-    public class ObjectPoolManager : SubLevelManager
+    public class ObjectPoolManager : LevelEvent
     {
         #region Private Properties
 
@@ -25,18 +25,18 @@ namespace nseh.Managers.Pool
 
         #region Service Methods
 
-        public override void ActivateSubManager()
+        public override void ActivateEvent()
         {
             _isActivated = true;
 
             _objectPools = new Dictionary<string, ObjectPool>();
         }
 
-        public override void SubManagerTick()
+        public override void EventTick()
         {
         }
 
-        public override void ReleaseSubManager()
+        public override void EventRelease()
         {
             ClearPools();
         }

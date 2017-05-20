@@ -60,32 +60,6 @@ namespace nseh.Gameplay.Entities.Player
             _playerActions = _actionsHolderGO.GetComponents<HandledAction>().Cast<IAction>().ToList();
         }
 
-        /// <summary>
-        /// Init all player actions. It is useful for making a gameobject 
-        /// which contains all the player's actions on runtime.
-        /// </summary>
-        private void InitPlayerActions()
-        {
-            foreach (HandledAction baseAction in _playerActions)
-            {
-                // Grab info from prefabs references and attach them to real go holder actions
-
-                Component co = _actionsHolderGO.AddComponent(baseAction.GetType());
-
-                if (baseAction.GetType() == typeof(CharacterAttack))
-                {
-                    CharacterAttack ca = baseAction as CharacterAttack;
-                    (co as CharacterAttack).InitAttackAction(ca.CurrentDamage, ca.InitialDamage, ca.AttackType);
-                }
-
-                if (baseAction.GetType() == typeof(CharacterDefense))
-                {
-                    CharacterDefense cd = baseAction as CharacterDefense;
-                    (co as CharacterDefense).InitDefenseAction(cd.CurrentMode);
-                }
-            }
-        }
-
         #endregion
 
         #region Public Methods

@@ -1807,6 +1807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 3
   _attackType: 2
 --- !u!114 &114070606057771824
@@ -1832,6 +1833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85653fe752b3f5740b3b90d4f71ed46a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 20
   _attackType: 8
   _rockMesh: {fileID: 1389682234776032, guid: ad01807142f3e164886e00fbe58d7e32, type: 2}
@@ -1849,6 +1851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738aa3ac28a00ee43ad4246da6173b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 10
   _attackType: 7
   _wave: {fileID: 114333976357871034}
@@ -1922,6 +1925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e245d3be634e89e49975c6e74c26eaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSpeed: 0
   dampAir: 0.5
   jumpAirSpeed: 5
   jumpHeight: 15
@@ -1937,6 +1941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de0100a03b96b31498291755067f2aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _currentMode: 1
 --- !u!114 &114333976357871034
 MonoBehaviour:
@@ -1960,6 +1965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 7
   _attackType: 3
 --- !u!114 &114478589548323906
@@ -1973,6 +1979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 3
   _attackType: 1
 --- !u!114 &114500159127260180
@@ -2036,6 +2043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 7
   _attackType: 4
 --- !u!114 &114847788110666382
@@ -2049,6 +2057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: []
   _initialDamage: 10
   _attackType: 5
 --- !u!135 &135023701683560116

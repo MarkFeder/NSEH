@@ -5,6 +5,8 @@ namespace nseh.Gameplay.Animations.Behaviour
 {
     public class DefenseSMB : BaseStateMachineBehaviour
     {
+        #region Public Methods
+
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
@@ -22,5 +24,7 @@ namespace nseh.Gameplay.Animations.Behaviour
                 _action.StopAction();
             }
         }
+
+        #endregion
     }
 }

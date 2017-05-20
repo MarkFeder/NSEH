@@ -1,7 +1,10 @@
-﻿using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Entities.Player;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using nseh.Gameplay.Base.Interfaces;
+using nseh.Gameplay.Entities.Player;
+using nseh.Managers.Audio;
+using nseh.Managers.Main;
 using UnityEngine;
 
 namespace nseh.Gameplay.Base.Abstract
@@ -10,22 +13,25 @@ namespace nseh.Gameplay.Base.Abstract
     {
         #region Protected Properties
 
+        [SerializeField]
+        protected List<AudioClip> _audioClips;
+        protected List<AudioController> _audioControllers;
+
         protected int _hash;
-
-        protected bool _enabled;
-
-        protected string _stateName;
-        protected string _button;
+		protected string _stateName;
+		protected string _button;
 
         protected PlayerInfo _playerInfo;
         protected Animator _animator;
         protected AnimatorControllerParameterType _paramType;
 
-        #endregion
+		protected bool _enabled;
 
-        #region Public C# Properties
+		#endregion
 
-        public int Hash { get { return _hash; } }
+		#region Public C# Properties
+
+		public int Hash { get { return _hash; } }
 
         public string StateName { get { return _stateName; } }
 
@@ -47,6 +53,24 @@ namespace nseh.Gameplay.Base.Abstract
             AnimatorControllerParameter animatorController = parameters.Where(p => p.nameHash == hash).FirstOrDefault();
 
             return animatorController.type;
+        }
+
+        protected virtual void Start()
+        {
+            _audioControllers = new List<AudioController>();
+
+			// Register sounds
+			for (int i = 0; i < _audioClips.Count; i++)
+			{
+				AudioController audioController = GameManager.Instance.SoundManager.LoadSoundFX(_audioClips[i], false);
+				if (audioController == null)
+				{
+					Debug.LogError(string.Format("The AudioController could not be instantiated for the audioclip: {0}", _audioClips[i].name));
+					continue;
+				}
+
+				_audioControllers.Add(audioController);
+			}
         }
 
         #endregion
@@ -81,10 +105,6 @@ namespace nseh.Gameplay.Base.Abstract
         {
             return StateName;
         }
-
-        #endregion
-
-        #region Virtual Methods
 
         public virtual void StartAction()
         {

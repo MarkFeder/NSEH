@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using nseh.Managers.Main;
+using UnityEngine;
 
 namespace nseh.Managers
 {
@@ -12,29 +13,28 @@ namespace nseh.Managers
 
         public override void Activate()
         {
-            IsActivated = true;
+            _isActivated = true;
         }
 
         public void ChangePlayers(int number)
         {
             RestartingCharacters();
-            Main.GameManager.Instance.ChangePlayers(number);
-
+            GameManager.Instance.ChangePlayers(number);
         }
 
         public void SetPlayerChoice(string choice, int player)
         {
-            Main.GameManager.Instance.SetPlayersChoice(choice, player);
+            GameManager.Instance.SetPlayersChoice(choice, player);
         }
 
         public void ChangeStates()
         {
-            Main.GameManager.Instance.ChangeState(Main.GameManager.States.Playing);
+            GameManager.Instance.ChangeState(Main.GameManager.States.Playing);
         }
 
         public void ExitGame()
         {
-            Main.GameManager.Instance.ExitGame();
+            GameManager.Instance.ExitGame();
         }
 
         public override void Tick()
@@ -43,18 +43,19 @@ namespace nseh.Managers
 
         public void RestartingCharacters()
         {
-            Main.GameManager.Instance.RestartList();
+            GameManager.Instance.RestartList();
         }
 
         public void Adding(GameObject Character)
         {
-            Main.GameManager.Instance.AddCharacter(Character);
+            GameManager.Instance.AddCharacter(Character);
         }
 
         public override void Release()
         {
-            IsActivated = false;
+            _isActivated = false;
         }
+
         #endregion
     }
 }

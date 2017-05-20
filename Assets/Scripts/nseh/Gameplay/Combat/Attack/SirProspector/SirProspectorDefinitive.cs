@@ -126,6 +126,15 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _sword.enabled = true;
         }
 
+        /// <summary>
+        /// Unsubscribe from events.
+        /// </summary>
+        private void OnDestroy()
+        {
+			_receiver.OnHideSwordCallback -= OnHideSword;
+			_receiver.OnShowSwordCallback -= OnShowSword;
+		}
+
         #endregion
     }
 }

@@ -117,6 +117,15 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             }
         }
 
+		/// <summary>
+		/// Unsubscribe from events.
+		/// </summary>
+		private void OnDestroy()
+		{
+			_receiver.OnDeactivateItemCallback -= OnDeactivateItem;
+			_receiver.OnActivateItemCallback -= OnActivateItem;
+		}
+
         #endregion
     }
 }
