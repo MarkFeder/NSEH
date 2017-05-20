@@ -13,20 +13,20 @@ namespace nseh.Gameplay.AI
 
         #region Public Methods
         public void Start() {
-            players_throne = 0;
+            //players_throne = 0;
         }
         #endregion
 
         #region Private Methods
         private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.tag == "Player")
+            if(other.gameObject.tag == "PlayerBody")
                 players_throne++;
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.tag == "PlayerBody")
                 players_throne--;
         }
         #endregion

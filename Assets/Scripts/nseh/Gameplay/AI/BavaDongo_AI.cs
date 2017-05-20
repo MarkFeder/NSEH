@@ -15,9 +15,13 @@ namespace nseh.Gameplay.AI
         public Transform left_Limit;
         public Transform right_Limit;
         public GameObject spike;
-        public GameObject platform;      
+        public GameObject platform;
+        public GameObject throne;   
         public float maxPlayers;
         public float numPlayers;
+        public float percentageFrenzy;
+        public float animationSpeedFrenzy;
+        public float agentSpeedFrenzy;
         #endregion
 
         #region Private Properties
@@ -35,7 +39,7 @@ namespace nseh.Gameplay.AI
         private float _prob_AttackSpikes_in;
         private float _prob_AttackRoll_in;
         private float _health;
-        private float _maxHealth;
+        private float _frenzyHealth;
         #endregion
 
         #region Public Methods
@@ -51,14 +55,15 @@ namespace nseh.Gameplay.AI
             _prob_Patrol_in = 0.5f;
             _prob_AttackSpikes_in = 1f;
             _health = GetComponent<EnemyHealth>().CurrentHealth;
-            _maxHealth = GetComponent<EnemyHealth>().MaxHealth;
+            _frenzyHealth = (GetComponent<EnemyHealth>().MaxHealth * percentageFrenzy) / 100;
             _frenzy = false;
             _wait = 2;
+            _animator.speed = 1;
             _animator.SetBool("Appear", true);
             _animator.SetBool("Appear", false);
             _throne = GameObject.Find("throne");
             //maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
-            maxPlayers = 2;
+            maxPlayers = 1;
             _animator.SetBool("Walk", true);
             _isDice = true;
         }
@@ -74,13 +79,16 @@ namespace nseh.Gameplay.AI
             }
             else
             {
-                if (_health <= ((_maxHealth * 30) / 100) && _frenzy == false)
+                if (_health <= _frenzyHealth && _frenzy == false)
                 {
+                    _agent.enabled = false;
                     _frenzy = true;
-                    _animator.SetBool("Frenzy", true);
+                    _animator.SetTrigger("Frenzy");
                     _prob_Patrol_in = 0.25f;
                     _prob_AttackSpikes_in = 1f;
-                    _agent.speed = 10;
+                    _agent.speed = agentSpeedFrenzy;
+                    _animator.speed = animationSpeedFrenzy;
+                    //acelerar
                     _wait = 1;
                 
                 }
@@ -105,11 +113,16 @@ namespace nseh.Gameplay.AI
                     }         
                 }
 
-                else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle") && _isDice ==false)
-                {         
-                    Debug.Log("3 " + " " + _animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
-                    _isDice = true;
-                    Invoke("SelectAttack", _wait);
+                else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"))
+                {
+                    _agent.enabled = true;
+                    if (_isDice == false)
+                    {
+                        Debug.Log("3 " + " " + _animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
+                        _isDice = true;
+                        Invoke("SelectAttack", _wait);
+                    }
+
                 }
             }
         }
@@ -120,10 +133,10 @@ namespace nseh.Gameplay.AI
         private void SelectAttack()
         {          
             _dice = Random.Range(0.0f, 1.0f);
-            //numPlayers = throne.GetComponent<Throne>().players_throne;
-            numPlayers = 1;
+            numPlayers = throne.GetComponent<Throne>().players_throne;
+            //numPlayers = 1;
             float prob_AttackRoll = _prob_AttackSpikes_in - ((_prob_AttackSpikes_in - _prob_Patrol_in) * numPlayers / maxPlayers);
-            //Debug.Log("Dice " + dice + " " + prob_AttackSpikes_in + " "+ prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
+            Debug.Log("Dice " + _dice + " " + _prob_AttackSpikes_in + " "+ _prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
             float angle = 179;
 
             if (Vector3.Angle(this.transform.forward, _nextPoint.transform.position - this.transform.position) > angle)
@@ -152,12 +165,13 @@ namespace nseh.Gameplay.AI
                 _animator.SetTrigger("AttackSpikes");
                 _isDice = false;
                 //funcion pinchos
-                Debug.Log("ATTACKSPIKES");
-                /* for (int i = 0; i < 3; i++)
-                 {
-                     GameObject clone = Instantiate(spike, sp.transform.position, transform.rotation);
-                     clone.rigidbody.AddForce(transform.forward * 8000); ;
-                 }*/
+                Debug.Log("ATTACKSPIKES"); 
+                GameObject clone = Instantiate(spike, this.transform.position, spike.transform.rotation);
+                if(_nextPoint == left_Limit)
+                    clone.GetComponent<Rigidbody>().AddForce(-8000, 8000, 0);
+                else
+                clone.GetComponent<Rigidbody>().AddForce(8000,8000,0);
+                Destroy(clone, 2);
 
             }
         }
