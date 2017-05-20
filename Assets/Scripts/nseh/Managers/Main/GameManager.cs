@@ -1,10 +1,12 @@
-﻿using nseh.Managers.General;
+﻿using nseh.Managers.Audio;
+using nseh.Managers.General;
 using nseh.Managers.Level;
 using nseh.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using AudioResources = nseh.Utils.Constants.Resources.Audio;
 
 namespace nseh.Managers.Main
 {
@@ -44,6 +46,7 @@ namespace nseh.Managers.Main
 
         private States _currentState;
         private LevelManager _levelManager;
+        private SoundManager _soundManager;
 
         //List of all services (E.g: EventManager, LightManager...) 
         private List<Service> _servicesList;
@@ -54,7 +57,18 @@ namespace nseh.Managers.Main
 
         public LevelManager LevelManager
         {
-            get { return _levelManager; }
+            get
+            {
+                return _levelManager;
+            }
+        }
+
+        public SoundManager SoundManager
+        {
+            get
+            {
+                return _soundManager;
+            }
         }
 
         #endregion
@@ -85,14 +99,16 @@ namespace nseh.Managers.Main
             Add<MenuManager>();
             Add<LevelManager>();
             Add<LoadingScene>();
+            Add<SoundManager>();
 
             // Cache some managers
             _levelManager = Find<LevelManager>();
+            _soundManager = Find<SoundManager>();
+            _soundManager.Activate();
+            _soundManager.LoadMusic(AudioResources.SOUNDS_MUSIC_MAIN_SOUNTRACK).AudioSource.Play();
 
             // Find managers and activate them
             Find<MenuManager>().Activate();
-
-           
         }
 
         #endregion
@@ -164,6 +180,7 @@ namespace nseh.Managers.Main
                 if (thisService.GetType() == typeof(T))
                     return thisService as T;
             }
+
             return null;
         }
 

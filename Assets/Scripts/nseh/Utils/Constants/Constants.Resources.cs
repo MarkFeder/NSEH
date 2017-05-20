@@ -4,6 +4,19 @@
     {
         public static class Resources
         {
+            public static class Audio
+            {
+                private const string ROOT_SOUNDS = "Sounds/";
+
+                public const string SOUNDS_MUSIC = "Sounds/Music";
+                public const string SOUNDS_MUSIC_MAIN = "Sounds/Music/Main";
+                public const string SOUNDS_MUSIC_MAIN_SOUNTRACK = "Sounds/Music/Main/SoundTrack";
+
+                public const string SOUNDS_CHARACTERS = "Sounds/Characters";
+                public const string SOUNDS_CHARACTERS_WRARR = "Sounds/Characters/Wrarr";
+                public const string SOUNDS_CHARACTERS_SIR_PROSPECTOR = "Sounds/Characters/SirProspector";
+            }
+
             // PREFABS
 
             private const string ROOT_PREFABS = "Prefabs/";

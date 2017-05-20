@@ -3,8 +3,10 @@
     public abstract class Service
     {
         #region Public Properties
+
         public nseh.Managers.Main.GameManager MyGame;
         public bool IsActivated;
+
         #endregion
 
         #region Virtual Methods
