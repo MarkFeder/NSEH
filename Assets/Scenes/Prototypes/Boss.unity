@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 222717441}
   - component: {fileID: 222717437}
   - component: {fileID: 222717442}
+  - component: {fileID: 222717443}
   m_Layer: 8
   m_Name: Bava Dongo
   m_TagString: Enemy
@@ -625,6 +626,17 @@ MonoBehaviour:
   _startingHealth: 200
   _maxHealth: 200
   _currentHealth: 0
+--- !u!114 &222717443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 222717433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab6caa80e72e46089293cb6f9c8daa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &252557465
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,7 +649,7 @@ GameObject:
   - component: {fileID: 252557468}
   m_Layer: 8
   m_Name: Bip001 L Foot
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -682,7 +694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 5
-  _index: 0
+  _index: 2
 --- !u!1 &258501854
 GameObject:
   m_ObjectHideFlags: 0
@@ -2975,7 +2987,7 @@ GameObject:
   - component: {fileID: 1665351184}
   m_Layer: 8
   m_Name: Bip001 R Foot
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3860,7 +3872,7 @@ GameObject:
   - component: {fileID: 2082694690}
   m_Layer: 8
   m_Name: Bip001 TailNub
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3890,7 +3902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 5
-  _index: 1
+  _index: 3
 --- !u!135 &2082694691
 SphereCollider:
   m_ObjectHideFlags: 0
