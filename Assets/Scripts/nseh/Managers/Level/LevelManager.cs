@@ -352,16 +352,13 @@ namespace nseh.Managers.Level
 
         public void GoToMainMenuScore()
         {
+            Debug.Log("PUTNAUCON");
             _isPaused = false;
-
             _canvasLoaded = false;
             MyGame.ChangeState(Main.GameManager.States.Score);
 
-            /*
-            foreach (PlayerManager character in Players)
-            {
-            MyGame._score[character.PlayerRunTimeInfo.Player - 1, 2] = 2;
-            }*/
+            
+            
         }
 
         public GameObject GetPlayer1()
@@ -512,7 +509,6 @@ namespace nseh.Managers.Level
 
             // Release events
             Find<ItemSpawn_Event>().EventRelease();
-			Find<MinigameEvent>().EventRelease();
 			_particlesManager.EventRelease();
             _objectPoolManager.EventRelease();
 
@@ -723,6 +719,7 @@ namespace nseh.Managers.Level
 
         private void SpawnAllPlayersBoss()
         {
+            _players.Clear();
             for (int i = 0; i < _numPlayers; i++)
             {
                 // Enable each hud

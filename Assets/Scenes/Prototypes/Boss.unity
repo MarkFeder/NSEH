@@ -623,9 +623,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d470cfe9541bb4e806c2373cafdae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingHealth: 200
-  _maxHealth: 200
-  _currentHealth: 0
+  _startingHealth: 2
+  _maxHealth: 2
+  _currentHealth: 2
+  _lifeBar: {fileID: 1733479833}
 --- !u!114 &222717443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3335,12 +3336,12 @@ Prefab:
     - target: {fileID: 114826390035393116, guid: d1b905cc00cc4944b9c2232ee7246378,
         type: 2}
       propertyPath: fullColor.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114826390035393116, guid: d1b905cc00cc4944b9c2232ee7246378,
         type: 2}
       propertyPath: fullColor.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114175637312503416, guid: d1b905cc00cc4944b9c2232ee7246378,
         type: 2}
@@ -3350,9 +3351,40 @@ Prefab:
     - target: {fileID: 114175637312503416, guid: d1b905cc00cc4944b9c2232ee7246378,
         type: 2}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114175637312503416, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114461601280933198, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_ShowMaskGraphic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114889717620093150, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114889717620093150, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6373524cc547ad54d8f88700d61cf864,
+        type: 3}
+    - target: {fileID: 114889717620093150, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114889717620093150, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114889717620093150, guid: d1b905cc00cc4944b9c2232ee7246378,
         type: 2}
       propertyPath: m_Color.b
       value: 0
@@ -3360,6 +3392,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1b905cc00cc4944b9c2232ee7246378, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1733479833 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114826390035393116, guid: d1b905cc00cc4944b9c2232ee7246378,
+    type: 2}
+  m_PrefabInternal: {fileID: 1733479832}
+  m_Script: {fileID: 11500000, guid: d6e7373c7eed4be4cb9e296cf3d141d8, type: 3}
 --- !u!1 &1781435626
 GameObject:
   m_ObjectHideFlags: 0
@@ -3911,7 +3949,7 @@ SphereCollider:
   m_GameObject: {fileID: 2082694688}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}

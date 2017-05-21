@@ -172,6 +172,8 @@ namespace nseh.Gameplay.Combat.System
 
                         _playerInfo.Score += (int)currentAttack.CurrentDamage;
                         _playerInfo.PlayerEnergy.IncreaseEnergy((int)currentAttack.CurrentDamage);
+                        if(enemyHealth.CurrentHealth <=0)
+                            _playerInfo.Score += 50;
                     }
                 }
             }

@@ -8,15 +8,12 @@ namespace nseh.Gameplay.Entities.Enemies
     {
         #region Private Properties
 
-        [SerializeField]
-        private int _startingHealth;
-        [SerializeField]
         private int _maxHealth;
-        [SerializeField]
         private int _currentHealth;
 
         private bool _isDead;
         private int _deathCounter;
+        [SerializeField]
         private BarComponent _lifeBar;
 
         #endregion
@@ -34,7 +31,20 @@ namespace nseh.Gameplay.Entities.Enemies
         public int MaxHealth
         {
             get { return _maxHealth; }
-                
+            set
+            {
+                _maxHealth = value;
+                _lifeBar.MaxValue = _maxHealth;
+            }
+        }
+
+        public bool IsDead
+        {
+            get
+            {
+                return _isDead;
+            }
+
         }
 
         #endregion
@@ -46,13 +56,13 @@ namespace nseh.Gameplay.Entities.Enemies
             // TODO: reference here to enemy info
 
             _deathCounter = 0;
-            _currentHealth = _startingHealth;
             _isDead = false;
+
         }
 
         private void Update()
         {
-            Debug.Log("Current health of: " + gameObject.name + " is: " + _currentHealth);
+           
         }
 
         private void Death()
@@ -72,15 +82,15 @@ namespace nseh.Gameplay.Entities.Enemies
         public void TakeDamage(int amount)
         {
             // Reduce current health
-            _currentHealth -= amount;
+            CurrentHealth -= amount;
 
             // Play hit animation
 
 
             // Clamp current health
-            _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
 
-            if (_currentHealth == 0 && !_isDead)
+            if (CurrentHealth == 0 && !IsDead)
             {
                 Death();
             }

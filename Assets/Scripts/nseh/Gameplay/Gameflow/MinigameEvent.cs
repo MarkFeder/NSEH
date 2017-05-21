@@ -173,6 +173,7 @@ namespace nseh.Gameplay.Gameflow
             GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().started = false;
             _Goal.GetComponent<Goal>().started = false;
             yield return new WaitForSeconds(5);
+            EventRelease();
             //LvlManager.GoToMainMenuScore();
             //LvlManager.CanvasGameOverMinigameManager.EnableCanvas();         
             _levelManager.ChangeState(LevelManager.States.LoadingBoss);

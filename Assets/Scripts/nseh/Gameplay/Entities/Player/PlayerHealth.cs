@@ -25,6 +25,8 @@ namespace nseh.Gameplay.Entities.Player
         public int _startingHealth = 100;
         [SerializeField]
         public int _maxHealth = 100;
+        [SerializeField]
+        public int _penalization = 10;
 
         private int _deathCount;
         private float _bonificationDefense;
@@ -256,6 +258,7 @@ namespace nseh.Gameplay.Entities.Player
                 }*/
                 if (CurrentHealth == 0.0f && !_isDead /*&& lives > 0*/)
                 {
+                    _playerInfo.Score -= _penalization;
                     StartCoroutine(LoseLife(3));
                 }
             }
@@ -296,6 +299,7 @@ namespace nseh.Gameplay.Entities.Player
 
                 if(CurrentHealth == 0.0f && !_isDead /*&& lives > 0*/)
                 {
+                    _playerInfo.Score -= _penalization;
                     StartCoroutine(LoseLife(3));
                 }
             }

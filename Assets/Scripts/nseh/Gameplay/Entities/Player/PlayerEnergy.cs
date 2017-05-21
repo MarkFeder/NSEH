@@ -81,14 +81,6 @@ namespace nseh.Gameplay.Entities.Player
 
         public void Update()
         {
-            if (CurrentEnergy >= MaxEnergy && IsValidEnergy)
-            {
-                Debug.Log("YOU ARE SO EPIC " + gameObject.name + "! Energy (" + CurrentEnergy + ").");
-            }
-            else
-            {
-                Debug.Log("Current energy of " + gameObject.name + "is " + CurrentEnergy);
-            }
         }
 
         public void ResetEnergy()

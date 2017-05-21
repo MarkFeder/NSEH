@@ -40,6 +40,20 @@ namespace nseh.Gameplay.AI
         private float _prob_AttackRoll_in;
         private float _health;
         private float _frenzyHealth;
+        private float _animationSpeed;
+
+        public bool IsDeath
+        {
+            get
+            {
+                return _isDeath;
+            }
+
+            set
+            {
+                _isDeath = value;
+            }
+        }
         #endregion
 
         #region Public Methods
@@ -59,6 +73,7 @@ namespace nseh.Gameplay.AI
             _frenzy = false;
             _wait = 2;
             _animator.speed = 1;
+            _animationSpeed = 1;
             _agent.enabled = false;
             _animator.SetBool("Appear", true);
             _animator.SetTrigger("Appear");
@@ -71,12 +86,14 @@ namespace nseh.Gameplay.AI
         // Update is called once per frame
         public void Update()
         {
+
             _health = GetComponent<EnemyHealth>().CurrentHealth;
             if (_health <= 0 && _isDeath == false)
             {
                 Debug.Log("ME MUERO");
                 _isDeath = true;
                 _agent.enabled = false;
+                _nextPoint = null;
                 _animator.SetTrigger("Death");
                 _animator.SetBool("Walk", false);
                 _animator.SetBool("AttackRoll", false);
@@ -87,12 +104,13 @@ namespace nseh.Gameplay.AI
                 {
                     Debug.Log("ME CABREO");
                     _agent.enabled = false;
+                    _isDice = false;
                     _frenzy = true;
                    _animator.SetTrigger("Frenzy");
                     _prob_Patrol_in = 0.25f;
                     _prob_AttackSpikes_in = 1f;
                     _agent.speed = agentSpeedFrenzy;
-                    _animator.speed = animationSpeedFrenzy;
+                    _animationSpeed = animationSpeedFrenzy;
                     //acelerar
                     _wait = 1;
                 
@@ -121,6 +139,7 @@ namespace nseh.Gameplay.AI
                 else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"))
                 {
                     _agent.enabled = true;
+                    _animator.speed = _animationSpeed;
                     if (_isDice == false)
                     {
                         Debug.Log("3 " + " " + _animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
@@ -131,10 +150,12 @@ namespace nseh.Gameplay.AI
                 }else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk2"))
                 {
                     Debug.Log("WALK2");
+                    _animator.speed = _animationSpeed;
                     _agent.enabled = false;
                 }else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
                 {
                     Debug.Log("WALK1");
+                    _animator.speed = 1;
                     _agent.enabled = true;
                     _agent.SetDestination(_nextPoint.position);
                 }
