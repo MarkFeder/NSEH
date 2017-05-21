@@ -39,6 +39,7 @@ namespace nseh.Gameplay.Entities.Player
         private PlayerEnergy _playerEnergy;
         private PlayerMovement _playerMovement;
         private PlayerCombat _playerCombat;
+        private PlayerScore _playerScore;
 
         private float _horizontal;
         private float _vertical;
@@ -101,19 +102,6 @@ namespace nseh.Gameplay.Entities.Player
             set
             {
                 _player = value;
-            }
-        }
-
-        public int Score
-        {
-            get
-            {
-                return _score;
-            }
-
-            set
-            {
-                _score = value;
             }
         }
 
@@ -199,6 +187,14 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
+        public PlayerScore PlayerScore
+        {
+            get
+            {
+                return _playerScore;
+            }
+        }
+
         public string PlayerName
         {
             get
@@ -224,6 +220,7 @@ namespace nseh.Gameplay.Entities.Player
             _playerEnergy = GetComponent<PlayerEnergy>();
             _playerMovement = GetComponent<PlayerMovement>();
             _playerCombat = GetComponent<PlayerCombat>();
+            _playerScore = GetComponent<PlayerScore>();
             _playerCollider = GetComponent<Collider>();
 
             SetupParticles();

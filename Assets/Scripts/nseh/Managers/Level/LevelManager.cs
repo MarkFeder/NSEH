@@ -206,29 +206,30 @@ namespace nseh.Managers.Level
                         Find<MinigameEvent>().EventRelease();
                         _canvasLoaded = false;
                         Activate();
+
                         //Restart();
                         /*
                         Find<Tar_Event>().ActivateEvent();
                         Find<CameraManager>().ActivateEvent();
                         Find<ItemSpawn_Event>().ActivateEvent();
-                        Find<LevelProgress>().ActivateEvent();
-                        */
+                        Find<LevelProgress>().ActivateEvent(); */
 
                         _currentState = _nextState;
 
                         break;
 
                     case States.LoadingMinigame:
-
                         //Time.timeScale = 0;
                         Find<Tar_Event>().EventRelease();
                         Find<CameraManager>().EventRelease();
                         Find<ItemSpawn_Event>().EventRelease();
-                        _playerSpawnPoints = new List<GameObject>();
+                        _playerSpawnPoints.Clear();
+
                         foreach (PlayerManager character in Players)
                         {
-                            MyGame._score[character.PlayerRunTimeInfo.Player - 1, 0] = character.PlayerRunTimeInfo.Score;
+                            MyGame._score[character.PlayerRunTimeInfo.Player - 1, 0] = character.PlayerRunTimeInfo.PlayerScore.Score;
                         }
+
                         SceneManager.LoadScene("Minigame");
                         Find<LoadingEvent>().ActivateEvent();
                         _currentState = _nextState;
@@ -240,38 +241,35 @@ namespace nseh.Managers.Level
                         SetupMinigameCanvas();
                         Find<MinigameEvent>().ActivateEvent();
 
-
-
                         _currentState = _nextState;
-
                         break;
 
                     case States.LoadingLevel:
                         Find<MinigameEvent>().EventRelease();
-                        _players = new List<PlayerManager>();
-                        _playerSpawnPoints = new List<GameObject>();
+                        _players.Clear();
+                        _playerSpawnPoints.Clear();
+
                         SceneManager.LoadScene("Game");
                         Find<LoadingEvent>().ActivateEvent();
 
                         _currentState = _nextState;
                         break;
 
-
                     case States.LoadingBoss:
                         Find<MinigameEvent>().EventRelease();
                         SceneManager.LoadScene("Boss");
                         Find<LoadingEvent>().ActivateEvent();
+
                         _currentState = _nextState;
                         break;
-
 
                     case States.Boss:
                         Time.timeScale = 1;
                         SetupBossCanvas();
                         Find<BossEvent>().ActivateEvent();
+                        
                         _currentState = _nextState;
                         break;
-
                 }
             }
         }
@@ -344,21 +342,17 @@ namespace nseh.Managers.Level
         public void GoToMainMenu()
         {
             _isPaused = false;
-
             _canvasLoaded = false;
-            MyGame.ChangeState(Main.GameManager.States.MainMenu);
-        }
 
+            MyGame.ChangeState(GameManager.States.MainMenu);
+        }
 
         public void GoToMainMenuScore()
         {
-            Debug.Log("PUTNAUCON");
             _isPaused = false;
             _canvasLoaded = false;
-            MyGame.ChangeState(Main.GameManager.States.Score);
 
-            
-            
+            MyGame.ChangeState(GameManager.States.Score);
         }
 
         public GameObject GetPlayer1()
@@ -560,7 +554,6 @@ namespace nseh.Managers.Level
             _canvasGameOverMinigameManager = _canvasGameOverObj.GetComponent<CanvasGameOverMinigameHUDManager>();
         }
 
-
         private void SetupBossCanvas()
         {
             _canvasLoaded = true;
@@ -577,7 +570,6 @@ namespace nseh.Managers.Level
             _canvasPlayersManager.DisableAllHuds();
             SetupPlayersTransformsBoss();
             SpawnAllPlayersBoss();
-            
         }
 
         private void SetupPlayersTransforms()

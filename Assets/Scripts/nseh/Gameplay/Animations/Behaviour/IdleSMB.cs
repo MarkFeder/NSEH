@@ -29,8 +29,14 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            _nextAction = _playerInfo.PlayerCombat.Actions.Where(action => action.ButtonHasBeenPressed()).FirstOrDefault();
-            if (_nextAction != null && _nextAction.IsEnabled)
+            _nextAction = _playerInfo.PlayerCombat.Actions.Where(action =>
+            {
+                return action.IsEnabled &&
+                       action.ButtonHasBeenPressed();
+                
+            }).FirstOrDefault();
+
+            if (_nextAction != null)
             {
                 _nextAction.StartAction();
             }

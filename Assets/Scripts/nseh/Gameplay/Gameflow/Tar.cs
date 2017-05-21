@@ -9,16 +9,24 @@ namespace nseh.Gameplay.Gameflow
 {
     public class Tar : TarComponent
     {
+        public Animator animator;
+
+        #region Private Properties
+
         private float _nextApplyEffect = 0;
         private List<GameObject> _playersInTar;
-        public Animator animator;
+
+        #endregion
+
+        #region Protected Methods
 
         protected override bool TarUp(float elapsedTime)
         {
             animator.SetBool("Motion", true);
-            this.targetTarPosition = new Vector3(this.transform.position.x, this.platformPosition.y, this.transform.position.z);
-            this.transform.position = Vector3.Lerp(this.transform.position, this.targetTarPosition, elapsedTime / 80.0f);
-            if (this.transform.position == this.targetTarPosition)
+            targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
+            transform.position = Vector3.Lerp(transform.position, targetTarPosition, elapsedTime / 80.0f);
+
+            if (transform.position == targetTarPosition)
             {
                 //Debug.Log("Tar is up. " + "(" + elapsedTime + ")");
                 return true;
@@ -29,9 +37,9 @@ namespace nseh.Gameplay.Gameflow
 
         protected override bool TarDown(float elapsedTime)
         {
-            this.targetTarPosition = new Vector3(this.transform.position.x, this.platformPosition.y, this.transform.position.z);
-            this.transform.position = Vector3.Lerp(this.transform.position, this.initialTarPosition, elapsedTime / 120.0f);
-            if (this.transform.position == this.initialTarPosition)
+            targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
+            transform.position = Vector3.Lerp(transform.position, initialTarPosition, elapsedTime / 120.0f);
+            if (transform.position == initialTarPosition)
             {
                 //Debug.Log("Tar is down. " + "(" + elapsedTime + ")");
                 _playersInTar = new List<GameObject>();
@@ -45,12 +53,16 @@ namespace nseh.Gameplay.Gameflow
         protected override void TarReset()
         {
             animator.SetBool("Motion", false);
-            this.transform.position = this.initialTarPosition;
+            transform.position = initialTarPosition;
             _nextApplyEffect = 0;
             _playersInTar = new List<GameObject>();
         }
 
-        void Update()
+        #endregion
+
+        #region Private Methods
+
+        private void Update()
         {
             //There are players in Tar
             if (_playersInTar.Any())
@@ -58,8 +70,8 @@ namespace nseh.Gameplay.Gameflow
                 DealDamagePeriodically();
             }
         }
-        
-        void OnTriggerEnter(Collider other)
+
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(Constants.Tags.PLAYER_BODY))
             {
@@ -67,15 +79,15 @@ namespace nseh.Gameplay.Gameflow
             }
         }
 
-        void OnTriggerStay(Collider other)
+        private void OnTriggerStay(Collider other)
         {
-            if(other.CompareTag(Constants.Tags.PLAYER_BODY) && !PlayerListContains(other.gameObject))
+            if (other.CompareTag(Constants.Tags.PLAYER_BODY) && !PlayerListContains(other.gameObject))
             {
                 _playersInTar.Add(other.gameObject);
             }
         }
 
-        void OnTriggerExit(Collider other)
+        private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag(Constants.Tags.PLAYER_BODY))
             {
@@ -84,7 +96,7 @@ namespace nseh.Gameplay.Gameflow
             _playersInTar.Remove(other.gameObject);
         }
 
-        bool PlayerListContains(GameObject playerToRegister)
+        private bool PlayerListContains(GameObject playerToRegister)
         {
             PlayerInfo player = playerToRegister.GetComponent<PlayerInfo>();
 
@@ -100,9 +112,9 @@ namespace nseh.Gameplay.Gameflow
             return false;
         }
 
-        void DealDamagePeriodically()
+        private void DealDamagePeriodically()
         {
-            if(Time.time >= _nextApplyEffect)
+            if (Time.time >= _nextApplyEffect)
             {
                 _nextApplyEffect = Time.time + Constants.Events.Tar_Event.TAR_TICKDAMAGE;
                 foreach (PlayerHealth element in _playersInTar.Select(t => t.GetComponent<PlayerHealth>()))
@@ -112,6 +124,6 @@ namespace nseh.Gameplay.Gameflow
             }
         }
 
-
+        #endregion
     }
 }

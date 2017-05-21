@@ -13,6 +13,7 @@ namespace nseh.Gameplay.Entities.Enemies
 
         private bool _isDead;
         private int _deathCounter;
+
         [SerializeField]
         private BarComponent _lifeBar;
 
@@ -23,9 +24,15 @@ namespace nseh.Gameplay.Entities.Enemies
         public int CurrentHealth
         {
             get { return _currentHealth; }
-            set { _currentHealth = value;
-                _lifeBar.Value = _currentHealth;
+            set 
+            { 
+                _currentHealth = value;
+
+                if (_lifeBar != null)
+                {
+                    _lifeBar.Value = _currentHealth;
                 }
+            }
         }
 
         public int MaxHealth
@@ -34,7 +41,11 @@ namespace nseh.Gameplay.Entities.Enemies
             set
             {
                 _maxHealth = value;
-                _lifeBar.MaxValue = _maxHealth;
+
+				if (_lifeBar != null)
+				{
+					_lifeBar.MaxValue = _maxHealth;
+				}
             }
         }
 

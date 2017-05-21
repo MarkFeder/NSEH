@@ -609,6 +609,7 @@ GameObject:
   - component: {fileID: 114736991629091880}
   - component: {fileID: 114196002245353524}
   - component: {fileID: 114585666874532276}
+  - component: {fileID: 114716532977222356}
   - component: {fileID: 114190659147358852}
   m_Layer: 8
   m_Name: Wrarr
@@ -2007,6 +2008,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxEnergy: 200
   _currentEnergy: 0
+--- !u!114 &114716532977222356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828854585127354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b6f7e0daa3b4d0894932843c4b11db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114736991629091880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2020,6 +2032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingHealth: 100
   _maxHealth: 100
+  _penalization: 10
 --- !u!114 &114792759668558198
 MonoBehaviour:
   m_ObjectHideFlags: 1

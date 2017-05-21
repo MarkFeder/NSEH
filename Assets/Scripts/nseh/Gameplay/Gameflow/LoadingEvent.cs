@@ -1,45 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using nseh.Gameplay.Base.Abstract.Gameflow;
 using nseh.Managers.Level;
-using nseh.Gameplay.Minigames;
-using nseh.Gameplay.Base.Abstract.Gameflow;
 using UnityEngine.SceneManagement;
 
 namespace nseh.Gameplay.Gameflow
 {
     public class LoadingEvent : LevelEvent
     {
-
         #region Private Properties
-        private string _aux;
-        nseh.Managers.Level.LevelManager.States state;
+
+        private string _scene;
+        private LevelManager.States state;
+
         #endregion
 
         #region Public Methods
+
         public override void ActivateEvent()
         {
             _isActivated = true;
-            _aux = SceneManager.GetActiveScene().name;
+
+            _scene = SceneManager.GetActiveScene().name;
         }
 
         public override void EventTick()
         {
-            if (_aux != SceneManager.GetActiveScene().name)
+            if (_scene != SceneManager.GetActiveScene().name)
             {
                 EventRelease();
             }
-
         }
 
         public override void EventRelease()
         {
             _isActivated = false;
-            if (SceneManager.GetActiveScene().name == "Minigame")
+
+            string sceneName = SceneManager.GetActiveScene().name;
+
+            if (sceneName == "Minigame")
             {
                 _levelManager.ChangeState(LevelManager.States.Minigame);
             }
-            else if ((SceneManager.GetActiveScene().name == "Boss"))
+            else if (sceneName == "Boss")
             {
                 _levelManager.ChangeState(LevelManager.States.Boss);
             }
@@ -48,7 +49,7 @@ namespace nseh.Gameplay.Gameflow
                 _levelManager.ChangeState(LevelManager.States.LevelEvent);
             }
         }
-        #endregion
 
+        #endregion
     }
 }

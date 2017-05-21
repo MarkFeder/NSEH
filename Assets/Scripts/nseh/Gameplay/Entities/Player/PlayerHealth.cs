@@ -75,6 +75,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             set { _healthBar = value; }
         }
+
         /*
         public LevelProgress LvlProgress
         {
@@ -258,7 +259,7 @@ namespace nseh.Gameplay.Entities.Player
                 }*/
                 if (CurrentHealth == 0.0f && !_isDead /*&& lives > 0*/)
                 {
-                    _playerInfo.Score -= _penalization;
+                    _playerInfo.PlayerScore.DecreaseScore(_penalization);
                     StartCoroutine(LoseLife(3));
                 }
             }
@@ -299,7 +300,7 @@ namespace nseh.Gameplay.Entities.Player
 
                 if(CurrentHealth == 0.0f && !_isDead /*&& lives > 0*/)
                 {
-                    _playerInfo.Score -= _penalization;
+                    _playerInfo.PlayerScore.DecreaseScore(_penalization);
                     StartCoroutine(LoseLife(3));
                 }
             }
@@ -402,6 +403,7 @@ namespace nseh.Gameplay.Entities.Player
             _isDead = false;
 
         }
+
         #endregion
     }
 }
