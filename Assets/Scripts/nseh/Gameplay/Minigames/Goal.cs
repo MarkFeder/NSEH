@@ -11,6 +11,7 @@ namespace nseh.Gameplay.Minigames
 
         #region Private Properties
         private Rigidbody _myRigidBody;
+        private float aux;
         #endregion
 
         #region Public Properties
@@ -24,6 +25,7 @@ namespace nseh.Gameplay.Minigames
         public void Start()
         {
             _myRigidBody = GetComponent<Rigidbody>();
+            aux = Time.deltaTime;
             num = 400;
         }
 
@@ -46,16 +48,21 @@ namespace nseh.Gameplay.Minigames
         {
             if (other.tag == "PlayerBody")
             {
-                StartCoroutine(DestroyCharacter(other));
+                StartCoroutine(DestroyCharacter(other, Time.deltaTime));
             }
         }
 
-        private IEnumerator DestroyCharacter(Collider other)
+        private IEnumerator DestroyCharacter(Collider other, float time)
         {
+            if (time - aux < 0.01)
+            {
+                num += 100;
+            }
+            aux = time;
             other.GetComponent<Minigame>().position = num;
             num -= 100;
             yield return new WaitForSeconds(1);
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
         }
         #endregion
     }

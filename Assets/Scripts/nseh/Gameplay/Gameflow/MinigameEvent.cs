@@ -118,13 +118,7 @@ namespace nseh.Gameplay.Gameflow
                     _levelManager.MyGame.StartCoroutine(StopMinigame());
                 }
             }
-            foreach (GameObject character in _players)
-            {
-                if (character.GetComponent<Minigame>().position != 0)
-                {
-                    _levelManager.MyGame._score[(character.GetComponent<Minigame>().gamepadIndex) - 1, 1] = character.GetComponent<Minigame>().position;
-                }
-            }
+            
         }
 
 
@@ -154,7 +148,7 @@ namespace nseh.Gameplay.Gameflow
             _ready.text = "RUUUUUUN!!!";
             yield return new WaitForSeconds(1);
             _ready.text = "";
-            _timeRemaining = 30;
+            _timeRemaining = 1;
             Camera.main.GetComponent<CameraScript>().started = true;
             GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().started = true;
             _CubeDeath.GetComponent<CubeDeath>().started = true;
@@ -173,6 +167,13 @@ namespace nseh.Gameplay.Gameflow
             GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().started = false;
             _Goal.GetComponent<Goal>().started = false;
             yield return new WaitForSeconds(5);
+            foreach (GameObject character in _players)
+            {
+                if (character.GetComponent<Minigame>().position != 0)
+                {
+                    _levelManager.MyGame._score[(character.GetComponent<Minigame>().gamepadIndex) - 1, 1] = character.GetComponent<Minigame>().position;
+                }
+            }
             EventRelease();
             //LvlManager.GoToMainMenuScore();
             //LvlManager.CanvasGameOverMinigameManager.EnableCanvas();         

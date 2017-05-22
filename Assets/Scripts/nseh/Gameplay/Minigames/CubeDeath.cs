@@ -17,6 +17,7 @@ namespace nseh.Gameplay.Minigames {
 
         #region Private Properties
         private Rigidbody _myRigidBody;
+        private float aux;
         #endregion
 
         #region Public Methods
@@ -42,22 +43,24 @@ namespace nseh.Gameplay.Minigames {
         #region Private Methods
         private void OnTriggerEnter(Collider other)
         {
-            StartCoroutine(DestroyCharacter(other));
+            StartCoroutine(DestroyCharacter(other, Time.deltaTime));
         }
 
-        private IEnumerator DestroyCharacter(Collider other)
+        private IEnumerator DestroyCharacter(Collider other, float time)
         {
             if (other.tag == "PlayerBody")
             {
+                if (time - aux < 0.01)
+                {
+                    num -= 50;
+                }
+                aux = time;
                 other.GetComponent<Minigame>().velocityCube = -10f;
                 other.GetComponent<Minigame>().position = num;
                 num+=50;
-                if (num == 0)
-                {
-                    //FIN MINIJUEGO
-                }
+                
                 yield return new WaitForSeconds(1);
-                Destroy(other.gameObject);
+                //Destroy(other.gameObject);
             }            
         }
         #endregion
