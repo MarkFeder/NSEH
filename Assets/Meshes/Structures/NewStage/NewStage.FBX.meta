@@ -1,0 +1,205 @@
+fileFormatVersion: 2
+guid: 56188bce81302cb4190318833c1c60e5
+timeCreated: 1495451483
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Central_Down_T
+    100002: Central_Up_T
+    100004: Dog_Platform_T
+    100006: Lava_Ground_T
+    100008: Left_Central_T
+    100010: Left_Down_2_T
+    100012: Left_Down_T
+    100014: Left_Limit_NT
+    100016: Left_Up_T
+    100018: //RootNode
+    100020: Pilar_Left_T
+    100022: Platform_Tunnel_Central_T
+    100024: Platform_Tunnel_Left_Up_T
+    100026: Platform_Tunnel_Right_Up_T
+    100028: Right_Down_T
+    100030: Right_Limit_NT
+    100032: Right_Up_2_NT
+    100034: Right_Up_T
+    100036: Tunnel_Central_NT
+    100038: Tunnel_Left_Down_NT
+    100040: Tunnel_Left_Up_NT
+    100042: Tunnel_Right_Down_NT
+    100044: Tunnel_Right_Up_NT
+    100046: Wall_Central_NT
+    100048: Wall_Left_Down_NT
+    100050: Wall_Left_Up_NT
+    400000: Central_Down_T
+    400002: Central_Up_T
+    400004: Dog_Platform_T
+    400006: Lava_Ground_T
+    400008: Left_Central_T
+    400010: Left_Down_2_T
+    400012: Left_Down_T
+    400014: Left_Limit_NT
+    400016: Left_Up_T
+    400018: //RootNode
+    400020: Pilar_Left_T
+    400022: Platform_Tunnel_Central_T
+    400024: Platform_Tunnel_Left_Up_T
+    400026: Platform_Tunnel_Right_Up_T
+    400028: Right_Down_T
+    400030: Right_Limit_NT
+    400032: Right_Up_2_NT
+    400034: Right_Up_T
+    400036: Tunnel_Central_NT
+    400038: Tunnel_Left_Down_NT
+    400040: Tunnel_Left_Up_NT
+    400042: Tunnel_Right_Down_NT
+    400044: Tunnel_Right_Up_NT
+    400046: Wall_Central_NT
+    400048: Wall_Left_Down_NT
+    400050: Wall_Left_Up_NT
+    2300000: Central_Down_T
+    2300002: Central_Up_T
+    2300004: Dog_Platform_T
+    2300006: Lava_Ground_T
+    2300008: Left_Central_T
+    2300010: Left_Down_2_T
+    2300012: Left_Down_T
+    2300014: Left_Limit_NT
+    2300016: Left_Up_T
+    2300018: Pilar_Left_T
+    2300020: Platform_Tunnel_Central_T
+    2300022: Platform_Tunnel_Left_Up_T
+    2300024: Platform_Tunnel_Right_Up_T
+    2300026: Right_Down_T
+    2300028: Right_Limit_NT
+    2300030: Right_Up_2_NT
+    2300032: Right_Up_T
+    2300034: Tunnel_Central_NT
+    2300036: Tunnel_Left_Down_NT
+    2300038: Tunnel_Left_Up_NT
+    2300040: Tunnel_Right_Down_NT
+    2300042: Tunnel_Right_Up_NT
+    2300044: Wall_Central_NT
+    2300046: Wall_Left_Down_NT
+    2300048: Wall_Left_Up_NT
+    3300000: Central_Down_T
+    3300002: Central_Up_T
+    3300004: Dog_Platform_T
+    3300006: Lava_Ground_T
+    3300008: Left_Central_T
+    3300010: Left_Down_2_T
+    3300012: Left_Down_T
+    3300014: Left_Limit_NT
+    3300016: Left_Up_T
+    3300018: Pilar_Left_T
+    3300020: Platform_Tunnel_Central_T
+    3300022: Platform_Tunnel_Left_Up_T
+    3300024: Platform_Tunnel_Right_Up_T
+    3300026: Right_Down_T
+    3300028: Right_Limit_NT
+    3300030: Right_Up_2_NT
+    3300032: Right_Up_T
+    3300034: Tunnel_Central_NT
+    3300036: Tunnel_Left_Down_NT
+    3300038: Tunnel_Left_Up_NT
+    3300040: Tunnel_Right_Down_NT
+    3300042: Tunnel_Right_Up_NT
+    3300044: Wall_Central_NT
+    3300046: Wall_Left_Down_NT
+    3300048: Wall_Left_Up_NT
+    4300000: Right_Limit_NT
+    4300002: Right_Up_2_NT
+    4300004: Right_Up_T
+    4300006: Platform_Tunnel_Right_Up_T
+    4300008: Dog_Platform_T
+    4300010: Right_Down_T
+    4300012: Lava_Ground_T
+    4300014: Central_Down_T
+    4300016: Platform_Tunnel_Central_T
+    4300018: Central_Up_T
+    4300020: Wall_Central_NT
+    4300022: Left_Limit_NT
+    4300024: Wall_Left_Up_NT
+    4300026: Wall_Left_Down_NT
+    4300028: Left_Down_T
+    4300030: Left_Down_2_T
+    4300032: Left_Central_T
+    4300034: Pilar_Left_T
+    4300036: Left_Up_T
+    4300038: Platform_Tunnel_Left_Up_T
+    4300040: Tunnel_Right_Down_NT
+    4300042: Tunnel_Right_Up_NT
+    4300044: Tunnel_Central_NT
+    4300046: Tunnel_Left_Up_NT
+    4300048: Tunnel_Left_Down_NT
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
