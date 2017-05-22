@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 114409295371350454}
   - component: {fileID: 114945180413029768}
   - component: {fileID: 114473405665452258}
+  - component: {fileID: 114157490270805860}
   - component: {fileID: 114298136127664010}
   m_Layer: 8
   m_Name: SirProspector
@@ -2377,6 +2378,17 @@ MonoBehaviour:
   _audioClips: []
   _initialDamage: 5
   _attackType: 3
+--- !u!114 &114157490270805860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196191226483754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b6f7e0daa3b4d0894932843c4b11db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114229055252415370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2503,6 +2515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingHealth: 100
   _maxHealth: 100
+  _penalization: 10
 --- !u!114 &114473405665452258
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -260,6 +260,7 @@ namespace nseh.Managers.Main
                         break;
 
                     case States.Loading:
+                        
                         if (_nextState == States.MainMenu)
                         {
                             Time.timeScale = 1;
@@ -274,13 +275,13 @@ namespace nseh.Managers.Main
                             Find<LevelManager>().Activate();
 
                         }
-
                         else if (_nextState == States.Score)
                         {
                             Time.timeScale = 1;
                             _currentState = _nextState;
                                            
                         }
+
                         break;
 
                     case States.Playing:
@@ -308,7 +309,6 @@ namespace nseh.Managers.Main
 
                         _currentState = States.Loading;
                         //_nextState = States.MainMenu;
-                        Debug.Log("scs");
                         SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
                         Find<LoadingScene>().Activate();
 

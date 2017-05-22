@@ -73,7 +73,7 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
                     if (enemyInfo != null && enemyInfo.Player != _senderInfo.Player)
                     {
                         // Set score and energy on sender
-                        _senderInfo.Score += (int)_damage;
+                        _senderInfo.PlayerScore.IncreaseScore((int)_damage);
                         _senderInfo.PlayerEnergy.IncreaseEnergy(_damage / 2);
 
                         // Set health

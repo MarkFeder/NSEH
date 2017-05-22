@@ -31,10 +31,13 @@ namespace nseh.Gameplay.Animations.Behaviour
 
             _nextAction = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().Where(action =>
             {
-                return action.IsSimpleAttack && action.ButtonHasBeenPressed();
+                return action.IsEnabled &&
+                       action.IsSimpleAttack && 
+                       action.ButtonHasBeenPressed();
 
             }).FirstOrDefault();
-            if (_nextAction != null && _nextAction.IsEnabled)
+
+            if (_nextAction != null)
             {
                 _nextAction.StartAction();
             }

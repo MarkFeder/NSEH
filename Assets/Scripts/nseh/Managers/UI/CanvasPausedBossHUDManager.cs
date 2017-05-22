@@ -6,8 +6,8 @@ using nseh.Gameplay.Gameflow;
 
 namespace nseh.Managers.UI
 {
-    public class CanvasPausedBossHUDManager : MonoBehaviour {
-
+    public class CanvasPausedBossHUDManager : MonoBehaviour 
+    {
         #region Private Properties
 
         private LevelManager _levelManager;
@@ -43,8 +43,7 @@ namespace nseh.Managers.UI
         public void GoToMainMenu()
         {
             _levelManager.Find<BossEvent>().EventRelease();
-            _levelManager.MyGame._characters = new List<GameObject>();
-            _levelManager.GoToMainMenu();
+            _levelManager.MyGame.RestartList();
         }
 
         public void Resume()

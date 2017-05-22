@@ -172,7 +172,7 @@ namespace nseh.Utils.Helpers
             return animEvent;
         }
 
-        public static void CreateAnimationEventForClip(ref AnimationClip clip, 
+        public static void CreateAnimationEventForClip(AnimationClip clip, 
                                                        string functionName, 
                                                        float time, 
                                                        SendMessageOptions messageOptions = SendMessageOptions.RequireReceiver)

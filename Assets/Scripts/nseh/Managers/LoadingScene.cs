@@ -5,10 +5,9 @@ namespace nseh.Managers
 {
     public class LoadingScene : Service
     {
-
         #region Private Methods
 
-        private string _aux;
+        private string _scene;
         GameManager.States state;
 
         #endregion
@@ -24,21 +23,19 @@ namespace nseh.Managers
         {
             _isActivated = true;
             state = MyGame._nextState;
-            _aux = SceneManager.GetActiveScene().name;
+            _scene = SceneManager.GetActiveScene().name;
         }
 
         public override void Tick()
         {
-            if (_aux != SceneManager.GetActiveScene().name)
+            if (_scene != SceneManager.GetActiveScene().name)
             {
                 Release();
             }
-
         }
 
         public override void Release()
         {
-           
             if (state == GameManager.States.Playing)
             {
                 GameManager.Instance.ChangeState(GameManager.States.Playing);
@@ -55,7 +52,7 @@ namespace nseh.Managers
 
             _isActivated = false;
         }
-        #endregion
 
+        #endregion
     }
 }
