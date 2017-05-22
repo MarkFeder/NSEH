@@ -57,21 +57,23 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             string colTag = collision.collider.tag;
             GameObject enemyObj = collision.gameObject;
 
-            GameObject particleGameObject = Instantiate(_particle, transform.position, transform.rotation);
-            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
-            {
-                particle_aux.Play();
-            }
-
-            Destroy(particleGameObject, 3f);
-
             if (colTag == Tags.PLAYER_BODY)
             {
+
                 if (!_enemies.Contains(enemyObj))
                 {
                     PlayerInfo enemyInfo = enemyObj.GetComponent<PlayerInfo>();
                     if (enemyInfo != null && enemyInfo.Player != _senderInfo.Player)
                     {
+
+                        GameObject particleGameObject = Instantiate(_particle, transform.position, transform.rotation);
+                        foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+                        {
+                            particle_aux.Play();
+                        }
+
+                        Destroy(particleGameObject, 3f);
+
                         // Set score and energy on sender
                         _senderInfo.PlayerScore.IncreaseScore((int)_damage);
                         _senderInfo.PlayerEnergy.IncreaseEnergy(_damage / 2);
@@ -91,8 +93,19 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
                     IHealth enemyHealth = enemyObj.GetComponent<IHealth>();
                     if (enemyHealth != null)
                     {
+
+                        GameObject particleGameObject = Instantiate(_particle, transform.position, transform.rotation);
+                        foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+                        {
+                            particle_aux.Play();
+                        }
+
+                        Destroy(particleGameObject, 3f);
+
                         // Set health
                         enemyHealth.TakeDamage((int)_damage);
+                        _senderInfo.PlayerScore.IncreaseScore((int)_damage);
+                        _senderInfo.PlayerEnergy.IncreaseEnergy(_damage / 2);
 
                         // Add this enemy to the list so as not to cause damage again
                         _enemies.Add(enemyObj);
@@ -101,8 +114,17 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             }
             else if (colTag == Tags.PLATFORM)
             {
+
+                GameObject particleGameObject = Instantiate(_particle, transform.position, transform.rotation);
+                foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+                {
+                    particle_aux.Play();
+                }
+
+                Destroy(particleGameObject, 3f);
+
                 _body.isKinematic = true;
-                Destroy(transform.parent.gameObject, _destructionTime);
+                Destroy(transform.parent.gameObject);
             }
         }
 
