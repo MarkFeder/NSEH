@@ -57,15 +57,16 @@ namespace nseh.Gameplay.Movement
             if ((other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().Vertical == 0))
             {
                 Debug.Log("Exit");
-                other.GetComponent<PlayerInfo>().Teletransported = false;
             }
         }
 
         private IEnumerator Teleport(Collider other)
         {
-            yield return new WaitForSeconds(0.05f);
+           
             int randomTeleportPoint = UnityEngine.Random.Range(0, TeleportPoints.Count);
             other.transform.position = new Vector3(TeleportPoints[randomTeleportPoint].transform.position.x, TeleportPoints[randomTeleportPoint].transform.position.y, other.transform.position.z);
+            yield return new WaitForSeconds(1f);
+            other.GetComponent<PlayerInfo>().Teletransported = false;
         }
         #endregion
 
