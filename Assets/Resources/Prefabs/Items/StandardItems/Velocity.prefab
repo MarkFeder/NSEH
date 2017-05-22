@@ -146,7 +146,7 @@ MonoBehaviour:
   _destructionTime: 0
   _timeToDisplayText: 2
   chestType: 3
-  percent: 15
+  percent: 50
   time: 20
 --- !u!212 &212028662712766380
 SpriteRenderer:

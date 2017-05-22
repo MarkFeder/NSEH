@@ -2555,7 +2555,7 @@ MonoBehaviour:
   currentSpeed: 0
   dampAir: 0.5
   jumpAirSpeed: 5
-  jumpHeight: 13.5
+  jumpHeight: 15
   baseSpeed: 6
 --- !u!114 &114930258291489294
 MonoBehaviour:

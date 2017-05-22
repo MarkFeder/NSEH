@@ -19,6 +19,7 @@ namespace nseh.Gameplay.Movement
         #region Private Properties
         [SerializeField]
         private List<GameObject> TeleportPoints;
+        private GameObject _sprite;
         #endregion
 
         #region Public Properties
@@ -28,7 +29,7 @@ namespace nseh.Gameplay.Movement
         #region Private Methods
         private void OnTriggerEnter(Collider other)
         {
-            
+            _sprite.SetActive(true);
         }
 
         private void OnTriggerStay(Collider other)
@@ -48,12 +49,8 @@ namespace nseh.Gameplay.Movement
 
         private void OnTriggerExit(Collider other)
         {
-            if (animator != null)
-            {
-                animator.SetBool("Open", false);
-                animator.SetBool("Close", true);
-            }
 
+            _sprite.SetActive(false);
             if ((other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().Vertical == 0))
             {
                 Debug.Log("Exit");
@@ -70,5 +67,11 @@ namespace nseh.Gameplay.Movement
         }
         #endregion
 
+        #region Private Methods
+        public void Start()
+        {
+            _sprite = transform.GetChild(0).gameObject;
+        }
+        #endregion
     }
 }
