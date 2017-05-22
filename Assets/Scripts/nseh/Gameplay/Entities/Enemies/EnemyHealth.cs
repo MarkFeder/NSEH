@@ -8,7 +8,9 @@ namespace nseh.Gameplay.Entities.Enemies
     {
         #region Private Properties
 
+        [SerializeField]
         private int _maxHealth;
+        [SerializeField]
         private int _currentHealth;
 
         private bool _isDead;
