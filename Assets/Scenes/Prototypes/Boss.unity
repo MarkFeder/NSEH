@@ -490,9 +490,10 @@ MonoBehaviour:
   throne: {fileID: 330694746}
   maxPlayers: 2
   numPlayers: 0
-  percentageFrenzy: 30
+  percentageFrenzy: 0.3
   animationSpeedFrenzy: 2
   agentSpeedFrenzy: 6
+  frenzyHealth: 0
 --- !u!54 &222717435
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -926,8 +927,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0139675, y: 1.4325151, z: 1}
-  m_Center: {x: -0.024013758, y: 1.2671447, z: 0}
+  m_Size: {x: 1.0139675, y: 1.0133376, z: 1}
+  m_Center: {x: -0.024013733, y: 1.4767334, z: 0}
 --- !u!33 &330694749
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -942,8 +943,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 330694746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.81, y: 5.1, z: 0.58}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: -7.84, y: 5.91, z: 0.58}
+  m_LocalScale: {x: 4.548311, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
@@ -1441,8 +1442,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 640257825}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -7.84, y: 6.06, z: 0.46}
-  m_LocalScale: {x: 2.4718788, y: 1.812499, z: 1}
+  m_LocalPosition: {x: -7.79, y: 6.8, z: 0.46}
+  m_LocalScale: {x: 4.607375, y: 1.812499, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 18
@@ -3443,6 +3444,16 @@ Prefab:
         type: 2}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224488750735801252, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224488750735801252, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1.0374986
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1b905cc00cc4944b9c2232ee7246378, type: 2}
