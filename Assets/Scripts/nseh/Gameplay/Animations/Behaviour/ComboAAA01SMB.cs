@@ -23,11 +23,12 @@ namespace nseh.Gameplay.Animations.Behaviour
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
             // On entering this state, disable player's movement component
-            _playerInfo.PlayerMovement.DisableMovement();
+            _playerInfo.PlayerMovement.DisableMovement(0.2f);
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
             animator.SetFloat(_playerInfo.TimeComboAAA01Hash, stateInfo.normalizedTime);

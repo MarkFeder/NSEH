@@ -15,12 +15,14 @@ namespace nseh.Gameplay.Entities.Player
         private Animator anim;
         private Rigidbody body;
         private PlayerInfo playerInfo;
-
+        
+        private int inverted;
         private int platformMask;
 
         private bool facingRight;
         private bool movePressed;
         private bool jumpPressed;
+        private bool canUseDoubleJump = false;
         private bool currentIdleJump = false;
         private bool currentLocoJump = false;
         private bool usedExtraJump = false;
@@ -31,6 +33,10 @@ namespace nseh.Gameplay.Entities.Player
         [SerializeField]
         private float currentSpeed;
         private float oldSpeed;
+        private float oldJump;
+        private float timeJump;
+        private float timeSpeed;
+        private float timeConfusion;
 
         #endregion
 
@@ -92,51 +98,13 @@ namespace nseh.Gameplay.Entities.Player
 
         #region State Properties
 
-        private bool IsIdleState
-        {
-            get
-            {
-                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.playerInfo.IdleHash;
-            }
-        }
-
-        private bool IsLocomotionState
-        {
-            get
-            {
-                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.playerInfo.LocomotionHash;
-            }
-        }
-
-        private bool IsIdleJumpState
-        {
-            get
-            {
-                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.playerInfo.IdleJumpHash;
-            }
-        }
-
-        private bool IsLocomotionJumpState
-        {
-            get
-            {
-                return this.anim.GetCurrentAnimatorStateInfo(0).shortNameHash == this.playerInfo.LocomotionJumpHash;
-            }
-        }
-
-        private bool IsJumpingState
-        {
-            get
-            {
-                return this.IsLocomotionJumpState || this.IsIdleJumpState;
-            }
-        }
-
+      
         #endregion
 
         private void Start()
         {
             this.OnSetupPlayerMovement();
+            
         }
 
         private void Update()
@@ -157,116 +125,38 @@ namespace nseh.Gameplay.Entities.Player
 
         #region Main Logic
 
-        private void ApplyJump()
-        {
-            // Depending on the current state, jump vector will be different
-            if (this.IsIdleState)
-            {
-                this.body.velocity = Vector3.up * this.jumpHeight;
-
-                this.currentIdleJump = true;
-            }
-            else if (this.IsLocomotionState)
-            {
-                var vVelocity = this.body.velocity;
-                vVelocity.y = this.jumpHeight;
-                this.body.velocity = vVelocity;
-
-                this.currentLocoJump = true;
-            }
-            else if (this.IsJumpingState)
-            {
-                // For double jump
-                var vVelocity = this.body.velocity;
-                vVelocity.y = this.jumpHeight;
-                this.body.velocity = vVelocity;
-            }
-
-            // Start animator
-            this.StartJumpAnimator();
-        }
-
-        private void MotionInTheAir()
-        {
-            // Player is in the air
-            // Double jump
-            if (!this.usedExtraJump && this.jumpPressed)
-            {
-                this.usedExtraJump = true;
-
-                this.ApplyJump();
-            }
-            else
-            {
-                // Should gravity be updated here to support customization
-                // Damp air depends on the type of jump
-                if (this.currentIdleJump && this.body.velocity.y <= 0.1f)
-                {
-                    // If player is moving in the air
-                    if (this.movePressed)
-                    {
-                        Vector3 vLocalDirection = new Vector3(0.0f, this.body.velocity.y, this.jumpAirSpeed);
-                        this.body.velocity = this.transform.TransformDirection(vLocalDirection);
-                    }
-                }
-                else if (this.currentLocoJump)
-                {
-                    Vector3 vLocalDirection = new Vector3(0.0f, this.body.velocity.y, this.jumpAirSpeed);
-                    this.body.velocity = this.transform.TransformDirection(vLocalDirection);
-                }
-            }
-        }
-
         private void Jump()
         {
-            // Player's first jump
             if (this.IsGrounded() && this.jumpPressed)
             {
+                this.body.velocity = new Vector3(this.body.velocity.x, this.jumpHeight, 0);
                 this.usedExtraJump = false;
-
-                this.ApplyJump();
             }
-            else
+            else if (!this.IsGrounded() && this.jumpPressed && this.usedExtraJump == false && this.canUseDoubleJump)
             {
-                this.MotionInTheAir();
+                this.body.velocity = new Vector3(this.body.velocity.x, this.jumpHeight, 0);
+                this.usedExtraJump = true;
             }
+           
         }
 
         private void Move()
         {
-            if (this.IsGrounded())
+            if (this.movePressed)
             {
-                // Stop jump animator when grounded
-                this.StopJumpAnimator();
-                this.currentIdleJump = false;
-                this.currentLocoJump = false;
-
-                // TODO: Should our character move like playerController
-                // so as to avoid some obstacles ?
-
-                // Check if player is moving
-                if (this.movePressed)
-                {
-                    this.body.velocity = this.transform.forward * this.currentSpeed;
-                    this.anim.SetFloat(this.playerInfo.SpeedStateName, this.currentSpeed);
-                }
-                else
-                {
-                    this.body.velocity = Vector3.zero;
-                    this.anim.SetFloat(this.playerInfo.SpeedStateName, 0.0f);
-                }
+                this.body.velocity = new Vector3(inverted*this.horizontal*this.currentSpeed, this.body.velocity.y, 0);
+                this.anim.SetFloat(this.playerInfo.SpeedStateName, this.currentSpeed);
+            }
+            else
+            {
+                this.body.velocity = new Vector3(0, this.body.velocity.y, 0);
+                this.anim.SetFloat(this.playerInfo.SpeedStateName, 0.0f);
             }
         }
 
         #endregion
 
         #region Helpers
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(this.transform.position, 0.35f);
-        }
 
         /// <summary>
         /// Check if the player is on the ground.
@@ -277,31 +167,6 @@ namespace nseh.Gameplay.Entities.Player
             return Physics.CheckSphere(this.transform.position, 0.35f, this.platformMask) && this.body.velocity.y <= 0.1f;
         }
 
-        private void StopJumpAnimator()
-        {
-            if (this.anim.GetBool(this.playerInfo.LocomotionJumpStateName))
-            {
-                this.anim.SetBool(this.playerInfo.LocomotionJumpStateName, false);
-            }
-
-            if (this.anim.GetBool(this.playerInfo.IdleJumpStateName))
-            {
-                this.anim.SetBool(this.playerInfo.IdleJumpStateName, false);
-            }
-        }
-
-        private void StartJumpAnimator()
-        {
-            if (IsLocomotionState)
-            {
-                this.anim.SetBool(this.playerInfo.LocomotionJumpStateName, true);
-            }
-
-            if (IsIdleState)
-            {
-                this.anim.SetBool(this.playerInfo.IdleJumpStateName, true);
-            }
-        }
 
         #endregion
 
@@ -320,10 +185,17 @@ namespace nseh.Gameplay.Entities.Player
         /// <summary>
         /// Disable player's movement.
         /// </summary>
-        public void DisableMovement()
+        public void DisableMovement(float seconds)
         {
+            StartCoroutine(CorutineDisable(seconds));
+        }
+
+        public IEnumerator CorutineDisable(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
             this.enabled = false;
-            this.playerInfo.Body.useGravity = false;
+            if(!this.IsGrounded())
+                this.playerInfo.Body.useGravity = true;
             this.playerInfo.Body.isKinematic = true;
         }
 
@@ -347,16 +219,19 @@ namespace nseh.Gameplay.Entities.Player
             this.playerInfo = GetComponent<PlayerInfo>();
             this.anim = this.playerInfo.Animator;
             this.body = this.playerInfo.Body;
+            this.inverted = -1;
 
             this.facingRight = (this.transform.localEulerAngles.y == 270.0f) ? true : false;
             this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
             this.currentSpeed = this.baseSpeed;
+            this.oldSpeed = this.currentSpeed;
+            this.oldJump = jumpHeight;
         }
 
         #endregion
 
         #region Flip Logic
-
+        
         /// <summary>
         /// Check if player can rotate and do it.
         /// </summary>
@@ -379,12 +254,11 @@ namespace nseh.Gameplay.Entities.Player
         private void Flip()
         {
             this.facingRight = !this.facingRight;
-
             var rotation = this.transform.localRotation;
             rotation.y = -rotation.y;
             this.transform.localRotation = rotation;
         }
-
+        
         #endregion
 
         #region Public Items Methods
@@ -395,9 +269,7 @@ namespace nseh.Gameplay.Entities.Player
         /// <param name="seconds"></param>
         public void InvertControl(float seconds)
         {
-            var waitSeconds = new WaitForSeconds(seconds);
-
-            this.StartCoroutine(this.InvertControlForSeconds(waitSeconds));
+            this.StartCoroutine(this.InvertControlForSeconds(seconds));
         }
 
         /// <summary>
@@ -438,12 +310,12 @@ namespace nseh.Gameplay.Entities.Player
         {
             if (percent > 0.0f)
             {
-                oldSpeed = this.currentSpeed;
+                timeSpeed = Time.time;
+
+                this.currentSpeed = this.oldSpeed;
 
                 this.currentSpeed += (this.baseSpeed * percent / 100.0f);
 
-                Debug.Log(String.Format("Speed of {0} is: {1} and applying {2}% more has changed to: {3}",
-                        this.gameObject.name, oldSpeed, percent, this.currentSpeed));
             }
         }
 
@@ -455,12 +327,9 @@ namespace nseh.Gameplay.Entities.Player
         {
             if (percent > 0.0f)
             {
-                oldSpeed = this.currentSpeed;
 
                 this.currentSpeed -= (this.baseSpeed * percent / 100.0f);
 
-                Debug.Log(String.Format("Speed of {0} is: {1} and applying {2}% less has changed to: {3}",
-                        this.gameObject.name, oldSpeed, percent, this.currentSpeed));
             }
         }
 
@@ -476,8 +345,6 @@ namespace nseh.Gameplay.Entities.Player
 
                 this.currentSpeed -= (this.baseSpeed * percent / 100.0f);
 
-                Debug.Log(String.Format("Speed of {0} is: {1} and applying {2}% less has changed to: {3}",
-                        this.gameObject.name, oldSpeed, percent, this.currentSpeed));
             }
         }
 
@@ -487,14 +354,16 @@ namespace nseh.Gameplay.Entities.Player
         /// <param name="percent"></param>
         public void IncreaseJump(float percent)
         {
+
             if (percent > 0.0f)
             {
-                var oldJumpHeight = this.jumpHeight;
+                timeJump = Time.time;
+
+                this.jumpHeight = this.oldJump;
 
                 this.jumpHeight += (this.jumpHeight * percent / 100.0f);
 
-                Debug.Log(String.Format("Jump of {0} is: {1} and applying {2}% more has changed to: {3}",
-                        this.gameObject.name, oldJumpHeight, percent, this.jumpHeight));
+
             }
         }
 
@@ -506,12 +375,10 @@ namespace nseh.Gameplay.Entities.Player
         {
             if (percent > 0.0f)
             {
-                var oldJumpHeight = this.jumpHeight;
 
                 this.jumpHeight -= (this.jumpHeight * percent / 100.0f);
 
-                Debug.Log(String.Format("Jump of {0} is: {1} and applying {2}% less has changed to: {3}",
-                        this.gameObject.name, oldJumpHeight, percent, this.jumpHeight));
+
             }
         }
 
@@ -530,62 +397,73 @@ namespace nseh.Gameplay.Entities.Player
 
         private void InvertPlayerRotation()
         {
-            Quaternion rotation = this.transform.localRotation;
-            rotation.y = -rotation.y;
+            if(inverted == -1)
+            {
+                Quaternion rotation = this.transform.localRotation;
+                rotation.y = -rotation.y;
+                this.transform.localRotation = rotation;
+            }
 
-            this.transform.localRotation = rotation;
+            timeConfusion = Time.time;
+            inverted = 1;
+                    
         }
 
-        private IEnumerator InvertControlForSeconds(WaitForSeconds waitSeconds)
+
+        private IEnumerator InvertControlForSeconds(float seconds)
         {
-            Debug.Log("Character " + this.transform.root.name + " control has been inverted");
 
             this.InvertPlayerRotation();
 
-            yield return waitSeconds;
+            yield return new WaitForSeconds(seconds);
 
-            this.InvertPlayerRotation();
+            if (Time.time >= timeConfusion + seconds)
+            {
+                inverted = -1;
+                Quaternion rotation = this.transform.localRotation;
+                rotation.y = -rotation.y;
+                this.transform.localRotation = rotation;
+            }
+               
 
-            Debug.Log("Character " + this.transform.root.name + " control has been restablished");
         }
 
         private IEnumerator IncreaseJumpForSecondsInternal(float percent, float seconds)
         {
-            var oldJumpHeight = this.jumpHeight;
 
-            this.IncreaseJump(percent);
+            //this.IncreaseJump(percent);
+
+            this.canUseDoubleJump = true;
+            timeJump = Time.time;
 
             yield return new WaitForSeconds(seconds);
 
-            Debug.Log(string.Format("Jump of {0} has been restored to: {1}", this.gameObject.name, oldJumpHeight));
+            if (Time.time >= timeJump+seconds)
+                this.canUseDoubleJump = false;
 
-            this.jumpHeight = oldJumpHeight;
+
         }
 
         private IEnumerator IncreaseSpeedForSecondsInternal(float percent, float seconds)
         {
-            oldSpeed = this.currentSpeed;
-
             this.IncreaseSpeed(percent);
 
             yield return new WaitForSeconds(seconds);
 
-            Debug.Log(string.Format("Speed of {0} has been restored to: {1}", this.gameObject.name, oldSpeed));
+            if (Time.time >= timeSpeed + seconds)
+                this.currentSpeed = oldSpeed;
 
-            this.currentSpeed = oldSpeed;
+
         }
 
         private IEnumerator DecreaseSpeedForSecondsInternal(float percent, float seconds)
         {
-            oldSpeed = this.currentSpeed;
 
             this.DecreaseSpeed(percent);
 
             yield return new WaitForSeconds(seconds);
 
-            Debug.Log(string.Format("Speed of {0} has been restored to: {1}", this.gameObject.name, oldSpeed));
 
-            this.currentSpeed = oldSpeed;
         }
 
         #endregion

@@ -36,21 +36,18 @@ namespace nseh.Gameplay.Entities.Enemies
 			if (_colliders != null && _colliders.Count > 0)
 			{
 				// Deactivate other colliders
+                
 				for (int i = 0; i < _colliders.Count; i++)
 				{
 					Collider collider = _colliders[i];
 					CollisionHandler weaponCollision = collider.GetComponent<CollisionHandler>();
 
-					if (weaponCollision.Index != index)
+					if (weaponCollision.Index == index)
 					{
-						collider.enabled = false;
-						weaponCollision.enabled = false;
-					}
-					else
-					{
-						collider.enabled = true;
-						weaponCollision.enabled = true;
-					}
+                        collider.enabled = true;
+                        weaponCollision.enabled = true;
+                    }
+					
 				}
 			}
 			else

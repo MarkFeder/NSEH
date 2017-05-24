@@ -389,7 +389,7 @@ namespace nseh.Gameplay.Entities.Player
 
             // Disable player
             _playerInfo.Animator.SetTrigger(_playerInfo.DeadHash);
-            _playerInfo.PlayerMovement.DisableMovement();
+            _playerInfo.PlayerMovement.DisableMovement(0f);
             _playerInfo.PlayerCollider.enabled = false;
         }
 

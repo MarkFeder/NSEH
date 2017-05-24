@@ -8,7 +8,7 @@
             {
                 public const string HEALTH = "HEAL!";
                 public const string DAMAGE = "MORE DAMAGE!";
-                public const string JUMP = "MORE JUMP!";
+                public const string JUMP = "DOUBLE JUMP!";
                 public const string SPEED = "MORE SPEED!";
                 public const string DEFENSE = "MORE DEFENSE!";
             }
