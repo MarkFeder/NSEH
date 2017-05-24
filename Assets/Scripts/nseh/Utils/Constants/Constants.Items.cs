@@ -15,7 +15,7 @@
 
             public static class SpecialItems
             {
-                public const string INVULNERABILITY = "INVULNERABILITY";
+                public const string INVULNERABILITY = "INVULNERABILITY!";
                 public const string AUTOATTACKS = "Why do you punch yourself?";
                 public const string CRITICAL = "MUCH MORE DAMAGE!";
                 public const string ULTIMATE = "YOU ARE EPIC!";
@@ -24,8 +24,8 @@
             public static class DisadvantageItems
             {
                 public const string BOMBCHEST = "BOOOOOM!";
-                public const string POISONCLOUD = "Why did it have to be snakes?!";
-                public const string CONFUSION = "Dyslexia topion";
+                public const string POISONCLOUD = "POISON CLOUD!";
+                public const string CONFUSION = "DYSLEXIA TOPION!";
             }
         }
     }

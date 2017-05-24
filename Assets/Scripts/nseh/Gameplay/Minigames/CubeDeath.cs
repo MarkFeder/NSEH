@@ -43,7 +43,7 @@ namespace nseh.Gameplay.Minigames {
         #region Private Methods
         private void OnTriggerEnter(Collider other)
         {
-            StartCoroutine(DestroyCharacter(other, Time.deltaTime));
+            StartCoroutine(DestroyCharacter(other, Time.time));
         }
 
         private IEnumerator DestroyCharacter(Collider other, float time)

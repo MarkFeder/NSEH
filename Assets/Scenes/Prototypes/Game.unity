@@ -3993,7 +3993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716e106bb88804b4d84286a3b62c6785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformTarget: {fileID: 0}
+  platformTarget: {fileID: 2137216255}
   initialTarPosition: {x: 0, y: 0, z: 0}
   platformPosition: {x: 0, y: 0, z: 0}
   targetTarPosition: {x: 0, y: 0, z: 0}
@@ -4282,3 +4282,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 56188bce81302cb4190318833c1c60e5, type: 3}
   m_IsPrefabParent: 0
+--- !u!4 &2137216255 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400022, guid: 56188bce81302cb4190318833c1c60e5, type: 3}
+  m_PrefabInternal: {fileID: 2137216254}

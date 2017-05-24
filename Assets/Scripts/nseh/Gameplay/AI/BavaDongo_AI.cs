@@ -22,6 +22,7 @@ namespace nseh.Gameplay.AI
         public float percentageFrenzy;
         public float animationSpeedFrenzy;
         public float agentSpeedFrenzy;
+        public float frenzyHealth;
         #endregion
 
         #region Private Properties
@@ -39,7 +40,6 @@ namespace nseh.Gameplay.AI
         private float _prob_AttackSpikes_in;
         private float _prob_AttackRoll_in;
         private float _health;
-        private float _frenzyHealth;
         private float _animationSpeed;
 
         public bool IsDeath
@@ -68,8 +68,7 @@ namespace nseh.Gameplay.AI
             _agent.SetDestination(_nextPoint.position);
             _prob_Patrol_in = 0.5f;
             _prob_AttackSpikes_in = 1f;
-            _health = GetComponent<EnemyHealth>().CurrentHealth;
-            _frenzyHealth = (GetComponent<EnemyHealth>().MaxHealth * percentageFrenzy) / 100;
+            
             _frenzy = false;
             _wait = 2;
             _animator.speed = 1;
@@ -80,17 +79,29 @@ namespace nseh.Gameplay.AI
             _throne = GameObject.Find("throne");
             maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
             //_animator.SetBool("Walk", true);
-            _isDice = false;
+            _health = GetComponent<EnemyHealth>().CurrentHealth;
+            
+            if (Random.Range(0.0f, 1.0f) >= 0.6f)
+            {
+                _nextPoint = left_Limit;
+
+            }
+            else
+            {
+                _nextPoint = right_Limit;
+
+            }
+            _isDice = true;
+            _animator.SetBool("Walk", true);
+
         }
 
         // Update is called once per frame
         public void Update()
         {
-
             _health = GetComponent<EnemyHealth>().CurrentHealth;
             if (_health <= 0 && _isDeath == false)
             {
-                Debug.Log("ME MUERO");
                 _isDeath = true;
                 _agent.enabled = false;
                 _nextPoint = null;
@@ -100,11 +111,12 @@ namespace nseh.Gameplay.AI
             }
             else
             {
-                if (_health <= _frenzyHealth && _frenzy == false)
+                if (_health <= frenzyHealth && _frenzy == false)
                 {
-                    Debug.Log("ME CABREO");
+                    _animator.SetBool("Walk", false);
+                    _animator.SetBool("AttackRoll", false);
                     _agent.enabled = false;
-                    _isDice = false;
+                    //_isDice = false;
                     _frenzy = true;
                    _animator.SetTrigger("Frenzy");
                     _prob_Patrol_in = 0.25f;
@@ -171,7 +183,7 @@ namespace nseh.Gameplay.AI
             numPlayers = throne.GetComponent<Throne>().players_throne;
             float prob_AttackRoll = _prob_AttackSpikes_in - ((_prob_AttackSpikes_in - _prob_Patrol_in) * numPlayers / maxPlayers);
             Debug.Log("Dice " + _dice + " " + _prob_AttackSpikes_in + " "+ _prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
-            float angle = 175;
+            float angle = 100;
             Debug.Log(Vector3.Angle(this.transform.forward, _nextPoint.transform.position - this.transform.position));
             if (Vector3.Angle(this.transform.forward, _nextPoint.transform.position - this.transform.position) > angle)
             {

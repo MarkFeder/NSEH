@@ -65,7 +65,7 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
                     PlayerInfo enemyInfo = enemyObj.GetComponent<PlayerInfo>();
                     if (enemyInfo != null && enemyInfo.Player != _senderInfo.Player)
                     {
-                        FireParticles();
+                        FireParticles(collision.transform.position);
 
                         // Set score and energy on sender
                         _senderInfo.PlayerScore.IncreaseScore((int)_damage);
@@ -86,7 +86,7 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
                     IHealth enemyHealth = enemyObj.GetComponent<IHealth>();
                     if (enemyHealth != null)
                     {
-                        FireParticles();
+                        FireParticles(collision.transform.position);
 
                         // Set health
                         enemyHealth.TakeDamage((int)_damage);
@@ -100,16 +100,16 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             }
             else if (colTag == Tags.PLATFORM)
             {
-                FireParticles();
+                FireParticles(collision.transform.position);
 
                 _body.isKinematic = true;
                 Destroy(transform.parent.gameObject);
             }
         }
 
-        private void FireParticles()
+        private void FireParticles(Vector3 position)
         {
-            GameObject particleGameObject = Instantiate(_particle, transform.position, transform.rotation);
+            GameObject particleGameObject = Instantiate(_particle, position, transform.rotation);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
                 particle_aux.Play();

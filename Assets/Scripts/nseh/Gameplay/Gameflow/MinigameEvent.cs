@@ -7,6 +7,7 @@ using nseh.Gameplay.Minigames;
 using nseh.Gameplay.Movement;
 using nseh.Gameplay.Base.Abstract.Gameflow;
 using nseh.Managers.Level;
+using nseh.Utils;
 using LevelHUDConstants = nseh.Utils.Constants.InLevelHUD;
 using Inputs = nseh.Utils.Constants.Input;
 using InputUE = UnityEngine.Input;
@@ -148,7 +149,7 @@ namespace nseh.Gameplay.Gameflow
             _ready.text = "RUUUUUUN!!!";
             yield return new WaitForSeconds(1);
             _ready.text = "";
-            _timeRemaining = 30;
+            _timeRemaining = Constants.LevelManager.MINIGAME_TIME;
             Camera.main.GetComponent<CameraScript>().started = true;
             GameObject.Find("Camera").GetComponent<Camera>().GetComponent<CameraScript>().started = true;
             _CubeDeath.GetComponent<CubeDeath>().started = true;

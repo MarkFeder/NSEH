@@ -9,12 +9,11 @@ namespace nseh.Gameplay.Entities.Enemies
         #region Private Properties
 
         [SerializeField]
-        private int _maxHealth;
+        private float _maxHealth;
         [SerializeField]
-        private int _currentHealth;
+        private float _currentHealth;
 
         private bool _isDead;
-        private int _deathCounter;
 
         [SerializeField]
         private BarComponent _lifeBar;
@@ -23,7 +22,7 @@ namespace nseh.Gameplay.Entities.Enemies
 
         #region Public Properties
 
-        public int CurrentHealth
+        public float CurrentHealth
         {
             get { return _currentHealth; }
             set 
@@ -37,7 +36,7 @@ namespace nseh.Gameplay.Entities.Enemies
             }
         }
 
-        public int MaxHealth
+        public float MaxHealth
         {
             get { return _maxHealth; }
             set
@@ -67,8 +66,6 @@ namespace nseh.Gameplay.Entities.Enemies
         private void Start()
         {
             // TODO: reference here to enemy info
-
-            _deathCounter = 0;
             _isDead = false;
 
         }
@@ -80,11 +77,9 @@ namespace nseh.Gameplay.Entities.Enemies
 
         private void Death()
         {
-            _deathCounter++;
             //_currentHealth = _maxHealth;
             _isDead = true;
 
-            Debug.Log(string.Format("[{0}] has died: {1} times", gameObject.name, _deathCounter));
         }
 
         #endregion

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65071983693459816}
   - component: {fileID: 114260751212745758}
   - component: {fileID: 96111985493769198}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: Espada
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4035309306306136}
   - component: {fileID: 212783995119033828}
   - component: {fileID: 114242311106287240}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Text_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 65908409726001904}
   - component: {fileID: 114617106729738090}
   - component: {fileID: 96785057457754014}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: Pala
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -805,7 +805,7 @@ GameObject:
   - component: {fileID: 4960739056615302}
   - component: {fileID: 23457709137111536}
   - component: {fileID: 102001151077670628}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Player Text Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -897,7 +897,7 @@ GameObject:
   - component: {fileID: 4176419484240524}
   - component: {fileID: 23190295003537426}
   - component: {fileID: 102124537528519390}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Player Text Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}

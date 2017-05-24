@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Down
+  m_Name: 535c8d52facb0c462c01050d0e492397
   m_Shader: {fileID: 2, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -38,9 +38,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 93673b4ee50017647b2b3438a9aa9b41, type: 3}
-        m_Scale: {x: 1.3, y: 1.75}
-        m_Offset: {x: -0.14999998, y: -0.84749997}
+        m_Texture: {fileID: 2800000, guid: 0489ea72e4d18464daf76f9556049719, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: -0.01999998}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}

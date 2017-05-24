@@ -2,6 +2,8 @@
 using nseh.Gameplay.Entities.Enemies;
 using nseh.Managers.Level;
 using UnityEngine;
+using System.Collections;
+using nseh.Gameplay.AI;
 using Inputs = nseh.Utils.Constants.Input;
 
 namespace nseh.Gameplay.Gameflow
@@ -28,6 +30,7 @@ namespace nseh.Gameplay.Gameflow
             _boss = GameObject.Find("Bava Dongo");
             _boss.GetComponent<EnemyHealth>().MaxHealth = _levelManager.Players.Count * 200;
             _boss.GetComponent<EnemyHealth>().CurrentHealth = _levelManager.Players.Count * 200;
+            _boss.GetComponent<BavaDongo_AI>().frenzyHealth = _boss.GetComponent<EnemyHealth>().MaxHealth * _boss.GetComponent<BavaDongo_AI>().percentageFrenzy;
         }
 
         public override void EventTick()
@@ -39,8 +42,6 @@ namespace nseh.Gameplay.Gameflow
             {
                 Debug.Log("BavaDongo died!");
                 EventRelease();
-                //_levelManager.GoToMainMenuScore();
-                //_levelManager.MyGame.StartCoroutine("EventRelease");
             }
             else if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))))
             {
@@ -68,9 +69,17 @@ namespace nseh.Gameplay.Gameflow
             {
                 _levelManager.MyGame._score[character.PlayerRunTimeInfo.GamepadIndex - 1, 2] = character.PlayerRunTimeInfo.PlayerScore.Score;
                 Debug.Log(_levelManager.MyGame._score[character.PlayerRunTimeInfo.GamepadIndex - 1, 2]);
-                //Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+character.PlayerRunTimeInfo.Score);
             }
 
+            _levelManager.GoToMainMenuScore();
+            //_levelManager.MyGame.StartCoroutine("ScoreMenu");
+
+
+        }
+
+        private IEnumerator ScoreMenu()
+        {
+            yield return new WaitForSeconds(3);
             _levelManager.GoToMainMenuScore();
         }
 
