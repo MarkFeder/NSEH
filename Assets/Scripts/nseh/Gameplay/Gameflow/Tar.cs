@@ -9,7 +9,7 @@ namespace nseh.Gameplay.Gameflow
 {
     public class Tar : TarComponent
     {
-        public Animator animator;
+        //public Animator animator;
 
         #region Private Properties
 
@@ -22,7 +22,7 @@ namespace nseh.Gameplay.Gameflow
 
         protected override bool TarUp(float elapsedTime)
         {
-            animator.SetBool("Motion", true);
+            //animator.SetBool("Motion", true);
             targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, targetTarPosition, elapsedTime / 80.0f);
 
@@ -43,7 +43,7 @@ namespace nseh.Gameplay.Gameflow
             {
                 //Debug.Log("Tar is down. " + "(" + elapsedTime + ")");
                 _playersInTar = new List<GameObject>();
-                animator.SetBool("Motion", false);
+                //animator.SetBool("Motion", false);
                 return false;
             }
             //animator.SetBool("Motion", false);
@@ -52,7 +52,7 @@ namespace nseh.Gameplay.Gameflow
 
         protected override void TarReset()
         {
-            animator.SetBool("Motion", false);
+            //animator.SetBool("Motion", false);
             transform.position = initialTarPosition;
             _nextApplyEffect = 0;
             _playersInTar = new List<GameObject>();
