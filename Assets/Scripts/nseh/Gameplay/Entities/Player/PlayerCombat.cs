@@ -1,13 +1,11 @@
-﻿using nseh.Gameplay.Base.Abstract;
-using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Combat;
-using nseh.Gameplay.Combat.Defense;
-using nseh.Gameplay.Combat.System;
-using nseh.Utils.Helpers;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using nseh.Gameplay.Base.Abstract;
+using nseh.Gameplay.Base.Interfaces;
+using nseh.Gameplay.Combat.System;
+using nseh.Utils.Helpers;
 using UnityEngine;
 using Tags = nseh.Utils.Constants.Tags;
 
@@ -140,8 +138,10 @@ namespace nseh.Gameplay.Entities.Player
                     Collider collider = _colliders[i];
                     WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
                     TrailRenderer trail = collider.GetComponent<TrailRenderer>();
+
                     collider.enabled = false;
                     weaponCollision.enabled = false;
+
                     StartCoroutine("Trail", trail);
                     
                 }
@@ -152,7 +152,12 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
-        IEnumerator Trail(TrailRenderer trail)
+        /// <summary>
+        /// Enable the trail after 0.5f seconds.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="trail">Trail.</param>
+        private IEnumerator Trail(TrailRenderer trail)
         {
             yield return new WaitForSeconds(0.5f);
             trail.enabled = false;

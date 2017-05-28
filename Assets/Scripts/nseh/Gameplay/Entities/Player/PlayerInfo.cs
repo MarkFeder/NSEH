@@ -225,6 +225,8 @@ namespace nseh.Gameplay.Entities.Player
 
             SetupParticles();
             SetupLookUpKeyParticles();
+
+            SetupSounds();
         }
 
         private void Start()

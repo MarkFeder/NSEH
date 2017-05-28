@@ -20,9 +20,16 @@ namespace nseh.Gameplay.Combat.Attack.BavaDongo
 
         #region Public Properties
 
-        public int Damage { get { return _damage; } set { _damage = value; } }
+        public int Damage 
+        { 
+            get { return _damage; } 
+            set { _damage = value; } 
+        }
 
-        public int Index { get { return _index; } }
+        public int Index 
+        { 
+            get { return _index; } 
+        }
 
         #endregion
 

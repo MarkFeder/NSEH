@@ -30,7 +30,6 @@ namespace nseh.Gameplay.Combat
         protected AttackType _attackType;
 
         protected float _currentDamage;
-        protected bool _critical;
 
         #endregion
 
@@ -42,9 +41,16 @@ namespace nseh.Gameplay.Combat
 
         #region Public C# Properties
 
-        public float InitialDamage { get { return _initialDamage; } }
+        public float InitialDamage 
+        { 
+            get { return _initialDamage; } 
+        }
 
-        public float CurrentDamage { get { return _currentDamage; } set { _currentDamage = value; } }
+        public float CurrentDamage 
+        { 
+            get { return _currentDamage; } 
+            set { _currentDamage = value; } 
+        }
 
         public bool IsCombo
         {
@@ -67,17 +73,18 @@ namespace nseh.Gameplay.Combat
             }
         }
 
-        public AttackType AttackType { get { return _attackType; } }
+        public AttackType AttackType 
+        { 
+            get { return _attackType; } 
+        }
 
         #endregion
 
         #region Protected Methods
 
-        protected override void Start()
+        protected virtual void Start()
         {
 			// Register info
-			base.Start();
-
 			_playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
             _animator = _playerInfo.Animator;
 
@@ -146,15 +153,6 @@ namespace nseh.Gameplay.Combat
             if (_enabled)
             {
                 base.StartAction();
-
-                // Play audio if audioControllers are available
-                if (_audioControllers.Count > 0)
-                {
-					Debug.Log("Playing sound for " + _attackType.ToString());
-					
-                    // UnityEngine.Random.Range(0, _audioControllers.Count-1)
-					GameManager.Instance.SoundManager.PlayAudio(_audioControllers[0]);
-                }
             }
         }
 
@@ -244,7 +242,7 @@ namespace nseh.Gameplay.Combat
 
             yield return new WaitForSeconds(seconds);
 
-            Debug.Log(string.Format("[{0}] damage of {1} has been restored to: {2}", AttackType.ToString(), _playerInfo.PlayerName, oldDamage));
+            Debug.Log(string.Format("[{0}] damage of {1} has been restored to: {2}", _attackType.ToString(), _playerInfo.PlayerName, oldDamage));
 
             _currentDamage = oldDamage;
         }

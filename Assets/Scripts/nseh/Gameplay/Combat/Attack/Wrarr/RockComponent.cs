@@ -83,7 +83,7 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             {
                 if (!_enemies.Contains(enemyObj))
                 {
-                    IHealth enemyHealth = enemyObj.GetComponent<IHealth>();
+                    EnemyHealth enemyHealth = enemyObj.GetComponent<EnemyHealth>();
                     if (enemyHealth != null)
                     {
                         FireParticles(collision.transform.position);

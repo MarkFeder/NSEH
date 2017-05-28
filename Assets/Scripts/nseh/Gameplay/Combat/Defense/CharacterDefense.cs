@@ -21,15 +21,16 @@ namespace nseh.Gameplay.Combat.Defense
 
         #region Public C# Properties
 
-        public DefenseType CurrentMode { get { return _currentMode; } }
+        public DefenseType CurrentMode 
+        { 
+            get { return _currentMode; } 
+        }
 
         #endregion
 
-        protected override void Start()
+        protected virtual void Start()
         {
 			// Register info
-            base.Start();
-
             _playerInfo = gameObject.transform.root.GetComponent<PlayerInfo>();
             _animator = _playerInfo.Animator;
 

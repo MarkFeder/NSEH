@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using nseh.Managers.Audio;
+using nseh.Managers.Main;
 using UnityEngine;
 using Layers = nseh.Utils.Constants.Layers;
 
@@ -12,41 +13,42 @@ namespace nseh.Gameplay.Entities.Player
     {
         #region Private Properties
 
-        private Animator anim;
-        private Rigidbody body;
-        private PlayerInfo playerInfo;
+        private Animator _anim;
+        private Rigidbody _body;
+        private PlayerInfo _playerInfo;
         
-        private int inverted;
-        private int platformMask;
+        private int _inverted;
+        private int _platformMask;
 
-        private bool facingRight;
-        private bool movePressed;
-        private bool jumpPressed;
-        private bool canUseDoubleJump = false;
-        private bool currentIdleJump = false;
-        private bool currentLocoJump = false;
-        private bool usedExtraJump = false;
+        private bool _facingRight;
+        private bool _movePressed;
+        private bool _jumpPressed;
+        private bool _canUseDoubleJump = false;
+        private bool _currentIdleJump = false;
+        private bool _currentLocoJump = false;
+        private bool _usedExtraJump = false;
 
-        private float horizontal;
-        private float vertical;
-        private float gravity;
+        private float _horizontal;
+        private float _vertical;
+        private float _gravity;
+
         [SerializeField]
-        private float currentSpeed;
-        private float oldSpeed;
-        private float oldJump;
-        private float timeJump;
-        private float timeSpeed;
-        private float timeConfusion;
+        private float _currentSpeed;
+        private float _oldSpeed;
+        private float _oldJump;
+        private float _timeJump;
+        private float _timeSpeed;
+        private float _timeConfusion;
 
-        #endregion
-
-        #region Public Properties
-
-        [Range(0, 1)]
-        public float dampAir;
-        public float jumpAirSpeed;
-        public float jumpHeight;
-        public float baseSpeed;
+        [Range(0,1)]
+        [SerializeField]
+        private float _dampAir;
+        [SerializeField]
+        private float _jumpAirSpeed;
+        [SerializeField]
+        private float _jumpHeight;
+        [SerializeField]
+        private float _baseSpeed;
 
         #endregion
 
@@ -54,103 +56,76 @@ namespace nseh.Gameplay.Entities.Player
 
         public bool IsFacingRight
         {
-            get
-            {
-                return this.facingRight;
-            }
+            get { return _facingRight; }
         }
 
         public float CurrentSpeed
         {
-            get
-            {
-                return this.currentSpeed;
-            }
-
-            set
-            {
-                this.currentSpeed = value;
-            }
+            get { return _currentSpeed; }
+            set { _currentSpeed = value; }
         }
 
         public float BaseSpeed
         {
-            get
-            {
-                return this.baseSpeed;
-            }
-
-            set
-            {
-                this.baseSpeed = value;
-            }
+            get { return _baseSpeed; }
+            set { _baseSpeed = value; }
         }
 
         public bool IsFallingDown
         {
-            get
-            {
-                return this.body.velocity.y < 0.0f;
-            }
+            get { return _body.velocity.y < 0.0f; }
         }
 
-        #endregion
-
-        #region State Properties
-
-      
         #endregion
 
         private void Start()
         {
-            this.OnSetupPlayerMovement();
-            
+            OnSetupPlayerMovement();
         }
 
         private void Update()
         {
-            this.horizontal = this.playerInfo.Horizontal;
-            this.vertical = this.playerInfo.Vertical;
+            _horizontal = _playerInfo.Horizontal;
+            _vertical = _playerInfo.Vertical;
 
-            this.movePressed = Mathf.Abs(this.horizontal) > 0.1f;
-            this.jumpPressed = this.playerInfo.JumpPressed;
+            _movePressed = Mathf.Abs(_horizontal) > 0.1f;
+            _jumpPressed = _playerInfo.JumpPressed;
 
-            this.anim.SetFloat(this.playerInfo.HorizontalStateName, this.horizontal);
-            this.anim.SetBool(this.playerInfo.GroundedStateName, this.IsGrounded());
+            _anim.SetFloat(_playerInfo.HorizontalStateName, _horizontal);
+            _anim.SetBool(_playerInfo.GroundedStateName, IsGrounded());
 
-            this.OnFlipPlayer(this.horizontal);
-            this.Move();
-            this.Jump();
+            OnFlipPlayer(_horizontal);
+            Move();
+            Jump();
         }
 
         #region Main Logic
 
         private void Jump()
         {
-            if (this.IsGrounded() && this.jumpPressed)
+            if (IsGrounded() && _jumpPressed)
             {
-                this.body.velocity = new Vector3(this.body.velocity.x, this.jumpHeight, 0);
-                this.usedExtraJump = false;
+                _body.velocity = new Vector3(_body.velocity.x, _jumpHeight, 0);
+                _usedExtraJump = false;
             }
-            else if (!this.IsGrounded() && this.jumpPressed && this.usedExtraJump == false && this.canUseDoubleJump)
+            else if (!IsGrounded() && _jumpPressed && !_usedExtraJump && _canUseDoubleJump)
             {
-                this.body.velocity = new Vector3(this.body.velocity.x, this.jumpHeight, 0);
-                this.usedExtraJump = true;
+                _body.velocity = new Vector3(_body.velocity.x, _jumpHeight, 0);
+                _usedExtraJump = true;
             }
-           
         }
 
         private void Move()
         {
-            if (this.movePressed)
+            if (_movePressed)
             {
-                this.body.velocity = new Vector3(inverted*this.horizontal*this.currentSpeed, this.body.velocity.y, 0);
-                this.anim.SetFloat(this.playerInfo.SpeedStateName, this.currentSpeed);
+                _body.velocity = new Vector3(_inverted * _horizontal * _currentSpeed, _body.velocity.y, 0);
+                _anim.SetFloat(_playerInfo.SpeedStateName, _currentSpeed);
             }
             else
             {
-                this.body.velocity = new Vector3(0, this.body.velocity.y, 0);
-                this.anim.SetFloat(this.playerInfo.SpeedStateName, 0.0f);
+                _body.velocity = new Vector3(0, _body.velocity.y, 0);
+                _anim.SetFloat(_playerInfo.SpeedStateName, 0.0f);
             }
         }
 
@@ -164,7 +139,7 @@ namespace nseh.Gameplay.Entities.Player
         /// <returns></returns>
         public bool IsGrounded()
         {
-            return Physics.CheckSphere(this.transform.position, 0.35f, this.platformMask) && this.body.velocity.y <= 0.1f;
+            return Physics.CheckSphere(transform.position, 0.35f, _platformMask) && _body.velocity.y <= 0.1f;
         }
 
 
@@ -177,9 +152,9 @@ namespace nseh.Gameplay.Entities.Player
         /// </summary>
         public void EnableMovement()
         {
-            this.enabled = true;
-            this.playerInfo.Body.useGravity = true;
-            this.playerInfo.Body.isKinematic = false;
+            enabled = true;
+            _playerInfo.Body.useGravity = true;
+            _playerInfo.Body.isKinematic = false;
         }
 
         /// <summary>
@@ -187,16 +162,7 @@ namespace nseh.Gameplay.Entities.Player
         /// </summary>
         public void DisableMovement(float seconds)
         {
-            StartCoroutine(CorutineDisable(seconds));
-        }
-
-        public IEnumerator CorutineDisable(float seconds)
-        {
-            yield return new WaitForSeconds(seconds);
-            this.enabled = false;
-            if(!this.IsGrounded())
-                this.playerInfo.Body.useGravity = true;
-            this.playerInfo.Body.isKinematic = true;
+            StartCoroutine(DisableMovementInternal(seconds));
         }
 
         #endregion
@@ -208,7 +174,7 @@ namespace nseh.Gameplay.Entities.Player
         /// </summary>
         private void OnEnable()
         {
-            this.OnSetupPlayerMovement();
+            OnSetupPlayerMovement();
         }
 
         /// <summary>
@@ -216,16 +182,16 @@ namespace nseh.Gameplay.Entities.Player
         /// </summary>
         private void OnSetupPlayerMovement()
         {
-            this.playerInfo = GetComponent<PlayerInfo>();
-            this.anim = this.playerInfo.Animator;
-            this.body = this.playerInfo.Body;
-            this.inverted = -1;
+            _playerInfo = GetComponent<PlayerInfo>();
+            _anim = _playerInfo.Animator;
+            _body = _playerInfo.Body;
+            _inverted = -1;
 
-            this.facingRight = (this.transform.localEulerAngles.y == 270.0f) ? true : false;
-            this.platformMask = LayerMask.GetMask(Layers.PLATFORM);
-            this.currentSpeed = this.baseSpeed;
-            this.oldSpeed = this.currentSpeed;
-            this.oldJump = jumpHeight;
+            _facingRight = (transform.localEulerAngles.y == 270.0f) ? true : false;
+            _platformMask = LayerMask.GetMask(Layers.PLATFORM);
+            _currentSpeed = _baseSpeed;
+            _oldSpeed = _currentSpeed;
+            _oldJump = _jumpHeight;
         }
 
         #endregion
@@ -238,13 +204,13 @@ namespace nseh.Gameplay.Entities.Player
         /// <param name="horizontal"></param>
         private void OnFlipPlayer(float horizontal)
         {
-            if (horizontal > 0.0f && !facingRight)
+            if (horizontal > 0.0f && !_facingRight)
             {
-                this.Flip();
+                Flip();
             }
-            else if (horizontal < 0.0f && facingRight)
+            else if (horizontal < 0.0f && _facingRight)
             {
-                this.Flip();
+                Flip();
             }
         }
 
@@ -253,10 +219,10 @@ namespace nseh.Gameplay.Entities.Player
         /// </summary>
         private void Flip()
         {
-            this.facingRight = !this.facingRight;
-            var rotation = this.transform.localRotation;
+            _facingRight = !_facingRight;
+            var rotation = transform.localRotation;
             rotation.y = -rotation.y;
-            this.transform.localRotation = rotation;
+            transform.localRotation = rotation;
         }
         
         #endregion
@@ -269,7 +235,7 @@ namespace nseh.Gameplay.Entities.Player
         /// <param name="seconds"></param>
         public void InvertControl(float seconds)
         {
-            this.StartCoroutine(this.InvertControlForSeconds(seconds));
+            StartCoroutine(InvertControlForSeconds(seconds));
         }
 
         /// <summary>
@@ -279,7 +245,7 @@ namespace nseh.Gameplay.Entities.Player
         /// <param name="seconds"></param>
         public void IncreaseJumpForSeconds(float percent, float seconds)
         {
-            StartCoroutine(this.IncreaseJumpForSecondsInternal(percent, seconds));
+            StartCoroutine(IncreaseJumpForSecondsInternal(percent, seconds));
         }
 
         /// <summary>
@@ -289,7 +255,7 @@ namespace nseh.Gameplay.Entities.Player
         /// <param name="seconds"></param>
         public void IncreaseSpeedForSeconds(float percent, float seconds)
         {
-            StartCoroutine(this.IncreaseSpeedForSecondsInternal(percent, seconds));
+            StartCoroutine(IncreaseSpeedForSecondsInternal(percent, seconds));
         }
 
         /// <summary>
@@ -299,7 +265,7 @@ namespace nseh.Gameplay.Entities.Player
         /// <param name="seconds"></param>
         public void DecreaseSpeedForSeconds(float percent, float seconds)
         {
-            StartCoroutine(this.DecreaseSpeedForSecondsInternal(percent, seconds));
+            StartCoroutine(DecreaseSpeedForSecondsInternal(percent, seconds));
         }
 
         /// <summary>
@@ -310,11 +276,11 @@ namespace nseh.Gameplay.Entities.Player
         {
             if (percent > 0.0f)
             {
-                timeSpeed = Time.time;
+                _timeSpeed = Time.time;
 
-                this.currentSpeed = this.oldSpeed;
+                _currentSpeed = _oldSpeed;
 
-                this.currentSpeed += (this.baseSpeed * percent / 100.0f);
+                _currentSpeed += (_baseSpeed * percent / 100.0f);
 
             }
         }
@@ -328,7 +294,7 @@ namespace nseh.Gameplay.Entities.Player
             if (percent > 0.0f)
             {
 
-                this.currentSpeed -= (this.baseSpeed * percent / 100.0f);
+                _currentSpeed -= (_baseSpeed * percent / 100.0f);
 
             }
         }
@@ -341,9 +307,9 @@ namespace nseh.Gameplay.Entities.Player
         {
             if (percent > 0.0f)
             {
-                oldSpeed = this.baseSpeed - (this.baseSpeed * percent / 100.0f);
+                _oldSpeed = _baseSpeed - (_baseSpeed * percent / 100.0f);
 
-                this.currentSpeed -= (this.baseSpeed * percent / 100.0f);
+                _currentSpeed -= (_baseSpeed * percent / 100.0f);
 
             }
         }
@@ -357,11 +323,11 @@ namespace nseh.Gameplay.Entities.Player
 
             if (percent > 0.0f)
             {
-                timeJump = Time.time;
+                _timeJump = Time.time;
 
-                this.jumpHeight = this.oldJump;
+                _jumpHeight = _oldJump;
 
-                this.jumpHeight += (this.jumpHeight * percent / 100.0f);
+                _jumpHeight += (_jumpHeight * percent / 100.0f);
 
 
             }
@@ -376,7 +342,7 @@ namespace nseh.Gameplay.Entities.Player
             if (percent > 0.0f)
             {
 
-                this.jumpHeight -= (this.jumpHeight * percent / 100.0f);
+                _jumpHeight -= (_jumpHeight * percent / 100.0f);
 
 
             }
@@ -387,8 +353,8 @@ namespace nseh.Gameplay.Entities.Player
         /// </summary>
         public void RestoreBaseSpeed()
         {
-            this.currentSpeed = this.baseSpeed;
-            this.oldSpeed = this.baseSpeed;
+            _currentSpeed = _baseSpeed;
+            _oldSpeed = _baseSpeed;
         }
 
         #endregion
@@ -397,32 +363,45 @@ namespace nseh.Gameplay.Entities.Player
 
         private void InvertPlayerRotation()
         {
-            if(inverted == -1)
+            if(_inverted == -1)
             {
-                Quaternion rotation = this.transform.localRotation;
+                Quaternion rotation = transform.localRotation;
                 rotation.y = -rotation.y;
-                this.transform.localRotation = rotation;
+                transform.localRotation = rotation;
             }
 
-            timeConfusion = Time.time;
-            inverted = 1;
+            _timeConfusion = Time.time;
+            _inverted = 1;
                     
         }
 
+		private IEnumerator DisableMovementInternal(float seconds)
+		{
+			yield return new WaitForSeconds(seconds);
+
+			enabled = false;
+
+			if (!IsGrounded())
+			{
+				_playerInfo.Body.useGravity = true;
+			}
+
+			_playerInfo.Body.isKinematic = true;
+		}
 
         private IEnumerator InvertControlForSeconds(float seconds)
         {
 
-            this.InvertPlayerRotation();
+            InvertPlayerRotation();
 
             yield return new WaitForSeconds(seconds);
 
-            if (Time.time >= timeConfusion + seconds)
+            if (Time.time >= _timeConfusion + seconds)
             {
-                inverted = -1;
-                Quaternion rotation = this.transform.localRotation;
+                _inverted = -1;
+                Quaternion rotation = transform.localRotation;
                 rotation.y = -rotation.y;
-                this.transform.localRotation = rotation;
+                transform.localRotation = rotation;
             }
                
 
@@ -431,39 +410,37 @@ namespace nseh.Gameplay.Entities.Player
         private IEnumerator IncreaseJumpForSecondsInternal(float percent, float seconds)
         {
 
-            //this.IncreaseJump(percent);
+            //IncreaseJump(percent);
 
-            this.canUseDoubleJump = true;
-            timeJump = Time.time;
+            _canUseDoubleJump = true;
+            _timeJump = Time.time;
 
             yield return new WaitForSeconds(seconds);
 
-            if (Time.time >= timeJump+seconds)
-                this.canUseDoubleJump = false;
-
-
+            if (Time.time >= _timeJump+seconds)
+            {
+				_canUseDoubleJump = false;
+			}
         }
 
         private IEnumerator IncreaseSpeedForSecondsInternal(float percent, float seconds)
         {
-            this.IncreaseSpeed(percent);
+            IncreaseSpeed(percent);
 
             yield return new WaitForSeconds(seconds);
 
-            if (Time.time >= timeSpeed + seconds)
-                this.currentSpeed = oldSpeed;
-
-
+            if (Time.time >= _timeSpeed + seconds)
+            {
+				_currentSpeed = _oldSpeed;
+			}
         }
 
         private IEnumerator DecreaseSpeedForSecondsInternal(float percent, float seconds)
         {
 
-            this.DecreaseSpeed(percent);
+            DecreaseSpeed(percent);
 
             yield return new WaitForSeconds(seconds);
-
-
         }
 
         #endregion

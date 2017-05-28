@@ -1,21 +1,22 @@
-﻿using nseh.Gameplay.Base.Interfaces;
+﻿using System.Collections.Generic;
+using nseh.Gameplay.Entities.Enemies;
 using nseh.Gameplay.Entities.Player;
-using System.Collections.Generic;
 using UnityEngine;
 using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Combat.Attack.Wrarr
 {
-	public class WaveComponent : MonoBehaviour
+    public class WaveComponent : MonoBehaviour
 	{
 		#region Private Properties
 
-		private Collider _collider;
+        private CapsuleCollider _collider;
 		private List<GameObject> _enemies;
 		private PlayerInfo _senderInfo;
 
+        [SerializeField]
+        private float _stepSize;
 		private float _damage;
-		private float _force;
 
 		#endregion
 
@@ -27,39 +28,51 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 			set { _damage = value; }
 		}
 
-		public float Force
-		{
-			get { return _force; }
-			set { _force = value; }
-		}
-
 		public PlayerInfo Sender
 		{
 			get { return _senderInfo; }
 			set { _senderInfo = value; }
 		}
 
-		public Collider WaveCollider
+		public CapsuleCollider WaveCollider
 		{
 			get { return _collider; }
 		}
 
-		#endregion
+        #endregion
 
-		#region Private Methods
+        #region Private Methods
+
+        private void Start()
+        {
+			_collider = GetComponent<CapsuleCollider>();
+			_collider.enabled = false;
+            _collider.height = 0.0f;
+
+            _enemies = new List<GameObject>();
+		}
 
 		private void OnEnable()
 		{
-			_collider = GetComponent<Collider>();
-			_collider.enabled = false;
-
-			_enemies = new List<GameObject>();
+			if (_enemies != null && _collider != null)
+			{
+				_enemies.Clear();
+				_collider.height = 0.0f;
+			}
 		}
 
-		private void OnTriggerEnter(Collider collision)
-		{
-			GameObject enemyObj = collision.gameObject;
-			string colTag = collision.tag;
+        private void Update()
+        {
+            if (_collider.enabled)
+            {
+                _collider.height += _stepSize;
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+			GameObject enemyObj = other.gameObject;
+			string colTag = other.tag;
 
 			if (colTag == Tags.PLAYER_BODY)
 			{
@@ -69,14 +82,11 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 					if (enemyInfo != null && enemyInfo.Player != _senderInfo.Player)
 					{
 						// Set score and energy on sender
-                        _senderInfo.PlayerScore.IncreaseScore((int)_damage);
+						_senderInfo.PlayerScore.IncreaseScore((int)_damage);
 						_senderInfo.PlayerEnergy.IncreaseEnergy(_damage / 2);
 
 						// Set health
 						enemyInfo.PlayerHealth.TakeDamage((int)_damage);
-
-						// Push enemy body
-						enemyInfo.Body.AddForceAtPosition(_force * transform.forward, collision.bounds.center, ForceMode.Impulse);
 
 						// Add this enemy to the list so as not to cause damage again
 						_enemies.Add(enemyObj);
@@ -87,21 +97,18 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 			{
 				if (!_enemies.Contains(enemyObj))
 				{
-					IHealth enemyHealth = enemyObj.GetComponent<IHealth>();
+					EnemyHealth enemyHealth = enemyObj.GetComponent<EnemyHealth>();
 					if (enemyHealth != null)
 					{
 						// Set health
 						enemyHealth.TakeDamage((int)_damage);
-
-						// Push enemy body
-						enemyObj.GetComponent<Rigidbody>().AddForceAtPosition(_force * transform.forward, collision.bounds.center, ForceMode.Impulse);
 
 						// Add this enemy to the list so as not to cause damage again
 						_enemies.Add(enemyObj);
 					}
 				}
 			}
-		}
+        }
 
 		#endregion
 	}

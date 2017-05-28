@@ -34,20 +34,17 @@ namespace nseh.Gameplay.Entities.Enemies
 		public void ActivateCollider(int index)
 		{
 			if (_colliders != null && _colliders.Count > 0)
-			{
-				// Deactivate other colliders
-                
+			{                
 				for (int i = 0; i < _colliders.Count; i++)
 				{
 					Collider collider = _colliders[i];
-					CollisionHandler weaponCollision = collider.GetComponent<CollisionHandler>();
+					CollisionHandler handler = collider.GetComponent<CollisionHandler>();
 
-					if (weaponCollision.Index == index)
+					if (handler.Index == index)
 					{
                         collider.enabled = true;
-                        weaponCollision.enabled = true;
+                        handler.enabled = true;
                     }
-					
 				}
 			}
 			else
@@ -64,13 +61,16 @@ namespace nseh.Gameplay.Entities.Enemies
 		{
 			if (_colliders != null && _colliders.Count > 0)
 			{
-				// Deactivate all the colliders
 				for (int i = 0; i < _colliders.Count; i++)
-				{
-					Collider collider = _colliders[i];
-					CollisionHandler weaponCollision = collider.GetComponent<CollisionHandler>();
-					collider.enabled = false;
-					weaponCollision.enabled = false;
+                {
+                    Collider collider = _colliders[i];
+                    CollisionHandler handler = collider.GetComponent<CollisionHandler>();
+
+                    if (handler.Index == index)
+                    {
+                        collider.enabled = false;
+                        handler.enabled = false;
+                    }
 				}
 			}
 			else

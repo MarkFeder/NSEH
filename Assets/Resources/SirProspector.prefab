@@ -2361,7 +2361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClips: []
   _initialDamage: 2
   _attackType: 2
 --- !u!114 &114072911916261098
@@ -2375,7 +2374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClips: []
   _initialDamage: 5
   _attackType: 3
 --- !u!114 &114157490270805860
@@ -2400,7 +2398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClips: []
   _initialDamage: 2
   _attackType: 1
 --- !u!114 &114242311106287240
@@ -2437,7 +2434,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClips: []
   _initialDamage: 7
   _attackType: 5
 --- !u!114 &114298136127664010
@@ -2474,7 +2470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4378dcea76b7c0240ad5a7de5e7c7d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClips: []
   _initialDamage: 5
   _attackType: 7
   _specialItem: {fileID: 0}
@@ -2494,7 +2489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b186416722b5a4694ec25280d635b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClips: []
   _initialDamage: 20
   _attackType: 8
   _percent: 100
@@ -2552,11 +2546,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e245d3be634e89e49975c6e74c26eaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpeed: 0
-  dampAir: 0.5
-  jumpAirSpeed: 5
-  jumpHeight: 15
-  baseSpeed: 6
+  _currentSpeed: 0
+  _dampAir: 0.5
+  _jumpAirSpeed: 5
+  _jumpHeight: 15
+  _baseSpeed: 6
 --- !u!114 &114930258291489294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2597,6 +2591,17 @@ MonoBehaviour:
   particleDefinitive: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
   particleHability: {fileID: 153390, guid: 3c2d41265118fc14f8065fbfc45391d0, type: 2}
   particleDefense: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
+  _comboAAA01Clips: []
+  _comboAAA02Clips: []
+  _comboAAA03Clips: []
+  _comboBB01Clips: []
+  _comboBB02Clips: []
+  _comboBSharpClips: []
+  _definitiveClips: []
+  _habilityClips: []
+  _defenseClips: []
+  _jumpClips: []
+  _hitClips: []
   _gamepadIndex: 0
   _player: 1
   _playerName: SirProspector
@@ -2613,7 +2618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de0100a03b96b31498291755067f2aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClips: []
   _currentMode: 1
 --- !u!114 &114969698066972448
 MonoBehaviour:
@@ -2626,7 +2630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f469f7cad5ee9e4eacea7b983ab3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClips: []
   _initialDamage: 5
   _attackType: 4
 --- !u!135 &135989348980882486

@@ -12,8 +12,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         [SerializeField]
         private WaveComponent _wave;
         [SerializeField]
-        private float _force;
-        [SerializeField]
         private GameObject _particle;
         
         private WrarrAnimationEventReceiver _receiver;
@@ -84,7 +82,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _wave.Sender = _playerInfo;
             _wave.WaveCollider.enabled = true;
             _wave.Damage = _currentDamage;
-            _wave.Force = _force;
         }
 
         /// <summary>
@@ -98,7 +95,6 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _wave.Sender = null;
             _wave.WaveCollider.enabled = false;
             _wave.Damage = 0.0f;
-            _wave.Force = 0.0f;
 
             // Activate this attack again
             _enabled = true;
