@@ -66,7 +66,9 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
             if (_collider.enabled)
             {
                 _collider.height += _stepSize;
+                _collider.isTrigger = !_collider.isTrigger;
             }
+           
         }
 
         private void OnTriggerEnter(Collider other)

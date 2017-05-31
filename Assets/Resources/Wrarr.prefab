@@ -2012,7 +2012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxEnergy: 200
-  _currentEnergy: 200
+  _currentEnergy: 0
 --- !u!114 &114716532977222356
 MonoBehaviour:
   m_ObjectHideFlags: 1

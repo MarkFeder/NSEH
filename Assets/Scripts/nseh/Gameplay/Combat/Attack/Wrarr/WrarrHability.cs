@@ -95,7 +95,8 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _wave.Sender = null;
             _wave.WaveCollider.enabled = false;
             _wave.Damage = 0.0f;
-
+            _wave.WaveCollider.height = 0.0f;
+    
             // Activate this attack again
             _enabled = true;
         }
