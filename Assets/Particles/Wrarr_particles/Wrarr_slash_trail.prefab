@@ -80,26 +80,26 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1024007349077302}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.03869264, w: 0.9992512}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 4654457574392378}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 4.4350004}
 --- !u!4 &4126157041097918
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1721084648385468}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.106257334, w: 0.9943387}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 4654457574392378}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -12.199}
 --- !u!4 &4200778479475066
 Transform:
   m_ObjectHideFlags: 1
@@ -107,8 +107,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1916647957280426}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: -0.2}
-  m_LocalScale: {x: 1, y: 1, z: 2}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.2}
+  m_LocalScale: {x: 2, y: 2, z: 3}
   m_Children: []
   m_Father: {fileID: 4654457574392378}
   m_RootOrder: 1
@@ -120,8 +120,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1153988491386460}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -5.78, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4032652703321764}
   - {fileID: 4200778479475066}
@@ -165,7 +165,7 @@ TrailRenderer:
   m_Time: 0.25
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -177,7 +177,7 @@ TrailRenderer:
         tangentMode: 0
       - serializedVersion: 2
         time: 0.5
-        value: 0.2
+        value: 0.4340431
         inSlope: 0.09763986
         outSlope: 0.09763986
         tangentMode: 0
@@ -261,7 +261,7 @@ TrailRenderer:
   m_Time: 0.25
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -272,8 +272,8 @@ TrailRenderer:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.5
-        value: 0.2
+        time: 0.50518036
+        value: 0.519149
         inSlope: 0.09763986
         outSlope: 0.09763986
         tangentMode: 0
@@ -357,7 +357,7 @@ TrailRenderer:
   m_Time: 0.25
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -368,8 +368,8 @@ TrailRenderer:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.5
-        value: 0.2
+        time: 0.50518036
+        value: 0.45531768
         inSlope: 0.09763986
         outSlope: 0.09763986
         tangentMode: 0
