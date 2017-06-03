@@ -28,8 +28,8 @@ namespace nseh.Gameplay.Gameflow
             _levelManager.CanvasPausedBossManager.DisableCanvas();
 
             _boss = GameObject.Find("Bava Dongo");
-            _boss.GetComponent<EnemyHealth>().MaxHealth = _levelManager.Players.Count * 200;
-            _boss.GetComponent<EnemyHealth>().CurrentHealth = _levelManager.Players.Count * 200;
+            _boss.GetComponent<EnemyHealth>().MaxHealth = _levelManager.Players.Count * 100;
+            _boss.GetComponent<EnemyHealth>().CurrentHealth = _levelManager.Players.Count * 100;
             _boss.GetComponent<BavaDongo_AI>().frenzyHealth = _boss.GetComponent<EnemyHealth>().MaxHealth * _boss.GetComponent<BavaDongo_AI>().percentageFrenzy;
         }
 
@@ -71,15 +71,21 @@ namespace nseh.Gameplay.Gameflow
                 Debug.Log(_levelManager.MyGame._score[character.PlayerRunTimeInfo.GamepadIndex - 1, 2]);
             }
 
-            _levelManager.GoToMainMenuScore();
-            //_levelManager.MyGame.StartCoroutine("ScoreMenu");
+            GoToScoreMenu(_levelManager.MyGame);
+            
 
 
         }
 
+        private void GoToScoreMenu(MonoBehaviour myMonoBehaviour)
+        {
+            myMonoBehaviour.StartCoroutine(ScoreMenu());
+        }
+
+
         private IEnumerator ScoreMenu()
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(5);
             _levelManager.GoToMainMenuScore();
         }
 

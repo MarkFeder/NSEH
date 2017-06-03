@@ -82,6 +82,7 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _wave.Sender = _playerInfo;
             _wave.WaveCollider.enabled = true;
             _wave.Damage = _currentDamage;
+            //gameObject.GetComponentInParent<Rigidbody>().isKinematic = true;
         }
 
         /// <summary>
@@ -96,9 +97,10 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _wave.WaveCollider.enabled = false;
             _wave.Damage = 0.0f;
             _wave.WaveCollider.height = 0.0f;
-    
+            
             // Activate this attack again
             _enabled = true;
+            //gameObject.GetComponentInParent<Rigidbody>().isKinematic = false;
         }
 
 		/// <summary>

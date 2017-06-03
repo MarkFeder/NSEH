@@ -47,7 +47,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected Collider _collider;
 		protected Renderer _renderer;
 		protected GameObject _sprite;
-		protected Text _itemText;
+        protected GameObject _text;
+        protected Text _itemText;
 
 		#endregion
 
@@ -98,6 +99,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 			{
 				SetVisibility(false);
 				_sprite.SetActive(false);
+                _text.SetActive(true);
 				if (_currentUses < _uses)
 				{
 					_currentUses++;
@@ -121,7 +123,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 					}
 
 					PlaySoundAtPlayer(_sound);
-					Activate();
+                    Activate();
 				}
 				else
 				{
@@ -174,11 +176,12 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 			_collider = GetComponent<Collider>();
 			_renderer = GetComponent<Renderer>();
 			_sprite = transform.GetChild(0).gameObject;
-
-			ResetUses();
+            _text = transform.GetChild(1).gameObject;
+            ResetUses();
 		}
 
-		public virtual void SpawnAt(Vector3 position)
+
+        public virtual void SpawnAt(Vector3 position)
 		{
 			transform.position = position;
 		}

@@ -57,9 +57,14 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 			if (_enemies != null && _collider != null)
 			{
 				_enemies.Clear();
-				_collider.height = 0.0f;
 			}
-		}
+            gameObject.GetComponentInParent<Rigidbody>().isKinematic = true;
+        }
+
+        private void OnDisable()
+        {
+            gameObject.GetComponentInParent<Rigidbody>().isKinematic = false;
+        }
 
         private void Update()
         {

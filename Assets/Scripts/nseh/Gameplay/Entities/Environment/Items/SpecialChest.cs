@@ -40,7 +40,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.Invulnerability:
 
                     Invulnerability(seconds);
-                    _spawnItemPoint.DisplayText(_itemText, SpecialItems.INVULNERABILITY, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, SpecialItems.INVULNERABILITY, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, seconds, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -48,7 +48,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.CriticalDamage:
 
                     CriticalDamage(percent, seconds);
-                    _spawnItemPoint.DisplayText(_itemText, SpecialItems.CRITICAL, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, SpecialItems.CRITICAL, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, seconds, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -56,7 +56,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.UnlockDefinitiveMode:
 
                     UnlockDefinitiveMode();
-                    _spawnItemPoint.DisplayText(_itemText, SpecialItems.ULTIMATE, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, SpecialItems.ULTIMATE, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, seconds, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;

@@ -42,7 +42,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Health:
 
                     IncreaseHealth(percent);
-                    _spawnItemPoint.DisplayText(_itemText, StandardItems.HEALTH, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, StandardItems.HEALTH, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, 1.5f, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -50,7 +50,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Damage:
 
                     IncreaseDamage(percent, time);
-                    _spawnItemPoint.DisplayText(_itemText, StandardItems.DAMAGE, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, StandardItems.DAMAGE, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -58,7 +58,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Velocity:
 
                     IncreaseVelocity(percent, time);
-                    _spawnItemPoint.DisplayText(_itemText, StandardItems.SPEED, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, StandardItems.SPEED, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -66,7 +66,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Jump:
 
                     IncreaseJump(percent, time);
-                    _spawnItemPoint.DisplayText(_itemText, StandardItems.JUMP, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, StandardItems.JUMP, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -74,7 +74,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Defense:
 
                     SetupDefense(percent, time);
-                    _spawnItemPoint.DisplayText(_itemText, StandardItems.DEFENSE, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, StandardItems.DEFENSE, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;

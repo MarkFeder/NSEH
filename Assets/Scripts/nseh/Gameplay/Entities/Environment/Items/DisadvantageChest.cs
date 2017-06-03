@@ -40,7 +40,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case DisadvantageChestType.ChestBomb:
 
                     ChestBomb(_percent);
-                    _spawnItemPoint.DisplayText(_itemText, DisadvantageItems.BOMBCHEST, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, DisadvantageItems.BOMBCHEST, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, 1.0f, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -48,7 +48,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case DisadvantageChestType.PoisonCloud:
 
                     PoisonCloud(_percent, _seconds);
-                    _spawnItemPoint.DisplayText(_itemText, DisadvantageItems.POISONCLOUD, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, DisadvantageItems.POISONCLOUD, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, _seconds, _particlesSpawnPoints.ParticleBodyPos);
 
                     break;
@@ -56,7 +56,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case DisadvantageChestType.ConfusedPotion:
 
                     ConfusedPotion(_seconds);
-                    _spawnItemPoint.DisplayText(_itemText, DisadvantageItems.CONFUSION, _timeToDisplayText);
+                    //_spawnItemPoint.DisplayText(_itemText, DisadvantageItems.CONFUSION, _timeToDisplayText);
                     ParticleAnimation(_particlePrefab, _seconds, _particlesSpawnPoints.ParticleHeadPos);
 
                     break;
