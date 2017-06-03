@@ -1,9 +1,10 @@
-﻿using nseh.Utils.Helpers;
+﻿using nseh.Gameplay.Base.Abstract.Animations;
+using nseh.Utils.Helpers;
 using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Receivers.SirProspector
 {
-    public class SirProspectorAnimationEventReceiver : MonoBehaviour
+    public class SirProspectorAnimationEventReceiver : AnimationEventReceiver
     {
         #region Private Properties
 

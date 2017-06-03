@@ -1,9 +1,10 @@
-﻿using nseh.Utils.Helpers;
+﻿using nseh.Gameplay.Base.Abstract.Animations;
+using nseh.Utils.Helpers;
 using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Receivers.Wrarr
 {
-    public class WrarrAnimationEventReceiver : MonoBehaviour
+    public class WrarrAnimationEventReceiver : AnimationEventReceiver
     {
         #region Private Properties
 
