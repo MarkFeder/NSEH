@@ -125,7 +125,8 @@ namespace nseh.Gameplay.AI
                     _animationSpeed = animationSpeedFrenzy;
                     //acelerar
                     _wait = 1;
-                
+                    _isDice = false;
+
                 }
                 //Debug.Log("0 " + animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle")+ " "+isDice);
                 if (Mathf.Abs(this.gameObject.transform.position.x - _nextPoint.transform.position.x) <= 1f && _isDeath == false)
