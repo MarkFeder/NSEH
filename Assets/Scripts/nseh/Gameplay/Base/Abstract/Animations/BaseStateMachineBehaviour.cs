@@ -1,7 +1,7 @@
-﻿using nseh.Gameplay.Base.Interfaces;
+﻿using System.Linq;
+using nseh.Gameplay.Base.Interfaces;
 using nseh.Gameplay.Entities.Player;
 using nseh.Utils.Helpers;
-using System.Linq;
 using UnityEngine;
 
 namespace nseh.Gameplay.Base.Abstract.Animations

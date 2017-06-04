@@ -37,12 +37,12 @@ namespace nseh.Gameplay.Entities.Enemies
 			{                
 				for (int i = 0; i < _colliders.Count; i++)
 				{
-					Collider collider = _colliders[i];
-					CollisionHandler handler = collider.GetComponent<CollisionHandler>();
+					Collider enemyCollider = _colliders[i];
+					CollisionHandler handler = enemyCollider.GetComponent<CollisionHandler>();
 
 					if (handler.Index == index)
 					{
-                        collider.enabled = true;
+                        enemyCollider.enabled = true;
                         handler.enabled = true;
                     }
 				}
@@ -63,12 +63,12 @@ namespace nseh.Gameplay.Entities.Enemies
 			{
 				for (int i = 0; i < _colliders.Count; i++)
                 {
-                    Collider collider = _colliders[i];
-                    CollisionHandler handler = collider.GetComponent<CollisionHandler>();
+                    Collider enemyCollider = _colliders[i];
+                    CollisionHandler handler = enemyCollider.GetComponent<CollisionHandler>();
 
                     if (handler.Index == index)
                     {
-                        collider.enabled = false;
+                        enemyCollider.enabled = false;
                         handler.enabled = false;
                     }
 				}

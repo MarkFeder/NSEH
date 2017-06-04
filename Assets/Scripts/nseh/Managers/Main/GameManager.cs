@@ -1,12 +1,11 @@
-﻿using nseh.Managers.Audio;
+﻿using System.Collections;
+using System.Collections.Generic;
+using nseh.Managers.Audio;
 using nseh.Managers.General;
 using nseh.Managers.Level;
 using nseh.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using AudioResources = nseh.Utils.Constants.Resources.Audio;
 
 namespace nseh.Managers.Main
 {
@@ -27,11 +26,24 @@ namespace nseh.Managers.Main
                 return null;
             }
         }
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Private Properties
 
-        public enum States { MainMenu, Playing, Loading , Score};
+		private GameSounds _gameSounds;
+
+		private States _currentState;
+		private LevelManager _levelManager;
+		private SoundManager _soundManager;
+
+		//List of all services (E.g: EventManager, LightManager...) 
+		private List<Service> _servicesList;
+
+		#endregion
+
+		#region Public Properties
+
+		public enum States { MainMenu, Playing, Loading , Score};
         public States _nextState;
 
         public int _numberPlayers = 0;
@@ -40,16 +52,10 @@ namespace nseh.Managers.Main
         public string player1character;
         public string player2character;
 
-        #endregion
-
-        #region Private Properties
-
-        private States _currentState;
-        private LevelManager _levelManager;
-        private SoundManager _soundManager;
-
-        //List of all services (E.g: EventManager, LightManager...) 
-        private List<Service> _servicesList;
+        public GameSounds GameSounds
+        {
+            get { return _gameSounds; }
+        }
 
         #endregion
 
@@ -57,25 +63,19 @@ namespace nseh.Managers.Main
 
         public LevelManager LevelManager
         {
-            get
-            {
-                return _levelManager;
-            }
+            get { return _levelManager; }
         }
 
         public SoundManager SoundManager
         {
-            get
-            {
-                return _soundManager;
-            }
+            get { return _soundManager; }
         }
 
         #endregion
 
         #region Initialization
 
-        public void Awake()
+        private void Awake()
         {
             if (_instance != null && _instance != this)
             {
@@ -90,24 +90,22 @@ namespace nseh.Managers.Main
                 _servicesList = new List<Service>();
                 _characters = new List<GameObject>();
                 _currentState = States.MainMenu;
+				_gameSounds = GetComponent<GameSounds>();
+
+				// Add managers to the list
+                Add<SoundManager>();
+				Add<MenuManager>();
+				Add<LevelManager>();
+				Add<LoadingScene>();
+
+				// Cache some managers
+				_levelManager = Find<LevelManager>();
+				_soundManager = Find<SoundManager>();
+
+				// Find managers and activate them
+				_soundManager.Activate();
+				Find<MenuManager>().Activate();
             }
-        }
-
-        public void Start()
-        {
-            // Add managers to the list
-            Add<MenuManager>();
-            Add<LevelManager>();
-            Add<LoadingScene>();
-            Add<SoundManager>();
-
-            // Cache some managers
-            _levelManager = Find<LevelManager>();
-            _soundManager = Find<SoundManager>();
-
-            // Find managers and activate them
-            Find<MenuManager>().Activate();
-            _soundManager.Activate();
         }
 
         #endregion
@@ -279,7 +277,6 @@ namespace nseh.Managers.Main
                         {
                             Time.timeScale = 1;
                             _currentState = _nextState;
-                                           
                         }
 
                         break;

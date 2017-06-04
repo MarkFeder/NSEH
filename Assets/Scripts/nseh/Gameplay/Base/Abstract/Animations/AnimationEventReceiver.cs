@@ -1,11 +1,11 @@
-﻿using nseh.Gameplay.Combat;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
 using nseh.Gameplay.Entities.Player;
 using nseh.Managers.Audio;
 using nseh.Managers.Main;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace nseh.Gameplay.Base.Abstract.Animations
@@ -36,7 +36,7 @@ namespace nseh.Gameplay.Base.Abstract.Animations
 
             if (_attackTypes.Contains(type))
             {
-                AudioController controller = _playerInfo.GetAudioControllerForAttack(type);
+                AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForAttack(type);
                 if (controller != null)
                 {
                     GameManager.Instance.SoundManager.PlayAudio(controller);
@@ -54,7 +54,7 @@ namespace nseh.Gameplay.Base.Abstract.Animations
 
             if (_defenseTypes.Contains(type))
             {
-                AudioController controller = _playerInfo.GetAudioControllerForDefense(type);
+                AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForDefense(type);
                 if (controller != null)
                 {
                     GameManager.Instance.SoundManager.PlayAudio(controller);
@@ -68,7 +68,7 @@ namespace nseh.Gameplay.Base.Abstract.Animations
 
         public virtual void OnPlayHitSound(AnimationEvent animationEvent)
         {
-            AudioController controller = _playerInfo.GetAudioControllerForHit();
+            AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForHit();
             if (controller != null)
             {
                 GameManager.Instance.SoundManager.PlayAudio(controller);
@@ -77,7 +77,7 @@ namespace nseh.Gameplay.Base.Abstract.Animations
 
         public virtual void OnPlayJumpSound(AnimationEvent animationEvent)
         {
-            AudioController controller = _playerInfo.GetAudioControllerForJump();
+            AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForJump();
             if (controller != null)
             {
                 GameManager.Instance.SoundManager.PlayAudio(controller);

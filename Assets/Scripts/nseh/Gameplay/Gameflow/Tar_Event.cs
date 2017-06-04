@@ -1,5 +1,7 @@
 ﻿using nseh.Gameplay.Base.Abstract.Gameflow;
+using nseh.Managers.Audio;
 using nseh.Managers.Level;
+using nseh.Managers.Main;
 using nseh.Utils;
 using UnityEngine;
 
@@ -7,11 +9,23 @@ namespace nseh.Gameplay.Gameflow
 {
     public class Tar_Event : LevelEvent
     {
+        #region Private Properties
+
+        private bool isUp = false;
+        private float eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
+
+        private bool _playedAlarmSound;
+        private AudioController _alarmSound;
+        private AudioController _bubbleSound;
+
         //List<EventComponent> _tarComponents;
-        float eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
         //bool eventFinished = false;
+
+        #endregion
+
+        #region Public Properties
+
         public float elapsedTime;
-        bool isUp = false;
         //Event components should suscribe their movement functions here to be handled by event
         public delegate bool TarHandler(float gameTime);
         public static event TarHandler TarUp;
@@ -20,12 +34,17 @@ namespace nseh.Gameplay.Gameflow
         //Resets all event component positions
         public delegate void TarReset();
         public static event TarReset ResetTarComponents;
+
+        #endregion
+
+        #region Public Methods
+
         //Setup the event providing the current game instance. The event is not active here yet.
         override public void Setup(LevelManager lvlManager)
-        {
-            base.Setup(lvlManager);
-            //_tarComponents = new List<EventComponent>();
-        }
+		{
+			base.Setup(lvlManager);
+			//_tarComponents = new List<EventComponent>();
+		}
 
         //Activate the event execution.
         override public void ActivateEvent()
@@ -36,8 +55,14 @@ namespace nseh.Gameplay.Gameflow
             eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
             elapsedTime = 0;
             isUp = false;
-        }
 
+            // Handle sounds
+            _playedAlarmSound = false;
+            _alarmSound = GameManager.Instance.GameSounds.GetVolcanoLavaSound();
+            _bubbleSound = GameManager.Instance.GameSounds.GetRandomBubbleSound();
+
+            GameManager.Instance.SoundManager.PlayAudio(_bubbleSound, true);
+        }
 
         //Event execution.
         override public void EventTick()
@@ -49,8 +74,14 @@ namespace nseh.Gameplay.Gameflow
                 //foreach(EventComponent tarComponent in _tarComponents)
                 //{
                 isUp = TarUp(elapsedTime);
-                //}
 
+                if (!_playedAlarmSound)
+                {
+                    GameManager.Instance.SoundManager.PlayAudio(_alarmSound, false);
+                    _playedAlarmSound = true;
+                }
+
+                //}
             }
             //Controls when the tar should go down
             else if (elapsedTime >= (Constants.Events.Tar_Event.EVENT_START + eventDuration) && isUp)
@@ -64,7 +95,10 @@ namespace nseh.Gameplay.Gameflow
                 {
                     eventDuration += Constants.Events.Tar_Event.EVENT_DURATION_INCREASE;
                 }
+
                 elapsedTime = 0;
+                _playedAlarmSound = false;
+
                 //Debug.Log("Variables are reset and tar will remain up next time: " + eventDuration + " seconds.");
             }
             //LvlManager.ChangeState(LevelManager.States.LevelEvent);
@@ -78,6 +112,10 @@ namespace nseh.Gameplay.Gameflow
             elapsedTime = 0;
             isUp = false;
 
+            _playedAlarmSound = false;
+            GameManager.Instance.SoundManager.StopAudio(_bubbleSound);
+            GameManager.Instance.SoundManager.StopAudio(_alarmSound);
+
             _isActivated = false;
         }
         /*
@@ -86,5 +124,7 @@ namespace nseh.Gameplay.Gameflow
                 _tarComponents.Add(componentToRegister);
             }
         */
+
+        #endregion
     } 
 }

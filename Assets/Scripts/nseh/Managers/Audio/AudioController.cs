@@ -16,18 +16,12 @@ namespace nseh.Managers.Audio
 
         public AudioSource AudioSource
         {
-            get
-            {
-                return _audioSource;
-            }
+            get { return _audioSource; }
         }
 
         public string AudioName
         {
-            get
-            {
-                return _audioName;
-            }
+            get { return _audioName; }
         }
 
         public float Volume

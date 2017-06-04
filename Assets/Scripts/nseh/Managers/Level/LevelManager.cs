@@ -396,7 +396,7 @@ namespace nseh.Managers.Level
 
         #endregion
 
-        #region LevelEvent Public Methods
+        #region LevelEvents Public Methods
 
         public override void Setup(GameManager myGame)
         {
@@ -465,10 +465,17 @@ namespace nseh.Managers.Level
 
             Debug.Log("The number of players is: " + GameManager.Instance._numberPlayers + " " + (GameManager.Instance._characters[0].name));
 
+			// Register sounds and music
+			_myGame.GameSounds.RegisterLevelMusic();
+			_myGame.GameSounds.RegisterEnvironmentSounds();
+			_myGame.GameSounds.RegisterChestsSounds();
+
             // Activate events
             Find<Tar_Event>().ActivateEvent();
             Find<ItemSpawn_Event>().ActivateEvent();
             Find<CameraManager>().ActivateEvent();
+
+			_myGame.SoundManager.PlayAudio(_myGame.GameSounds.GetRandomLevelMusic(), true);
         }
 
         public override void Tick()
@@ -509,6 +516,11 @@ namespace nseh.Managers.Level
             // Clear lists so as to avoid conflicts
             _players.Clear();
 			_playerSpawnPoints.Clear();
+
+            // Unregister sounds and music
+            _myGame.GameSounds.UnRegisterLevelMusic();
+			_myGame.GameSounds.UnRegisterEnvironmentSounds();
+			_myGame.GameSounds.UnRegisterChestsSounds();
 
             //_canvasGameOverManager.DisableCanvas();
             //_canvasPausedManager.DisableCanvas();

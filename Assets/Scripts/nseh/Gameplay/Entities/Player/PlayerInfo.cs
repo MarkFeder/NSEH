@@ -1,6 +1,6 @@
-﻿using nseh.Gameplay.Combat;
+﻿using System;
+using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
-using System;
 using UnityEngine;
 using Inputs = nseh.Utils.Constants.Input;
 using InputUE = UnityEngine.Input;
@@ -10,6 +10,8 @@ namespace nseh.Gameplay.Entities.Player
     [RequireComponent(typeof(PlayerHealth))]
     [RequireComponent(typeof(PlayerMovement))]
     [RequireComponent(typeof(PlayerCombat))]
+    [RequireComponent(typeof(PlayerScore))]
+    [RequireComponent(typeof(PlayerSounds))]
     public partial class PlayerInfo : MonoBehaviour
     {
         #region Private Properties
@@ -31,20 +33,19 @@ namespace nseh.Gameplay.Entities.Player
 
         [Space(20)]
 
-        private AudioSource _soundPlayer;
         private Rigidbody _body;
         private Animator _animator;
         private Collider _playerCollider;
+
         private PlayerHealth _playerHealth;
         private PlayerEnergy _playerEnergy;
         private PlayerMovement _playerMovement;
         private PlayerCombat _playerCombat;
         private PlayerScore _playerScore;
+        private PlayerSounds _playerSounds;
 
         private float _horizontal;
         private float _vertical;
-
-        private int _score;
 
         private bool _teletransported;
         private bool _jumpPressed;
@@ -55,152 +56,87 @@ namespace nseh.Gameplay.Entities.Player
 
         public float Horizontal
         {
-            get
-            {
-                return _horizontal;
-            }
-
-            set
-            {
-                _horizontal = value;
-            }
+            get { return _horizontal; }
+            set { _horizontal = value; }
         }
 
         public float Vertical
         {
-            get
-            {
-                return _vertical;
-            }
-
-            set
-            {
-                _vertical = value;
-            }
+            get { return _vertical; }
+            set { _vertical = value; }
         }
 
         public int GamepadIndex
         {
-            get
-            {
-                return _gamepadIndex;
-            }
-
-            set
-            {
-                _gamepadIndex = value;
-            }
+            get { return _gamepadIndex; }
+            set { _gamepadIndex = value; }
         }
 
         public int Player
         {
-            get
-            {
-                return _player;
-            }
-
-            set
-            {
-                _player = value;
-            }
+            get { return _player; }
+            set { _player = value; }
         }
 
         public bool Teletransported
         {
-            get
-            {
-                return _teletransported;
-            }
-
-            set
-            {
-                _teletransported = value;
-            }
+            get { return _teletransported; }
+            set { _teletransported = value; }
         }
 
         public bool JumpPressed
         {
-            get
-            {
-                return _jumpPressed;
-            }
+            get { return _jumpPressed; }
         }
 
         public Sprite CharacterPortrait
         {
-            get
-            {
-                return (_characterPortrait) ? _characterPortrait : null;
-            }
-        }
-
-        public AudioSource SoundPlayer
-        {
-            get { return _soundPlayer; }
+            get { return (_characterPortrait) ? _characterPortrait : null; }
         }
 
         public Rigidbody Body
         {
-            get
-            {
-                return (_body) ? _body : null;
-            }
+            get { return (_body) ? _body : null; }
         }
 
         public Animator Animator
         {
-            get
-            {
-                return _animator;
-            }
+            get { return _animator; }
         }
 
         public PlayerHealth PlayerHealth
         {
-            get
-            {
-                return _playerHealth;
-            }
+            get { return _playerHealth; }
         }
 
         public PlayerEnergy PlayerEnergy
         {
-            get
-            {
-                return _playerEnergy;
-            }
+            get { return _playerEnergy; }
         }
 
         public PlayerMovement PlayerMovement
         {
-            get
-            {
-                return _playerMovement;
-            }
+            get { return _playerMovement; }
         }
 
         public PlayerCombat PlayerCombat
         {
-            get
-            {
-                return _playerCombat;
-            }
+            get { return _playerCombat; }
         }
 
         public PlayerScore PlayerScore
         {
-            get
-            {
-                return _playerScore;
-            }
+            get { return _playerScore; }
+        }
+
+        public PlayerSounds PlayerSounds
+        {
+            get { return _playerSounds; }
         }
 
         public string PlayerName
         {
-            get
-            {
-                return _playerName;
-            }
+            get { return _playerName; }
         }
 
         public Collider PlayerCollider
@@ -214,24 +150,21 @@ namespace nseh.Gameplay.Entities.Player
         {
             _body = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
-            _soundPlayer = GetComponent<AudioSource>();
 
             _playerHealth = GetComponent<PlayerHealth>();
             _playerEnergy = GetComponent<PlayerEnergy>();
             _playerMovement = GetComponent<PlayerMovement>();
             _playerCombat = GetComponent<PlayerCombat>();
             _playerScore = GetComponent<PlayerScore>();
+            _playerSounds = GetComponent<PlayerSounds>();
             _playerCollider = GetComponent<Collider>();
 
             SetupParticles();
             SetupLookUpKeyParticles();
-
-            SetupSounds();
         }
 
         private void Start()
         {
-            _score = 0;
             _teletransported = false;
             _jumpPressed = false;
         }

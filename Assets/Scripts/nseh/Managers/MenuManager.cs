@@ -6,7 +6,8 @@ namespace nseh.Managers
     public class MenuManager : Service
     {
         #region Public Methods
-        public override void Setup(Main.GameManager myGame)
+
+        public override void Setup(GameManager myGame)
         {
             base.Setup(myGame);
         }
@@ -14,6 +15,10 @@ namespace nseh.Managers
         public override void Activate()
         {
             _isActivated = true;
+
+            _myGame.GameSounds.RegisterMenuMusic();
+            _myGame.GameSounds.RegisterUISounds();
+            _myGame.SoundManager.PlayAudio(_myGame.GameSounds.GetRandomMenuMusic(), true);
         }
 
         public void ChangePlayers(int number)
@@ -29,7 +34,7 @@ namespace nseh.Managers
 
         public void ChangeStates()
         {
-            GameManager.Instance.ChangeState(Main.GameManager.States.Playing);
+            GameManager.Instance.ChangeState(GameManager.States.Playing);
         }
 
         public void ExitGame()
@@ -54,6 +59,9 @@ namespace nseh.Managers
         public override void Release()
         {
             _isActivated = false;
+
+            _myGame.GameSounds.UnRegisterMenuMusic();
+            _myGame.GameSounds.UnRegisterUISounds();
         }
 
         #endregion

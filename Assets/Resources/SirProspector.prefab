@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 114361435954042190}
   - component: {fileID: 114409295371350454}
   - component: {fileID: 114945180413029768}
+  - component: {fileID: 114267788491771512}
   - component: {fileID: 114473405665452258}
   - component: {fileID: 114157490270805860}
   - component: {fileID: 114298136127664010}
@@ -2423,6 +2424,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _index: 2
+--- !u!114 &114267788491771512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196191226483754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dde2ecb1f5246f2baf1ac44b85ac1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _comboAAA01Clips:
+  - {fileID: 8300000, guid: aea1a5cb0a2784dd78f27064a6d0fa57, type: 3}
+  _comboAAA02Clips:
+  - {fileID: 8300000, guid: 35a6687c9d833494c8e8d5620fc15dc8, type: 3}
+  _comboAAA03Clips:
+  - {fileID: 0}
+  _comboBB01Clips:
+  - {fileID: 8300000, guid: 6f479cfb5a83a45489cabea128038396, type: 3}
+  _comboBB02Clips:
+  - {fileID: 8300000, guid: ff5ff3a6d383a40bfbff8a87ab2f8f85, type: 3}
+  _comboBSharpClips: []
+  _definitiveClips: []
+  _habilityClips: []
+  _defenseClips: []
+  _jumpClips:
+  - {fileID: 8300000, guid: a74d7d77564e845709194db2c6d03494, type: 3}
+  _hitClips:
+  - {fileID: 8300000, guid: 4ef07aef386c54dd7a2272cecd31300e, type: 3}
+  - {fileID: 8300000, guid: 4aea831889a114751985d7c2d88f7d86, type: 3}
+  - {fileID: 8300000, guid: 0d1b9ea400e154ee8ac1853bede5b5f2, type: 3}
 --- !u!114 &114287641060360600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2591,17 +2623,6 @@ MonoBehaviour:
   particleDefinitive: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
   particleHability: {fileID: 153390, guid: 3c2d41265118fc14f8065fbfc45391d0, type: 2}
   particleDefense: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
-  _comboAAA01Clips: []
-  _comboAAA02Clips: []
-  _comboAAA03Clips: []
-  _comboBB01Clips: []
-  _comboBB02Clips: []
-  _comboBSharpClips: []
-  _definitiveClips: []
-  _habilityClips: []
-  _defenseClips: []
-  _jumpClips: []
-  _hitClips: []
   _gamepadIndex: 0
   _player: 1
   _playerName: SirProspector

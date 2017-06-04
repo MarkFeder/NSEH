@@ -22,10 +22,7 @@ namespace nseh.Managers.Audio
         /// </summary>
         public float VolumeSoundFX
         {
-            get
-            {
-                return _volumeSoundFX;
-            }
+            get { return _volumeSoundFX; }
             set
             {
                 _volumeSoundFX = value;
@@ -42,10 +39,7 @@ namespace nseh.Managers.Audio
         /// </summary>
         public float VolumeMusic
         {
-            get
-            {
-                return _volumeMusic;
-            }
+            get { return _volumeMusic; }
             set
             {
                 _volumeMusic = value;
@@ -62,10 +56,7 @@ namespace nseh.Managers.Audio
         /// </summary>
         public bool Paused
         {
-            get
-            {
-                return AudioListener.pause;
-            }
+            get { return AudioListener.pause; }
             set
             {
                 AudioListener.pause = false;
@@ -134,7 +125,7 @@ namespace nseh.Managers.Audio
         /// <returns>The AudioController for this Music.</returns>
         public AudioController LoadMusic(AudioClip audioClip, bool is2D, int priority = 128, float maxVolume = 1.0f, float pitch = 1.0f, float stereoPan = 0.0f)
         {
-            return LoadAudioInternalFromClip(audioClip, ref _dictionarySoundFX, is2D, priority, maxVolume, pitch, stereoPan);
+            return LoadAudioInternalFromClip(audioClip, ref _dictionaryMusic, is2D, priority, maxVolume, pitch, stereoPan);
         }
 
         /// <summary>
@@ -199,7 +190,7 @@ namespace nseh.Managers.Audio
         /// <param name="loop">Should be the audio played in loop?.</param>
         /// <param name="volume">The volume of the audio.</param>
         /// <param name="delay">The delay before playing the audio.</param>
-        public void PlayAudio(AudioController audioController, bool loop = false, float volume = 1.0f, float delay = 0.0f)
+        public void PlayAudio(AudioController audioController, bool loop = false, float volume = 1.0f, float delay = 0.0f, float dopplerLevel = 0.0f)
         {
             Debug.Log(string.Format("PlayAudio of {0}", audioController.AudioName));
 
@@ -217,6 +208,8 @@ namespace nseh.Managers.Audio
             }
 
             audioController.AudioSource.loop = loop;
+            audioController.AudioSource.dopplerLevel = dopplerLevel;
+
             if (delay > 0.0)
             {
                 audioController.AudioSource.PlayDelayed(delay);
@@ -260,7 +253,7 @@ namespace nseh.Managers.Audio
         /// <summary>
         /// Free AudioController (FX sound or Music sound).
         /// </summary>
-        /// <param name="audioController"></param>
+        /// <param name="audioController">The AudioController of the audio.</param>
         public void FreeAudio(AudioController audioController)
         {
             Debug.Log(string.Format("Freeing audio of {0}", audioController.AudioName));

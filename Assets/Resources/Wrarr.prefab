@@ -608,6 +608,7 @@ GameObject:
   - component: {fileID: 114265241072407274}
   - component: {fileID: 114736991629091880}
   - component: {fileID: 114196002245353524}
+  - component: {fileID: 114695026693122564}
   - component: {fileID: 114585666874532276}
   - component: {fileID: 114716532977222356}
   - component: {fileID: 114190659147358852}
@@ -1895,17 +1896,6 @@ MonoBehaviour:
   particleHability: {fileID: 1242950439485562, guid: f24bb7c03ea2e9d49bdb0e7892dd61dd,
     type: 2}
   particleDefense: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
-  _comboAAA01Clips: []
-  _comboAAA02Clips: []
-  _comboAAA03Clips: []
-  _comboBB01Clips: []
-  _comboBB02Clips: []
-  _comboBSharpClips: []
-  _definitiveClips: []
-  _habilityClips: []
-  _defenseClips: []
-  _jumpClips: []
-  _hitClips: []
   _gamepadIndex: 0
   _player: 1
   _playerName: Wrarr
@@ -2013,6 +2003,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxEnergy: 100
   _currentEnergy: 0
+--- !u!114 &114695026693122564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828854585127354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dde2ecb1f5246f2baf1ac44b85ac1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _comboAAA01Clips:
+  - {fileID: 8300000, guid: 0dba6e6fba41c4f4e9ea3e2234072a5d, type: 3}
+  _comboAAA02Clips:
+  - {fileID: 8300000, guid: 377541f8b4f38407283deb84c30030d9, type: 3}
+  _comboAAA03Clips:
+  - {fileID: 8300000, guid: a4e9a4c15da0147838f42e907d17fb91, type: 3}
+  _comboBB01Clips:
+  - {fileID: 8300000, guid: 874424f8a33c6475992a1356251d7a9f, type: 3}
+  _comboBB02Clips:
+  - {fileID: 8300000, guid: 6943289b3e4ef4e579cd789f7ca8100a, type: 3}
+  _comboBSharpClips: []
+  _definitiveClips: []
+  _habilityClips:
+  - {fileID: 8300000, guid: 3eb8887b9355d4c2ab445abf21753c52, type: 3}
+  _defenseClips: []
+  _jumpClips:
+  - {fileID: 8300000, guid: 59c51d95a40e7460f84de27a131baa68, type: 3}
+  _hitClips: []
 --- !u!114 &114716532977222356
 MonoBehaviour:
   m_ObjectHideFlags: 1
