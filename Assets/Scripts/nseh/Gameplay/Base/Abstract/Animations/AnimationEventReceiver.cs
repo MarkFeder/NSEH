@@ -48,13 +48,13 @@ namespace nseh.Gameplay.Base.Abstract.Animations
             }
         }
 
-        public virtual void OnPlayDefenseSound(AnimationEvent animationEvent)
+        public virtual void OnPlayImpactDefenseSound(AnimationEvent animationEvent)
         {
             DefenseType type = (DefenseType)animationEvent.intParameter;
 
             if (_defenseTypes.Contains(type))
             {
-                AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForDefense(type);
+                AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForImpactDefense(type);
                 if (controller != null)
                 {
                     GameManager.Instance.SoundManager.PlayAudio(controller);
@@ -78,6 +78,15 @@ namespace nseh.Gameplay.Base.Abstract.Animations
         public virtual void OnPlayJumpSound(AnimationEvent animationEvent)
         {
             AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForJump();
+            if (controller != null)
+            {
+                GameManager.Instance.SoundManager.PlayAudio(controller);
+            }
+        }
+
+        public virtual void OnPlayDeathSound(AnimationEvent animationEvent)
+        {
+            AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForDeath();
             if (controller != null)
             {
                 GameManager.Instance.SoundManager.PlayAudio(controller);

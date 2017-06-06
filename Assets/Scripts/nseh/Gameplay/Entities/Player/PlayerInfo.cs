@@ -28,9 +28,6 @@ namespace nseh.Gameplay.Entities.Player
         [SerializeField]
         private Sprite _characterPortrait;
 
-        [SerializeField]
-        private bool _bavaScene;
-
         [Space(20)]
 
         private Rigidbody _body;

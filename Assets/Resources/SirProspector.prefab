@@ -2440,21 +2440,28 @@ MonoBehaviour:
   _comboAAA02Clips:
   - {fileID: 8300000, guid: 35a6687c9d833494c8e8d5620fc15dc8, type: 3}
   _comboAAA03Clips:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: eeea1877f7950cd47965c5b032d4ac03, type: 3}
   _comboBB01Clips:
   - {fileID: 8300000, guid: 6f479cfb5a83a45489cabea128038396, type: 3}
   _comboBB02Clips:
   - {fileID: 8300000, guid: ff5ff3a6d383a40bfbff8a87ab2f8f85, type: 3}
   _comboBSharpClips: []
-  _definitiveClips: []
-  _habilityClips: []
-  _defenseClips: []
+  _definitiveClips:
+  - {fileID: 8300000, guid: c35271cdc747e164eb8744c81596ee2b, type: 3}
+  _habilityClips:
+  - {fileID: 8300000, guid: 9491e09042a9bcc4b9f272fd49898146, type: 3}
+  _impactDefenseClips:
+  - {fileID: 8300000, guid: 6cc94ccb796ed4703bea934addbeb651, type: 3}
   _jumpClips:
   - {fileID: 8300000, guid: a74d7d77564e845709194db2c6d03494, type: 3}
   _hitClips:
   - {fileID: 8300000, guid: 4ef07aef386c54dd7a2272cecd31300e, type: 3}
   - {fileID: 8300000, guid: 4aea831889a114751985d7c2d88f7d86, type: 3}
   - {fileID: 8300000, guid: 0d1b9ea400e154ee8ac1853bede5b5f2, type: 3}
+  _fallClips:
+  - {fileID: 8300000, guid: dd3d51583ea354abe8f90f3ba7cf83e6, type: 3}
+  _deathClips:
+  - {fileID: 8300000, guid: ffac2889003c5bd4b881933c771e4bf6, type: 3}
 --- !u!114 &114287641060360600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2627,7 +2634,6 @@ MonoBehaviour:
   _player: 1
   _playerName: SirProspector
   _characterPortrait: {fileID: 21300000, guid: d1cb5f9b810fe5c41ae98ad8a60289fe, type: 3}
-  _bavaScene: 0
 --- !u!114 &114949588210931934
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -28,11 +28,15 @@ namespace nseh.Gameplay.Entities.Player
         [SerializeField]
         private List<AudioClip> _habilityClips;
         [SerializeField]
-        private List<AudioClip> _defenseClips;
+        private List<AudioClip> _impactDefenseClips;
         [SerializeField]
         private List<AudioClip> _jumpClips;
         [SerializeField]
         private List<AudioClip> _hitClips;
+        [SerializeField]
+        private List<AudioClip> _fallClips;
+        [SerializeField]
+        private List<AudioClip> _deathClips;
 
 		#endregion
 
@@ -57,9 +61,11 @@ namespace nseh.Gameplay.Entities.Player
 			RegisterAudioClips(ref _comboBSharpClips);
 			RegisterAudioClips(ref _definitiveClips);
 			RegisterAudioClips(ref _habilityClips);
-			RegisterAudioClips(ref _defenseClips);
+			RegisterAudioClips(ref _impactDefenseClips);
 			RegisterAudioClips(ref _jumpClips);
 			RegisterAudioClips(ref _hitClips);
+            RegisterAudioClips(ref _fallClips);
+            RegisterAudioClips(ref _deathClips);
 		}
 
 		/// <summary>
@@ -161,14 +167,14 @@ namespace nseh.Gameplay.Entities.Player
         /// </summary>
         /// <returns>The audio controller for defense.</returns>
         /// <param name="type">Type.</param>
-        public AudioController GetAudioControllerForDefense(DefenseType type)
+        public AudioController GetAudioControllerForImpactDefense(DefenseType type)
         {
             AudioController audioController = null;
 
             switch (type)
             {
                 case DefenseType.NormalDefense:
-                    audioController = GetRandomAudioController(ref _defenseClips);
+                    audioController = GetRandomAudioController(ref _impactDefenseClips);
                     break;
 
                 default:
@@ -197,6 +203,24 @@ namespace nseh.Gameplay.Entities.Player
             return GetRandomAudioController(ref _hitClips);
         }
 
-		#endregion
-	}
+        /// <summary>
+        /// Gets a random audio controller for death.
+        /// </summary>
+        /// <returns>The audio controller for death.</returns>
+        public AudioController GetAudioControllerForDeath()
+        {
+            return GetRandomAudioController(ref _deathClips);
+        }
+
+        /// <summary>
+        /// Gets a random audio controller for fall.
+        /// </summary>
+        /// <returns>The audio controller for fall.</returns>
+        public AudioController GetAudioControllerForFall()
+        {
+            return GetRandomAudioController(ref _fallClips);
+        }
+
+        #endregion
+    }
 }

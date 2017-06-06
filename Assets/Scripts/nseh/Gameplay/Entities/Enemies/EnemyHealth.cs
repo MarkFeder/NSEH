@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace nseh.Gameplay.Entities.Enemies
 {
-    public class EnemyHealth : MonoBehaviour, IHealth
+    public class EnemyHealth : MonoBehaviour
     {
         #region Private Properties
 
