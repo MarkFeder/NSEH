@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 81496715695825088}
   - component: {fileID: 114657795928226408}
   - component: {fileID: 82731330136805736}
+  - component: {fileID: 114178001299475386}
   m_Layer: 0
   m_Name: LevelCamera
   m_TagString: MainCamera
@@ -69,7 +70,7 @@ Camera:
   m_Depth: 100
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967039
   m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -175,6 +176,18 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424950556388478}
   m_Enabled: 1
+--- !u!114 &114178001299475386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1424950556388478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 8126535be2a1cdb4696e5463adc392ab, type: 2}
 --- !u!114 &114657795928226408
 MonoBehaviour:
   m_ObjectHideFlags: 1

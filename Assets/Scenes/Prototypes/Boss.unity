@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.4824827, g: 0.5443937, b: 0.6764706, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -2082,6 +2082,7 @@ GameObject:
   - component: {fileID: 941978036}
   - component: {fileID: 941978035}
   - component: {fileID: 941978034}
+  - component: {fileID: 941978039}
   m_Layer: 8
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -2159,6 +2160,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 1, y: 180.00002, z: 0}
+--- !u!114 &941978039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 941978033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 86fc166abe0a6c7419feb21fa472ee8a, type: 2}
 --- !u!1 &942848235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2964,6 +2977,7 @@ GameObject:
   - component: {fileID: 1619878356}
   - component: {fileID: 1619878355}
   - component: {fileID: 1619878360}
+  - component: {fileID: 1619878361}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3121,6 +3135,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1619878361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1619878354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 8126535be2a1cdb4696e5463adc392ab, type: 2}
 --- !u!1 &1623913707
 GameObject:
   m_ObjectHideFlags: 0
