@@ -7,7 +7,7 @@ namespace nseh.Managers.Audio
     public class GameSounds : MonoBehaviour
     {
         #region Private Properties
-
+/*
         [Header("UI sounds")]
 
 		[SerializeField]
@@ -676,7 +676,7 @@ namespace nseh.Managers.Audio
 		{
             return GetRandomAudioControllerForFXSounds(ref _chestVelocitySounds);
 		}
-
+        */
         #endregion
     }
 }

@@ -162,6 +162,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
+      - time: 0.5219207
+        functionName: StampSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
       - time: 0.5437299
         functionName: DeactivateCollider
         data: 
@@ -178,6 +185,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.8499715
         functionName: DeactivateCollider
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.79732674
+        functionName: StampSound
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

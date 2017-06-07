@@ -23,6 +23,11 @@ namespace nseh.Gameplay.AI
         public float animationSpeedFrenzy;
         public float agentSpeedFrenzy;
         public float frenzyHealth;
+        public AudioClip stampSound;
+        public AudioClip deathSound;
+        public AudioClip startSound;
+        public AudioClip rollSound;
+        public AudioClip frenzySound;
         #endregion
 
         #region Private Properties
@@ -76,6 +81,7 @@ namespace nseh.Gameplay.AI
             _agent.enabled = false;
             _animator.SetBool("Appear", true);
             _animator.SetTrigger("Appear");
+            AudioSource.PlayClipAtPoint(startSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
             _throne = GameObject.Find("throne");
             maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
             //_animator.SetBool("Walk", true);
@@ -106,6 +112,7 @@ namespace nseh.Gameplay.AI
                 _agent.enabled = false;
                 _nextPoint = null;
                 _animator.SetTrigger("Death");
+                AudioSource.PlayClipAtPoint(deathSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
                 _animator.SetBool("Walk", false);
                 _animator.SetBool("AttackRoll", false);
             }
@@ -119,6 +126,7 @@ namespace nseh.Gameplay.AI
                     //_isDice = false;
                     _frenzy = true;
                    _animator.SetTrigger("Frenzy");
+                    AudioSource.PlayClipAtPoint(frenzySound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
                     _prob_Patrol_in = 0.25f;
                     _prob_AttackSpikes_in = 1f;
                     _agent.speed = agentSpeedFrenzy;
@@ -234,6 +242,16 @@ namespace nseh.Gameplay.AI
         private IEnumerator Wait(float seconds)
         {
             yield return new WaitForSeconds(seconds);
+        }
+
+        public virtual void StampSound(AnimationEvent animationEvent)
+        {
+            AudioSource.PlayClipAtPoint(stampSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+        }
+
+        public virtual void RollSound(AnimationEvent animationEvent)
+        {
+            AudioSource.PlayClipAtPoint(rollSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
         }
         #endregion
 

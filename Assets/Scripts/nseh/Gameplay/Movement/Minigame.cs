@@ -18,6 +18,7 @@ namespace nseh.Gameplay.Movement
         public float speed;
         public float jumpForce;
         public float velocityCube;
+        public AudioClip audio;
         #endregion
 
         #region Private Properties
@@ -51,6 +52,7 @@ namespace nseh.Gameplay.Movement
                 {
                     isGrounded = false;
                     _myRigidBody.velocity = new Vector3(_myRigidBody.velocity.x, jumpForce, _myRigidBody.velocity.z);
+                    AudioSource.PlayClipAtPoint(audio, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0.5f);
                 }
             }
             else
@@ -58,6 +60,8 @@ namespace nseh.Gameplay.Movement
                 _myRigidBody.velocity = Vector3.zero;
             }
         }
+
+        
         #endregion
     }
 }

@@ -1811,6 +1811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 3
   _attackType: 2
+  audio: {fileID: 8300000, guid: 377541f8b4f38407283deb84c30030d9, type: 3}
 --- !u!114 &114055517465517628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1822,31 +1823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43dde2ecb1f5246f2baf1ac44b85ac1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _comboAAA01Clips:
-  - {fileID: 8300000, guid: 0dba6e6fba41c4f4e9ea3e2234072a5d, type: 3}
-  _comboAAA02Clips:
-  - {fileID: 8300000, guid: 377541f8b4f38407283deb84c30030d9, type: 3}
-  _comboAAA03Clips:
-  - {fileID: 8300000, guid: a4e9a4c15da0147838f42e907d17fb91, type: 3}
-  _comboBB01Clips:
-  - {fileID: 8300000, guid: 874424f8a33c6475992a1356251d7a9f, type: 3}
-  _comboBB02Clips:
-  - {fileID: 8300000, guid: 6943289b3e4ef4e579cd789f7ca8100a, type: 3}
-  _comboBSharpClips: []
-  _definitiveClips:
-  - {fileID: 8300000, guid: 077fdf356d15a564287abe992fdd4e43, type: 3}
-  _habilityClips:
-  - {fileID: 8300000, guid: c2010ffc14fea654fb7e27247fc35334, type: 3}
-  _impactDefenseClips:
-  - {fileID: 8300000, guid: 6cc94ccb796ed4703bea934addbeb651, type: 3}
-  _jumpClips:
-  - {fileID: 8300000, guid: 59c51d95a40e7460f84de27a131baa68, type: 3}
-  _hitClips:
-  - {fileID: 8300000, guid: b1a7e7b4deccb554dab2c42196dde272, type: 3}
-  _fallClips:
-  - {fileID: 8300000, guid: c9ac5034031a44b2284b8ebda99c4ec0, type: 3}
-  _deathClips:
-  - {fileID: 0}
 --- !u!114 &114070606057771824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1872,6 +1848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 20
   _attackType: 8
+  audio: {fileID: 8300000, guid: 077fdf356d15a564287abe992fdd4e43, type: 3}
   _rockMesh: {fileID: 1389682234776032, guid: ad01807142f3e164886e00fbe58d7e32, type: 2}
   _bone: {fileID: 4022378891723576}
   _rockForce: 700
@@ -1889,6 +1866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 10
   _attackType: 7
+  audio: {fileID: 8300000, guid: c2010ffc14fea654fb7e27247fc35334, type: 3}
   _wave: {fileID: 114333976357871034}
   _particle: {fileID: 1242950439485562, guid: f24bb7c03ea2e9d49bdb0e7892dd61dd, type: 2}
 --- !u!114 &114190659147358852
@@ -1902,6 +1880,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8bb6350fce42d941a5454255bb8826f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio:
+  - {fileID: 8300000, guid: d51f361357d008a4faef4e3e24a4a6b1, type: 3}
+  - {fileID: 8300000, guid: 572cadf4fedb0184d9ec76e3bada0353, type: 3}
+  - {fileID: 8300000, guid: 9a5dbfe3521b2ac4f9754bff78a6848c, type: 3}
+  - {fileID: 8300000, guid: b2f1da690b7f4a547987d1a27bec204c, type: 3}
+  - {fileID: 8300000, guid: e563a2590354b8a4f931ab5392f6c6e2, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: be7a263b4301b6b428853bf50dc13454, type: 3}
+  - {fileID: 8300000, guid: 323ef58c19ffddd42acea910a0498154, type: 3}
 --- !u!114 &114196002245353524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1952,6 +1939,7 @@ MonoBehaviour:
   _jumpAirSpeed: 5
   _jumpHeight: 15
   _baseSpeed: 6
+  audio: {fileID: 8300000, guid: b7a8e032a4bfcc94dbb6a304f9f363ce, type: 3}
 --- !u!114 &114268211253785414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2000,6 +1988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 7
   _attackType: 3
+  audio: {fileID: 8300000, guid: a4e9a4c15da0147838f42e907d17fb91, type: 3}
 --- !u!114 &114478589548323906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2013,6 +2002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 3
   _attackType: 1
+  audio: {fileID: 8300000, guid: 0dba6e6fba41c4f4e9ea3e2234072a5d, type: 3}
 --- !u!114 &114500159127260180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2063,6 +2053,8 @@ MonoBehaviour:
   _startingHealth: 100
   _maxHealth: 100
   _penalization: 10
+  hitClip: {fileID: 8300000, guid: 810ebfe93a1305140a03e51f1d0b366e, type: 3}
+  deathClip: {fileID: 8300000, guid: 196059b1fa8c4d34686ae3cc989ade33, type: 3}
 --- !u!114 &114792759668558198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2088,6 +2080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 7
   _attackType: 4
+  audio: {fileID: 8300000, guid: 874424f8a33c6475992a1356251d7a9f, type: 3}
 --- !u!114 &114847788110666382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2101,6 +2094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 10
   _attackType: 5
+  audio: {fileID: 8300000, guid: 6943289b3e4ef4e579cd789f7ca8100a, type: 3}
 --- !u!135 &135115222219642246
 SphereCollider:
   m_ObjectHideFlags: 1

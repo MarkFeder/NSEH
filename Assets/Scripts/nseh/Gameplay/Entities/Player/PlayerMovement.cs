@@ -50,6 +50,8 @@ namespace nseh.Gameplay.Entities.Player
         [SerializeField]
         private float _baseSpeed;
 
+        public AudioClip audio;
+
         #endregion
 
         #region Public C# Properties
@@ -97,6 +99,13 @@ namespace nseh.Gameplay.Entities.Player
             OnFlipPlayer(_horizontal);
             Move();
             Jump();
+           
+        }
+
+
+        public virtual void OnPlayJumpSound(AnimationEvent animationEvent)
+        {
+            AudioSource.PlayClipAtPoint(audio, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
         }
 
         #region Main Logic

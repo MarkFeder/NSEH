@@ -23,7 +23,7 @@ namespace nseh.Gameplay.Movement
         #endregion
 
         #region Public Properties
-        public Animator animator;
+        public AudioClip audio;
         #endregion
 
         #region Private Methods
@@ -34,16 +34,12 @@ namespace nseh.Gameplay.Movement
 
         private void OnTriggerStay(Collider other)
         {
-            if (animator != null)
-            { 
-                animator.SetBool("Open", true);
-                animator.SetBool("Close", false); 
-            }
 
             if ((other.CompareTag(Tags.PLAYER_BODY) && Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, other.GetComponent<PlayerInfo>().GamepadIndex)) && other.GetComponent<PlayerInfo>().Teletransported == false))
             {
                 other.GetComponent<PlayerInfo>().Teletransported = true;
                 StartCoroutine(Teleport(other));
+                AudioSource.PlayClipAtPoint(audio, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
             }
         }
 

@@ -58,10 +58,10 @@ namespace nseh.Gameplay.Gameflow
 
             // Handle sounds
             _playedAlarmSound = false;
-            _alarmSound = GameManager.Instance.GameSounds.GetVolcanoLavaSound();
-            _bubbleSound = GameManager.Instance.GameSounds.GetRandomBubbleSound();
+            //_alarmSound = GameManager.Instance.GameSounds.GetVolcanoLavaSound();
+            //_bubbleSound = GameManager.Instance.GameSounds.GetRandomBubbleSound();
 
-            GameManager.Instance.SoundManager.PlayAudio(_bubbleSound, true);
+            //GameManager.Instance.SoundManager.PlayAudio(_bubbleSound, true);
         }
 
         //Event execution.
@@ -77,7 +77,7 @@ namespace nseh.Gameplay.Gameflow
 
                 if (!_playedAlarmSound)
                 {
-                    GameManager.Instance.SoundManager.PlayAudio(_alarmSound, false);
+                    //GameManager.Instance.SoundManager.PlayAudio(_alarmSound, false);
                     _playedAlarmSound = true;
                 }
 
@@ -113,17 +113,12 @@ namespace nseh.Gameplay.Gameflow
             isUp = false;
 
             _playedAlarmSound = false;
-            GameManager.Instance.SoundManager.StopAudio(_bubbleSound);
-            GameManager.Instance.SoundManager.StopAudio(_alarmSound);
+            //GameManager.Instance.SoundManager.StopAudio(_bubbleSound);
+            //GameManager.Instance.SoundManager.StopAudio(_alarmSound);
 
             _isActivated = false;
         }
-        /*
-            public void RegisterLight(MonoBehaviour componentToRegister)
-            {
-                _tarComponents.Add(componentToRegister);
-            }
-        */
+       
 
         #endregion
     } 

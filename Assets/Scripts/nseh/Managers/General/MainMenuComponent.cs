@@ -30,6 +30,10 @@ namespace nseh.Managers.General
         public Button random;
         public EventSystem eventSystem;
         public GameObject selectedGameObject;
+        public AudioClip start;
+        public AudioClip back;
+        public AudioClip select;
+        private AudioSource audiosource;
         #endregion
 
         #region Public Methods
@@ -37,29 +41,47 @@ namespace nseh.Managers.General
         {
             _MenuManager = GameManager.Instance.Find<MenuManager>();
             adding = 0;
+            audiosource = gameObject.AddComponent<AudioSource>();
+            audiosource.spatialBlend = 0;
+            audiosource.volume = 0.5f;
             playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
         }
 
         public void OneNumberCharacter(GameObject newCanvas)
         {
             _MenuManager.ChangePlayers(1);
+            audiosource.clip = start;
+            audiosource.Play();
             ChangeCanvas(newCanvas);
         }
 
         public void TwoNumberCharacter(GameObject newCanvas)
         {
             _MenuManager.ChangePlayers(2);
+            audiosource.clip = start;
+            audiosource.Play();
             ChangeCanvas(newCanvas);
         }
 
         public void FourNumberCharacter(GameObject newCanvas)
         {
             _MenuManager.ChangePlayers(4);
+            audiosource.clip = start;
+            audiosource.Play();
+            ChangeCanvas(newCanvas);
+        }
+
+        public void Back(GameObject newCanvas)
+        {
+            audiosource.clip = back;
+            audiosource.Play();
             ChangeCanvas(newCanvas);
         }
 
         public void ChangeCanvas(GameObject newCanvas)
         {
+           
+
             if (current.name == "Canvas_PickingCharacters")
             {
                 adding = 0;
@@ -86,7 +108,8 @@ namespace nseh.Managers.General
             _wrarr = Resources.Load("Wrarr") as GameObject;
             _MenuManager.Adding(_wrarr);
             adding++;
-
+            audiosource.clip = select;
+            audiosource.Play();
             _MenuManager.SetPlayerChoice("Wrarr", adding);
 
             if (adding == GameManager.Instance._numberPlayers)
@@ -126,7 +149,8 @@ namespace nseh.Managers.General
             _prospector = Resources.Load("SirProspector") as GameObject;
             _MenuManager.Adding(_prospector);
             adding++;
-
+            audiosource.clip = select;
+            audiosource.Play();
             _MenuManager.SetPlayerChoice("SirProspector", adding);
 
             if (adding == GameManager.Instance._numberPlayers)
@@ -168,11 +192,15 @@ namespace nseh.Managers.General
         public void PlayGame(GameObject newCanvas)
         {
             //ChangeCanvas(newCanvas);
+            audiosource.clip = start;
+            audiosource.Play();
             _MenuManager.ChangeStates();
         }
 
         public void Exit()
         {
+            audiosource.clip = back;
+            audiosource.Play();
             _MenuManager.ExitGame();
         }
         #endregion

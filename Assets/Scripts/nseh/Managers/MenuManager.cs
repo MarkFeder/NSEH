@@ -16,9 +16,9 @@ namespace nseh.Managers
         {
             _isActivated = true;
 
-            _myGame.GameSounds.RegisterMenuMusic();
-            _myGame.GameSounds.RegisterUISounds();
-            _myGame.SoundManager.PlayAudio(_myGame.GameSounds.GetRandomMenuMusic(), true);
+            //_myGame.GameSounds.RegisterMenuMusic();
+            //_myGame.GameSounds.RegisterUISounds();
+            //_myGame.SoundManager.PlayAudio(_myGame.GameSounds.GetRandomMenuMusic(), true);
         }
 
         public void ChangePlayers(int number)
@@ -60,8 +60,8 @@ namespace nseh.Managers
         {
             _isActivated = false;
 
-            _myGame.GameSounds.UnRegisterMenuMusic();
-            _myGame.GameSounds.UnRegisterUISounds();
+            //_myGame.GameSounds.UnRegisterMenuMusic();
+            //_myGame.GameSounds.UnRegisterUISounds();
         }
 
         #endregion

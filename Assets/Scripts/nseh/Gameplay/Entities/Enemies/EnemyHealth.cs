@@ -18,6 +18,8 @@ namespace nseh.Gameplay.Entities.Enemies
         [SerializeField]
         private BarComponent _lifeBar;
 
+        public AudioClip hitSound;
+
         #endregion
 
         #region Public Properties
@@ -94,7 +96,7 @@ namespace nseh.Gameplay.Entities.Enemies
 
             // Play hit animation
 
-
+            AudioSource.PlayClipAtPoint(hitSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
             // Clamp current health
             CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
 

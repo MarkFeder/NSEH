@@ -18,6 +18,8 @@ namespace nseh.Gameplay.Base.Abstract.Animations
         private List<AttackType> _attackTypes;
         private List<DefenseType> _defenseTypes;
 
+        public List<AudioClip> audio;
+
         #endregion
 
         #region Virtual Methods
@@ -29,70 +31,62 @@ namespace nseh.Gameplay.Base.Abstract.Animations
             _attackTypes = Enum.GetValues(typeof(AttackType)).Cast<AttackType>().ToList();
             _defenseTypes = Enum.GetValues(typeof(DefenseType)).Cast<DefenseType>().ToList();
         }
-
+       
         public virtual void OnPlayAttackSound(AnimationEvent animationEvent)
         {
             AttackType type = (AttackType)animationEvent.intParameter;
-
+  
             if (_attackTypes.Contains(type))
             {
-                AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForAttack(type);
-                if (controller != null)
-                {
-                    GameManager.Instance.SoundManager.PlayAudio(controller);
-                }
+                AudioSource.PlayClipAtPoint(audio[animationEvent.intParameter-1], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0.5f);
             }
-            else
-            {
-                Debug.LogError(string.Format("Type: {0} does not exist", type));
+          }
+           /*
+          public virtual void OnPlayImpactDefenseSound(AnimationEvent animationEvent)
+          {
+              DefenseType type = (DefenseType)animationEvent.intParameter;
+
+              if (_defenseTypes.Contains(type))
+              {
+                  AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForImpactDefense(type);
+                  if (controller != null)
+                  {
+                      GameManager.Instance.SoundManager.PlayAudio(controller);
+                  } 
+              }
+              else
+              {
+                  Debug.LogError(string.Format("Type: {0} does not exist", type));
+              }
+          }
+
+          public virtual void OnPlayHitSound(AnimationEvent animationEvent)
+          {
+              AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForHit();
+              if (controller != null)
+              {
+                  GameManager.Instance.SoundManager.PlayAudio(controller);
+              }
+          }
+
+          public virtual void OnPlayJumpSound(AnimationEvent animationEvent)
+          {
+              AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForJump();
+              if (controller != null)
+              {
+                  GameManager.Instance.SoundManager.PlayAudio(controller);
+              }
+          }
+
+          public virtual void OnPlayDeathSound(AnimationEvent animationEvent)
+          {
+              AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForDeath();
+              if (controller != null)
+              {
+                  GameManager.Instance.SoundManager.PlayAudio(controller);
+              }
+          }
+          */
+                #endregion
             }
         }
-
-        public virtual void OnPlayImpactDefenseSound(AnimationEvent animationEvent)
-        {
-            DefenseType type = (DefenseType)animationEvent.intParameter;
-
-            if (_defenseTypes.Contains(type))
-            {
-                AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForImpactDefense(type);
-                if (controller != null)
-                {
-                    GameManager.Instance.SoundManager.PlayAudio(controller);
-                } 
-            }
-            else
-            {
-                Debug.LogError(string.Format("Type: {0} does not exist", type));
-            }
-        }
-
-        public virtual void OnPlayHitSound(AnimationEvent animationEvent)
-        {
-            AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForHit();
-            if (controller != null)
-            {
-                GameManager.Instance.SoundManager.PlayAudio(controller);
-            }
-        }
-
-        public virtual void OnPlayJumpSound(AnimationEvent animationEvent)
-        {
-            AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForJump();
-            if (controller != null)
-            {
-                GameManager.Instance.SoundManager.PlayAudio(controller);
-            }
-        }
-
-        public virtual void OnPlayDeathSound(AnimationEvent animationEvent)
-        {
-            AudioController controller = _playerInfo.PlayerSounds.GetAudioControllerForDeath();
-            if (controller != null)
-            {
-                GameManager.Instance.SoundManager.PlayAudio(controller);
-            }
-        }
-
-        #endregion
-    }
-}

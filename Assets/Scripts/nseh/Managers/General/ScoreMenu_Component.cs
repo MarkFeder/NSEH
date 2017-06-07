@@ -13,6 +13,7 @@ namespace nseh.Managers.General
 
         #region Private Properties
         private MenuManager _MenuManager;
+        private AudioSource audiosource;
         #endregion
 
         #region Public Properties
@@ -21,12 +22,16 @@ namespace nseh.Managers.General
         public GameObject fourPlayerScore;
         public GameObject CanvasTwoPlayerScore;
         public GameObject CanvasFourPlayerScore;
+        public AudioClip back;
         #endregion
 
         #region Public Methods
         // Use this for initialization
         public void Start()
         {
+            audiosource = gameObject.AddComponent<AudioSource>();
+            audiosource.spatialBlend = 0;
+            audiosource.volume = 0.5f;
             _MenuManager = GameManager.Instance.Find<MenuManager>();
             if (_MenuManager.MyGame._numberPlayers == 2)
             {
@@ -52,6 +57,8 @@ namespace nseh.Managers.General
 
         public void MainMenu()
         {
+            audiosource.clip = back;
+            audiosource.Play();
             _MenuManager.MyGame.ChangeState(GameManager.States.MainMenu);
         }
         #endregion

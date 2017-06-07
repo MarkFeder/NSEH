@@ -105,7 +105,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 					_currentUses++;
 					_target = other.gameObject;
 					_particlesSpawnPoints = _target.GetComponent<PlayerInfo>();
-
+/*
 					switch (_particlesSpawnPoints.Player)
 					{
 						case 1:
@@ -121,7 +121,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 							_itemText = GameManager.Instance.LevelManager.CanvasItemsManager.P4ItemText;
 							break;
 					}
-
+                    */
 					PlaySoundAtPlayer(_sound);
                     Activate();
 				}
@@ -153,8 +153,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		protected void PlaySoundAtPlayer(AudioClip clip)
 		{
-			AudioSource.PlayClipAtPoint(clip, _target.transform.position, 1);
-		}
+            AudioSource.PlayClipAtPoint(clip, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+        }
 
 		#endregion
 

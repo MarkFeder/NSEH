@@ -31,6 +31,8 @@ namespace nseh.Gameplay.Combat
 
         protected float _currentDamage;
 
+
+
         #endregion
 
         #region Private Properties
@@ -261,6 +263,8 @@ namespace nseh.Gameplay.Combat
             }
         }
 
+
+      
         #endregion
     }
 }

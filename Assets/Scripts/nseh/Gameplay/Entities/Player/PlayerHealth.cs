@@ -27,6 +27,8 @@ namespace nseh.Gameplay.Entities.Player
         public int _maxHealth = 100;
         [SerializeField]
         public int _penalization = 10;
+        public AudioClip hitClip;
+        public AudioClip deathClip;
 
         private int _deathCount;
         private float _bonificationDefense;
@@ -292,13 +294,14 @@ namespace nseh.Gameplay.Entities.Player
                 CurrentHealth = (int)Mathf.Clamp(CurrentHealth, 0.0f, _maxHealth);
 
                 _playerInfo.PlayerEnergy.IncreaseEnergy(oldHealth - CurrentHealth);
+                AudioSource.PlayClipAtPoint(hitClip, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
 
                 /*if (CurrentHealth == 0.0f && !isDead && lives == 1)
                 {
                     Death();
                 }*/
 
-                if(CurrentHealth == 0.0f && !_isDead /*&& lives > 0*/)
+                if (CurrentHealth == 0.0f && !_isDead /*&& lives > 0*/)
                 {
                     _playerInfo.PlayerScore.DecreaseScore(_penalization);
                     StartCoroutine(LoseLife(3));
@@ -391,6 +394,7 @@ namespace nseh.Gameplay.Entities.Player
             _playerInfo.Animator.SetTrigger(_playerInfo.DeadHash);
             _playerInfo.PlayerMovement.DisableMovement(0f);
             _playerInfo.PlayerCollider.enabled = false;
+            AudioSource.PlayClipAtPoint(deathClip, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
         }
 
         private IEnumerator LoseLife(float respawnTime)

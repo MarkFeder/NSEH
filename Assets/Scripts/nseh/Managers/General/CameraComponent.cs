@@ -28,6 +28,8 @@ namespace nseh.Managers.General
         #endregion
 
         #region Public Methods
+
+
         public void RefreshCamera(Vector3 PositionPlayer1, Vector3 PositionPlayer2, Vector3 PositionPlayer3, Vector3 PositionPlayer4)
         {
             DebugPlayer1 = PositionPlayer1;
@@ -57,7 +59,7 @@ namespace nseh.Managers.General
                 {
                     xMin = -25;
                     xMax = 15;
-                    yMin = 3.5f;
+                    yMin = 0f;
                     yMax = 20;
                     Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+1, 30);
                     transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
@@ -67,7 +69,7 @@ namespace nseh.Managers.General
                 {
                     xMin = -25;
                     xMax = 22;
-                    yMin = 2.5f;
+                    yMin = 0f;
                     yMax = 20;
                     Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+1, 20);
                     transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
@@ -79,8 +81,8 @@ namespace nseh.Managers.General
             {
                 xMin = -22;
                 xMax = 22;
-                yMin = 5f;
-                yMax = 20;
+                yMin = 0f;
+                yMax = 15;
                 Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+2, 40);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
@@ -89,8 +91,8 @@ namespace nseh.Managers.General
             {
                 xMin = -15;
                 xMax = 10;
-                yMin = 7.5f;
-                yMax = 20;
+                yMin = 0f;
+                yMax = 10;
                 Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+3, 60);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }
@@ -99,8 +101,8 @@ namespace nseh.Managers.General
             {
                 xMin = -10;
                 xMax = 6;
-                yMin = 10f;
-                yMax = 20;
+                yMin = 0f;
+                yMax = 5;
                 Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+4, 80);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }

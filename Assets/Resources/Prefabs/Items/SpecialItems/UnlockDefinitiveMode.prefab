@@ -111,7 +111,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942850695741932}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animation: {fileID: 0}
-  _sound: {fileID: 8300000, guid: a4a9327e98855524c846cc8e2f559e96, type: 3}
+  _sound: {fileID: 8300000, guid: 962261115037f3b46a6d857135b6b3d5, type: 3}
   _uses: 1
   _displayName: 
   _particlePrefab: {fileID: 1458602115136670, guid: 5315a8905890437428b5a0e9bd651080,
