@@ -190,7 +190,7 @@ namespace nseh.Managers.Audio
         /// <param name="loop">Should be the audio played in loop?.</param>
         /// <param name="volume">The volume of the audio.</param>
         /// <param name="delay">The delay before playing the audio.</param>
-        public void PlayAudio(AudioController audioController, bool loop = false, float volume = 1.0f, float delay = 0.0f, float dopplerLevel = 0.0f)
+        public void PlayAudio(AudioController audioController, bool loop = false, float volume = 1.0f, float delay = 0.0f, float dopplerLevel = 0.0f, Vector3 atPosition = default(Vector3), float minDistance = 1.0f, float maxDistance = 500.0f)
         {
             Debug.Log(string.Format("PlayAudio of {0}", audioController.AudioName));
 
@@ -209,6 +209,9 @@ namespace nseh.Managers.Audio
 
             audioController.AudioSource.loop = loop;
             audioController.AudioSource.dopplerLevel = dopplerLevel;
+            audioController.AudioSource.transform.position = atPosition;
+            audioController.AudioSource.minDistance = minDistance;
+            audioController.AudioSource.maxDistance = maxDistance;
 
             if (delay > 0.0)
             {
