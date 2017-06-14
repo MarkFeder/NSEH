@@ -73,10 +73,11 @@ namespace nseh.Managers.Level
             _playerInfo.Animator.Play(_playerInfo.IdleHash);
         }
 
-        public void Setup(GameObject prefab, Vector3 pos, Vector3 rot, List<GameObject> spawnPoints, int playerNumber, BarComponent playerHealthBarComponent, BarComponent playerEnergyBarComponent, List<Image> playerLives, String Tag/*, LevelProgress lvlProgress*/)
+        public void Setup(GameObject prefab, Vector3 pos, Vector3 rot, List<GameObject> spawnPoints, int playerNumber, BarComponent playerHealthBarComponent, BarComponent playerEnergyBarComponent, List<Image> playerLives, String Tag, Vector3 scale/*, LevelProgress lvlProgress*/)
         {
             // Setup prefab
             _playerPrefab = GameObject.Instantiate(prefab, pos, Quaternion.Euler(rot));
+            _playerPrefab.transform.localScale = scale;
             _playerNumber = playerNumber;
             _spawnPosition = pos;
             _spawnRotation = rot;

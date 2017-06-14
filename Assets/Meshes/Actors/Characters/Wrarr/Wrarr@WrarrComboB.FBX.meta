@@ -293,7 +293,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.14126487
+      - time: 0.097100824
         functionName: OnPlayAttackSound
         data: 
         objectReferenceParameter: {instanceID: 0}

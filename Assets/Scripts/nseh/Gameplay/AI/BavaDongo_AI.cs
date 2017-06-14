@@ -12,40 +12,32 @@ namespace nseh.Gameplay.AI
     {
 
         #region Public Properties
-        public Transform left_Limit;
-        public Transform right_Limit;
         public GameObject spike;
-        public GameObject platform;
-        public GameObject throne;   
-        public float maxPlayers;
         public float numPlayers;
         public float percentageFrenzy;
         public float animationSpeedFrenzy;
-        public float agentSpeedFrenzy;
         public float frenzyHealth;
         public AudioClip stampSound;
-        public AudioClip deathSound;
-        public AudioClip startSound;
-        public AudioClip rollSound;
-        public AudioClip frenzySound;
+        public float attackPercent;
+        public GameObject platform;
+
         #endregion
 
         #region Private Properties
-        private Transform _nextPoint;
-        private Rigidbody _myRigidBody;
-        private NavMeshAgent _agent;
-        private GameObject _throne;
         private Animator _animator;
-        private bool _isDice;
         private bool _frenzy;
         private bool _isDeath;
-        private int _wait;
-        private float _dice;
-        private float _prob_Patrol_in;
-        private float _prob_AttackSpikes_in;
-        private float _prob_AttackRoll_in;
         private float _health;
-        private float _animationSpeed;
+        private float _percentage;
+        private float _animationSpeedMax;
+        private float _animationSpeedMin;
+        private int _stampMax;
+        private int _stampNum;
+        private int _stampAux;
+        private Vector3 _gravity;
+        [SerializeField]
+        private List<Collider> _colliders;
+
 
         public bool IsDeath
         {
@@ -66,120 +58,39 @@ namespace nseh.Gameplay.AI
         public void Start()
         {
             _animator = gameObject.GetComponent<Animator>();
-            _nextPoint = right_Limit;
-            _isDeath = false;
-            _myRigidBody = GetComponent<Rigidbody>();
-            _agent = GetComponent<NavMeshAgent>();
-            _agent.SetDestination(_nextPoint.position);
-            _prob_Patrol_in = 0.5f;
-            _prob_AttackSpikes_in = 1f;
-            
+            _isDeath = false;        
             _frenzy = false;
-            _wait = 2;
             _animator.speed = 1;
-            _animationSpeed = 1;
-            _agent.enabled = false;
-            _animator.SetBool("Appear", true);
-            _animator.SetTrigger("Appear");
-            AudioSource.PlayClipAtPoint(startSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
-            _throne = GameObject.Find("throne");
-            maxPlayers = GameObject.Find("GameManager").GetComponent<GameManager>()._numberPlayers;
-            //_animator.SetBool("Walk", true);
+            _animationSpeedMax = 1;
+            _animationSpeedMin = 1;
             _health = GetComponent<EnemyHealth>().CurrentHealth;
-            
-            if (Random.Range(0.0f, 1.0f) >= 0.6f)
-            {
-                _nextPoint = left_Limit;
-
-            }
-            else
-            {
-                _nextPoint = right_Limit;
-
-            }
-            _isDice = true;
-            _animator.SetBool("Walk", true);
-
+            _stampMax = 5;
+            _stampNum = 0;
+            _stampAux = Random.Range(3, _stampMax);
+            _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) *100;
+            _gravity = Physics.gravity;
         }
 
         // Update is called once per frame
         public void Update()
         {
             _health = GetComponent<EnemyHealth>().CurrentHealth;
-            if (_health <= 0 && _isDeath == false)
+            if ((_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle") || _animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Fall")) && _health <= 0 && _isDeath == false)
             {
                 _isDeath = true;
-                _agent.enabled = false;
-                _nextPoint = null;
                 _animator.SetTrigger("Death");
-                AudioSource.PlayClipAtPoint(deathSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
-                _animator.SetBool("Walk", false);
-                _animator.SetBool("AttackRoll", false);
+                //AudioSource.PlayClipAtPoint(deathSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+
             }
-            else
-            {
-                if (_health <= frenzyHealth && _frenzy == false)
-                {
-                    _animator.SetBool("Walk", false);
-                    _animator.SetBool("AttackRoll", false);
-                    _agent.enabled = false;
-                    //_isDice = false;
-                    _frenzy = true;
-                   _animator.SetTrigger("Frenzy");
-                    AudioSource.PlayClipAtPoint(frenzySound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
-                    _prob_Patrol_in = 0.25f;
-                    _prob_AttackSpikes_in = 1f;
-                    _agent.speed = agentSpeedFrenzy;
-                    _animationSpeed = animationSpeedFrenzy;
-                    //acelerar
-                    _wait = 1;
-                    _isDice = false;
-
-                }
-                //Debug.Log("0 " + animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle")+ " "+isDice);
-                if (Mathf.Abs(this.gameObject.transform.position.x - _nextPoint.transform.position.x) <= 1f && _isDeath == false)
-                {
-                    _animator.SetBool("Walk", false);
-                    _animator.SetBool("AttackRoll", false);
-
-                    if (_nextPoint == right_Limit)
-                    {
-                        _nextPoint = left_Limit;
-                        _isDice = false;
-                        Debug.Log("1");
-                    }
-
-                    else if (_nextPoint == left_Limit)
-                    {
-                        _nextPoint = right_Limit;
-                        _isDice = false;
-                        Debug.Log("2");
-                    }         
-                }
-
-                else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"))
-                {
-                    _agent.enabled = true;
-                    _animator.speed = _animationSpeed;
-                    if (_isDice == false)
-                    {
-                        Debug.Log("3 " + " " + _animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
-                        _isDice = true;
-                        Invoke("SelectAttack", _wait);
-                    }
-
-                }else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk2"))
-                {
-                    Debug.Log("WALK2");
-                    _animator.speed = _animationSpeed;
-                    _agent.enabled = false;
-                }else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-                {
-                    Debug.Log("WALK1");
-                    _animator.speed = 1;
-                    _agent.enabled = true;
-                    _agent.SetDestination(_nextPoint.position);
-                }
+            else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle") && _health <= frenzyHealth && _frenzy == false)
+            { 
+                _animator.SetTrigger("Frenzy");
+                _animationSpeedMax = 1.5f;
+                _animationSpeedMin = 0.5f;
+                _stampMax = 10;
+                _frenzy = true;
+                _animator.speed = _animationSpeedMax;
+                //AudioSource.PlayClipAtPoint(frenzySound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);               
             }
         }
 
@@ -187,72 +98,130 @@ namespace nseh.Gameplay.AI
 
         #region Private Methods
         private void SelectAttack()
-        {          
-            _dice = Random.Range(0.0f, 1.0f);
-            numPlayers = throne.GetComponent<Throne>().players_throne;
-            float prob_AttackRoll = _prob_AttackSpikes_in - ((_prob_AttackSpikes_in - _prob_Patrol_in) * numPlayers / maxPlayers);
-            Debug.Log("Dice " + _dice + " " + _prob_AttackSpikes_in + " "+ _prob_Patrol_in+" "+ numPlayers+" " +maxPlayers);
-            float angle = 100;
-            Debug.Log(Vector3.Angle(this.transform.forward, _nextPoint.transform.position - this.transform.position));
-            if (Vector3.Angle(this.transform.forward, _nextPoint.transform.position - this.transform.position) > angle)
+        {
+            float randomNum = Random.value;
+            if(randomNum < 0.33f)
             {
-                this.gameObject.transform.Rotate(0, 180, 0);
+                _animator.speed = _animationSpeedMax;
+                _animator.SetTrigger("Scepter");
             }
-
-            if (_dice < _prob_Patrol_in)
+            else if (randomNum < 0.66f)
             {
-                _animator.SetBool("Walk", true);
-                //funcion caminar
-                Debug.Log("PATROL");
-                //_agent.enabled = false;
-                _agent.SetDestination(_nextPoint.position);
-                //_agent.speed = 0;
+                _animator.speed = _animationSpeedMin;
+                _animator.SetTrigger("Platform");
             }
-
-            else if (_dice < prob_AttackRoll)
-            {             
-                _animator.SetBool("AttackRoll", true);
-                //funcion rodar
-                Debug.Log("ATTACKROLL");
-                _agent.enabled = true;
-                _agent.SetDestination(_nextPoint.position);
-            }
-
             else
             {
-                _animator.SetTrigger("AttackSpikes");
-                _isDice = false;
-                //funcion pinchos
-                Debug.Log("ATTACKSPIKES"); 
-                GameObject clone = Instantiate(spike, this.transform.position, spike.transform.rotation);
-                if(_nextPoint == right_Limit)
-                {
-                    clone.transform.Rotate(0, 180, 0);
-                    clone.GetComponent<Rigidbody>().AddForce(-8000, 8000, 0);
+                _animator.speed = _animationSpeedMax;
+                _animator.SetTrigger("FireBall");
+            }
 
-                }
-                    
+            _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
+        }
+
+        private void EventSelectAttack(AnimationEvent animationEvent)
+        {
+            //_animator.SetTrigger("SelectAttack");
+            SelectAttack();
+        }
+
+        private void EventSummonFireBall(AnimationEvent animationEvent)
+        {
+            //instantiate
+            GameObject fireBall = Instantiate(spike);
+            float randomNum = Random.value;
+            if (randomNum <= 0.5f)
+            {
+                fireBall.GetComponent<Rigidbody>().AddForce(new Vector3(100000, 0, 0));
+                fireBall.GetComponent<Rigidbody>().AddTorque(new Vector3(0, 0, -10000000));
+            }
+                
+            else
+            {
+                fireBall.GetComponent<Rigidbody>().AddForce(new Vector3(-100000, 0, 0));
+                fireBall.GetComponent<Rigidbody>().AddTorque(new Vector3(0, 0, 10000000));
+            }
+
+            Destroy(fireBall, 2.5f);
+        }
+
+        private void EventGoToIdle(AnimationEvent animationEvent)
+        {
+            _animator.SetTrigger("Idle");
+        }
+
+        private void EventInclinePlatform(AnimationEvent animationEvent)
+        {
+            platform.GetComponent<Animator>().SetTrigger("Incline");
+            Physics.gravity = new Vector3 (-75, Physics.gravity.y, Physics.gravity.z);
+        }
+
+        private void EventResetPlatform(AnimationEvent animationEvent)
+        {
+            platform.GetComponent<Animator>().SetTrigger("Reset");
+            _animator.speed = _animationSpeedMax;
+            Physics.gravity = _gravity;
+
+        }
+
+        private void EventSelectStamp(AnimationEvent animationEvent)
+        {
+            _stampNum++;
+            if (_stampNum <= _stampAux)
+            {
+                _animator.speed = _animationSpeedMax;
+                float randomNum = Random.value;
+                Debug.Log("ssss " + randomNum+ " "+ _stampNum +  " "+ _stampAux);
+                if (randomNum <= 0.5f)
+                    _animator.SetTrigger("LeftStamp");
                 else
-                clone.GetComponent<Rigidbody>().AddForce(8000,8000,0);
-                Destroy(clone, 2);
+                    _animator.SetTrigger("RightStamp");
+            }
+            else
+            {
+                _stampNum = 0;
+                _stampAux = Random.Range(3, _stampMax);
+                float percentageAux = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
+                Debug.Log("Porcentaje " + _percentage + " "+ percentageAux);
+                if ((_percentage - percentageAux)>= attackPercent) 
+                {
+                    float randomNum = Random.value;
+                    if (randomNum <= Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f))
+                    {
+                        _animator.speed = _animationSpeedMax;
+                        Debug.Log(randomNum + " Tantrum " + Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f));
+                        _animator.SetTrigger("Tantrum");
+                    }
 
+
+                    else
+                    {
+                        _animator.speed = 1;
+                        Debug.Log(randomNum + " Fall " + Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f));
+                        _animator.SetTrigger("Fall");
+                    }
+                }else
+                {
+                    //_animator.SetTrigger("SelectAttack");
+                    SelectAttack();
+                }
             }
         }
 
-        private IEnumerator Wait(float seconds)
+        public void ActivateColliderbox(int index)
         {
-            yield return new WaitForSeconds(seconds);
+            _colliders[index].enabled = true;
         }
 
-        public virtual void StampSound(AnimationEvent animationEvent)
+        /// <summary>
+        /// Deactivate the collider. This event is triggered by the animation.
+        /// </summary>
+        /// <param name="index">The weapon to be deactivated.</param>
+        public void DeactivateColliderbox(int index)
         {
-            AudioSource.PlayClipAtPoint(stampSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+            _colliders[index].enabled = false;
         }
 
-        public virtual void RollSound(AnimationEvent animationEvent)
-        {
-            AudioSource.PlayClipAtPoint(rollSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
-        }
         #endregion
 
     }

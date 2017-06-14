@@ -787,7 +787,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1828854585127354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.82, y: 0, z: -0.123}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4697453187860392}
@@ -1098,7 +1098,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1809820633215508}
   m_LocalRotation: {x: 0.00000008146034, y: -1.221835e-16, z: 1.6570553e-23, w: 1}
-  m_LocalPosition: {x: 1.3980378, y: 0.00054135796, z: 0.3282692}
+  m_LocalPosition: {x: 1.3980378, y: 0.001, z: 1.343}
   m_LocalScale: {x: 2.019931, y: 2.019931, z: 2.019931}
   m_Children: []
   m_Father: {fileID: 4697453187860392}
@@ -1811,7 +1811,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 3
   _attackType: 2
-  audio: {fileID: 8300000, guid: 377541f8b4f38407283deb84c30030d9, type: 3}
 --- !u!114 &114055517465517628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1848,7 +1847,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 20
   _attackType: 8
-  audio: {fileID: 8300000, guid: 077fdf356d15a564287abe992fdd4e43, type: 3}
   _rockMesh: {fileID: 1389682234776032, guid: ad01807142f3e164886e00fbe58d7e32, type: 2}
   _bone: {fileID: 4022378891723576}
   _rockForce: 700
@@ -1866,7 +1864,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 10
   _attackType: 7
-  audio: {fileID: 8300000, guid: c2010ffc14fea654fb7e27247fc35334, type: 3}
   _wave: {fileID: 114333976357871034}
   _particle: {fileID: 1242950439485562, guid: f24bb7c03ea2e9d49bdb0e7892dd61dd, type: 2}
 --- !u!114 &114190659147358852
@@ -1988,7 +1985,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 7
   _attackType: 3
-  audio: {fileID: 8300000, guid: a4e9a4c15da0147838f42e907d17fb91, type: 3}
 --- !u!114 &114478589548323906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2002,7 +1998,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 3
   _attackType: 1
-  audio: {fileID: 8300000, guid: 0dba6e6fba41c4f4e9ea3e2234072a5d, type: 3}
 --- !u!114 &114500159127260180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2080,7 +2075,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 7
   _attackType: 4
-  audio: {fileID: 8300000, guid: 874424f8a33c6475992a1356251d7a9f, type: 3}
 --- !u!114 &114847788110666382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2094,7 +2088,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamage: 10
   _attackType: 5
-  audio: {fileID: 8300000, guid: 6943289b3e4ef4e579cd789f7ca8100a, type: 3}
 --- !u!135 &135115222219642246
 SphereCollider:
   m_ObjectHideFlags: 1

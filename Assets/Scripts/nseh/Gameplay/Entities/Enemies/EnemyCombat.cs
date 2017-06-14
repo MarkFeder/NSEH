@@ -11,17 +11,13 @@ namespace nseh.Gameplay.Entities.Enemies
     public class EnemyCombat : MonoBehaviour
     {
 		#region Private Properties
-
+        
+        [SerializeField]
 		private List<Collider> _colliders;
 
 		#endregion
 
 		#region Private Methods
-
-		private void Awake()
-		{
-			_colliders = gameObject.GetSafeComponentsInChildren<Collider>().Where(c => c.tag.Equals(Tags.WEAPON)).ToList();
-		}
 
 		#endregion
 
@@ -33,25 +29,13 @@ namespace nseh.Gameplay.Entities.Enemies
 		/// <param name="index">The weapon to be activated.</param>
 		public void ActivateCollider(int index)
 		{
-			if (_colliders != null && _colliders.Count > 0)
-			{                
-				for (int i = 0; i < _colliders.Count; i++)
-				{
-					Collider enemyCollider = _colliders[i];
-					CollisionHandler handler = enemyCollider.GetComponent<CollisionHandler>();
-
-					if (handler.Index == index)
-					{
-                        enemyCollider.enabled = true;
-                        handler.enabled = true;
-                    }
-				}
-			}
-			else
-			{
-				Debug.Log(String.Format("ActivateCollider({0}): colliders are 0 or null", index));
-			}
-		}
+            _colliders[index].enabled = true;
+            
+            CollisionHandler handler =_colliders[index].GetComponent<CollisionHandler>();
+            Debug.Log(handler);
+            handler.enabled = true;
+            handler.ResetList();
+        }
 
 		/// <summary>
 		/// Deactivate the collider. This event is triggered by the animation.
@@ -59,26 +43,18 @@ namespace nseh.Gameplay.Entities.Enemies
 		/// <param name="index">The weapon to be deactivated.</param>
 		public void DeactivateCollider(int index)
 		{
-			if (_colliders != null && _colliders.Count > 0)
-			{
-				for (int i = 0; i < _colliders.Count; i++)
-                {
-                    Collider enemyCollider = _colliders[i];
-                    CollisionHandler handler = enemyCollider.GetComponent<CollisionHandler>();
+            _colliders[index].enabled = false;
+            CollisionHandler handler = _colliders[index].GetComponent<CollisionHandler>();
+            handler.enabled = false;
+        }
 
-                    if (handler.Index == index)
-                    {
-                        enemyCollider.enabled = false;
-                        handler.enabled = false;
-                    }
-				}
-			}
-			else
-			{
-				Debug.Log(String.Format("DeactivateCollider({0}): colliders are 0 or null", index));
-			}
-		}
 
-		#endregion
-	}
+        public void ResetList(int index)
+        {
+            CollisionHandler handler = _colliders[index].GetComponent<CollisionHandler>();
+            handler.ResetList();
+        }
+
+        #endregion
+    }
 }

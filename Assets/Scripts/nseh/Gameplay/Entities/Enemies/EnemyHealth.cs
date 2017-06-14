@@ -1,6 +1,6 @@
-﻿using nseh.Gameplay.Base.Interfaces;
-using nseh.Managers.General;
+﻿using nseh.Managers.General;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace nseh.Gameplay.Entities.Enemies
 {
@@ -12,11 +12,15 @@ namespace nseh.Gameplay.Entities.Enemies
         private float _maxHealth;
         [SerializeField]
         private float _currentHealth;
-
-        private bool _isDead;
-
         [SerializeField]
         private BarComponent _lifeBar;
+        [SerializeField]
+        private List<Collider> _colliders;
+
+
+        #endregion
+
+        #region Public Properties
 
         public AudioClip hitSound;
 
@@ -52,40 +56,7 @@ namespace nseh.Gameplay.Entities.Enemies
             }
         }
 
-        public bool IsDead
-        {
-            get
-            {
-                return _isDead;
-            }
-
-        }
-
         #endregion
-
-        #region Private Methods
-
-        private void Start()
-        {
-            // TODO: reference here to enemy info
-            _isDead = false;
-
-        }
-
-        private void Update()
-        {
-           
-        }
-
-        private void Death()
-        {
-            //_currentHealth = _maxHealth;
-            _isDead = true;
-
-        }
-
-        #endregion
-
 
         #region Public Methods
 
@@ -94,16 +65,23 @@ namespace nseh.Gameplay.Entities.Enemies
             // Reduce current health
             CurrentHealth -= amount;
 
-            // Play hit animation
-
             AudioSource.PlayClipAtPoint(hitSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
             // Clamp current health
             CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+        }
 
-            if (CurrentHealth == 0 && !IsDead)
-            {
-                Death();
-            }
+        public void ActivateHitbox(int index)
+        {
+            _colliders[index].enabled = true;
+        }
+
+        /// <summary>
+        /// Deactivate the collider. This event is triggered by the animation.
+        /// </summary>
+        /// <param name="index">The weapon to be deactivated.</param>
+        public void DeactivateHitbox(int index)
+        {
+            _colliders[index].enabled = false;
         }
 
         #endregion

@@ -134,7 +134,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.17256835
+      - time: 0
+        functionName: OnPlayAttackSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.60474503
         functionName: ActivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -147,13 +154,6 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 2
-        messageOptions: 0
-      - time: 0
-        functionName: OnPlayAttackSound
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 1
         messageOptions: 0
       transformMask:
       - path: 
@@ -294,7 +294,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.2509909
+      - time: 0
+        functionName: OnPlayAttackSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.61061233
         functionName: ActivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -307,13 +314,6 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
-        messageOptions: 0
-      - time: 0
-        functionName: OnPlayAttackSound
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 2
         messageOptions: 0
       transformMask:
       - path: 
@@ -461,7 +461,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 3
         messageOptions: 0
-      - time: 0.17966765
+      - time: 0.60553515
         functionName: ActivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}

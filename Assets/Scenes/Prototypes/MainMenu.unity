@@ -1074,7 +1074,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1946197244}
+        - m_Target: {fileID: 0}
           m_MethodName: OnPointerEnter
           m_Mode: 1
           m_Arguments:
@@ -3486,8 +3486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266b4fc28ed92e74496421c32225d053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
-  selectedGameObject: {fileID: 0}
+  eventSystem: {fileID: 343126775}
+  selectedGameObject: {fileID: 1840816787}
 --- !u!1 &1554608328
 GameObject:
   m_ObjectHideFlags: 0
@@ -4495,7 +4495,6 @@ GameObject:
   - component: {fileID: 1946197243}
   - component: {fileID: 1946197242}
   - component: {fileID: 1946197241}
-  - component: {fileID: 1946197244}
   m_Layer: 5
   m_Name: Button_FourPlayer
   m_TagString: Untagged
@@ -4607,17 +4606,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1946197239}
---- !u!114 &1946197244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1946197239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f624a581223c49fcbfb9fc29b1953ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1949731974
 GameObject:
   m_ObjectHideFlags: 0

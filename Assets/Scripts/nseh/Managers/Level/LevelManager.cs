@@ -573,12 +573,12 @@ namespace nseh.Managers.Level
             _canvasPausedBossObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PAUSED_BOSS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
             //_canvasProgressObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PROGRESS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
             _canvasPlayersHUDObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PLAYERS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
-            _canvasItemsObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_ITEMS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
+            //_canvasItemsObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_ITEMS_HUD), Vector3.zero, Quaternion.identity) as GameObject;
             
             _canvasPauseBossManager = _canvasPausedBossObj.GetComponent<CanvasPausedBossHUDManager>();
             //_canvasProgressManager = _canvasProgressObj.GetComponent<CanvasProgressHUDManager>();
             _canvasPlayersManager = _canvasPlayersHUDObj.GetComponent<CanvasPlayersHUDManager>();
-            _canvasItemsManager = _canvasItemsObj.GetComponent<CanvasItemsHUDManager>();
+            //_canvasItemsManager = _canvasItemsObj.GetComponent<CanvasItemsHUDManager>();
             _canvasPlayersManager.DisableAllHuds();
             SetupPlayersTransformsBoss();
             SpawnAllPlayersBoss();
@@ -666,8 +666,8 @@ namespace nseh.Managers.Level
 
                     _playersPos = new List<Vector3>()
                     {
-                        new Vector3(1, 1, 0),
-                        new Vector3(-15, 1, 0)
+                        new Vector3(-5, 0, 2),
+                        new Vector3(-11.5f, 0, 2)
                     };
 
                     _playersRots = new List<Vector3>()
@@ -682,10 +682,10 @@ namespace nseh.Managers.Level
 
                     _playersPos = new List<Vector3>()
                     {
-                        new Vector3(1, 1, 0),
-                        new Vector3(-15, 1, 0),
-                        new Vector3(-5, 5, 0),
-                        new Vector3(-10, 5, 0)
+                        new Vector3(-5, 0, 2),
+                        new Vector3(-11.5f, 0, 2),
+                        new Vector3(-7, 0, 2),
+                        new Vector3(-9.5f, 0, 2)
                     };
 
                     _playersRots = new List<Vector3>()
@@ -734,8 +734,8 @@ namespace nseh.Managers.Level
 
                 _players[i].Setup(GameManager.Instance._characters[i], _playersPos[i],
                                   _playersRots[i], _playerSpawnPoints, i + 1, _canvasPlayersManager.GetHealthBarComponentForPlayer(i + 1),
-                                  _canvasPlayersManager.GetEnergyBarComponentForPlayer(i + 1), _canvasPlayersManager.GetLivesForPlayer(i + 1), "Player");
-
+                                  _canvasPlayersManager.GetEnergyBarComponentForPlayer(i + 1), _canvasPlayersManager.GetLivesForPlayer(i + 1), "Player", new Vector3(1.25f, 1.25f, 1.25f));
+                //_players[i].PlayerRunTimeInfo.PlayerMovement.DecreaseJump(25);
                 // Change player's portrait from hud manager
                 _canvasPlayersManager.ChangePortrait(i + 1, _players[i].PlayerRunTimeInfo.CharacterPortrait);
                 _canvasPlayersManager.DisableLivesForPlayer(i + 1);

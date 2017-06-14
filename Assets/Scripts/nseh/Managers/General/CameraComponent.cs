@@ -102,7 +102,7 @@ namespace nseh.Managers.General
                 xMin = -10;
                 xMax = 6;
                 yMin = 0f;
-                yMax = 5;
+                yMax = 10;
                 Position = new Vector3(Mathf.Clamp(Midpoint.x, xMin, xMax), Mathf.Clamp(Midpoint.y, yMin, yMax)+4, 80);
                 transform.position = Vector3.SmoothDamp(transform.position, Position, ref velocity, 0.15f);
             }

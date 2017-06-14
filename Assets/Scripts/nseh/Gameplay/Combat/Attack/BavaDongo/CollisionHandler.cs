@@ -54,18 +54,25 @@ namespace nseh.Gameplay.Combat.Attack.BavaDongo
             gameObject.SetActive(false);
         }
 
+        public void ResetList()
+        {
+            _enemies = new List<GameObject>();
+        }
+
         #endregion
 
         #region Trigger Methods
 
         private void OnTriggerEnter(Collider other)
         {
-            GameObject enemyObj = other.gameObject;
+            GameObject enemy = other.gameObject;
             string colTag = other.tag;
 
-            if (colTag == Tags.PLAYER)
+            if (colTag == Tags.PLAYER && !_enemies.Contains(enemy))
             {
-                PlayerInfo enemyInfo = enemyObj.GetComponent<PlayerInfo>();
+                _enemies.Add(enemy);
+                PlayerInfo enemyInfo = enemy.GetComponent<PlayerInfo>();
+                
                 if (enemyInfo != null)
                 {
                     enemyInfo.PlayerHealth.TakeDamage(_damage);
