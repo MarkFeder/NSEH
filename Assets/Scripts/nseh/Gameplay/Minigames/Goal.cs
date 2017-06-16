@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using nseh.Gameplay.Movement;
-using nseh.Managers;
+﻿using UnityEngine;
+using nseh.Gameplay.Gameflow;
+using nseh.Managers.Main;
+using nseh.Managers.Level;
 
 namespace nseh.Gameplay.Minigames
 {
@@ -33,14 +32,14 @@ namespace nseh.Gameplay.Minigames
         {
             if (other.tag == "PlayerBody")
             {
-                if (Time.time - aux < 0.01)
+                if (Time.time - aux < 0.5)
                 {
                     num += 100;
                 }
+                other.GetComponent<MinigameMovement>().puntuation = num;
                 aux = Time.time;
+                GameManager.Instance.Find<LevelManager>().Find<MinigameEvent>().AddPuntuation(num, other.GetComponent<MinigameMovement>().gamepadIndex - 1);
                 num -= 100;
-                //yield return new WaitForSeconds(1);
-                Destroy(other.gameObject, 1);
             }
         
 

@@ -557,13 +557,11 @@ namespace nseh.Managers.Level
             _canvasPausedMinigameObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_PAUSED_MINIGAME_HUD), Vector3.zero, Quaternion.identity) as GameObject;
             _canvasClockMinigameObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_CLOCK_MINIGAME_HUD), Vector3.zero, Quaternion.identity) as GameObject;
             //_canvasGameOverMinigameObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_GAME_OVER_MINIGAME_HUD), Vector3.zero, Quaternion.identity) as GameObject;
-            _canvasGameOverObj = Object.Instantiate(Resources.Load(LevelHUDConstants.CANVAS_GAME_OVER_MINIGAME_HUD), Vector3.zero, Quaternion.identity) as GameObject;
 
             // Load canvas managers
 
             _canvasPauseMinigameManager = _canvasPausedMinigameObj.GetComponent<CanvasPausedMinigameHUDManager>();
             _canvasClockMinigameManager = _canvasClockMinigameObj.GetComponent<CanvasClockMinigameHUDManager>();
-            _canvasGameOverMinigameManager = _canvasGameOverObj.GetComponent<CanvasGameOverMinigameHUDManager>();
         }
 
         private void SetupBossCanvas()

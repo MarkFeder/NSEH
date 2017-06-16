@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using nseh.Gameplay.Movement;
-
+using nseh.Gameplay.Gameflow;
+using nseh.Managers.Main;
+using nseh.Managers.Level;
 
 namespace nseh.Gameplay.Minigames {
 
@@ -16,7 +17,9 @@ namespace nseh.Gameplay.Minigames {
 
         #region Public Methods
         // Use this for initialization
-        public void Start () {
+        public void Start ()
+
+        {
         }
 	
 	    // Update is called once per frame
@@ -27,16 +30,16 @@ namespace nseh.Gameplay.Minigames {
         {
             if (other.tag == "PlayerBody")
             {
-                if (Time.time - aux < 0.01)
+                if (Time.time - aux < 0.5)
                 {
                     num -= 50;
                 }
                 aux = Time.time;
-                //other.GetComponent<Minigame>().position = num;
+                other.GetComponent<MinigameMovement>().started = false;
+                other.GetComponent<MinigameMovement>().puntuation = num;
+                Debug.Log(other.GetComponent<MinigameMovement>().gamepadIndex);
+                GameManager.Instance.Find<LevelManager>().Find<MinigameEvent>().AddPuntuation(num, other.GetComponent<MinigameMovement>().gamepadIndex-1);
                 num += 50;
-
-                //yield return new WaitForSeconds(1);
-                Destroy(other.gameObject, 1);
             }
         }
 

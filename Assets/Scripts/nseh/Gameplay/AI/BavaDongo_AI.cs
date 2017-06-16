@@ -20,6 +20,7 @@ namespace nseh.Gameplay.AI
         public AudioClip stampSound;
         public float attackPercent;
         public GameObject platform;
+        public List<GameObject> particles;
 
         #endregion
 
@@ -67,7 +68,7 @@ namespace nseh.Gameplay.AI
             _stampMax = 5;
             _stampNum = 0;
             _stampAux = Random.Range(3, _stampMax);
-            _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) *100;
+            _percentage = 100;
             _gravity = Physics.gravity;
         }
 
@@ -75,8 +76,10 @@ namespace nseh.Gameplay.AI
         public void Update()
         {
             _health = GetComponent<EnemyHealth>().CurrentHealth;
+            float percentageAux = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
             if ((_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle") || _animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Fall")) && _health <= 0 && _isDeath == false)
             {
+                _animator.speed = 1;
                 _isDeath = true;
                 _animator.SetTrigger("Death");
                 //AudioSource.PlayClipAtPoint(deathSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
@@ -91,6 +94,26 @@ namespace nseh.Gameplay.AI
                 _frenzy = true;
                 _animator.speed = _animationSpeedMax;
                 //AudioSource.PlayClipAtPoint(frenzySound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);               
+            }
+            else if((_percentage - percentageAux) >= attackPercent)
+            {
+                _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
+                float randomNum = Random.value;
+                if (randomNum <= Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f))
+                {
+                    _animator.speed = _animationSpeedMax;
+                    Debug.Log(randomNum + " Tantrum " + Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f));
+                    _animator.SetTrigger("Tantrum");
+                }
+
+
+                else
+                {
+                    _animator.speed = 1;
+                    Debug.Log(randomNum + " Fall " + Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f));
+                    _animator.SetTrigger("Fall");
+                }
+                
             }
         }
 
@@ -116,7 +139,7 @@ namespace nseh.Gameplay.AI
                 _animator.SetTrigger("FireBall");
             }
 
-            _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
+           
         }
 
         private void EventSelectAttack(AnimationEvent animationEvent)
@@ -181,32 +204,25 @@ namespace nseh.Gameplay.AI
             {
                 _stampNum = 0;
                 _stampAux = Random.Range(3, _stampMax);
-                float percentageAux = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
-                Debug.Log("Porcentaje " + _percentage + " "+ percentageAux);
-                if ((_percentage - percentageAux)>= attackPercent) 
-                {
-                    float randomNum = Random.value;
-                    if (randomNum <= Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f))
-                    {
-                        _animator.speed = _animationSpeedMax;
-                        Debug.Log(randomNum + " Tantrum " + Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f));
-                        _animator.SetTrigger("Tantrum");
-                    }
-
-
-                    else
-                    {
-                        _animator.speed = 1;
-                        Debug.Log(randomNum + " Fall " + Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f));
-                        _animator.SetTrigger("Fall");
-                    }
-                }else
-                {
-                    //_animator.SetTrigger("SelectAttack");
-                    SelectAttack();
-                }
+                SelectAttack();
+                
             }
         }
+
+        public void ActivateParticle(int index)
+        {
+            particles[index].transform.GetComponentInChildren<ParticleSystem>().Play();
+        }
+
+
+        public void ActivateSomeParticle(int index)
+        {
+            foreach (ParticleSystem particle in particles[index].transform.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle.Play();
+            }
+        }
+
 
         public void ActivateColliderbox(int index)
         {

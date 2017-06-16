@@ -1094,7 +1094,7 @@ Transform:
   m_GameObject: {fileID: 1442156889705492}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_Children:
   - {fileID: 4076044384919710}
   - {fileID: 4435153504855492}
@@ -1418,9 +1418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b1eb59c5757cf46a8e26bf4718528e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedVertical: 5
-  speedHorizontal: 10
+  speedVertical: 7
+  speedHorizontal: 20
   gamepadIndex: 1
+  started: 0
+  puntuation: 0
 --- !u!114 &114918237658534050
 MonoBehaviour:
   m_ObjectHideFlags: 1

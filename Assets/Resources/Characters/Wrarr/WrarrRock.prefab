@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23459664413660476}
   - component: {fileID: 54923635305890712}
   - component: {fileID: 114019307902746192}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4530996945030558}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: WrarrRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

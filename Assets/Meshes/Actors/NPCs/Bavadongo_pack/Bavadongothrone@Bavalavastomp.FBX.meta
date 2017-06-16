@@ -161,7 +161,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.35840112
+      - time: 0.3447704
         functionName: EventInclinePlatform
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -181,6 +181,20 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
+        messageOptions: 0
+      - time: 0.32598382
+        functionName: ActivateParticle
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 5
+        messageOptions: 0
+      - time: 0.014527463
+        functionName: ActivateParticle
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 8
         messageOptions: 0
       transformMask:
       - path: 

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2a8e4ef612eb2de4fa5d3327f7be95e1
-timeCreated: 1497214639
+guid: f7cfaf1e69d5510479ac24cea42b1b05
+timeCreated: 1497521648
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -59,9 +59,10 @@ ModelImporter:
     100102: Bone001
     100104: Crown
     100106: Horns
-    100108: sceptre
-    100110: Sphere001
-    100112: Throne
+    100108: Mango
+    100110: sceptre
+    100112: Sphere001
+    100114: Throne
     400000: Babadongo
     400002: //RootNode
     400004: Bip001
@@ -116,9 +117,10 @@ ModelImporter:
     400102: Bone001
     400104: Crown
     400106: Horns
-    400108: sceptre
-    400110: Sphere001
-    400112: Throne
+    400108: Mango
+    400110: sceptre
+    400112: Sphere001
+    400114: Throne
     2300000: Crown
     2300002: Horns
     2300004: Sphere001
@@ -133,9 +135,11 @@ ModelImporter:
     4300006: Throne
     4300008: Horns
     4300010: sceptre
+    4300012: Mango
     9500000: //RootNode
     13700000: Babadongo
-    13700002: sceptre
+    13700002: Mango
+    13700004: sceptre
   materials:
     importMaterials: 1
     materialName: 0

@@ -19,6 +19,8 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
         [SerializeField]
         private GameObject _particle;
         [SerializeField]
+        private GameObject _particleSword;
+        [SerializeField]
         private MeshRenderer _sword;
         [SerializeField]
         private MeshRenderer _shovel;
@@ -80,7 +82,14 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _enabled = false;
             _shovel.enabled = false;
             _sword.enabled = false;
+            _particleSword.SetActive(true);
+            GameObject particleGameObject = Instantiate(_particle, _playerInfo.particleFootPos.transform.position, _playerInfo.particleBodyPos.transform.rotation, _playerInfo.particleBodyPos.transform);
+            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Play();
+            }
 
+            Destroy(particleGameObject, 5f);
             // Trigger damage increment
             var attacks = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>();
             RunInfo info = null;
@@ -95,6 +104,7 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
             _shovel.enabled = true;
             _sword.enabled = false;
             _enabled = true;
+            _particleSword.SetActive(false);
         }
 
         /// <summary>

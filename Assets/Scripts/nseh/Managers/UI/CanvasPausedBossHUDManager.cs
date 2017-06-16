@@ -43,7 +43,8 @@ namespace nseh.Managers.UI
         public void GoToMainMenu()
         {
             _levelManager.Find<BossEvent>().EventRelease();
-            _levelManager.MyGame.RestartList();
+            _levelManager.MyGame._characters = new List<GameObject>();
+            _levelManager.GoToMainMenu();
         }
 
         public void Resume()

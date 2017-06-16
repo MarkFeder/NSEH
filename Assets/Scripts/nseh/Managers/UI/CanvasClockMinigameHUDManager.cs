@@ -9,18 +9,12 @@ namespace nseh.Managers.UI
         
         #region Public Properties
 
-        public Text _clockText;
         public Text _readyText;
 
         #endregion
 
         #region Public C# Properties
-
-        public Text ClockText
-        {
-            get { return _clockText; }
-        }
-
+        
         public Text ReadyText
         {
             get { return _readyText; }
@@ -30,20 +24,10 @@ namespace nseh.Managers.UI
 
         private void Start()
         {
-            if (!ValidateTextClock())
-            {
-                Debug.Log("The text clock is null");
-                enabled = false;
-                return;
-            }
         }
 
         #region Public Methods
 
-        public bool ValidateTextClock()
-        {
-            return _clockText;
-        }
 
         public void EnableCanvas()
         {

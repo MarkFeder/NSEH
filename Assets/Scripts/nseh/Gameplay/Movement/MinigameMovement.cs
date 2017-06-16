@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using Inputs = nseh.Utils.Constants.Input;
 
@@ -10,6 +8,7 @@ public class MinigameMovement : MonoBehaviour {
     public float speedHorizontal;
     public int gamepadIndex;
     public bool started;
+    public int puntuation;
     private Rigidbody _body;
 
     void Start()
@@ -24,7 +23,7 @@ public class MinigameMovement : MonoBehaviour {
         {
             if (Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, gamepadIndex)))
             {
-                //_body.AddForce(transform.forward * speedVertical);
+
                 _body.velocity = new Vector3(_body.velocity.x, _body.velocity.y, speedVertical);
             }
 
