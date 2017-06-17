@@ -42,7 +42,7 @@ namespace nseh.Gameplay.Minigames
                             Vector3 auxPosition = new Vector3(Random.Range(auxMinimun, auxMaximun), gameObject.transform.position.y, gameObject.transform.position.z);
                             //Vector3 auxRotation = new Vector3(fireBall.transform.eulerAngles.x, -180 + Random.Range(-20, 20), fireBall.transform.eulerAngles.z);
                             GameObject ball = Instantiate(fireBall, auxPosition, fireBall.transform.rotation);
-                            ball.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, -500000));
+                            ball.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, -250000));
                             Destroy(ball, 5);
                             
                         }

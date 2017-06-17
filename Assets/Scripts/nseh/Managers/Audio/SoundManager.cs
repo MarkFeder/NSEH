@@ -68,7 +68,7 @@ namespace nseh.Managers.Audio
             AudioListener.pause = !AudioListener.pause;
         }
 
-        public void PlayAudioFX(AudioClip sound, float volumen, bool ignoreListener, Vector3 position)
+        public void PlayAudioFX(AudioClip sound, float volumen, bool ignoreListener, Vector3 position, float spatialBlend)
         {
             if(soundList.Count < _maxSounds)
             {
@@ -76,8 +76,10 @@ namespace nseh.Managers.Audio
                 aux.clip = sound;
                 aux.volume = volumen * _volumeSoundFX;
                 aux.ignoreListenerPause = ignoreListener;
+                aux.spatialBlend = spatialBlend;
                 soundList.Add(aux);
                 aux.Play();
+                RemoveAudioSource(MyGame, aux, sound.length);        
             }
         }
 
@@ -90,6 +92,18 @@ namespace nseh.Managers.Audio
             aux.Play();
         }
 
-        #endregion
-    }
+
+        private void RemoveAudioSource(MonoBehaviour myMonoBehaviour, AudioSource audioAux,float time)
+        {
+            myMonoBehaviour.StartCoroutine(RemovingSound(audioAux, time));
+        }
+
+        private IEnumerator RemovingSound(AudioSource audioAux, float time)
+        {
+            yield return new WaitForSeconds(time);
+            soundList.Remove(audioAux);
+        }
+            #endregion
+
+        }
 }

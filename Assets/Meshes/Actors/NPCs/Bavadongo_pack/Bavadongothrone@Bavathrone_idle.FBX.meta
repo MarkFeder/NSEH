@@ -343,26 +343,33 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.27936915
-        functionName: DeactivateCollider
+      - time: 0.26172575
+        functionName: ActivateParticle
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 0
         messageOptions: 0
-      - time: 0.28364587
+      - time: 0.26972476
         functionName: ActivateColliderbox
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.28364587
+      - time: 0.27204493
         functionName: ActivateHitbox
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 2
+        messageOptions: 0
+      - time: 0.27936915
+        functionName: DeactivateCollider
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 1
         messageOptions: 0
       - time: 0.8992528
         functionName: DeactivateHitbox
@@ -377,13 +384,6 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
-        messageOptions: 0
-      - time: 0.26172575
-        functionName: ActivateParticle
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
         messageOptions: 0
       transformMask:
       - path: 

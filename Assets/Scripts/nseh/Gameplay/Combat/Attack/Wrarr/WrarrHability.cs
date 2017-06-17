@@ -40,7 +40,7 @@ namespace nseh.Gameplay.Combat.Attack.SirProspector
                 ReduceEnergyOnSpecialHability();
                 base.StartAction();
 
-                GameObject particleGameObject = Instantiate(_particle, _playerInfo.particleBodyPos.transform.position, _playerInfo.particleBodyPos.transform.rotation, _playerInfo.particleBodyPos.transform);
+                GameObject particleGameObject = Instantiate(_particle, _playerInfo.particleFootPos.transform.position, _playerInfo.particleFootPos.transform.rotation, _playerInfo.particleFootPos.transform);
                 foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
                 {
                     particle_aux.Play();

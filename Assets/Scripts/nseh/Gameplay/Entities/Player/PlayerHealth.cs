@@ -27,7 +27,7 @@ namespace nseh.Gameplay.Entities.Player
         public int _maxHealth = 100;
         [SerializeField]
         public int _penalization = 10;
-        public AudioClip hitClip;
+        public List<AudioClip> hitClip;
         public AudioClip deathClip;
 
         private int _deathCount;
@@ -294,7 +294,7 @@ namespace nseh.Gameplay.Entities.Player
                 CurrentHealth = (int)Mathf.Clamp(CurrentHealth, 0.0f, _maxHealth);
 
                 _playerInfo.PlayerEnergy.IncreaseEnergy(oldHealth - CurrentHealth);
-                AudioSource.PlayClipAtPoint(hitClip, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+                AudioSource.PlayClipAtPoint(hitClip[UnityEngine.Random.Range(0, hitClip.Count)], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
 
                 /*if (CurrentHealth == 0.0f && !isDead && lives == 1)
                 {

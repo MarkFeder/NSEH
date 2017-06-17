@@ -15,6 +15,9 @@ namespace nseh.Gameplay.Gameflow
 
         private float _nextApplyEffect = 0;
         private List<GameObject> _playersInTar;
+        private Animator _animator;
+
+        public AudioClip alarm;
 
         #endregion
 
@@ -23,8 +26,10 @@ namespace nseh.Gameplay.Gameflow
         protected override bool TarUp(float elapsedTime)
         {
             //animator.SetBool("Motion", true);
-            targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, targetTarPosition, elapsedTime / 80.0f);
+            AudioSource.PlayClipAtPoint(alarm, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 100);
+            _animator.SetTrigger("Start");
+            //targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
+            //transform.position = Vector3.Lerp(transform.position, targetTarPosition, elapsedTime / 80.0f);
 
             if (transform.position == targetTarPosition)
             {
@@ -37,8 +42,8 @@ namespace nseh.Gameplay.Gameflow
 
         protected override bool TarDown(float elapsedTime)
         {
-            targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, initialTarPosition, elapsedTime / 120.0f);
+            //targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
+            //transform.position = Vector3.Lerp(transform.position, initialTarPosition, elapsedTime / 120.0f);
             if (transform.position == initialTarPosition)
             {
                 //Debug.Log("Tar is down. " + "(" + elapsedTime + ")");
@@ -61,6 +66,11 @@ namespace nseh.Gameplay.Gameflow
         #endregion
 
         #region Private Methods
+
+        private void Start()
+        {
+            _animator = GetComponent<Animator>();
+        }
 
         private void Update()
         {

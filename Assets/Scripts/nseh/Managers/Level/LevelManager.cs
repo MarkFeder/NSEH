@@ -6,6 +6,7 @@ using nseh.Managers.Pool;
 using nseh.Managers.UI;
 using nseh.Utils;
 using nseh.Utils.Helpers;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -30,6 +31,7 @@ namespace nseh.Managers.Level
         private States _nextState;
 
         private Text _clock;
+        private Text _ready;
 
         private GameObject _canvasPausedObj;
         private GameObject _canvasClockObj;
@@ -66,6 +68,7 @@ namespace nseh.Managers.Level
 
         private bool _isGameOver;
         private bool _isPaused;
+        public bool _Starting;
         private bool _canvasLoaded;
 
         private float _timeRemaining;
@@ -193,6 +196,9 @@ namespace nseh.Managers.Level
                 _canvasPausedManager.DisableCanvas();
                 Time.timeScale = 1;
             }
+
+
+            _Starting = !_Starting;
         }
 
         public void ChangeState(States newState)
@@ -290,8 +296,9 @@ namespace nseh.Managers.Level
             else
             {
                 _canvasClockManager.ClockText.text = "";
-                _canvasClockManager.DisableCanvas();
-                ChangeState(LevelManager.States.LoadingMinigame);
+                StopGame(MyGame);
+                //_canvasClockManager.DisableCanvas();
+
                 //Time.timeScale = 0;
 
                 //_canvasGameOverManager.GameOverText.text = "Time's Up";
@@ -440,7 +447,7 @@ namespace nseh.Managers.Level
             _numPlayers = Main.GameManager.Instance._numberPlayers;
             _isGameOver = false;
             Time.timeScale = 1;
-            _timeRemaining = Constants.LevelManager.TIME_REMAINING;
+            _timeRemaining = -1;
 
             // Check if all canvas were loaded
             if (!_canvasLoaded)
@@ -452,13 +459,14 @@ namespace nseh.Managers.Level
             _canvasPausedManager.DisableCanvas();
             _canvasGameOverManager.DisableCanvas();
             _clock = _canvasClockManager.ClockText;
-
+            _ready = _canvasClockManager.ReadyText;
             // Activate some canvas
             _canvasPlayersManager.EnableCanvas();
             _canvasPlayersManager.DisableAllHuds();
             _canvasClockManager.EnableCanvas();
             _canvasItemsManager.EnableCanvas();
-
+            
+            
             // Setup players on screen
             SetupPlayersTransforms();
             SpawnAllPlayers();
@@ -471,11 +479,10 @@ namespace nseh.Managers.Level
 			//_myGame.GameSounds.RegisterChestsSounds();
 
             // Activate events
-            Find<Tar_Event>().ActivateEvent();
-            Find<ItemSpawn_Event>().ActivateEvent();
+            
             Find<CameraManager>().ActivateEvent();
-
-			//_myGame.SoundManager.PlayAudio(_myGame.GameSounds.GetRandomLevelMusic(), true);
+            StartGame(MyGame);
+            //_myGame.SoundManager.PlayAudio(_myGame.GameSounds.GetRandomLevelMusic(), true);
         }
 
         public override void Tick()
@@ -529,6 +536,46 @@ namespace nseh.Managers.Level
         #endregion
 
         #region Private Methods
+
+        private void StartGame(MonoBehaviour myMonoBehaviour)
+        {
+            myMonoBehaviour.StartCoroutine(StartingGame());
+        }
+
+
+        private IEnumerator StartingGame()
+        {
+            _Starting = true;
+            _ready.text = "FIGHT THIS STRANGE PEOPLE!";
+            yield return new WaitForSeconds(3);
+            _ready.text = "SAVE THE LAVA PITS!";
+            yield return new WaitForSeconds(3);
+            _ready.text = "FIIIIIIIIIIIIIIIIIGHT!";
+            yield return new WaitForSeconds(3);
+            _ready.text = "";
+            _Starting = false;
+            _timeRemaining = Constants.LevelManager.TIME_REMAINING;
+            Find<Tar_Event>().ActivateEvent();
+            Find<ItemSpawn_Event>().ActivateEvent();
+        }
+
+
+        private void StopGame(MonoBehaviour myMonoBehaviour)
+        {
+            myMonoBehaviour.StartCoroutine(StopingGame());
+        }
+
+
+        private IEnumerator StopingGame()
+        {
+            Time.timeScale = 0.5f;
+            _ready.text = "THE LAVA IS RAISING!";
+            yield return new WaitForSeconds(3);
+            _ready.text = "RUN TO THE VOLCANO!";
+            yield return new WaitForSeconds(3);
+            ChangeState(LevelManager.States.LoadingMinigame);
+
+        }
 
         private void SetupLevelCanvas()
         {

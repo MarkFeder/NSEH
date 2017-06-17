@@ -11,9 +11,15 @@ public class FireballComponent : MonoBehaviour {
     [SerializeField]
     private int _damage;
 
+    public List<AudioClip> fireballClip;
+
     private void Start()
     {
         _enemies = new List<GameObject>();
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.clip = fireballClip[UnityEngine.Random.Range(0, fireballClip.Count)];
+        audio.Play();
+
     }
 
     private void OnTriggerEnter(Collider other)

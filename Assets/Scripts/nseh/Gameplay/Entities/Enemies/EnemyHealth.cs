@@ -22,7 +22,7 @@ namespace nseh.Gameplay.Entities.Enemies
 
         #region Public Properties
 
-        public AudioClip hitSound;
+        public List<AudioClip> hitClip;
 
         #endregion
 
@@ -65,7 +65,7 @@ namespace nseh.Gameplay.Entities.Enemies
             // Reduce current health
             CurrentHealth -= amount;
 
-            AudioSource.PlayClipAtPoint(hitSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+            AudioSource.PlayClipAtPoint(hitClip[UnityEngine.Random.Range(0, hitClip.Count)], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
             // Clamp current health
             CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         }

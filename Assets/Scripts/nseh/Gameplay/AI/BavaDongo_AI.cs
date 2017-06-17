@@ -12,7 +12,7 @@ namespace nseh.Gameplay.AI
     {
 
         #region Public Properties
-        public GameObject spike;
+        public GameObject Fireball;
         public float numPlayers;
         public float percentageFrenzy;
         public float animationSpeedFrenzy;
@@ -21,6 +21,8 @@ namespace nseh.Gameplay.AI
         public float attackPercent;
         public GameObject platform;
         public List<GameObject> particles;
+        public List<AudioClip> stompClip;
+        public List<AudioClip> genericSounds;
 
         #endregion
 
@@ -65,9 +67,9 @@ namespace nseh.Gameplay.AI
             _animationSpeedMax = 1;
             _animationSpeedMin = 1;
             _health = GetComponent<EnemyHealth>().CurrentHealth;
-            _stampMax = 5;
+            _stampMax = 3;
             _stampNum = 0;
-            _stampAux = Random.Range(3, _stampMax);
+            _stampAux = Random.Range(1, _stampMax);
             _percentage = 100;
             _gravity = Physics.gravity;
         }
@@ -90,14 +92,14 @@ namespace nseh.Gameplay.AI
                 _animator.SetTrigger("Frenzy");
                 _animationSpeedMax = 1.5f;
                 _animationSpeedMin = 0.5f;
-                _stampMax = 10;
                 _frenzy = true;
                 _animator.speed = _animationSpeedMax;
                 //AudioSource.PlayClipAtPoint(frenzySound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);               
             }
             else if((_percentage - percentageAux) >= attackPercent)
             {
-                _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
+                _stampNum = 0;
+                _stampAux = Random.Range(3, _stampMax);
                 float randomNum = Random.value;
                 if (randomNum <= Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f))
                 {
@@ -122,6 +124,7 @@ namespace nseh.Gameplay.AI
         #region Private Methods
         private void SelectAttack()
         {
+            _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
             float randomNum = Random.value;
             if(randomNum < 0.33f)
             {
@@ -130,7 +133,7 @@ namespace nseh.Gameplay.AI
             }
             else if (randomNum < 0.66f)
             {
-                _animator.speed = _animationSpeedMin;
+                
                 _animator.SetTrigger("Platform");
             }
             else
@@ -151,16 +154,18 @@ namespace nseh.Gameplay.AI
         private void EventSummonFireBall(AnimationEvent animationEvent)
         {
             //instantiate
-            GameObject fireBall = Instantiate(spike);
+            GameObject fireBall = Instantiate(Fireball);
             float randomNum = Random.value;
             if (randomNum <= 0.5f)
             {
+                fireBall.transform.eulerAngles = new Vector3(-35,-75,0);
                 fireBall.GetComponent<Rigidbody>().AddForce(new Vector3(100000, 0, 0));
                 fireBall.GetComponent<Rigidbody>().AddTorque(new Vector3(0, 0, -10000000));
             }
                 
             else
             {
+                fireBall.transform.eulerAngles = new Vector3(-35, 75, 0);
                 fireBall.GetComponent<Rigidbody>().AddForce(new Vector3(-100000, 0, 0));
                 fireBall.GetComponent<Rigidbody>().AddTorque(new Vector3(0, 0, 10000000));
             }
@@ -173,10 +178,20 @@ namespace nseh.Gameplay.AI
             _animator.SetTrigger("Idle");
         }
 
+
+        private void ActivateSound(int index)
+        {
+            AudioSource.PlayClipAtPoint(genericSounds[index], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+        }
+
         private void EventInclinePlatform(AnimationEvent animationEvent)
         {
             platform.GetComponent<Animator>().SetTrigger("Incline");
+            _animator.speed = _animationSpeedMin;
+            AudioSource.PlayClipAtPoint(genericSounds[6], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
             Physics.gravity = new Vector3 (-75, Physics.gravity.y, Physics.gravity.z);
+
+
         }
 
         private void EventResetPlatform(AnimationEvent animationEvent)
@@ -227,6 +242,7 @@ namespace nseh.Gameplay.AI
         public void ActivateColliderbox(int index)
         {
             _colliders[index].enabled = true;
+            AudioSource.PlayClipAtPoint(stompClip[UnityEngine.Random.Range(0, stompClip.Count)], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using nseh.Managers.Main;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using Inputs = nseh.Utils.Constants.Input;
 using Tags = nseh.Utils.Constants.Tags;
 
@@ -45,7 +46,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected GameObject _target;
 		protected PlayerInfo _particlesSpawnPoints;
 		protected Collider _collider;
-		protected Renderer _renderer;
+		protected Renderer[] _renderer;
 		protected GameObject _sprite;
         protected GameObject _text;
         protected Text _itemText;
@@ -163,7 +164,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		private void SetVisibility(bool isVisible)
 		{
 			_isVisible = isVisible;
-			_renderer.enabled = isVisible;
+            foreach (Renderer aux in _renderer)
+			    aux.enabled = isVisible;
 			_collider.enabled = isVisible;
 		}
 
@@ -174,8 +176,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 		protected virtual void Start()
 		{
 			_collider = GetComponent<Collider>();
-			_renderer = GetComponent<Renderer>();
-			_sprite = transform.GetChild(0).gameObject;
+			_renderer = transform.GetChild(2).GetComponentsInChildren<Renderer>();
+            _sprite = transform.GetChild(0).gameObject;
             _text = transform.GetChild(1).gameObject;
             ResetUses();
 		}

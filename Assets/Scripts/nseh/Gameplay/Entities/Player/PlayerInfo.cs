@@ -3,7 +3,8 @@ using nseh.Gameplay.Combat;
 using nseh.Gameplay.Combat.Defense;
 using UnityEngine;
 using Inputs = nseh.Utils.Constants.Input;
-using InputUE = UnityEngine.Input;
+using nseh.Managers.Level;
+using nseh.Managers.Main;
 
 namespace nseh.Gameplay.Entities.Player
 {
@@ -168,10 +169,14 @@ namespace nseh.Gameplay.Entities.Player
 
         private void Update()
         {
-            _horizontal = InputUE.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, _gamepadIndex));
-            _vertical = InputUE.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, _gamepadIndex));
+            if (!GameManager.Instance.Find<LevelManager>()._Starting)
+            {
+                _horizontal = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, _gamepadIndex));
+                _vertical = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, _gamepadIndex));
 
-            _jumpPressed = InputUE.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, _gamepadIndex));
+                _jumpPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, _gamepadIndex));
+            }
+           
         }
 
         #region Public Methods

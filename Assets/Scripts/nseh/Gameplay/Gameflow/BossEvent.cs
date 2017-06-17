@@ -4,6 +4,7 @@ using nseh.Managers.Level;
 using UnityEngine;
 using System.Collections;
 using nseh.Gameplay.AI;
+using UnityEngine.UI;
 using Inputs = nseh.Utils.Constants.Input;
 
 namespace nseh.Gameplay.Gameflow
@@ -14,7 +15,8 @@ namespace nseh.Gameplay.Gameflow
 
         private bool _isPaused;
         private GameObject _boss;
-        private float _bossHealth;
+        private Animator _animator;
+        private Text _ready;
 
         #endregion
 
@@ -24,24 +26,25 @@ namespace nseh.Gameplay.Gameflow
         {
             _isActivated = true;
             _isPaused = false;
-
+            _ready = GameObject.Find("CanvasProgressHUD/TextReady").GetComponent<Text>();
             _levelManager.CanvasPausedBossManager.DisableCanvas();
-
+            _animator = _boss.GetComponent<Animator>();
             _boss = GameObject.Find("Bava Dongo");
             _boss.GetComponent<EnemyHealth>().MaxHealth = _levelManager.Players.Count * 100;
             _boss.GetComponent<EnemyHealth>().CurrentHealth = _levelManager.Players.Count * 100;
             _boss.GetComponent<BavaDongo_AI>().frenzyHealth = _boss.GetComponent<EnemyHealth>().MaxHealth * _boss.GetComponent<BavaDongo_AI>().percentageFrenzy;
+            StartBoss(_levelManager.MyGame);
+
         }
 
         public override void EventTick()
         {
-            _bossHealth = _boss.GetComponent<EnemyHealth>().CurrentHealth;
-            Debug.Log("Bava Dongo Health is: " + _bossHealth);
+           
 
-            if (_bossHealth <= 0)
+            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Death"))
             {
-                Debug.Log("BavaDongo died!");
-                EventRelease();
+                StopBoss(_levelManager.MyGame);
+                
             }
             else if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))))
             {
@@ -85,6 +88,34 @@ namespace nseh.Gameplay.Gameflow
         {
             yield return new WaitForSeconds(5);
             _levelManager.GoToMainMenuScore();
+        }
+
+        private void StartBoss(MonoBehaviour myMonoBehaviour)
+        {
+            myMonoBehaviour.StartCoroutine(StartingBoss());
+        }
+
+
+        private IEnumerator StartingBoss()
+        {
+            _ready.text = "DEFEAT THE BOSS TOGETHER!";
+            yield return new WaitForSeconds(3);
+            _ready.text = "";
+
+        }
+
+        private void StopBoss(MonoBehaviour myMonoBehaviour)
+        {
+            myMonoBehaviour.StartCoroutine(StopingBoss());
+        }
+
+
+        private IEnumerator StopingBoss()
+        {
+            _ready.text = "BAVA DONGO IS DEAD! YOU WIN!";
+            yield return new WaitForSeconds(10);
+            _ready.text = "";
+            EventRelease();
         }
 
         #endregion

@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c51261409fa8b408db9b706fcd0017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clockText: {fileID: 0}
   _readyText: {fileID: 114833624468952336}
 --- !u!114 &114454801773537272
 MonoBehaviour:
@@ -221,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 4, y: -4}
+  m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
 --- !u!222 &222721479242648110
 CanvasRenderer:

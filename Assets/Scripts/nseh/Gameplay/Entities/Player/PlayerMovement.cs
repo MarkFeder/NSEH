@@ -1,6 +1,5 @@
 ﻿using System.Collections;
-using nseh.Managers.Audio;
-using nseh.Managers.Main;
+using System.Collections.Generic;
 using UnityEngine;
 using Layers = nseh.Utils.Constants.Layers;
 
@@ -52,6 +51,8 @@ namespace nseh.Gameplay.Entities.Player
 
         public AudioClip audio;
 
+        public List<AudioClip> steps;
+
         #endregion
 
         #region Public C# Properties
@@ -83,29 +84,37 @@ namespace nseh.Gameplay.Entities.Player
         private void Start()
         {
             OnSetupPlayerMovement();
+
         }
 
         private void Update()
         {
-            _horizontal = _playerInfo.Horizontal;
-            _vertical = _playerInfo.Vertical;
+                _horizontal = _playerInfo.Horizontal;
+                _vertical = _playerInfo.Vertical;
 
-            _movePressed = Mathf.Abs(_horizontal) > 0.1f;
-            _jumpPressed = _playerInfo.JumpPressed;
+                _movePressed = Mathf.Abs(_horizontal) > 0.1f;
+                _jumpPressed = _playerInfo.JumpPressed;
 
-            _anim.SetFloat(_playerInfo.HorizontalStateName, _horizontal);
-            _anim.SetBool(_playerInfo.GroundedStateName, IsGrounded());
+                _anim.SetFloat(_playerInfo.HorizontalStateName, _horizontal);
+                _anim.SetBool(_playerInfo.GroundedStateName, IsGrounded());
 
-            OnFlipPlayer(_horizontal);
-            Move();
-            Jump();
+                OnFlipPlayer(_horizontal);
+                Move();
+                Jump();
            
+            
         }
 
 
         public virtual void OnPlayJumpSound(AnimationEvent animationEvent)
         {
             AudioSource.PlayClipAtPoint(audio, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+        }
+
+
+        public virtual void OnPlayStepSound(AnimationEvent animationEvent)
+        {
+            AudioSource.PlayClipAtPoint(steps[Random.Range(0, steps.Count)], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
         }
 
         #region Main Logic

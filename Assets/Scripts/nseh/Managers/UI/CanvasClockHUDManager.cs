@@ -9,6 +9,7 @@ namespace nseh.Managers.UI
         #region Public Properties
 
         public Text _clockText;
+        public Text _readyText;
 
         #endregion
 
@@ -17,6 +18,11 @@ namespace nseh.Managers.UI
         public Text ClockText
         {
             get { return _clockText; }
+        }
+
+        public Text ReadyText
+        {
+            get { return _readyText; }
         }
 
         #endregion

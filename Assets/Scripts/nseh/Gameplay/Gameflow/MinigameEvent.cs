@@ -81,7 +81,6 @@ namespace nseh.Gameplay.Gameflow
 
         override public void EventTick()
         {
-            Debug.Log("TICK");
             if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))) && _started)
             {
                 _isPaused = !_isPaused;
