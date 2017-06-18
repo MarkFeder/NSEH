@@ -14,6 +14,7 @@ namespace nseh.Gameplay.Gameflow
         #region Private Properties
 
         private bool _isPaused;
+        private GameObject _loading;
         private GameObject _boss;
         private Animator _animator;
         private Text _ready;
@@ -26,13 +27,15 @@ namespace nseh.Gameplay.Gameflow
         {
             _isActivated = true;
             _isPaused = false;
+            _loading = GameObject.Find("Canvas_Loading");
             _ready = GameObject.Find("CanvasProgressHUD/TextReady").GetComponent<Text>();
             _levelManager.CanvasPausedBossManager.DisableCanvas();
-            _animator = _boss.GetComponent<Animator>();
+            
             _boss = GameObject.Find("Bava Dongo");
             _boss.GetComponent<EnemyHealth>().MaxHealth = _levelManager.Players.Count * 100;
             _boss.GetComponent<EnemyHealth>().CurrentHealth = _levelManager.Players.Count * 100;
             _boss.GetComponent<BavaDongo_AI>().frenzyHealth = _boss.GetComponent<EnemyHealth>().MaxHealth * _boss.GetComponent<BavaDongo_AI>().percentageFrenzy;
+            _animator = _boss.GetComponent<Animator>();
             StartBoss(_levelManager.MyGame);
 
         }
@@ -44,7 +47,7 @@ namespace nseh.Gameplay.Gameflow
             if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Death"))
             {
                 StopBoss(_levelManager.MyGame);
-                
+     
             }
             else if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))))
             {
@@ -98,6 +101,8 @@ namespace nseh.Gameplay.Gameflow
 
         private IEnumerator StartingBoss()
         {
+            yield return new WaitForSeconds(1);
+            _loading.SetActive(false);
             _ready.text = "DEFEAT THE BOSS TOGETHER!";
             yield return new WaitForSeconds(3);
             _ready.text = "";
@@ -113,8 +118,10 @@ namespace nseh.Gameplay.Gameflow
         private IEnumerator StopingBoss()
         {
             _ready.text = "BAVA DONGO IS DEAD! YOU WIN!";
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(5);
             _ready.text = "";
+            _loading.SetActive(true);
+            yield return new WaitForSeconds(1);
             EventRelease();
         }
 

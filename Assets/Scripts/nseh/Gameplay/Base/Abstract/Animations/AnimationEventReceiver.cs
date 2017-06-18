@@ -38,7 +38,8 @@ namespace nseh.Gameplay.Base.Abstract.Animations
   
             if (_attackTypes.Contains(type))
             {
-                AudioSource.PlayClipAtPoint(audio[animationEvent.intParameter-1], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0.5f);
+                SoundManager.Instance.PlayAudioFX(audio[animationEvent.intParameter - 1], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+                
             }
           }
            /*

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Layers = nseh.Utils.Constants.Layers;
+using nseh.Managers.Audio;
 
 namespace nseh.Gameplay.Entities.Player
 {
@@ -108,13 +109,14 @@ namespace nseh.Gameplay.Entities.Player
 
         public virtual void OnPlayJumpSound(AnimationEvent animationEvent)
         {
-            AudioSource.PlayClipAtPoint(audio, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+            Debug.Log(SoundManager.Instance);
+            SoundManager.Instance.PlayAudioFX(audio, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
         }
 
 
         public virtual void OnPlayStepSound(AnimationEvent animationEvent)
         {
-            AudioSource.PlayClipAtPoint(steps[Random.Range(0, steps.Count)], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+            SoundManager.Instance.PlayAudioFX(steps[Random.Range(0, steps.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
         }
 
         #region Main Logic

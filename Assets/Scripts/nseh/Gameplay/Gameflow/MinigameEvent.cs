@@ -22,6 +22,7 @@ namespace nseh.Gameplay.Gameflow
         private GameObject _CubeDeath;
         private GameObject _Goal;
         private GameObject _aux;
+        private GameObject _loading;
         private GameObject _fireGenerators;
         private List<int> _puntuation;
         private List<GameObject> _players;
@@ -34,6 +35,7 @@ namespace nseh.Gameplay.Gameflow
         #region Public Methods
         public override void ActivateEvent()
         {
+            _loading = GameObject.Find("Canvas_Loading");
             _isActivated = true;
             _stoped = false;
             _isPaused = false;
@@ -119,6 +121,7 @@ namespace nseh.Gameplay.Gameflow
 
         private void FinishMinigame(MonoBehaviour myMonoBehaviour)
         {
+            
             foreach (GameObject character in _players)
             {
                 _levelManager.MyGame._score[(character.GetComponent<MinigameMovement>().gamepadIndex) - 1, 1] = character.GetComponent<MinigameMovement>().puntuation;     
@@ -128,16 +131,23 @@ namespace nseh.Gameplay.Gameflow
 
         private IEnumerator ChangeStage()
         {
+            
             yield return new WaitForSeconds(3);
+            _loading.SetActive(true);
             Physics.gravity = _gravity;
             EventRelease();
+            yield return new WaitForSeconds(1);
             _levelManager.ChangeState(LevelManager.States.LoadingBoss);
         }
 
 
         private IEnumerator CountDown()
         {
-            _ready.text = "MASH X BUTTON FOR AVOID LAVA AND FIREBALLS!";
+            yield return new WaitForSeconds(1);
+            _loading.SetActive(false);
+            _ready.text = "MASH X BUTTON FOR AVOID THE LAVA!";
+            yield return new WaitForSeconds(3);
+            _ready.text = "USE THE JOYSTICK FOR DODGE THE FIREBALLS!";
             yield return new WaitForSeconds(3);
             _ready.text = "READY";
             yield return new WaitForSeconds(1);

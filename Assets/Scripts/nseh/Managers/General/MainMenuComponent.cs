@@ -1,8 +1,9 @@
-﻿using nseh.Managers;
-using nseh.Managers.Main;
+﻿using nseh.Managers.Main;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
+
 
 namespace nseh.Managers.General
 {
@@ -194,7 +195,9 @@ namespace nseh.Managers.General
             //ChangeCanvas(newCanvas);
             audiosource.clip = start;
             audiosource.Play();
-            _MenuManager.ChangeStates();
+            ChangeCanvas(newCanvas);
+            StartCoroutine(StartGame());
+            
         }
 
         public void Exit()
@@ -203,8 +206,15 @@ namespace nseh.Managers.General
             audiosource.Play();
             _MenuManager.ExitGame();
         }
-        #endregion
-    }
+
+
+        private IEnumerator StartGame()
+        {
+            yield return new WaitForSeconds(1);
+            _MenuManager.ChangeStates();
+        }
+            #endregion
+        }
 }
 
 

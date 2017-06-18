@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4202105970250992}
   - component: {fileID: 198872754786161798}
   - component: {fileID: 199823753100238144}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Aura_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4361657554759610}
   - component: {fileID: 198976980304538568}
   - component: {fileID: 199310289905251250}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shock1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4019600174823282}
   - component: {fileID: 198580033267554118}
   - component: {fileID: 199629702457726028}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wrarr_shockwave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4373703035644050}
   - component: {fileID: 198717773363529192}
   - component: {fileID: 199442890332038890}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: par3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4992896582131692}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wrarr_Roar_new
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4366095327548638}
   - component: {fileID: 198489455118190280}
   - component: {fileID: 199495602113315282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 4293818854999996}
   - component: {fileID: 198315926977400408}
   - component: {fileID: 199660854399828234}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Peebles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 4873358866359334}
   - component: {fileID: 198742954681552094}
   - component: {fileID: 199126581659111810}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: scream2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

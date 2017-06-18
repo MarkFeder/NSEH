@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Inputs = nseh.Utils.Constants.Input;
 using Tags = nseh.Utils.Constants.Tags;
+using nseh.Managers.Audio;
 
 namespace nseh.Gameplay.Base.Abstract.Entities
 {
@@ -154,7 +155,8 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		protected void PlaySoundAtPlayer(AudioClip clip)
 		{
-            AudioSource.PlayClipAtPoint(clip, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+            SoundManager.Instance.PlayAudioFX(clip, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+            
         }
 
 		#endregion

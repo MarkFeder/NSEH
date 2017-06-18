@@ -4,6 +4,7 @@ using nseh.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using nseh.Managers.Audio;
 
 namespace nseh.Gameplay.Gameflow
 {
@@ -26,7 +27,7 @@ namespace nseh.Gameplay.Gameflow
         protected override bool TarUp(float elapsedTime)
         {
             //animator.SetBool("Motion", true);
-            AudioSource.PlayClipAtPoint(alarm, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 100);
+            SoundManager.Instance.PlayAudioFX(alarm, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
             _animator.SetTrigger("Start");
             //targetTarPosition = new Vector3(transform.position.x, platformPosition.y, transform.position.z);
             //transform.position = Vector3.Lerp(transform.position, targetTarPosition, elapsedTime / 80.0f);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using nseh.Managers.Main;
 
 namespace nseh.Managers.Audio
 {
@@ -11,11 +12,23 @@ namespace nseh.Managers.Audio
         private float _volumeSoundFX;
         private float _volumeMusic;
         private int _maxSounds;
+        private static SoundManager _instance;
+        public static SoundManager Instance
+        {
+            get
+            {
+                if (_instance != null)
+                {
+                    return _instance;
+                }
 
+                return null;
+            }
+        }
         #endregion
 
         #region Public Properties
-        public List<AudioSource> soundList;
+        public List<GameObject> soundList;
 
         #endregion
 
@@ -23,19 +36,17 @@ namespace nseh.Managers.Audio
 
         public override void Activate()
         {
+
+            _instance = this;
+            _maxSounds = 20;
             _isActivated = true;
-            soundList = new List<AudioSource>();
+            _volumeSoundFX = 1;
+            soundList = new List<GameObject>();
         }
 
         public override void Tick()
         {
-            foreach(AudioSource aux in soundList)
-            {
-                if(AudioListener.pause ==false && aux.isPlaying == false)
-                {
-                    soundList.Remove(aux);
-                }
-            }
+           
         }
 
         public override void Release()
@@ -70,15 +81,18 @@ namespace nseh.Managers.Audio
 
         public void PlayAudioFX(AudioClip sound, float volumen, bool ignoreListener, Vector3 position, float spatialBlend)
         {
+
             if(soundList.Count < _maxSounds)
             {
-                AudioSource aux = new AudioSource();
-                aux.clip = sound;
-                aux.volume = volumen * _volumeSoundFX;
-                aux.ignoreListenerPause = ignoreListener;
-                aux.spatialBlend = spatialBlend;
+                GameObject aux = new GameObject(sound.name);
+                AudioSource AudioAux = aux.AddComponent<AudioSource>();
+                Debug.Log(aux);
+                AudioAux.clip = sound;
+                AudioAux.volume = volumen * _volumeSoundFX;
+                AudioAux.ignoreListenerPause = ignoreListener;
+                AudioAux.spatialBlend = spatialBlend;
                 soundList.Add(aux);
-                aux.Play();
+                AudioAux.Play();
                 RemoveAudioSource(MyGame, aux, sound.length);        
             }
         }
@@ -93,15 +107,16 @@ namespace nseh.Managers.Audio
         }
 
 
-        private void RemoveAudioSource(MonoBehaviour myMonoBehaviour, AudioSource audioAux,float time)
+        private void RemoveAudioSource(MonoBehaviour myMonoBehaviour, GameObject audioAux,float time)
         {
             myMonoBehaviour.StartCoroutine(RemovingSound(audioAux, time));
         }
 
-        private IEnumerator RemovingSound(AudioSource audioAux, float time)
+        private IEnumerator RemovingSound(GameObject audioAux, float time)
         {
             yield return new WaitForSeconds(time);
             soundList.Remove(audioAux);
+            Object.Destroy(audioAux);
         }
             #endregion
 

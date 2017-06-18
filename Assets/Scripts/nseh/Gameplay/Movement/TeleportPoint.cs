@@ -9,6 +9,7 @@ using Inputs = nseh.Utils.Constants.Input;
 using Layers = nseh.Utils.Constants.Layers;
 using nseh.Gameplay.Entities.Player;
 using Tags = nseh.Utils.Constants.Tags;
+using nseh.Managers.Audio;
 
 
 namespace nseh.Gameplay.Movement
@@ -39,7 +40,8 @@ namespace nseh.Gameplay.Movement
             {
                 other.GetComponent<PlayerInfo>().Teletransported = true;
                 StartCoroutine(Teleport(other));
-                AudioSource.PlayClipAtPoint(audio, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+                SoundManager.Instance.PlayAudioFX(audio, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+
             }
         }
 

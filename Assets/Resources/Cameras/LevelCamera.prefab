@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  sensitivityDepth: 10
+  sensitivityDepth: 5
   sensitivityNormals: 0.5
   lumThreshold: 0.2
   edgeExp: 4.4

@@ -146,7 +146,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9502074
+      - time: 1
         functionName: OnEndRoar
         data: 
         objectReferenceParameter: {instanceID: 0}

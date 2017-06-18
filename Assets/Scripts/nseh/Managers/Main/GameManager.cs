@@ -65,12 +65,12 @@ namespace nseh.Managers.Main
         {
             get { return _levelManager; }
         }
- /*
+ 
         public SoundManager SoundManager
         {
             get { return _soundManager; }
         }
-*/
+
         #endregion
 
         #region Initialization
@@ -94,17 +94,17 @@ namespace nseh.Managers.Main
 				_gameSounds = GetComponent<GameSounds>();
 
 				// Add managers to the list
-                //Add<SoundManager>();
+                Add<SoundManager>();
 				Add<MenuManager>();
 				Add<LevelManager>();
 				Add<LoadingScene>();
 
 				// Cache some managers
 				_levelManager = Find<LevelManager>();
-				//_soundManager = Find<SoundManager>();
+				_soundManager = Find<SoundManager>();
 
 				// Find managers and activate them
-				//_soundManager.Activate();
+				_soundManager.Activate();
 				Find<MenuManager>().Activate();
             }
         }

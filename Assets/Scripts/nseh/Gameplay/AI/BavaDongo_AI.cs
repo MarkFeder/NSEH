@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using nseh.Managers.Main;
 using nseh.Gameplay.Entities.Enemies;
+using nseh.Managers.Audio;
 
 
 namespace nseh.Gameplay.AI
@@ -84,7 +85,6 @@ namespace nseh.Gameplay.AI
                 _animator.speed = 1;
                 _isDeath = true;
                 _animator.SetTrigger("Death");
-                //AudioSource.PlayClipAtPoint(deathSound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
 
             }
             else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle") && _health <= frenzyHealth && _frenzy == false)
@@ -93,8 +93,7 @@ namespace nseh.Gameplay.AI
                 _animationSpeedMax = 1.5f;
                 _animationSpeedMin = 0.5f;
                 _frenzy = true;
-                _animator.speed = _animationSpeedMax;
-                //AudioSource.PlayClipAtPoint(frenzySound, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);               
+                _animator.speed = _animationSpeedMax;              
             }
             else if((_percentage - percentageAux) >= attackPercent)
             {
@@ -181,14 +180,14 @@ namespace nseh.Gameplay.AI
 
         private void ActivateSound(int index)
         {
-            AudioSource.PlayClipAtPoint(genericSounds[index], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+            SoundManager.Instance.PlayAudioFX(genericSounds[index], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
         }
 
         private void EventInclinePlatform(AnimationEvent animationEvent)
         {
             platform.GetComponent<Animator>().SetTrigger("Incline");
             _animator.speed = _animationSpeedMin;
-            AudioSource.PlayClipAtPoint(genericSounds[6], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+            SoundManager.Instance.PlayAudioFX(genericSounds[6], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
             Physics.gravity = new Vector3 (-75, Physics.gravity.y, Physics.gravity.z);
 
 
@@ -242,7 +241,7 @@ namespace nseh.Gameplay.AI
         public void ActivateColliderbox(int index)
         {
             _colliders[index].enabled = true;
-            AudioSource.PlayClipAtPoint(stompClip[UnityEngine.Random.Range(0, stompClip.Count)], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+            SoundManager.Instance.PlayAudioFX(stompClip[UnityEngine.Random.Range(0, stompClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
         }
 
         /// <summary>

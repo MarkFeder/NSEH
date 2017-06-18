@@ -1,6 +1,7 @@
 ﻿using nseh.Managers.General;
 using UnityEngine;
 using System.Collections.Generic;
+using nseh.Managers.Audio;
 
 namespace nseh.Gameplay.Entities.Enemies
 {
@@ -64,8 +65,8 @@ namespace nseh.Gameplay.Entities.Enemies
         {
             // Reduce current health
             CurrentHealth -= amount;
+            SoundManager.Instance.PlayAudioFX(hitClip[UnityEngine.Random.Range(0, hitClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
 
-            AudioSource.PlayClipAtPoint(hitClip[UnityEngine.Random.Range(0, hitClip.Count)], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
             // Clamp current health
             CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         }

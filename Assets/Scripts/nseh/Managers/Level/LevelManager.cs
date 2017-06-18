@@ -71,6 +71,8 @@ namespace nseh.Managers.Level
         public bool _Starting;
         private bool _canvasLoaded;
 
+        private GameObject _loading;
+
         private float _timeRemaining;
         private int _numPlayers;
 
@@ -438,7 +440,7 @@ namespace nseh.Managers.Level
         public override void Activate()
         {
             _isActivated = true;
-
+            _loading = GameObject.Find("Canvas_Loading");
             // Activate submanagers
             _particlesManager.ActivateEvent();
             _objectPoolManager.ActivateEvent();
@@ -469,7 +471,7 @@ namespace nseh.Managers.Level
             
             // Setup players on screen
             SetupPlayersTransforms();
-            SpawnAllPlayers();
+            
 
             Debug.Log("The number of players is: " + GameManager.Instance._numberPlayers + " " + (GameManager.Instance._characters[0].name));
 
@@ -545,12 +547,13 @@ namespace nseh.Managers.Level
 
         private IEnumerator StartingGame()
         {
+            SpawnAllPlayers();
+            yield return new WaitForSeconds(1);
+            _loading.SetActive(false);
             _Starting = true;
-            _ready.text = "FIGHT THIS STRANGE PEOPLE!";
+            _ready.text = "FIGHT THIS STRANGE PEOPLE! SAVE THE LAVA PITS!";
             yield return new WaitForSeconds(3);
-            _ready.text = "SAVE THE LAVA PITS!";
-            yield return new WaitForSeconds(3);
-            _ready.text = "FIIIIIIIIIIIIIIIIIGHT!";
+            _ready.text = "FIIIIIIGHT!!!";
             yield return new WaitForSeconds(3);
             _ready.text = "";
             _Starting = false;
@@ -569,10 +572,12 @@ namespace nseh.Managers.Level
         private IEnumerator StopingGame()
         {
             Time.timeScale = 0.5f;
-            _ready.text = "THE LAVA IS RAISING!";
+            _ready.text = "THE LAVA IS RAISING! RUN TO THE VOLCANO!";
             yield return new WaitForSeconds(3);
-            _ready.text = "RUN TO THE VOLCANO!";
-            yield return new WaitForSeconds(3);
+            _canvasPlayersHUDObj.SetActive(false);
+            _loading.SetActive(true);
+            yield return new WaitForSeconds(1);
+ 
             ChangeState(LevelManager.States.LoadingMinigame);
 
         }
@@ -752,7 +757,7 @@ namespace nseh.Managers.Level
             for (int i = 0; i < _numPlayers; i++)
             {
                 // Enable each hud
-                _canvasPlayersManager.EnableHud(i + 1);
+                //_canvasPlayersManager.EnableHud(i + 1);
 
                 // Add new player manager
                 _players.AddNotDuplicate(new PlayerManager());
@@ -761,6 +766,7 @@ namespace nseh.Managers.Level
                                   _canvasPlayersManager.GetEnergyBarComponentForPlayer(i + 1), _canvasPlayersManager.GetLivesForPlayer(i + 1));
 
                 // Change player's portrait from hud manager
+                _canvasPlayersManager.EnableHud(i + 1);
                 _canvasPlayersManager.ChangePortrait(i + 1, _players[i].PlayerRunTimeInfo.CharacterPortrait);
                 _canvasPlayersManager.DisableLivesForPlayer(i + 1);
             }
@@ -772,7 +778,7 @@ namespace nseh.Managers.Level
             for (int i = 0; i < _numPlayers; i++)
             {
                 // Enable each hud
-                _canvasPlayersManager.EnableHud(i + 1);
+                //_canvasPlayersManager.EnableHud(i + 1);
 
                 // Add new player manager
                 _players.AddNotDuplicate(new PlayerManager());
@@ -782,6 +788,7 @@ namespace nseh.Managers.Level
                                   _canvasPlayersManager.GetEnergyBarComponentForPlayer(i + 1), _canvasPlayersManager.GetLivesForPlayer(i + 1), "Player", new Vector3(1.25f, 1.25f, 1.25f));
                 //_players[i].PlayerRunTimeInfo.PlayerMovement.DecreaseJump(25);
                 // Change player's portrait from hud manager
+                _canvasPlayersManager.EnableHud(i + 1);
                 _canvasPlayersManager.ChangePortrait(i + 1, _players[i].PlayerRunTimeInfo.CharacterPortrait);
                 _canvasPlayersManager.DisableLivesForPlayer(i + 1);
             }

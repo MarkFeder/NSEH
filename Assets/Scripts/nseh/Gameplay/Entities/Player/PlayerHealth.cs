@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using LOGS = nseh.Utils.Constants.Logs.PlayerHealth;
+using nseh.Managers.Audio;
 
 namespace nseh.Gameplay.Entities.Player
 {
@@ -294,7 +295,8 @@ namespace nseh.Gameplay.Entities.Player
                 CurrentHealth = (int)Mathf.Clamp(CurrentHealth, 0.0f, _maxHealth);
 
                 _playerInfo.PlayerEnergy.IncreaseEnergy(oldHealth - CurrentHealth);
-                AudioSource.PlayClipAtPoint(hitClip[UnityEngine.Random.Range(0, hitClip.Count)], new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+                SoundManager.Instance.PlayAudioFX(hitClip[UnityEngine.Random.Range(0, hitClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+
 
                 /*if (CurrentHealth == 0.0f && !isDead && lives == 1)
                 {
@@ -394,7 +396,8 @@ namespace nseh.Gameplay.Entities.Player
             _playerInfo.Animator.SetTrigger(_playerInfo.DeadHash);
             _playerInfo.PlayerMovement.DisableMovement(0f);
             _playerInfo.PlayerCollider.enabled = false;
-            AudioSource.PlayClipAtPoint(deathClip, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 1);
+            SoundManager.Instance.PlayAudioFX(deathClip, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+
         }
 
         private IEnumerator LoseLife(float respawnTime)

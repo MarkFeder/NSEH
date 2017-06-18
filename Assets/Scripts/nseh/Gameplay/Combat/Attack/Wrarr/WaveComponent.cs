@@ -18,6 +18,8 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
         private float _stepSize;
 		private float _damage;
 
+        public GameObject wrarr;
+
 		#endregion
 
 		#region Public Properties
@@ -58,12 +60,17 @@ namespace nseh.Gameplay.Combat.Attack.Wrarr
 			{
 				_enemies.Clear();
 			}
-            gameObject.GetComponentInParent<Rigidbody>().isKinematic = true;
+            wrarr.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            wrarr.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            wrarr.GetComponent<Rigidbody>().isKinematic = true;
         }
 
         private void OnDisable()
         {
-            gameObject.GetComponentInParent<Rigidbody>().isKinematic = false;
+            wrarr.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            wrarr.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            _collider.height = 0.0f;
+            wrarr.GetComponent<Rigidbody>().isKinematic = false;
         }
 
         private void Update()
