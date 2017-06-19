@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4278739264022840}
   - component: {fileID: 198290781963070514}
   - component: {fileID: 199796819785304638}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sword_Aura 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4515977075029714}
   - component: {fileID: 198095276200879450}
   - component: {fileID: 199397662347299342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sword_Aura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4873660214815420}
   - component: {fileID: 198912901426503560}
   - component: {fileID: 199521299266509836}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: aurablade
   m_TagString: Untagged
   m_Icon: {fileID: 0}

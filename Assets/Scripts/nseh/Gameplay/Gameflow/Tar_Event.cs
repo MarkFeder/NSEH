@@ -11,12 +11,9 @@ namespace nseh.Gameplay.Gameflow
     {
         #region Private Properties
 
-        private bool isUp = false;
-        private float eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
-
-        private bool _playedAlarmSound;
-        private AudioController _alarmSound;
-        private AudioController _bubbleSound;
+        private float eventDuration = Constants.Events.Tar_Event.EVENT_DURATION;
+        public TarComponent lava;
+        private bool _lavaUp;
 
         //List<EventComponent> _tarComponents;
         //bool eventFinished = false;
@@ -27,13 +24,7 @@ namespace nseh.Gameplay.Gameflow
 
         public float elapsedTime;
         //Event components should suscribe their movement functions here to be handled by event
-        public delegate bool TarHandler(float gameTime);
-        public static event TarHandler TarUp;
-        public static event TarHandler TarDown;
-
         //Resets all event component positions
-        public delegate void TarReset();
-        public static event TarReset ResetTarComponents;
 
         #endregion
 
@@ -50,14 +41,11 @@ namespace nseh.Gameplay.Gameflow
         override public void ActivateEvent()
         {
             _isActivated = true;
-
-            ResetTarComponents();
-            eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
+            _lavaUp = false;
+            //ResetTarComponents();
+            eventDuration = Constants.Events.Tar_Event.EVENT_DURATION;
             elapsedTime = 0;
-            isUp = false;
-
-            // Handle sounds
-            _playedAlarmSound = false;
+            
             //_alarmSound = GameManager.Instance.GameSounds.GetVolcanoLavaSound();
             //_bubbleSound = GameManager.Instance.GameSounds.GetRandomBubbleSound();
 
@@ -69,54 +57,30 @@ namespace nseh.Gameplay.Gameflow
         {
             elapsedTime += Time.deltaTime;
             //Controls when the tar should go up
-            if (elapsedTime >= Constants.Events.Tar_Event.EVENT_START && elapsedTime < (Constants.Events.Tar_Event.EVENT_START + eventDuration) && !isUp)
+            if (elapsedTime >= Constants.Events.Tar_Event.EVENT_START && !_lavaUp)
             {
-                //foreach(EventComponent tarComponent in _tarComponents)
-                //{
-                isUp = TarUp(elapsedTime);
+                _lavaUp = true;
+                lava.LavaMotion();
 
-                if (!_playedAlarmSound)
-                {
-                    //GameManager.Instance.SoundManager.PlayAudio(_alarmSound, false);
-                    _playedAlarmSound = true;
-                }
 
-                //}
             }
-            //Controls when the tar should go down
-            else if (elapsedTime >= (Constants.Events.Tar_Event.EVENT_START + eventDuration) && isUp)
+            else if (elapsedTime >= Constants.Events.Tar_Event.EVENT_START + eventDuration)
             {
-                isUp = TarDown(elapsedTime);
-            }
-            //Controls when the event cycle is completed and resets the involved variables
-            else if (elapsedTime >= (Constants.Events.Tar_Event.EVENT_START + eventDuration) && !isUp)
-            {
-                if (eventDuration != Constants.Events.Tar_Event.EVENT_DURATION_MAX)
-                {
-                    eventDuration += Constants.Events.Tar_Event.EVENT_DURATION_INCREASE;
-                }
-
                 elapsedTime = 0;
-                _playedAlarmSound = false;
-
-                //Debug.Log("Variables are reset and tar will remain up next time: " + eventDuration + " seconds.");
+                _lavaUp = false;
             }
-            //LvlManager.ChangeState(LevelManager.States.LevelEvent);
+           
+           
         }
 
         //Deactivates the event
         override public void EventRelease()
         {
-            ResetTarComponents();
-            eventDuration = Constants.Events.Tar_Event.EVENT_DURATION_MIN;
+            eventDuration = Constants.Events.Tar_Event.EVENT_DURATION;
             elapsedTime = 0;
-            isUp = false;
-
-            _playedAlarmSound = false;
-            //GameManager.Instance.SoundManager.StopAudio(_bubbleSound);
-            //GameManager.Instance.SoundManager.StopAudio(_alarmSound);
-
+            lava.ResetLava();
             _isActivated = false;
+            _lavaUp = false;
         }
        
 

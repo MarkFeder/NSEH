@@ -313,10 +313,13 @@ namespace nseh.Managers.Level
         {
             if (SceneManager.GetActiveScene().name == "Game")
             {
+                _loading.SetActive(true);
                 // Refresh variables
                 _isGameOver = false;
                 _isPaused = false;
-                _timeRemaining = Constants.LevelManager.TIME_REMAINING;
+                _Starting = true;
+                _clock.text = "";
+                _timeRemaining = -1;
                 Time.timeScale = 1;
 
                 // Deactivate some canvas
@@ -325,14 +328,12 @@ namespace nseh.Managers.Level
 
                 // Activate some canvas
                 _canvasClockManager.EnableCanvas();
-
+                Find<Tar_Event>().EventRelease();
+                Find<ItemSpawn_Event>().EventRelease();
                 // Activate events
-                Find<Tar_Event>().ActivateEvent();
-                Find<ItemSpawn_Event>().ActivateEvent();
 
                 // Release managers
                 Find<CameraManager>().EventRelease();
-                Find<MinigameEvent>().EventRelease();
                 // Reset all player spawn points
                 ResetPlayerSpawnPoint();
 
@@ -341,6 +342,7 @@ namespace nseh.Managers.Level
 
                 // Reactivate events again
                 Find<CameraManager>().ActivateEvent();
+                RestartGame(MyGame);
             }
             else
             {
@@ -551,7 +553,7 @@ namespace nseh.Managers.Level
             yield return new WaitForSeconds(1);
             _loading.SetActive(false);
             _Starting = true;
-            _ready.text = "FIGHT THIS STRANGE PEOPLE! SAVE THE LAVA PITS!";
+            _ready.text = "FIGHT THIS STRANGE PEOPLE! SAVE THE LAVA PIT!";
             yield return new WaitForSeconds(3);
             _ready.text = "FIIIIIIGHT!!!";
             yield return new WaitForSeconds(3);
@@ -561,6 +563,29 @@ namespace nseh.Managers.Level
             Find<Tar_Event>().ActivateEvent();
             Find<ItemSpawn_Event>().ActivateEvent();
         }
+
+        private void RestartGame(MonoBehaviour myMonoBehaviour)
+        {
+            myMonoBehaviour.StartCoroutine(RestartingGame());
+        }
+
+
+        private IEnumerator RestartingGame()
+        {
+            yield return new WaitForSeconds(1);
+            _loading.SetActive(false);
+            _Starting = true;
+            _ready.text = "FIGHT THIS STRANGE PEOPLE! SAVE THE LAVA PIT!";
+            yield return new WaitForSeconds(3);
+            _ready.text = "FIIIIIIGHT!!!";
+            yield return new WaitForSeconds(3);
+            _ready.text = "";
+            _Starting = false;
+            _timeRemaining = Constants.LevelManager.TIME_REMAINING;
+            Find<Tar_Event>().ActivateEvent();
+            Find<ItemSpawn_Event>().ActivateEvent();
+        }
+
 
 
         private void StopGame(MonoBehaviour myMonoBehaviour)

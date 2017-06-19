@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
-
+using System;
+using Inputs = nseh.Utils.Constants.Input;
 
 namespace nseh.Managers.General
 {
@@ -35,11 +36,13 @@ namespace nseh.Managers.General
         public AudioClip back;
         public AudioClip select;
         private AudioSource audiosource;
+        private bool started;
         #endregion
 
         #region Public Methods
         public void Start()
         {
+            started = false;
             _MenuManager = GameManager.Instance.Find<MenuManager>();
             adding = 0;
             audiosource = gameObject.AddComponent<AudioSource>();
@@ -47,6 +50,18 @@ namespace nseh.Managers.General
             audiosource.volume = 0.5f;
             playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
         }
+
+        public void Update()
+        {
+            if(Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP,1)) && !started)
+            {
+                started = true;
+                current.SetActive(true);
+            }
+
+        }
+
+        
 
         public void OneNumberCharacter(GameObject newCanvas)
         {
@@ -126,20 +141,20 @@ namespace nseh.Managers.General
                 random.interactable = false;
                 play.interactable = true;
                 eventSystem.SetSelectedGameObject(selectedGameObject);
-                /*PLEASE DONT REMOVE
+       
                 eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + 1;
                 eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + 1;
                 eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + 1;
-                */
+                
             }
             else
             {
                 playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
-                /*PLEASE DONT REMOVE
+                
                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_"+(adding+1).ToString();
                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + (adding + 1).ToString();
-               */
+               
             }
         }
 
@@ -167,20 +182,20 @@ namespace nseh.Managers.General
                 random.interactable = false;
                 play.interactable = true;
                 eventSystem.SetSelectedGameObject(selectedGameObject);
-                /*PLEASE DONT REMOVE
+       
                 eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + 1;
                 eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + 1;
                 eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + 1;
-                */
+                
             }
             else
             {
                 playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
-                /*PLEASE DONT REMOVE
+         
                 eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + (adding + 1).ToString();
                 eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
                 eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + (adding + 1).ToString();
-                */
+                
             }
         }
 

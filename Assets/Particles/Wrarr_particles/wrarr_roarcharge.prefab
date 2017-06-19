@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4779524259616214}
   - component: {fileID: 198597741040487746}
   - component: {fileID: 199943776688703156}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wrarr_roarcharge
   m_TagString: Untagged
   m_Icon: {fileID: 0}

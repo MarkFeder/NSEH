@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 namespace nseh.Gameplay.Minigames
 {
@@ -30,7 +31,7 @@ namespace nseh.Gameplay.Minigames
             {
                 if (Time.time > _nextBall)
                 {
-                        _starting = Mathf.Clamp(_starting + _decrement, 0.5F, _starting);
+                        _starting = Mathf.Clamp(_starting + _decrement, 0.75F, _starting);
                         _nextBall = (Time.time + _starting);
                         Debug.Log(_starting);
                         RaycastHit hit;
@@ -42,6 +43,7 @@ namespace nseh.Gameplay.Minigames
                             Vector3 auxPosition = new Vector3(Random.Range(auxMinimun, auxMaximun), gameObject.transform.position.y, gameObject.transform.position.z);
                             //Vector3 auxRotation = new Vector3(fireBall.transform.eulerAngles.x, -180 + Random.Range(-20, 20), fireBall.transform.eulerAngles.z);
                             GameObject ball = Instantiate(fireBall, auxPosition, fireBall.transform.rotation);
+                            ball.GetComponent<AudioSource>().pitch = ball.GetComponent<AudioSource>().pitch + (Random.Range(-1f, 1f));
                             ball.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, -250000));
                             Destroy(ball, 5);
                             

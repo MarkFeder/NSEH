@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Tags = nseh.Utils.Constants.Tags;
 using nseh.Gameplay.Entities.Player;
+using nseh.Managers.Audio;
 
 public class FireballComponent : MonoBehaviour {
 
@@ -16,9 +16,7 @@ public class FireballComponent : MonoBehaviour {
     private void Start()
     {
         _enemies = new List<GameObject>();
-        AudioSource audio = GetComponent<AudioSource>();
-        audio.clip = fireballClip[UnityEngine.Random.Range(0, fireballClip.Count)];
-        audio.Play();
+        SoundManager.Instance.PlayAudioFX(fireballClip[UnityEngine.Random.Range(0, fireballClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
 
     }
 

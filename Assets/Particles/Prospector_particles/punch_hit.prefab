@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4950375429110614}
   - component: {fileID: 198755988584716602}
   - component: {fileID: 199921178384666568}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: punch_hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -27,10 +27,10 @@ namespace nseh.Gameplay.Gameflow
         {
             _isActivated = true;
             _isPaused = false;
-            _loading = GameObject.Find("Canvas_Loading");
+            
             _ready = GameObject.Find("CanvasProgressHUD/TextReady").GetComponent<Text>();
             _levelManager.CanvasPausedBossManager.DisableCanvas();
-            
+            _loading = GameObject.Find("Canvas_Loading");
             _boss = GameObject.Find("Bava Dongo");
             _boss.GetComponent<EnemyHealth>().MaxHealth = _levelManager.Players.Count * 100;
             _boss.GetComponent<EnemyHealth>().CurrentHealth = _levelManager.Players.Count * 100;
@@ -52,7 +52,7 @@ namespace nseh.Gameplay.Gameflow
             else if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(System.String.Format("{0}{1}", Inputs.OPTIONS, 1))))
             {
                 _isPaused = !_isPaused;
-
+                _levelManager._Starting = !_levelManager._Starting;
                 if (_isPaused)
                 {
                     _levelManager.CanvasPausedBossManager.EnableCanvas();
@@ -117,7 +117,7 @@ namespace nseh.Gameplay.Gameflow
 
         private IEnumerator StopingBoss()
         {
-            _ready.text = "BAVA DONGO IS DEAD! YOU WIN!";
+            _ready.text = "BAVA DONGO IS DOWN! YOU WIN!";
             yield return new WaitForSeconds(5);
             _ready.text = "";
             _loading.SetActive(true);

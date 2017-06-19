@@ -40,7 +40,7 @@ namespace nseh.Managers.Audio
             _instance = this;
             _maxSounds = 20;
             _isActivated = true;
-            _volumeSoundFX = 1;
+            _volumeSoundFX = 0.75f;
             soundList = new List<GameObject>();
         }
 
@@ -86,7 +86,6 @@ namespace nseh.Managers.Audio
             {
                 GameObject aux = new GameObject(sound.name);
                 AudioSource AudioAux = aux.AddComponent<AudioSource>();
-                Debug.Log(aux);
                 AudioAux.clip = sound;
                 AudioAux.volume = volumen * _volumeSoundFX;
                 AudioAux.ignoreListenerPause = ignoreListener;

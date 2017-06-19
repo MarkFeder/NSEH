@@ -9,13 +9,12 @@ using nseh.Managers.Audio;
 namespace nseh.Gameplay.Gameflow
 {
     public class Tar : TarComponent
-    {
+    {/*
         //public Animator animator;
 
         #region Private Properties
 
         private float _nextApplyEffect = 0;
-        private List<GameObject> _playersInTar;
         private Animator _animator;
 
         public AudioClip alarm;
@@ -59,7 +58,7 @@ namespace nseh.Gameplay.Gameflow
         protected override void TarReset()
         {
             //animator.SetBool("Motion", false);
-            transform.position = initialTarPosition;
+            _animator.SetTrigger("Restart");
             _nextApplyEffect = 0;
             _playersInTar = new List<GameObject>();
         }
@@ -134,7 +133,7 @@ namespace nseh.Gameplay.Gameflow
                 }
             }
         }
-
-        #endregion
+*/
+        
     }
 }

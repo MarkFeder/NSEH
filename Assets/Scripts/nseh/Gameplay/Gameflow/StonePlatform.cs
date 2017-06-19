@@ -5,7 +5,7 @@ namespace nseh.Gameplay.Gameflow
 {
     public class StonePlatform : TarComponent
     {
-
+        /*
         protected override bool TarUp(float elapsedTime)
         {
             this.targetTarPosition = new Vector3(this.transform.position.x, this.platformPosition.y, this.transform.position.z);
@@ -34,6 +34,6 @@ namespace nseh.Gameplay.Gameflow
         protected override void TarReset()
         {
             this.transform.position = this.initialTarPosition;
-        }
+        }*/
     } 
 }

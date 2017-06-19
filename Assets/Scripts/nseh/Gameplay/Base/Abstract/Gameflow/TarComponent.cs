@@ -1,44 +1,112 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using nseh.Managers.Audio;
+using System.Linq;
+using nseh.Utils;
+using nseh.Gameplay.Entities.Player;
+using nseh.Managers.Main;
+using nseh.Managers.Level;
 using nseh.Gameplay.Gameflow;
 
 namespace nseh.Gameplay.Base.Abstract.Gameflow
 {
-    public abstract class TarComponent : MonoBehaviour
+    public class TarComponent : MonoBehaviour
     {
 
-        public Transform platformTarget;
-        public Vector3 initialTarPosition;
-        public Vector3 platformPosition;
-        public Vector3 targetTarPosition;
+        private List<GameObject> _playersInLava;
+        private float _nextApplyEffect = 0;
+        private Animator _animator;
+        
+
+        public AudioClip alarm;
 
         // Use this for initialization
         void Start()
         {
-            platformPosition = this.platformTarget.position;
-            initialTarPosition = this.transform.position;
+            _playersInLava = new List<GameObject>();
+            _animator = GetComponent<Animator>();
+            GameManager.Instance.LevelManager.Find<Tar_Event>().lava = this;
+            
         }
 
-        //Component suscribes to event on enable
-        void OnEnable()
+        public void LavaMotion()
         {
-            Tar_Event.TarUp += TarUp;
-            Tar_Event.TarDown += TarDown;
-            Tar_Event.ResetTarComponents += TarReset;
+            
+            _animator.SetTrigger("Start");
+            SoundManager.Instance.PlayAudioFX(alarm, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+
         }
 
-        //Component unsuscribes to event on disable
-        void OnDisable()
+        public void ResetLava()
         {
-            Tar_Event.TarUp -= TarUp;
-            Tar_Event.TarDown -= TarDown;
-            Tar_Event.ResetTarComponents -= TarReset;
-
+            //animator.SetBool("Motion", false);
+            _animator.SetTrigger("Restart");
+            
+            _nextApplyEffect = 0;
+            _playersInLava = new List<GameObject>();
         }
 
-        abstract protected bool TarUp(float elapsedTime);
-        abstract protected bool TarDown(float elapsedTime);
-        abstract protected void TarReset();
+        private void Update()
+        {
+            //There are players in Tar
+            if (_playersInLava.Any())
+            {
+                DealDamagePeriodically();
+            }
+     
+           
+        }
+
+        
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.CompareTag(Constants.Tags.PLAYER_BODY) && !PlayerListContains(other.gameObject))
+            {
+                _playersInLava.Add(other.gameObject);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag(Constants.Tags.PLAYER_BODY))
+            {
+                other.GetComponent<PlayerMovement>().RestoreBaseSpeed();
+            }
+            _playersInLava.Remove(other.gameObject);
+        }
+
+        private bool PlayerListContains(GameObject playerToRegister)
+        {
+            PlayerInfo player = playerToRegister.GetComponent<PlayerInfo>();
+
+            if (_playersInLava.Any())
+            {
+                foreach (PlayerInfo element in _playersInLava.Select(t => t.GetComponent<PlayerInfo>()))
+                {
+                    if (element.Player == player.Player)
+                    { return true; }
+                }
+            }
+
+            return false;
+        }
+
+        private void DealDamagePeriodically()
+        {
+            if (Time.time >= _nextApplyEffect)
+            {
+                _nextApplyEffect = Time.time + Constants.Events.Tar_Event.TAR_TICKDAMAGE;
+                foreach (PlayerHealth element in _playersInLava.Select(t => t.GetComponent<PlayerHealth>()))
+                {
+                    element.DecreaseHealth(Constants.Events.Tar_Event.TAR_DAMAGE);
+                }
+            }
+        }
     } 
 }
+
+
+
+
+

@@ -105,6 +105,7 @@ namespace nseh.Gameplay.AI
                     _animator.speed = _animationSpeedMax;
                     Debug.Log(randomNum + " Tantrum " + Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f));
                     _animator.SetTrigger("Tantrum");
+                    _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
                 }
 
 
@@ -113,6 +114,7 @@ namespace nseh.Gameplay.AI
                     _animator.speed = 1;
                     Debug.Log(randomNum + " Fall " + Mathf.Clamp((_health / GetComponent<EnemyHealth>().MaxHealth) * 100, 0.25f, 0.75f));
                     _animator.SetTrigger("Fall");
+                    _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
                 }
                 
             }
@@ -123,7 +125,7 @@ namespace nseh.Gameplay.AI
         #region Private Methods
         private void SelectAttack()
         {
-            _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
+            
             float randomNum = Random.value;
             if(randomNum < 0.33f)
             {
@@ -140,8 +142,10 @@ namespace nseh.Gameplay.AI
                 _animator.speed = _animationSpeedMax;
                 _animator.SetTrigger("FireBall");
             }
+            Debug.Log("1 "+_percentage);
+            _percentage = (GetComponent<EnemyHealth>().CurrentHealth / GetComponent<EnemyHealth>().MaxHealth) * 100;
+            Debug.Log("2 " + _percentage);
 
-           
         }
 
         private void EventSelectAttack(AnimationEvent animationEvent)

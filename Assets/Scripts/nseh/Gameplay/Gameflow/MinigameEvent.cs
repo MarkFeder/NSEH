@@ -145,9 +145,9 @@ namespace nseh.Gameplay.Gameflow
         {
             yield return new WaitForSeconds(1);
             _loading.SetActive(false);
-            _ready.text = "MASH X BUTTON FOR AVOID THE LAVA!";
+            _ready.text = "MASH X BUTTON TO AVOID THE LAVA!";
             yield return new WaitForSeconds(3);
-            _ready.text = "USE THE JOYSTICK FOR DODGE THE FIREBALLS!";
+            _ready.text = "USE THE JOYSTICK TO DODGE THE FIREBALLS!";
             yield return new WaitForSeconds(3);
             _ready.text = "READY";
             yield return new WaitForSeconds(1);

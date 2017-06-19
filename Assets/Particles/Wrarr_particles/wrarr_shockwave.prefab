@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4567552643008420}
   - component: {fileID: 198421717377271858}
   - component: {fileID: 199061107598623276}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wrarr_shockwave
   m_TagString: Untagged
   m_Icon: {fileID: 0}

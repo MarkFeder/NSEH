@@ -59,6 +59,7 @@ namespace nseh.Managers.General
         {
             audiosource.clip = back;
             audiosource.Play();
+
             _MenuManager.MyGame.ChangeState(GameManager.States.MainMenu);
         }
         #endregion
@@ -76,7 +77,6 @@ namespace nseh.Managers.General
 
                 }
                 yield return new WaitForSeconds(1f);
-                //Invoke("Wait", 10);
             }
             for (int j = 0; j < _MenuManager.MyGame._numberPlayers; j++)
             {

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4441677297292772}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prospector_Attack_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4298820341246624}
   - component: {fileID: 198174313485857150}
   - component: {fileID: 199019719773870218}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dust2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4084971977906070}
   - component: {fileID: 198798321098010174}
   - component: {fileID: 199413631619742616}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dust1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4419294724038898}
   - component: {fileID: 198314419221724774}
   - component: {fileID: 199288194935172738}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Peebles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
