@@ -277,14 +277,14 @@ namespace nseh.Managers.Main
                     {
                         _currentState = States.Loading;
                         GameEvent.Release();
-                        SceneManager.LoadScene("MainMenu");
+                        SceneManager.LoadScene(0);
                         Find<LoadingScene>().Activate();
                     }
 
                     else if (_nextState == States.Minigame)
                     {
                         _currentState = States.Loading;
-                        SceneManager.LoadScene(4);
+                        SceneManager.LoadScene(2);
                         Find<LoadingScene>().Activate();
                     }
 
@@ -296,7 +296,7 @@ namespace nseh.Managers.Main
                     {
                         _currentState = States.Loading;
                         MinigameEvent.Release();
-                        SceneManager.LoadScene("MainMenu");
+                        SceneManager.LoadScene(0);
                         Find<LoadingScene>().Activate();
                     }
 
@@ -323,7 +323,7 @@ namespace nseh.Managers.Main
                     {
                         BossEvent.Release();
                         _currentState = States.Loading;
-                        SceneManager.LoadScene("MainMenu");
+                        SceneManager.LoadScene(0);
                         Find<LoadingScene>().Activate();
                         
                     }
@@ -339,7 +339,7 @@ namespace nseh.Managers.Main
                     else if (_nextState == States.Score)
                     {
                         _currentState = States.Loading;
-                        SceneManager.LoadScene("Score");
+                        SceneManager.LoadScene(4);
                         Find<LoadingScene>().Activate();
                     }
 
@@ -348,7 +348,7 @@ namespace nseh.Managers.Main
                 case States.Score:
                     _currentState = States.Loading;
                     Find<MenuManager>().Release();
-                    SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
+                    SceneManager.LoadScene(0);
                     Find<LoadingScene>().Activate();
 
                     break;               
