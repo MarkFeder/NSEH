@@ -259,6 +259,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             _playerInfo.CurrentAgility = _playerInfo.BaseAgility;
             _playerInfo.CurrentAgility += points;
+            _currentSpeed = _baseSpeed;
             _currentSpeed += (float)(0.1 * _playerInfo.CurrentAgility * _currentSpeed);
 
             yield return new WaitForSeconds(seconds);
