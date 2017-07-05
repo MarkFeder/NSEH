@@ -1,52 +1,117 @@
 ﻿using System;
-using nseh.Gameplay.Combat;
-using nseh.Gameplay.Combat.Defense;
 using UnityEngine;
-using Inputs = nseh.Utils.Constants.Input;
-using nseh.Managers.Level;
 using nseh.Managers.Main;
+using System.Collections.Generic;
+using Inputs = nseh.Utils.Constants.Input;
+using BaseParameters = nseh.Utils.Constants.PlayerInfo;
 
 namespace nseh.Gameplay.Entities.Player
 {
-    [RequireComponent(typeof(PlayerHealth))]
-    [RequireComponent(typeof(PlayerMovement))]
     [RequireComponent(typeof(PlayerCombat))]
-    [RequireComponent(typeof(PlayerScore))]
-    [RequireComponent(typeof(PlayerSounds))]
+    [RequireComponent(typeof(PlayerMovement))]
+
     public partial class PlayerInfo : MonoBehaviour
     {
+
         #region Private Properties
+
+        [Header("Stats")]
+        [SerializeField]
+        private int _baseStrength;
+        [SerializeField]
+        private int _currentStrength;
+
+        [SerializeField]
+        private int _baseEndurance;
+        [SerializeField]
+        private int _currentEndurance;
+
+        [SerializeField]
+        private int _baseAgility;
+        [SerializeField]
+        private int _currentAgility;
+
+        [Space(10)]
+
+        [Header("Health")]
+        [SerializeField]
+        private float _currentHealth; /*Just Debug*/
+        private int _maxHealth;
+        private int _penalization;
+        
+
+        [Space(10)]
+
+        [Header("Energy")]
+        [SerializeField]
+        private float _currentEnergy;
+
+        [Header("Score")]
+        [SerializeField]
+        private int _currentScore;
+
+        [Header("Player's body position")]
+        [SerializeField]
+        private Transform particleBodyPos;
+        [SerializeField]
+        private Transform particleHeadPos;
+        [SerializeField]
+        private Transform particleFootPos;
+
+        [Space(10)]
+
+
+        [Header("Particles")]
+        [SerializeField]
+        private GameObject _hitParticle;
+  
+        [Space(10)]
+
+        [Header("Audio Clips")]
+        [SerializeField]
+        private List<AudioClip> _hitClip;
+        [SerializeField]
+        private List<AudioClip> _takeDamageClip;
+
+        [SerializeField]
+        private AudioClip _deathClip;
+
+        [Space(10)]
 
         [Header("Input properties")]
         [SerializeField]
         private int _gamepadIndex;
-
-        [Range(1, 4)]
-        [SerializeField]
-        private int _player;
         [SerializeField]
         private string _playerName;
         [SerializeField]
         private Sprite _characterPortrait;
 
-        [Space(20)]
+        [Space(10)]
+
+        [Header("Skeleton Colliders")]
+        [SerializeField]
+        private List<Collider> colliderList;
 
         private Rigidbody _body;
         private Animator _animator;
-        private Collider _playerCollider;
+        
 
-        private PlayerHealth _playerHealth;
-        private PlayerEnergy _playerEnergy;
         private PlayerMovement _playerMovement;
         private PlayerCombat _playerCombat;
-        private PlayerScore _playerScore;
-        private PlayerSounds _playerSounds;
 
         private float _horizontal;
         private float _vertical;
 
         private bool _teletransported;
         private bool _jumpPressed;
+        private bool _lightAttackPressed;
+        private bool _heavyAttackPressed;
+        private bool _interactPressed;
+        private bool _defensePressed;
+        private bool _abilityPressed;
+        private bool _definitivePressed;
+        private bool _pausePressed;
+
 
         #endregion
 
@@ -57,7 +122,7 @@ namespace nseh.Gameplay.Entities.Player
             get { return _horizontal; }
             set { _horizontal = value; }
         }
-
+        
         public float Vertical
         {
             get { return _vertical; }
@@ -70,21 +135,10 @@ namespace nseh.Gameplay.Entities.Player
             set { _gamepadIndex = value; }
         }
 
-        public int Player
-        {
-            get { return _player; }
-            set { _player = value; }
-        }
-
         public bool Teletransported
         {
             get { return _teletransported; }
             set { _teletransported = value; }
-        }
-
-        public bool JumpPressed
-        {
-            get { return _jumpPressed; }
         }
 
         public Sprite CharacterPortrait
@@ -102,16 +156,6 @@ namespace nseh.Gameplay.Entities.Player
             get { return _animator; }
         }
 
-        public PlayerHealth PlayerHealth
-        {
-            get { return _playerHealth; }
-        }
-
-        public PlayerEnergy PlayerEnergy
-        {
-            get { return _playerEnergy; }
-        }
-
         public PlayerMovement PlayerMovement
         {
             get { return _playerMovement; }
@@ -122,120 +166,241 @@ namespace nseh.Gameplay.Entities.Player
             get { return _playerCombat; }
         }
 
-        public PlayerScore PlayerScore
-        {
-            get { return _playerScore; }
-        }
-
-        public PlayerSounds PlayerSounds
-        {
-            get { return _playerSounds; }
-        }
-
         public string PlayerName
         {
             get { return _playerName; }
         }
 
-        public Collider PlayerCollider
+        public Transform ParticleBodyPos
         {
-            get { return _playerCollider; }
+            get
+            {
+                return particleBodyPos;
+            }
+
+        }
+
+        public Transform ParticleHeadPos
+        {
+            get
+            {
+                return particleHeadPos;
+            }
+
+        }
+
+        public Transform ParticleFootPos
+        {
+            get
+            {
+                return particleFootPos;
+            }
+        }
+
+        public int CurrentEndurance
+        {
+            get
+            {
+                return _currentEndurance;
+            }
+        }
+
+        public int CurrentStrength
+        {
+            get
+            {
+                return _currentStrength;
+            }
+        }
+
+        public int CurrentAgility
+        {
+            get
+            {
+                return _currentAgility;
+            }
+
+            set { _currentAgility = value; }
+        }
+
+        public bool JumpPressed
+        {
+            get
+            {
+                return _jumpPressed;
+            }
+
+            set
+            {
+                _jumpPressed = value;
+            }
+        }
+
+        public bool LightAttackPressed
+        {
+            get
+            {
+                return _lightAttackPressed;
+            }
+
+            set
+            {
+                _lightAttackPressed = value;
+            }
+        }
+
+        public bool HeavyAttackPressed
+        {
+            get
+            {
+                return _heavyAttackPressed;
+            }
+
+            set
+            {
+                _heavyAttackPressed = value;
+            }
+        }
+
+        public bool InteractPressed
+        {
+            get
+            {
+                return _interactPressed;
+            }
+
+            set
+            {
+                _interactPressed = value;
+            }
+        }
+
+        public bool DefensePressed
+        {
+            get
+            {
+                return _defensePressed;
+            }
+
+            set
+            {
+                _defensePressed = value;
+            }
+        }
+
+        public bool AbilityPressed
+        {
+            get
+            {
+                return _abilityPressed;
+            }
+
+            set
+            {
+                _abilityPressed = value;
+            }
+        }
+
+        public bool DefinitivePressed
+        {
+            get
+            {
+                return _definitivePressed;
+            }
+
+            set
+            {
+                _definitivePressed = value;
+            }
+        }
+
+        public bool PausePressed
+        {
+            get
+            {
+                return _pausePressed;
+            }
+
+            set
+            {
+                _pausePressed = value;
+            }
+        }
+
+        public int CurrentScore
+        {
+            get
+            {
+                return _currentScore;
+            }
+        }
+
+        public GameObject HitParticle
+        {
+            get
+            {
+                return _hitParticle;
+            }
+        }
+
+        public int BaseAgility
+        {
+            get
+            {
+                return _baseAgility;
+            }
+
         }
 
         #endregion
+
+        #region Private Methods
 
         private void Awake()
         {
             _body = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
-
-            _playerHealth = GetComponent<PlayerHealth>();
-            _playerEnergy = GetComponent<PlayerEnergy>();
+            _maxHealth = BaseParameters.MAXHEALTH;
+            _penalization = BaseParameters.PENALIZATION;
+            _maxEnergy = BaseParameters.MAXENERGY;
             _playerMovement = GetComponent<PlayerMovement>();
             _playerCombat = GetComponent<PlayerCombat>();
-            _playerScore = GetComponent<PlayerScore>();
-            _playerSounds = GetComponent<PlayerSounds>();
-            _playerCollider = GetComponent<Collider>();
-
-            SetupParticles();
-            SetupLookUpKeyParticles();
+            _currentAgility = _baseAgility;
+            _currentEndurance = _baseEndurance;
+            _currentStrength = _baseStrength;
         }
 
         private void Start()
         {
             _teletransported = false;
-            _jumpPressed = false;
+
+            MaxHealth = _maxHealth;
+            CurrentHealth = _maxHealth;
+            _deathCount = 0;
+            _isDead = false;
+            
+            MaxEnergy = _maxEnergy;
+            CurrentEnergy = _currentEnergy;
         }
 
         private void Update()
         {
-            if (!GameManager.Instance.Find<LevelManager>()._Starting)
+            if (!GameManager.Instance.isPaused)
             {
                 _horizontal = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, _gamepadIndex));
                 _vertical = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, _gamepadIndex));
-
-                _jumpPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, _gamepadIndex));
+                JumpPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, _gamepadIndex));
+                LightAttackPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.A, _gamepadIndex));
+                HeavyAttackPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.B, _gamepadIndex));
+                InteractPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, _gamepadIndex));
+                DefensePressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.DEFENSE, _gamepadIndex));
+                AbilityPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.ABILITY, _gamepadIndex));
+                DefinitivePressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.DEFINITIVE, _gamepadIndex));
+                PausePressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.OPTIONS, _gamepadIndex));
             }
-           
         }
-
-        #region Public Methods
-        
-        public string GetButton(AttackType type)
-        {
-            string button = null;
-
-            switch(type)
-            {
-                case AttackType.CharacterAttackAStep1:
-                case AttackType.CharacterAttackAStep2:
-                case AttackType.CharacterAttackAStep3:
-                    button = String.Format("{0}{1}", Inputs.A, _gamepadIndex);
-                    break;
-
-                case AttackType.CharacterAttackBStep1:
-                case AttackType.CharacterAttackBStep2:
-                    button = String.Format("{0}{1}", Inputs.B, _gamepadIndex);
-                    break;
-
-                case AttackType.CharacterAttackBSharp:
-                    button = null;
-                    break;
-
-                case AttackType.CharacterDefinitive:
-                    button = String.Format("{0}{1}", Inputs.DEFINITIVE, _gamepadIndex);
-                    break;
-
-                case AttackType.CharacterHability:
-                    button = String.Format("{0}{1}", Inputs.HABILITY, _gamepadIndex);
-                    break;
-
-                case AttackType.None:
-                    button = null;
-                    break;
-            }
-
-            return button;
-        }
-
-        public string GetButton(DefenseType type)
-        {
-            string button = null;
-
-            switch (type)
-            {
-                case DefenseType.None:
-                    button = null;
-                    break;
-
-                case DefenseType.NormalDefense:
-                    button = String.Format("{0}{1}", Inputs.DEFENSE, _gamepadIndex);
-                    break;
-            }
-
-            return button;
-        } 
 
         #endregion
+
     }
 }

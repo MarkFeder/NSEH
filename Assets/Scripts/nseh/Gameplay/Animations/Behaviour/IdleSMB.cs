@@ -1,17 +1,15 @@
-﻿using nseh.Gameplay.Base.Abstract.Animations;
-using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Combat;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
+using nseh.Gameplay.Entities.Player;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class IdleSMB : BaseStateMachineBehaviour
+    public class IdleSMB : StateMachineBehaviour
     {
+
         #region Private Properties
 
-        private IAction _nextAction;
+        PlayerInfo _playerInfo;
+        PlayerCombat _playerCombat;
 
         #endregion
 
@@ -21,40 +19,33 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
-            ClearParams(ref animator);
+            animator.speed = 1;
+            _playerInfo = animator.GetComponent<PlayerInfo>();
+            _playerCombat = animator.GetComponent<PlayerCombat>();
+            _playerCombat._currentAttack = PlayerCombat.Attack.None;
             _playerInfo.PlayerMovement.EnableMovement();
+            //_playerInfo.LightAttackPressed = false;
+            //_playerInfo.HeavyAttackPressed = false;
+
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            _nextAction = _playerInfo.PlayerCombat.Actions.Where(action =>
-            {
-                return action.IsEnabled &&
-                       action.ButtonHasBeenPressed();
-                
-            }).FirstOrDefault();
-
-            if (_nextAction != null)
-            {
-                _nextAction.StartAction();
-            }
+            if (_playerInfo.LightAttackPressed)
+                animator.SetTrigger("Attack_A");
+            else if (_playerInfo.HeavyAttackPressed)
+                animator.SetTrigger("Attack_B");
+            else if (_playerInfo.DefinitivePressed && _playerInfo.CanUseEnergyForDefinitive())
+                animator.SetTrigger("Definitive");
+            else if (_playerInfo.AbilityPressed && _playerInfo.CanUseEnergyForAbility())
+                animator.SetTrigger("Ability");
+            else if (_playerInfo.DefensePressed)
+                animator.SetTrigger("Defense");
         }
 
         #endregion
 
-        #region Private Methods
-
-        private void ClearParams(ref Animator animator)
-        {
-            IEnumerator<CharacterAttack> enumerator = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                animator.ResetTrigger(enumerator.Current.Hash);
-            }
-        }
-
-        #endregion
     }
 }

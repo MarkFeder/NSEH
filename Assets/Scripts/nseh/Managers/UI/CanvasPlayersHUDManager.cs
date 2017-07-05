@@ -1,13 +1,17 @@
 ﻿using nseh.Managers.General;
+using nseh.Managers.Main;
+using nseh.Managers.Level;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace nseh.Managers.UI
 {
     public class CanvasPlayersHUDManager : MonoBehaviour
     {
+
         #region Public Properties
 
         [Header("Player HUDs")]
@@ -116,8 +120,13 @@ namespace nseh.Managers.UI
 
         #endregion
 
+        #region Private Methods
+
         private void Start()
         {
+            GameEvent _gameEvent;
+            BossEvent _bossEvent;
+
             if (!ValidatePlayersHuds())
             {
                 Debug.Log("One or more of the players' huds are null");
@@ -139,7 +148,7 @@ namespace nseh.Managers.UI
                 return;
             }
 
-            if(!ValidatePlayerLives())
+            if (!ValidatePlayerLives())
             {
                 Debug.Log("One or more of the players' lives are null");
                 enabled = false;
@@ -148,10 +157,19 @@ namespace nseh.Managers.UI
 
             SetupBarComponents();
 
-            // DisableAllHuds();
-        }
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Game":
+                    _gameEvent = GameManager.Instance.GameEvent;
+                    _gameEvent.CanvasPlayers = this;
+                    break;
 
-        #region Private Methods
+                case "Boss":
+                    _bossEvent = GameManager.Instance.BossEvent;
+                    _bossEvent.CanvasPlayers = this;
+                    break;
+            }
+        }
 
         private bool ValidatePlayersPortraits()
         {
@@ -160,7 +178,6 @@ namespace nseh.Managers.UI
 
         private bool ValidatePlayersHuds()
         {
-            Debug.Log(_p4Hud);
             return _p1Hud && _p2Hud && _p3Hud && _p4Hud;
         }
 
@@ -177,12 +194,10 @@ namespace nseh.Managers.UI
         private void SetupBarComponents()
         {
             //Health Bar
-            Debug.Log("Barra vida" + _p1Hud.transform.GetChild(3).GetComponent<BarComponent>());
             _p1HealthBarComponent = _p1Hud.transform.GetChild(3).GetComponent<BarComponent>();
             _p2HealthBarComponent = _p2Hud.transform.GetChild(3).GetComponent<BarComponent>();
             _p3HealthBarComponent = _p3Hud.transform.GetChild(3).GetComponent<BarComponent>();
             _p4HealthBarComponent = _p4Hud.transform.GetChild(3).GetComponent<BarComponent>();
-            Debug.Log("Barra energia" + _p1Hud.transform.GetChild(0).GetComponent<BarComponent>());
             //Energy Bar
             _p1EnergyBarComponent = _p1Hud.transform.GetChild(0).GetComponent<BarComponent>();
             _p2EnergyBarComponent = _p2Hud.transform.GetChild(0).GetComponent<BarComponent>();
@@ -192,8 +207,6 @@ namespace nseh.Managers.UI
 
         private void OnEnable()
         {
-            // Keep the reference again
-            Debug.Log("OnEnable CanvasPlayersHUDManager");
             SetupBarComponents();
         }
 
@@ -267,8 +280,6 @@ namespace nseh.Managers.UI
             _p2Hud.SetActive(false);
             _p3Hud.SetActive(false);
             _p4Hud.SetActive(false);
-            // DisableP3Hud();
-            // DisableP4Hud();
         }
 
         public BarComponent GetHealthBarComponentForPlayer(int player)
@@ -434,5 +445,6 @@ namespace nseh.Managers.UI
             }
         }
         #endregion
+
     }
 }

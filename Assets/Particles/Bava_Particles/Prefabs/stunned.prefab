@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4856346655409164}
   - component: {fileID: 198699333049704230}
   - component: {fileID: 199096390024472416}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: star (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4435002471210518}
   - component: {fileID: 198133317125002816}
   - component: {fileID: 199156281438087412}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4890351112309244}
   - component: {fileID: 111541895751239606}
   - component: {fileID: 95533849919191068}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: stunned
   m_TagString: Untagged
   m_Icon: {fileID: 0}

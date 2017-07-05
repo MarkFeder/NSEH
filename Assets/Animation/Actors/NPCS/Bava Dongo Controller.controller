@@ -48,7 +48,7 @@ AnimatorController:
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 0}
   - m_Name: Idle
     m_Type: 9
@@ -850,7 +850,7 @@ AnimatorState:
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 18d44590970c7d14b92f62fe3f4ec92f, type: 3}
+  m_Motion: {fileID: 7400000, guid: 5f4f12228c3a1184f9e9928ef877b7ed, type: 3}
   m_Tag: Idle
   m_SpeedParameter: 
   m_MirrorParameter: 

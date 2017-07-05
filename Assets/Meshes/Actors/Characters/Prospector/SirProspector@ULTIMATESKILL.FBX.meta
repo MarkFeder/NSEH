@@ -166,15 +166,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.099585064
-        functionName: OnHideSword
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.6410788
-        functionName: OnShowSword
+      - time: 0
+        functionName: OnHideShovel
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -185,7 +178,28 @@ ModelImporter:
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 8
+        intParameter: 6
+        messageOptions: 0
+      - time: 0.65301937
+        functionName: OnShowSword
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.81072557
+        functionName: OnParticlesDefinitive
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9914047
+        functionName: OnIncreaseAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       transformMask:
       - path: 

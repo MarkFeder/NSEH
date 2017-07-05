@@ -4,7 +4,7 @@
     {
         public static class LevelManager
         {
-            public const float TIME_REMAINING = 150F;
+            public const float TIME_REMAINING = 1F;
         }
     }
 }

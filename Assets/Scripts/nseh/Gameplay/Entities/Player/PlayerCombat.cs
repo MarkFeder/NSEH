@@ -1,46 +1,57 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using nseh.Gameplay.Base.Abstract;
-using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Combat.System;
-using nseh.Utils.Helpers;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Tags = nseh.Utils.Constants.Tags;
+using nseh.Managers.Main;
+using Damage = nseh.Utils.Constants.PlayerInfo;
+using nseh.Gameplay.Combat.Weapon;
 
 namespace nseh.Gameplay.Entities.Player
 {
-    [RequireComponent(typeof(PlayerInfo))]
     public class PlayerCombat : MonoBehaviour
     {
+
         #region Private Properties
-
-        [SerializeField]
-        private GameObject _actionsHolderGO;
-
-        private List<IAction> _playerActions;
-        private List<Collider> _colliders;
         private PlayerInfo _playerInfo;
+
+        [Header("Weapons")]
+        [SerializeField]
+        private List<Collider> _weaponList;
+        [Space(10)]
+
+        private GameObject _particle;
+
+        [Header("Clips")]
+        [SerializeField]
+        private List<AudioClip> _audioAttack;
 
         #endregion
 
-        #region Public C# Properties
+        #region Public Properties
 
-        public List<IAction> Actions
+        public enum Attack
         {
-            get { return _playerActions; }
+            //DICCIONARIO!
+            None = 0,
+            A1 = Damage.A1,
+            A2 = Damage.A2,
+            A3 = Damage.A3,
+            B1 = Damage.B1,
+            B2 = Damage.B2
+        }
+        /*
+        [Serializable]
+        public struct NameDamageParticleSoundPosition
+        {
+            public Attack attack;
+            public int damage;
+            public GameObject particle;
+            public AudioClip sound;
+            public Transform position;
         }
 
-        public int CurrentHashAnimation
-        {
-            get { return (_playerInfo.Animator.GetCurrentAnimatorStateInfo(0).shortNameHash); }
-        }
+        public List<NameDamageParticleSoundPosition> Attacks;*/
 
-        public IAction CurrentAction
-        {
-            get { return _playerActions.Where(act => act.Hash == CurrentHashAnimation).FirstOrDefault(); }
-        }
+        [Header("Attack State")]
+        public Attack _currentAttack;
 
         #endregion
 
@@ -48,121 +59,46 @@ namespace nseh.Gameplay.Entities.Player
 
         private void Awake()
         {
-            _colliders = gameObject.GetSafeComponentsInChildren<Collider>().Where(c => c.tag.Equals(Tags.WEAPON)).ToList();
+            _currentAttack = Attack.None;
         }
 
         private void Start()
         {
             _playerInfo = GetComponent<PlayerInfo>();
 
-            _playerActions = _actionsHolderGO.GetComponents<HandledAction>().Cast<IAction>().ToList();
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        public void DeactivateSpecificCollider(int index)
-        {
-            if (_colliders != null && _colliders.Count > 0)
-            {
-                // Deactivate specific colliders
-                for (int i = 0; i < _colliders.Count; i++)
-                {
-                    Collider collider = _colliders[i];
-                    WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
-
-                    if (weaponCollision.Index == index)
-                    {
-                        collider.enabled = false;
-                        weaponCollision.enabled = false;
-                    }
-                }
-            }
-            else
-            {
-                Debug.Log(String.Format("DeactivateCollider({0}): colliders are 0 or null", index));
-            }
         }
 
         #endregion
 
         #region Animation Events
         
-        /// <summary>
-        /// Activate the collider. This event is triggered by the animation.
-        /// </summary>
-        /// <param name="index">The weapon to be activated.</param>
         public void ActivateCollider(int index)
         {
-            if (_colliders != null && _colliders.Count > 0)
-            {
-                // Deactivate other colliders
-                for (int i = 0; i < _colliders.Count; i++)
-                {
-                    Collider collider = _colliders[i];
-                    WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
-                    TrailRenderer trail = collider.GetComponent<TrailRenderer>();
-
-                    if (weaponCollision.Index != index)
-                    {
-                        collider.enabled = false;
-                        weaponCollision.enabled = false;
-                        trail.enabled = false;
-                    }
-                    else
-                    {
-                        collider.enabled = true;
-                        weaponCollision.enabled = true;
-                        trail.enabled = true;
-                    }
-                }
-            }
-            else
-            {
-                Debug.Log(String.Format("ActivateCollider({0}): colliders are 0 or null", index));
-            }
+            _weaponList[index].enabled = true;
+            _weaponList[index].GetComponent<WeaponCollision>().enabled = true;
         }
 
-        /// <summary>
-        /// Deactivate the collider. This event is triggered by the animation.
-        /// </summary>
-        /// <param name="index">The weapon to be deactivated.</param>
         public void DeactivateCollider(int index)
         {
-            if (_colliders != null && _colliders.Count > 0)
-            {
-                // Deactivate all the colliders
-                for (int i = 0; i < _colliders.Count; i++)
-                {
-                    Collider collider = _colliders[i];
-                    WeaponCollision weaponCollision = collider.GetComponent<WeaponCollision>();
-                    TrailRenderer trail = collider.GetComponent<TrailRenderer>();
+            _weaponList[index].enabled = false;
+            _weaponList[index].GetComponent<WeaponCollision>().enabled = false;
+        }
 
-                    collider.enabled = false;
-                    weaponCollision.enabled = false;
-
-                    StartCoroutine("Trail", trail);
-                    
-                }
-            }
-            else
+        public void DesactivateAllColliders()
+        {
+            foreach(Collider weapon in _weaponList)
             {
-                Debug.Log(String.Format("DeactivateCollider({0}): colliders are 0 or null", index));
+                weapon.enabled = false;
+                weapon.GetComponent<WeaponCollision>().enabled = false;
             }
         }
 
-        /// <summary>
-        /// Enable the trail after 0.5f seconds.
-        /// </summary>
-        /// <returns></returns>
-        /// <param name="trail">Trail.</param>
-        private IEnumerator Trail(TrailRenderer trail)
+        public virtual void OnPlayAttackSound(int index)
         {
-            yield return new WaitForSeconds(0.5f);
-            trail.enabled = false;
+            GameManager.Instance.SoundManager.PlayAudioFX(_audioAttack[index], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
         }
 
         #endregion
+
     }
 }

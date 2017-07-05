@@ -16,7 +16,7 @@
             // Attacks
             public const string A = "A_";
             public const string B = "B_";
-            public const string HABILITY = "Hability_";
+            public const string ABILITY = "Ability_";
             public const string DEFINITIVE = "Definitive_";
 
             public const string BUTTON_RUN = "Run";

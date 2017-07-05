@@ -12,13 +12,15 @@ namespace nseh.Managers.General
     {
 
         #region Private Properties
+
         private MenuManager _MenuManager;
-        private GameObject _wrarr;
-        private GameObject _prospector;
         private int adding;
+        private bool started;
+
         #endregion
 
         #region Public Properties
+
         public GameObject current;
         public Text playerTurnText;
         public Button play;
@@ -35,19 +37,16 @@ namespace nseh.Managers.General
         public AudioClip start;
         public AudioClip back;
         public AudioClip select;
-        private AudioSource audiosource;
-        private bool started;
+
         #endregion
 
         #region Public Methods
+
         public void Start()
         {
             started = false;
             _MenuManager = GameManager.Instance.Find<MenuManager>();
             adding = 0;
-            audiosource = gameObject.AddComponent<AudioSource>();
-            audiosource.spatialBlend = 0;
-            audiosource.volume = 0.5f;
             playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
         }
 
@@ -61,43 +60,35 @@ namespace nseh.Managers.General
 
         }
 
-        
-
         public void OneNumberCharacter(GameObject newCanvas)
         {
             _MenuManager.ChangePlayers(1);
-            audiosource.clip = start;
-            audiosource.Play();
+            GameManager.Instance.SoundManager.PlayAudioFX(start, 0.5f, false, Vector3.zero, 0);
             ChangeCanvas(newCanvas);
         }
 
         public void TwoNumberCharacter(GameObject newCanvas)
         {
             _MenuManager.ChangePlayers(2);
-            audiosource.clip = start;
-            audiosource.Play();
+            GameManager.Instance.SoundManager.PlayAudioFX(start, 0.5f, false, Vector3.zero, 0);
             ChangeCanvas(newCanvas);
         }
 
         public void FourNumberCharacter(GameObject newCanvas)
         {
             _MenuManager.ChangePlayers(4);
-            audiosource.clip = start;
-            audiosource.Play();
+            GameManager.Instance.SoundManager.PlayAudioFX(start, 0.5f, false, Vector3.zero, 0);
             ChangeCanvas(newCanvas);
         }
 
         public void Back(GameObject newCanvas)
         {
-            audiosource.clip = back;
-            audiosource.Play();
+            GameManager.Instance.SoundManager.PlayAudioFX(back, 0.5f, false, Vector3.zero, 0);
             ChangeCanvas(newCanvas);
         }
 
         public void ChangeCanvas(GameObject newCanvas)
         {
-           
-
             if (current.name == "Canvas_PickingCharacters")
             {
                 adding = 0;
@@ -115,18 +106,13 @@ namespace nseh.Managers.General
             current.SetActive(false);
             current = newCanvas;
             current.SetActive(true);
-
-
         }
 
         public void AddingWrarr()
         {
-            _wrarr = Resources.Load("Wrarr") as GameObject;
-            _MenuManager.Adding(_wrarr);
+            _MenuManager.Adding("Wrarr");
             adding++;
-            audiosource.clip = select;
-            audiosource.Play();
-            _MenuManager.SetPlayerChoice("Wrarr", adding);
+            GameManager.Instance.SoundManager.PlayAudioFX(select, 0.5f, false, Vector3.zero, 0);
 
             if (adding == GameManager.Instance._numberPlayers)
             {
@@ -141,20 +127,21 @@ namespace nseh.Managers.General
                 random.interactable = false;
                 play.interactable = true;
                 eventSystem.SetSelectedGameObject(selectedGameObject);
-       
+       /*
                 eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + 1;
                 eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + 1;
                 eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + 1;
+                */
                 
             }
             else
             {
                 playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
-                
+             /*   
                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_"+(adding+1).ToString();
                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + (adding + 1).ToString();
-               
+            */   
             }
         }
 
@@ -162,12 +149,9 @@ namespace nseh.Managers.General
 
         public void AddingProspector()
         {
-            _prospector = Resources.Load("SirProspector") as GameObject;
-            _MenuManager.Adding(_prospector);
+            _MenuManager.Adding("SirProspector");
             adding++;
-            audiosource.clip = select;
-            audiosource.Play();
-            _MenuManager.SetPlayerChoice("SirProspector", adding);
+            GameManager.Instance.SoundManager.PlayAudioFX(select, 0.5f, false, Vector3.zero, 0);
 
             if (adding == GameManager.Instance._numberPlayers)
             {
@@ -182,20 +166,20 @@ namespace nseh.Managers.General
                 random.interactable = false;
                 play.interactable = true;
                 eventSystem.SetSelectedGameObject(selectedGameObject);
-       
+       /*
                 eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + 1;
                 eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + 1;
                 eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + 1;
-                
+           */     
             }
             else
             {
                 playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
-         
+         /*
                 eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + (adding + 1).ToString();
                 eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
                 eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + (adding + 1).ToString();
-                
+         */       
             }
         }
 
@@ -207,18 +191,14 @@ namespace nseh.Managers.General
 
         public void PlayGame(GameObject newCanvas)
         {
-            //ChangeCanvas(newCanvas);
-            audiosource.clip = start;
-            audiosource.Play();
+            GameManager.Instance.SoundManager.PlayAudioFX(start, 0.5f, false, Vector3.zero, 0);
             ChangeCanvas(newCanvas);
-            StartCoroutine(StartGame());
-            
+            StartCoroutine(StartGame());    
         }
 
         public void Exit()
         {
-            audiosource.clip = back;
-            audiosource.Play();
+            GameManager.Instance.SoundManager.PlayAudioFX(back, 0.5f, false, Vector3.zero, 0);
             _MenuManager.ExitGame();
         }
 
@@ -228,8 +208,10 @@ namespace nseh.Managers.General
             yield return new WaitForSeconds(1);
             _MenuManager.ChangeStates();
         }
-            #endregion
-        }
+
+        #endregion
+
+    }
 }
 
 

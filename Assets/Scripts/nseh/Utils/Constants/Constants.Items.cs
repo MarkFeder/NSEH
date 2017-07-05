@@ -16,7 +16,7 @@
             public static class SpecialItems
             {
                 public const string INVULNERABILITY = "INVULNERABILITY!";
-                public const string AUTOATTACKS = "Why do you punch yourself?";
+                public const string AUTOATTACKS = "AUTOATTACKS";
                 public const string CRITICAL = "MUCH MORE DAMAGE!";
                 public const string ULTIMATE = "YOU ARE EPIC!";
             }

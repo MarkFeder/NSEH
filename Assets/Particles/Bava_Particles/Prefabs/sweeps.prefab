@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4482093734764820}
   - component: {fileID: 198992123669985420}
   - component: {fileID: 199847535921930902}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4601816716667468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sweeps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4849866629036408}
   - component: {fileID: 198236926415465392}
   - component: {fileID: 199741003711175492}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4687813323630390}
   - component: {fileID: 198508155314996250}
   - component: {fileID: 199049538658807768}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4404124363480930}
   - component: {fileID: 198565070301063108}
   - component: {fileID: 199365953616733704}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

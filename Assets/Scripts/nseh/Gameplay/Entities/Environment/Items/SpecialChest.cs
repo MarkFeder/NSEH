@@ -1,10 +1,6 @@
 ﻿using nseh.Gameplay.Base.Abstract.Entities;
-using nseh.Gameplay.Combat;
-using nseh.Gameplay.Entities.Player;
-using nseh.Utils.Helpers;
-using System.Linq;
 using UnityEngine;
-using SpecialItems = nseh.Utils.Constants.Items.SpecialItems;
+using nseh.Managers.Main;
 
 namespace nseh.Gameplay.Entities.Environment.Items
 {
@@ -18,14 +14,21 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
     public class SpecialChest : Chest
     {
+
         #region Public Properties
 
         public SpecialChestType chestType;
 
-        public float seconds;
-        public int percent; 
+        [SerializeField]
+        private float _percent;
+        [SerializeField]
+        private float _seconds;
+        [SerializeField]
+        private int _points;
 
         #endregion
+
+        #region Protected Methods
 
         protected override void Activate()
         {
@@ -39,25 +42,22 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case SpecialChestType.Invulnerability:
 
-                    Invulnerability(seconds);
-                    //_spawnItemPoint.DisplayText(_itemText, SpecialItems.INVULNERABILITY, _timeToDisplayText);
-                    ParticleAnimation(_particlePrefab, seconds, _particlesSpawnPoints.ParticleBodyPos);
+                    GameManager.Instance.StartCoroutine(_playerInfo.InvulnerabilityModeForSeconds(_seconds));
+                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
                 case SpecialChestType.CriticalDamage:
 
-                    CriticalDamage(percent, seconds);
-                    //_spawnItemPoint.DisplayText(_itemText, SpecialItems.CRITICAL, _timeToDisplayText);
-                    ParticleAnimation(_particlePrefab, seconds, _particlesSpawnPoints.ParticleBodyPos);
+                    GameManager.Instance.StartCoroutine(_playerInfo.BonificationAttackForSeconds(_points, _seconds));
+                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
                 case SpecialChestType.UnlockDefinitiveMode:
 
-                    UnlockDefinitiveMode();
-                    //_spawnItemPoint.DisplayText(_itemText, SpecialItems.ULTIMATE, _timeToDisplayText);
-                    ParticleAnimation(_particlePrefab, seconds, _particlesSpawnPoints.ParticleBodyPos);
+                    _playerInfo.IncreaseEnergy(100);
+                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
@@ -76,24 +76,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
             Destroy(gameObject, _destructionTime);
         }
 
-        #region Private Methods
-
-        private void Invulnerability(float time)
-        {
-            _target.GetComponent<PlayerHealth>().InvulnerabilityModeForSeconds(time);
-        }
-
-        private void CriticalDamage(float percent, float seconds)
-        {
-            _target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamageForSeconds(percent, seconds));
-        }
-
-        private void UnlockDefinitiveMode()
-        {
-            _target.GetComponent<PlayerEnergy>().IncreaseEnergy(200);
-        }
-
         #endregion
-    }
 
+    }
 }

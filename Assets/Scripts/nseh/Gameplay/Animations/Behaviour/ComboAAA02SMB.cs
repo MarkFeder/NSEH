@@ -1,50 +1,46 @@
-﻿using System.Linq;
-using nseh.Gameplay.Base.Abstract.Animations;
-using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Combat;
+﻿using nseh.Gameplay.Entities.Player;
 using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class ComboAAA02SMB : BaseStateMachineBehaviour
+    public class ComboAAA02SMB : StateMachineBehaviour
     {
-		#region Private Properties
+		
+        #region Private Properties
 
-		[SerializeField]
-		private AttackType _nextActionType;
-		private IAction _nextAction;
+        PlayerInfo _playerInfo;
+        PlayerCombat _playerCombat;
+        bool _A3;
 
-		#endregion
+        #endregion
 
-		#region Public Methods
+        #region Public Methods
 
-		public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
-            animator.SetFloat(_playerInfo.TimeComboAAA02Hash, stateInfo.normalizedTime);
+            _playerInfo = animator.GetComponent<PlayerInfo>();
+            _playerCombat = animator.GetComponent<PlayerCombat>();
+            _playerCombat._currentAttack = PlayerCombat.Attack.A2;
+            _A3 = false;
+        }
 
-            _nextAction = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().Where(act =>
-            {
-	            return act.IsEnabled &&
-        	           act.ButtonHasBeenPressed() &&
-        	           act.AttackType == _nextActionType;
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            }).FirstOrDefault();
-            if (_nextAction != null)
+            if (_playerInfo.HeavyAttackPressed)
+                _A3 = true;
+
+            if (_A3 && stateInfo.normalizedTime >= 0.90)
             {
-                _nextAction.StartAction();
+                animator.SetTrigger("Combo_AAA_03");
+                _A3 = false;
             }
         }
 
-        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            base.OnStateExit(animator, stateInfo, layerIndex);
-
-            animator.SetFloat(_playerInfo.TimeComboAAA02Hash, 0.0F);
-            _action.StopAction();
-        }
-
         #endregion
-    } 
+
+    }
 }

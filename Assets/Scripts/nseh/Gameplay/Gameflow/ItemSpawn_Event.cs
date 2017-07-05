@@ -1,61 +1,70 @@
-﻿using nseh.Gameplay.Base.Abstract.Gameflow;
-using nseh.Gameplay.Entities.Environment;
-using nseh.Managers.Level;
+﻿using nseh.Gameplay.Entities.Environment;
+using nseh.Managers.Main;
 using nseh.Utils;
 using System.Collections.Generic;
 using UnityEngine;
+using nseh.Gameplay.Base.Interfaces;
 
 namespace nseh.Gameplay.Gameflow
 {
-    public class ItemSpawn_Event : LevelEvent
+    public class ItemSpawn_Event : MonoBehaviour, IEvent
     {
-        #region Private Properties
 
-        private List<GameObject> _spawnItemPoints;
-        private float _spawnPeriod = Constants.Events.ItemSpawn_Event.SPAWN_PERIOD;
-        private float _elapsedTime;
-        private SpawnItemPoint _lastSpawnItemPoint;
+        #region Public Properties
+
+        public List<GameObject> spawnItemPoints;
 
         #endregion
 
-        public override void Setup(LevelManager levelManager)
-        {
-            base.Setup(levelManager);
-            _spawnItemPoints = new List<GameObject>();
-        }
+        #region Private Properties
 
-        public override void ActivateEvent()
+        private float _spawnPeriod = Constants.Events.ItemSpawn_Event.SPAWN_PERIOD;
+        private float _elapsedTime;
+        private SpawnItemPoint _lastSpawnItemPoint;
+        private bool _isActivated;
+
+        #endregion
+
+        #region Public Methods
+
+        public void ActivateEvent()
         {
             _isActivated = true;
             _elapsedTime = 0;
 
-            if(_lastSpawnItemPoint != null)
+            if (_lastSpawnItemPoint != null)
             {
                 _lastSpawnItemPoint.flushText();
                 _lastSpawnItemPoint = null;
             }
 
-            foreach(GameObject _spawnItemPoint in _spawnItemPoints){
-                _spawnItemPoint.GetComponent<SpawnItemPoint>().flushItem(); 
+            foreach (GameObject _spawnItemPoint in spawnItemPoints)
+            {
+                _spawnItemPoint.GetComponent<SpawnItemPoint>().flushItem();
             }
+
         }
 
-        public override void EventRelease()
+        public void EventRelease()
         {
-            _spawnItemPoints = new List<GameObject>();
+            foreach (GameObject _spawnItemPoint in spawnItemPoints)
+            {
+                _spawnItemPoint.GetComponent<SpawnItemPoint>().flushItem();
+            }
+
             _isActivated = false;
         }
 
-        public override void EventTick()
+        public void Update()
         {
-            ChooseSpawnPoint();
-        }
+            if (_isActivated && !GameManager.Instance.isPaused)
+                ChooseSpawnPoint();
 
-        #region Public Methods
+        }
 
         public void RegisterSpawnItemPoint(GameObject spawnToRegister)
         {
-            _spawnItemPoints.Add(spawnToRegister);
+            spawnItemPoints.Add(spawnToRegister);
         }
 
         #endregion
@@ -68,14 +77,15 @@ namespace nseh.Gameplay.Gameflow
             List<GameObject> _freeSpawnItemPoints;
             if (_elapsedTime >= _spawnPeriod)
             {
-                Debug.Log("Choosing spawn point and spawning");
-                _freeSpawnItemPoints = _spawnItemPoints.FindAll(FindFreeSpawnPoint);
+                _freeSpawnItemPoints = spawnItemPoints.FindAll(FindFreeSpawnPoint);
+
                 if (_freeSpawnItemPoints.Count != 0)
                 {
                     int randomSpawn = (int)Random.Range(0, _freeSpawnItemPoints.Count);
                     _lastSpawnItemPoint = _freeSpawnItemPoints[randomSpawn].GetComponent<SpawnItemPoint>();
                     _lastSpawnItemPoint.Spawn();
                 }
+
                 _elapsedTime = 0;
             }
         }
@@ -86,5 +96,6 @@ namespace nseh.Gameplay.Gameflow
         }
 
         #endregion
+
     }
 }

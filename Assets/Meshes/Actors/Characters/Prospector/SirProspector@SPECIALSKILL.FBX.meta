@@ -166,8 +166,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.0020746887
-        functionName: OnActivateItem
+      - time: 0
+        functionName: OnParticlesAbility
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -178,10 +178,10 @@ ModelImporter:
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 7
+        intParameter: 5
         messageOptions: 0
-      - time: 1
-        functionName: OnDeactivateItem
+      - time: 0.9880728
+        functionName: OnIncreaseDefense
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

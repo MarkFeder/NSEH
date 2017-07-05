@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
-using nseh.Managers.Audio;
+using nseh.Managers.Main;
 
 public class TakeablePowerUp : MonoBehaviour {
 	CustomizablePowerUp customPowerUp;
@@ -14,7 +13,7 @@ public class TakeablePowerUp : MonoBehaviour {
 		if(collider.tag == "Player") {
 			PowerUpManager.Instance.Add(customPowerUp);
 			if(customPowerUp.pickUpSound != null){
-                SoundManager.Instance.PlayAudioFX(customPowerUp.pickUpSound, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+                GameManager.Instance.SoundManager.PlayAudioFX(customPowerUp.pickUpSound, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
             }
 			Destroy(transform.parent.gameObject);
 		}

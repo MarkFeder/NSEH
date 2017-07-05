@@ -171,35 +171,35 @@ ModelImporter:
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 3
+        intParameter: 2
         messageOptions: 0
       - time: 0.47978127
         functionName: ActivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 2
+        intParameter: 1
         messageOptions: 0
       - time: 0.6226606
         functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 2
+        intParameter: 1
         messageOptions: 0
       - time: 0.82399005
         functionName: ActivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 2
+        intParameter: 1
         messageOptions: 0
       - time: 0.9274066
         functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 2
+        intParameter: 1
         messageOptions: 0
       transformMask:
       - path: 

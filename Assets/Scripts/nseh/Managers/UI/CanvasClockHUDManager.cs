@@ -1,59 +1,65 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using nseh.Managers.Level;
+using nseh.Managers.Main;
 
 namespace nseh.Managers.UI
 {
     public class CanvasClockHUDManager : MonoBehaviour
     {
+
         #region Public Properties
 
-        public Text _clockText;
-        public Text _readyText;
+        public Text clockText;
+        public Text readyText;
 
         #endregion
 
-        #region Public C# Properties
-
-        public Text ClockText
-        {
-            get { return _clockText; }
-        }
-
-        public Text ReadyText
-        {
-            get { return _readyText; }
-        }
-
-        #endregion
+        #region Private Methods
 
         private void Start()
         {
-            if (!ValidateTextClock())
+            GameEvent _gameEvent;
+            MinigameEvent _minigameEvent;
+            BossEvent _bossEvent;
+
+            if (!ValidateCanvasClock())
             {
-                Debug.Log("The text clock is null");
+                Debug.Log("Fields in canvas clock are null");
                 enabled = false;
                 return;
             }
+            else
+            {
+                switch (SceneManager.GetActiveScene().name)
+                {
+                    case "Game":
+                        _gameEvent = GameManager.Instance.GameEvent;
+                        _gameEvent.Clock = clockText;
+                        _gameEvent.Ready = readyText;
+                        break;
+
+                    case "Minigame":
+                        _minigameEvent = GameManager.Instance.MinigameEvent;
+                        _minigameEvent.Ready = readyText;
+                        break;
+
+                    case "Boss":
+                        _bossEvent = GameManager.Instance.BossEvent;
+                        _bossEvent.Ready = readyText;
+                        break;
+                }
+            }
         }
 
-        #region Public Methods
-
-        public bool ValidateTextClock()
+        private bool ValidateCanvasClock()
         {
-            return _clockText;
-        }
-
-        public void EnableCanvas()
-        {
-            gameObject.SetActive(true);
-        }
-
-        public void DisableCanvas()
-        {
-            gameObject.SetActive(false);
+            return clockText && readyText;
         }
 
         #endregion
+
     }
 }

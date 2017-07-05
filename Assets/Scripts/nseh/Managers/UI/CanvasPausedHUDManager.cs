@@ -1,21 +1,40 @@
-﻿using nseh.Managers.Level;
-using nseh.Managers.Main;
+﻿using nseh.Managers.Main;
+using nseh.Managers.Level;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace nseh.Managers.UI
 {
     public class CanvasPausedHUDManager : MonoBehaviour
     {
-        #region Private Properties
 
-        private LevelManager _levelManager;
-
-        #endregion
+        #region Private Methods
 
         private void Start()
         {
-            _levelManager = GameManager.Instance.Find<LevelManager>();
+            GameEvent _gameEvent;
+            MinigameEvent _minigameEvent;
+            BossEvent _bossEvent;
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Game":
+                    _gameEvent = GameManager.Instance.GameEvent;
+                    _gameEvent.CanvasPause = this.gameObject;
+                    break;
+
+                case "Minigame":
+                    _minigameEvent = GameManager.Instance.MinigameEvent;
+                    _minigameEvent.CanvasPause = this.gameObject;
+                    break;
+
+                case "Boss":
+                    _bossEvent = GameManager.Instance.BossEvent;
+                    _bossEvent.CanvasPause = this.gameObject;
+                    break;
+            }
         }
+
+        #endregion
 
         #region Public Methods
 
@@ -29,25 +48,29 @@ namespace nseh.Managers.UI
             gameObject.SetActive(false);
         }
 
-        #endregion
-
-        #region Public Event Methods
-
         public void RestartGame()
         {
-            _levelManager.Restart();
+            if (SceneManager.GetActiveScene().name == "Game")  
+                GameManager.Instance.GameEvent.Restart();
+            
+            else
+                GameManager.Instance.ChangeState(GameManager.States.Game);
+
+            GameManager.Instance.TogglePause();
         }
 
         public void GoToMainMenu()
         {
-            _levelManager.GoToMainMenu();
+            GameManager.Instance.ChangeState(GameManager.States.MainMenu);
+            GameManager.Instance.TogglePause();
         }
 
         public void Resume()
         {
-            _levelManager.PauseGame();
+            GameManager.Instance.TogglePause(this.gameObject);
         }
 
         #endregion
+
     }
 }

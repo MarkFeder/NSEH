@@ -1,60 +1,43 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using nseh.Gameplay.Combat.Attack.BavaDongo;
-using nseh.Utils.Helpers;
 using UnityEngine;
-using Tags = nseh.Utils.Constants.Tags;
+using nseh.Gameplay.Combat.Weapon;
 
 namespace nseh.Gameplay.Entities.Enemies
 {
     public class EnemyCombat : MonoBehaviour
     {
+
 		#region Private Properties
         
         [SerializeField]
-		private List<Collider> _colliders;
-
-		#endregion
-
-		#region Private Methods
+		private List<Collider> _weapons;
 
 		#endregion
 
 		#region Animation Events
 
-		/// <summary>
-		/// Activate the collider. This event is triggered by the animation.
-		/// </summary>
-		/// <param name="index">The weapon to be activated.</param>
 		public void ActivateCollider(int index)
 		{
-            _colliders[index].enabled = true;
+            _weapons[index].enabled = true;
             
-            CollisionHandler handler =_colliders[index].GetComponent<CollisionHandler>();
-            Debug.Log(handler);
-            handler.enabled = true;
-            handler.ResetList();
+            WeaponCollisionEnemy weapon =_weapons[index].GetComponent<WeaponCollisionEnemy>();
+            weapon.enabled = true;
         }
 
-		/// <summary>
-		/// Deactivate the collider. This event is triggered by the animation.
-		/// </summary>
-		/// <param name="index">The weapon to be deactivated.</param>
 		public void DeactivateCollider(int index)
 		{
-            _colliders[index].enabled = false;
-            CollisionHandler handler = _colliders[index].GetComponent<CollisionHandler>();
-            handler.enabled = false;
+            _weapons[index].enabled = false;
+            WeaponCollisionEnemy weapon = _weapons[index].GetComponent<WeaponCollisionEnemy>();
+            weapon.enabled = false;
         }
-
 
         public void ResetList(int index)
         {
-            CollisionHandler handler = _colliders[index].GetComponent<CollisionHandler>();
-            handler.ResetList();
+            WeaponCollisionEnemy weapon = _weapons[index].GetComponent<WeaponCollisionEnemy>();
+            weapon.ResetList();
         }
 
         #endregion
+
     }
 }

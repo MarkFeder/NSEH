@@ -1,10 +1,6 @@
 ﻿using nseh.Gameplay.Base.Abstract.Entities;
-using nseh.Gameplay.Combat;
-using nseh.Gameplay.Entities.Player;
-using nseh.Utils.Helpers;
-using System.Linq;
 using UnityEngine;
-using StandardItems = nseh.Utils.Constants.Items.StandardItems;
+using nseh.Managers.Main;
 
 namespace nseh.Gameplay.Entities.Environment.Items
 {
@@ -20,14 +16,21 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
     public class StandardChest : Chest
     {
+
         #region Public Properties
 
         public StandardChestType chestType;
 
-        public float percent;
-        public float time;
+        [SerializeField]
+        private float _percent;
+        [SerializeField]
+        private float _seconds;
+        [SerializeField]
+        private int _points;
 
         #endregion
+
+        #region Protected Properties
 
         protected override void Activate()
         {
@@ -41,41 +44,36 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case StandardChestType.Health:
 
-                    IncreaseHealth(percent);
-                    //_spawnItemPoint.DisplayText(_itemText, StandardItems.HEALTH, _timeToDisplayText);
-                    ParticleAnimation(_particlePrefab, 1.5f, _particlesSpawnPoints.ParticleBodyPos);
+                    _playerInfo.IncreaseHealth(_percent);
+                    ParticleAnimation(_particlePrefab, 1.5f, _playerInfo.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Damage:
 
-                    IncreaseDamage(percent, time);
-                    //_spawnItemPoint.DisplayText(_itemText, StandardItems.DAMAGE, _timeToDisplayText);
-                    ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
+                    GameManager.Instance.StartCoroutine(_playerInfo.BonificationAttackForSeconds(_points, _seconds));
+                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Velocity:
 
-                    IncreaseVelocity(percent, time);
-                    //_spawnItemPoint.DisplayText(_itemText, StandardItems.SPEED, _timeToDisplayText);
-                    ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
+                    GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.BonificationAgilityForSeconds(_points, _seconds));
+                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Jump:
 
-                    IncreaseJump(percent, time);
-                    //_spawnItemPoint.DisplayText(_itemText, StandardItems.JUMP, _timeToDisplayText);
-                    ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
+                    GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.DoubleJumpForSeconds(_seconds));
+                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Defense:
 
-                    SetupDefense(percent, time);
-                    //_spawnItemPoint.DisplayText(_itemText, StandardItems.DEFENSE, _timeToDisplayText);
-                    ParticleAnimation(_particlePrefab, time, _particlesSpawnPoints.ParticleBodyPos);
+                    GameManager.Instance.StartCoroutine(_playerInfo.BonificationDefenseForSeconds(_points, _seconds));
+                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
@@ -94,38 +92,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
             Destroy(gameObject, _destructionTime);
         }
 
-        #region Private Methods
-
-        private void SetupDefense(float percent, float time)
-        {
-            _target.GetComponent<PlayerHealth>().BonificationDefenseForSeconds(percent, time);
-        }
-
-        private void IncreaseJump(float percent, float time)
-        {
-            _target.GetComponent<PlayerMovement>().IncreaseJumpForSeconds(percent, time);
-        }
-
-        private void IncreaseVelocity(float percent, float time)
-        {
-            _target.GetComponent<PlayerMovement>().IncreaseSpeedForSeconds(percent, time);
-        }
-
-        private void IncreaseHealth(float percent)
-        {
-            _target.GetComponent<PlayerHealth>().IncreaseHealth(percent);
-        }
-
-        private void IncreaseDamage(float percent)
-        {
-            _target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamage(percent));
-        }
-
-        private void IncreaseDamage(float percent, float time)
-        {
-            _target.GetComponent<PlayerCombat>().Actions.OfType<CharacterAttack>().ForEach(act => act.IncreaseDamageForSeconds(percent, time));
-        }
-
         #endregion
+
     }
 }

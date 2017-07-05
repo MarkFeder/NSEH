@@ -1,18 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using nseh.Managers.General;
 
 namespace nseh.Managers.UI
 {
     public class CanvasProgressHUDManager : MonoBehaviour
     {
+
         #region Private Properties
+
         [SerializeField]
         private BarComponent _progressBar;
+
         #endregion
 
         #region Public C# Properties
+
         public BarComponent ProgressBar
         {
             get
@@ -20,7 +22,10 @@ namespace nseh.Managers.UI
                 return this._progressBar;
             }
         }
+
         #endregion
+
+        #region Private Methods
 
         void Start()
         {
@@ -32,7 +37,6 @@ namespace nseh.Managers.UI
             }
         }
 
-        #region Private Methods
         private bool ValidateProgressBar()
         {
             return this._progressBar;
@@ -40,6 +44,7 @@ namespace nseh.Managers.UI
         #endregion
 
         #region Public Methods
+
         public void EnableCanvas()
         {
             this.gameObject.SetActive(true);
@@ -49,6 +54,8 @@ namespace nseh.Managers.UI
         {
             this.gameObject.SetActive(false);
         }
+
         #endregion
+
     }
 }

@@ -1,28 +1,35 @@
 ﻿using nseh.Managers.General;
 using UnityEngine;
 using System.Collections.Generic;
-using nseh.Managers.Audio;
+using nseh.Managers.Main;
+using nseh.Gameplay.Entities.Player;
 
 namespace nseh.Gameplay.Entities.Enemies
 {
     public class EnemyHealth : MonoBehaviour
     {
+
         #region Private Properties
 
+        [Header ("Health")]
         [SerializeField]
         private float _maxHealth;
         [SerializeField]
         private float _currentHealth;
         [SerializeField]
         private BarComponent _lifeBar;
-        [SerializeField]
-        private List<Collider> _colliders;
+        [Space (10)]
 
+        [Header("HitBox")]
+        [SerializeField]
+        private List<Collider> _hitBox;
+        [Space(10)]
 
         #endregion
 
         #region Public Properties
 
+        [Header("Audio")]
         public List<AudioClip> hitClip;
 
         #endregion
@@ -32,6 +39,7 @@ namespace nseh.Gameplay.Entities.Enemies
         public float CurrentHealth
         {
             get { return _currentHealth; }
+
             set 
             { 
                 _currentHealth = value;
@@ -61,30 +69,40 @@ namespace nseh.Gameplay.Entities.Enemies
 
         #region Public Methods
 
-        public void TakeDamage(int amount)
+        public void Awake()
         {
-            // Reduce current health
-            CurrentHealth -= amount;
-            SoundManager.Instance.PlayAudioFX(hitClip[UnityEngine.Random.Range(0, hitClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+            MaxHealth = GameManager.Instance._numberPlayers * 100;
+            CurrentHealth = MaxHealth;
+            _lifeBar.Value = MaxHealth;
+        }
 
-            // Clamp current health
+        public void TakeDamage(float amount, PlayerInfo sender, Vector3 position)
+        {
+            CurrentHealth -= amount;
+            GameManager.Instance.SoundManager.PlayAudioFX(hitClip[Random.Range(0, hitClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
             CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+            sender.IncreaseEnergy(amount / 2);
+            sender.IncreaseScore((int)amount);
+            GameObject particleGameObject = Instantiate(sender.HitParticle, position, sender.HitParticle.transform.rotation, this.gameObject.transform);
+            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Play();
+            }
+
+            Destroy(particleGameObject, 1f);
         }
 
         public void ActivateHitbox(int index)
         {
-            _colliders[index].enabled = true;
+            _hitBox[index].enabled = true;
         }
 
-        /// <summary>
-        /// Deactivate the collider. This event is triggered by the animation.
-        /// </summary>
-        /// <param name="index">The weapon to be deactivated.</param>
         public void DeactivateHitbox(int index)
         {
-            _colliders[index].enabled = false;
+            _hitBox[index].enabled = false;
         }
 
         #endregion
+
     }
 }

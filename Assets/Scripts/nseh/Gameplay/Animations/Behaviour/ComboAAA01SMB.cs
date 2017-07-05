@@ -1,18 +1,18 @@
-﻿using System.Linq;
-using nseh.Gameplay.Base.Abstract.Animations;
-using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Combat;
+﻿using nseh.Gameplay.Entities.Player;
+using nseh.Managers.Main;
 using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class ComboAAA01SMB : BaseStateMachineBehaviour
+    public class ComboAAA01SMB : StateMachineBehaviour
     {
+
         #region Private Properties
 
-        [SerializeField]
-        private AttackType _nextActionType;
-        private IAction _nextAction;
+        PlayerInfo _playerInfo;
+        PlayerCombat _playerCombat;
+        bool _A2;
+        AnimationState animationState;
 
         #endregion
 
@@ -21,37 +21,26 @@ namespace nseh.Gameplay.Animations.Behaviour
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-
-            // On entering this state, disable player's movement component
-            _playerInfo.PlayerMovement.DisableMovement(0.2f);
+            _playerInfo = animator.GetComponent<PlayerInfo>();
+            animator.speed += (float)(_playerInfo.CurrentAgility * 0.025 * animator.speed);
+            _playerCombat = animator.GetComponent<PlayerCombat>();
+            _playerCombat._currentAttack = PlayerCombat.Attack.A1;
+            GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.DisableMovement(0.2f));
+            _A2 = false;
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            animator.SetFloat(_playerInfo.TimeComboAAA01Hash, stateInfo.normalizedTime);
+            if (_playerInfo.LightAttackPressed)
+                _A2 = true;
 
-            _nextAction = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().Where(act =>
+            if (_A2 && stateInfo.normalizedTime >= 0.95)
             {
-                return act.IsEnabled &&
-                       act.ButtonHasBeenPressed() &&
-                       act.AttackType == _nextActionType;
-
-            }).FirstOrDefault();
-            if (_nextAction != null)
-            {
-                _nextAction.StartAction();
+                animator.SetTrigger("Combo_AAA_02");
+                _A2 = false;
             }
-        }
-
-        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            base.OnStateExit(animator, stateInfo, layerIndex);
-
-            animator.SetFloat(_playerInfo.TimeComboAAA01Hash, 0.0F);
-            _action.StopAction();
         }
 
         #endregion

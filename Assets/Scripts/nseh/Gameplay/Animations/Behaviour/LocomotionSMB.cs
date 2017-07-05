@@ -1,17 +1,14 @@
-﻿using nseh.Gameplay.Base.Abstract.Animations;
-using nseh.Gameplay.Base.Interfaces;
-using nseh.Gameplay.Combat;
-using System.Collections.Generic;
-using System.Linq;
+﻿using nseh.Gameplay.Entities.Player;
 using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class LocomotionSMB : BaseStateMachineBehaviour
+    public class LocomotionSMB : StateMachineBehaviour
     {
+
         #region Private Properties
 
-        private IAction _nextAction;
+        PlayerInfo _playerInfo;
 
         #endregion
 
@@ -21,41 +18,11 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
-            ClearParams(ref animator);
+            _playerInfo = animator.GetComponent<PlayerInfo>();
             _playerInfo.PlayerMovement.EnableMovement();
         }
 
-        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            base.OnStateUpdate(animator, stateInfo, layerIndex);
-
-            _nextAction = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().Where(action =>
-            {
-                return action.IsEnabled &&
-                       action.IsSimpleAttack && 
-                       action.ButtonHasBeenPressed();
-
-            }).FirstOrDefault();
-
-            if (_nextAction != null)
-            {
-                _nextAction.StartAction();
-            }
-        }
-
         #endregion
 
-        #region Private Methods
-
-        private void ClearParams(ref Animator animator)
-        {
-            IEnumerator<CharacterAttack> enumerator = _playerInfo.PlayerCombat.Actions.OfType<CharacterAttack>().GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                animator.ResetTrigger(enumerator.Current.Hash);
-            }
-        }
-
-        #endregion
     }
 }

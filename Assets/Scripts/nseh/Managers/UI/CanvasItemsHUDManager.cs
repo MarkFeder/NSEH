@@ -1,11 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace nseh.Managers.UI
 {
     public class CanvasItemsHUDManager : MonoBehaviour
     {
+
         #region Public Properties
 
         public Text _mainText;
@@ -44,6 +44,8 @@ namespace nseh.Managers.UI
         }
         #endregion
 
+        #region Private Methods
+
         private void Start()
         {
             if (!ValidateItems())
@@ -53,8 +55,6 @@ namespace nseh.Managers.UI
                 return;
             }
         }
-
-        #region Private Methods
 
         private bool ValidateItems()
         {
@@ -76,5 +76,6 @@ namespace nseh.Managers.UI
         }
 
         #endregion
+        
     }
 }

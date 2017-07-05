@@ -5,6 +5,7 @@ namespace nseh.Managers.General
 {
     public class BarComponent : MonoBehaviour
     {
+
         #region Private Properties
 
         private float fillAmount;
@@ -17,7 +18,6 @@ namespace nseh.Managers.General
         [SerializeField]
         private Color lowColor;
 
-		//Set this to "true" if you want color variation depending on the fill value of the bar
 		[SerializeField]
         private bool lerpColors; 
 
@@ -58,33 +58,23 @@ namespace nseh.Managers.General
 
         private void HandleBar()
         {
-            //Bar fill increases or decreases in a smooth way
             if (fillAmount != content.fillAmount)
             {
                 content.fillAmount = Mathf.Lerp(content.fillAmount, fillAmount, Time.deltaTime * lerpSpeed);
             }
 
-            //Color variation depending on fill value of the bar
             if (lerpColors)
             {
                 content.color = Color.Lerp(lowColor, fullColor, fillAmount);
             }
         }
 
-        /// <summary>
-        /// Map the specified value, inMin, inMax, outMin and outMax.
-        /// </summary>
-        /// <returns>The map.</returns>
-        /// <param name="value">Current health/mana value.</param>
-        /// <param name="inMin">Min health/mana value.</param>
-        /// <param name="inMax">Max health/mana value.</param>
-        /// <param name="outMin">Min fillAmount.</param>
-        /// <param name="outMax">Max fillAmount.</param>
         private float Map(float value, float inMin, float inMax, float outMin, float outMax)
         {
             return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
         }
 
         #endregion
+
     }
 }

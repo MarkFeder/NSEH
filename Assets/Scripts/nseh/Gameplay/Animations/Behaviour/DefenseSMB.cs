@@ -1,30 +1,36 @@
-﻿using nseh.Gameplay.Base.Abstract.Animations;
+﻿using nseh.Gameplay.Entities.Player;
 using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class DefenseSMB : BaseStateMachineBehaviour
+    public class DefenseSMB : StateMachineBehaviour
     {
+
+        #region Private Properties
+
+        PlayerInfo _playerInfo;
+
+        #endregion
+
         #region Public Methods
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
-            // On entering this state, disable player's movement component
+            _playerInfo = animator.GetComponent<PlayerInfo>();
             _playerInfo.PlayerMovement.DisableMovement(0.2f);
+            _playerInfo.HealthMode = HealthMode.Defense;
         }
 
-        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            base.OnStateUpdate(animator, stateInfo, layerIndex);
+            base.OnStateExit(animator, stateInfo, layerIndex);
 
-            if (_action != null && _action.ButtonHasBeenReleased())
-            {
-                _action.StopAction();
-            }
+            _playerInfo.HealthMode = HealthMode.Normal;
         }
 
         #endregion
+
     }
 }

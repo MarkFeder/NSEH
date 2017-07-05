@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4592133787585018}
   - component: {fileID: 198828304570442448}
   - component: {fileID: 199409846890189980}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: landfire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4435578134078320}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Bavastomp_no flames 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4326973371352302}
   - component: {fileID: 198885769188438346}
   - component: {fileID: 199305490003338660}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4937322575207520}
   - component: {fileID: 198754042923932038}
   - component: {fileID: 199247641269662096}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: bom
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,10 +9,10 @@ public class TEST : MonoBehaviour
     void Start ()
     {
         _MenuManager = nseh.Managers.Main.GameManager.Instance.Find<MenuManager>();
-        _prospector = Resources.Load("SirProspector") as GameObject;
+        //_prospector = Resources.Load("SirProspector") as GameObject;
         Debug.Log(_MenuManager);
         _MenuManager.ChangePlayers(1);
-        _MenuManager.Adding(_prospector);
+        _MenuManager.Adding("SirProspector");
         _MenuManager.ChangeStates();
 
     }

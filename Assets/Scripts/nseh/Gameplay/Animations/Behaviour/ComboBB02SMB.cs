@@ -1,21 +1,35 @@
-﻿using nseh.Gameplay.Base.Abstract.Animations;
-using UnityEngine;
+﻿using UnityEngine;
+using nseh.Gameplay.Entities.Player;
 
 namespace nseh.Gameplay.Animations.Behaviour
 {
-    public class ComboBB02SMB : BaseStateMachineBehaviour
+    public class ComboBB02SMB : StateMachineBehaviour
     {
+
+        #region Private Properties
+
+        PlayerCombat _playerCombat;
+
+        #endregion
+
         #region Public Methods
+
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateEnter(animator, stateInfo, layerIndex);
+
+            _playerCombat = animator.GetComponent<PlayerCombat>();
+            _playerCombat._currentAttack = PlayerCombat.Attack.B2;
+        }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
 
-            animator.SetFloat(_playerInfo.TimeComboAAA01Hash, 0.0F);
-            animator.SetFloat(_playerInfo.TimeComboAAA02Hash, 0.0F);
-            _action.StopAction();
+            animator.speed = 1;
         }
 
         #endregion
+
     } 
 }

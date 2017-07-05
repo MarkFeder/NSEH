@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using nseh.Managers.Audio;
-using nseh.Managers.General;
 using nseh.Managers.Level;
 using nseh.Utils;
 using UnityEngine;
@@ -11,9 +9,11 @@ namespace nseh.Managers.Main
 {
     public class GameManager : MonoBehaviour
     {
+
         #region Singleton Pattern
 
         private static GameManager _instance;
+
         public static GameManager Instance
         {
             get
@@ -26,50 +26,67 @@ namespace nseh.Managers.Main
                 return null;
             }
         }
-		#endregion
 
-		#region Private Properties
+        #endregion
 
-		private GameSounds _gameSounds;
+        #region Private Properties
 
-		private States _currentState;
-		private LevelManager _levelManager;
-		private SoundManager _soundManager;
+        private States _currentState;
 
-		//List of all services (E.g: EventManager, LightManager...) 
 		private List<Service> _servicesList;
+        private GameEvent _gameEvent;
+        private BossEvent _bossEvent;
+        private MinigameEvent _minigameEvent;
+        private SoundManager _soundManager;
 
-		#endregion
+        #endregion
 
-		#region Public Properties
+        #region Cached Managers
 
-		public enum States { MainMenu, Playing, Loading , Score};
-        public States _nextState;
-
-        public int _numberPlayers = 0;
-        public List<GameObject> _characters;
-        public int [,] _score;
-        public string player1character;
-        public string player2character;
-
-        public GameSounds GameSounds
+        public GameEvent GameEvent
         {
-            get { return _gameSounds; }
+            get
+            {
+                return _gameEvent;
+            }
+        }
+
+        public BossEvent BossEvent
+        {
+            get
+            {
+                return _bossEvent;
+            }
+        }
+
+        public MinigameEvent MinigameEvent
+        {
+            get
+            {
+                return _minigameEvent;
+            }
+        }
+
+
+        public SoundManager SoundManager
+        {
+            get
+            {
+                return _soundManager;
+            }
         }
 
         #endregion
 
-       #region Cached Managers
+        #region Public Properties
 
-        public LevelManager LevelManager
-        {
-            get { return _levelManager; }
-        }
- 
-        public SoundManager SoundManager
-        {
-            get { return _soundManager; }
-        }
+        public enum States { MainMenu, Game, Minigame, Boss, Loading , Score};
+        public States _nextState;
+
+        public int _numberPlayers = 0;
+        public List<string> _characters;
+        public int [,] _score;
+        public bool isPaused;
 
         #endregion
 
@@ -77,7 +94,6 @@ namespace nseh.Managers.Main
 
         private void Awake()
         {
-
             if (_instance != null && _instance != this)
             {
                 Destroy(this.gameObject);
@@ -87,68 +103,85 @@ namespace nseh.Managers.Main
                 _instance = this;
                 DontDestroyOnLoad(this);
 
-                // Initiate other properties here
                 _servicesList = new List<Service>();
-                _characters = new List<GameObject>();
+                _characters = new List<string>();
                 _currentState = States.MainMenu;
-				_gameSounds = GetComponent<GameSounds>();
 
-				// Add managers to the list
                 Add<SoundManager>();
 				Add<MenuManager>();
-				Add<LevelManager>();
-				Add<LoadingScene>();
+				Add<GameEvent>();
+                Add<MinigameEvent>();
+                Add<BossEvent>();
+                Add<LoadingScene>();
 
-				// Cache some managers
-				_levelManager = Find<LevelManager>();
-				_soundManager = Find<SoundManager>();
+                _gameEvent = Find<GameEvent>();
+                _minigameEvent = Find<MinigameEvent>();
+                _bossEvent = Find<BossEvent>();
+                _soundManager = Find<SoundManager>();
 
-				// Find managers and activate them
-				_soundManager.Activate();
+                _soundManager.Activate();
 				Find<MenuManager>().Activate();
+                isPaused = false;
             }
         }
 
         #endregion
 
-        /// <summary>
-        /// Here is where the different game services are triggered in 
-        /// a similar way to a state machine.
-        /// </summary>
+        #region Public Methods
+
         public void Update()
         {
-            foreach (Service thisService in _servicesList)
+            if (!isPaused)
             {
-                if (thisService.IsActivated)
+                foreach (Service thisService in _servicesList)
                 {
-                    thisService.Tick();
+                    if (thisService.IsActivated)
+                    {
+                        thisService.Tick();
+                    }
                 }
+            } 
+        }
+
+        public void TogglePause()
+        {
+            isPaused = !isPaused;
+
+            if (isPaused)
+            {
+                Time.timeScale = 0;
+            }
+
+            else
+            {
+                Time.timeScale = 1;
             }
         }
+
+        public void TogglePause(GameObject canvas)
+        {
+            isPaused = !isPaused;
+
+            if (isPaused)
+            {    
+                Time.timeScale = 0;
+                canvas.SetActive(true);
+            }
+
+            else
+            {   
+                Time.timeScale = 1;
+                canvas.SetActive(false);
+            }
+        }
+
+        #endregion
 
         #region Characters Management
 
-        public void AddCharacter(GameObject character)
+        public void AddCharacter(string character)
         {
             _characters.Add(character);
-        }
-
-        public void SetPlayersChoice(string choice, int player)
-        {
-            switch (player)
-            {
-                case 1:
-                    player1character = choice;
-                    break;
-                case 2:
-                    player2character = choice;
-                    break;
-            }
-        }
-
-        public GameObject InstantiateCharacter(GameObject Object,Vector3 pos, Vector3 rot)
-        {
-            return Instantiate(Object, pos, Quaternion.Euler(rot));
         }
 
         public void RestartList()
@@ -166,11 +199,6 @@ namespace nseh.Managers.Main
 
         #region Service Management
 
-        /// <summary>
-        /// Finds the specified service in the services list.
-        /// </summary>
-        /// <typeparam name="T">The manager itself of type T</typeparam>
-        /// <returns></returns>
         public T Find<T>() where T : class
         {
             foreach (Service thisService in _servicesList)
@@ -182,60 +210,11 @@ namespace nseh.Managers.Main
             return null;
         }
 
-        /// <summary>
-        /// Adds the specified service to the services list.
-        /// </summary>
-        /// <typeparam name="T">The manager of type T to be added</typeparam>
         public void Add<T>() where T : new()
         {
             Service serviceToAdd = new T() as Service;
             serviceToAdd.Setup(this);
             _servicesList.Add(serviceToAdd);
-
-            Debug.Log(string.Format("{0} added on GameManager", serviceToAdd));
-        }
-
-        /// <summary>
-        /// Setup the specified service from the services list.
-        /// </summary>
-        /// <typeparam name="T">The type of the service to be set up</typeparam>
-        public void SetupService<T>() where T : class
-        {
-            var enumerator = _servicesList.GetEnumerator();
-
-            while (enumerator.MoveNext())
-            {
-                Service serv = enumerator.Current;
-
-                if (serv.GetType() == typeof(T))
-                {
-                    serv.Setup(this);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Setup all services from the services list.
-        /// </summary>
-        public void SetupAllServices()
-        {
-            var enumerator = _servicesList.GetEnumerator();
-
-            while(enumerator.MoveNext())
-            {
-                enumerator.Current.Setup(this);
-            }
-        }
-        
-        #endregion
-
-        #region Components Management
-
-        public static MainMenuComponent CreateComponent(GameObject where, int parameter)
-        {
-            MainMenuComponent myC = where.AddComponent<MainMenuComponent>();
-
-            return myC;
         }
 
         #endregion
@@ -245,73 +224,134 @@ namespace nseh.Managers.Main
         public void ChangeState(States newState)
         {
             _nextState = newState;
-            if (_nextState != _currentState)
+            switch (_currentState)
             {
-                switch (_currentState)
-                {
-                    case States.MainMenu:
-                        _currentState = States.Loading;
-                        _nextState = States.Playing;
-                        Find<MenuManager>().Release();
-                        SceneManager.LoadScene(Constants.Scenes.SCENE_01);
-                        Find<LoadingScene>().Activate();
+                case States.MainMenu:
+                    _currentState = States.Loading;
+                    _nextState = States.Game;
+                    Find<MenuManager>().Release();
+                    SceneManager.LoadScene(1);
+                    Find<LoadingScene>().Activate();
 
-                        break;
+                    break;
 
-                    case States.Loading:
+                case States.Loading:
                         
-                        if (_nextState == States.MainMenu)
-                        {
-                            Time.timeScale = 1;
-                            _currentState = _nextState;
-                            Find<MenuManager>().Activate();
-                        }
-                        else if (_nextState == States.Playing)
-                        {
-                            _currentState = _nextState;
-                            //DEBUG SOMEDAY
-                            // Find<LevelManager>().Setup(this);
-                            Find<LevelManager>().Activate();
+                    if (_nextState == States.MainMenu)
+                    {
+                        Time.timeScale = 1;
+                        _currentState = _nextState;
+                        Find<MenuManager>().Activate();
+                    }
 
-                        }
-                        else if (_nextState == States.Score)
-                        {
-                            Time.timeScale = 1;
-                            _currentState = _nextState;
-                        }
+                    else if (_nextState == States.Game)
+                    {
+                        _currentState = _nextState;
+                        GameEvent.Activate();
+                    }
 
-                        break;
+                    else if (_nextState == States.Minigame)
+                    {
+                        _currentState = _nextState;
+                        MinigameEvent.Activate();
+                    }
 
-                    case States.Playing:
-                        //_currentState = States.Loading;
-                        //_nextState = States.MainMenu;
-                        if(_nextState== States.MainMenu)
-                        {
-                            _currentState = States.Loading;
-                            //_nextState = States.MainMenu;
-                            Find<LevelManager>().Release();
-                            SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
-                            Find<LoadingScene>().Activate();
-                        }
-                        else if (_nextState == States.Score)
-                        {
-                            _currentState = States.Loading;
-                            Find<LevelManager>().Release();
-                            SceneManager.LoadScene("Score");
-                            Find<LoadingScene>().Activate();
-                        }
+                    else if (_nextState == States.Boss)
+                    {
+                        _currentState = _nextState;
+                        BossEvent.Activate();
+                    }
 
-                        break;
+                    else if (_nextState == States.Score)
+                    {
+                        Time.timeScale = 1;
+                        _currentState = _nextState;
+                        Find<MenuManager>().Activate();
+                    }
 
-                    case States.Score:
+                    break;
 
+                case States.Game:
+
+                    if(_nextState== States.MainMenu)
+                    {
                         _currentState = States.Loading;
-                        //_nextState = States.MainMenu;
-                        SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
+                        GameEvent.Release();
+                        SceneManager.LoadScene("MainMenu");
                         Find<LoadingScene>().Activate();
+                    }
 
-                        break;
-                }
+                    else if (_nextState == States.Minigame)
+                    {
+                        _currentState = States.Loading;
+                        SceneManager.LoadScene(4);
+                        Find<LoadingScene>().Activate();
+                    }
+
+                    break;
+
+                case States.Minigame:
+
+                    if (_nextState == States.MainMenu)
+                    {
+                        _currentState = States.Loading;
+                        MinigameEvent.Release();
+                        SceneManager.LoadScene("MainMenu");
+                        Find<LoadingScene>().Activate();
+                    }
+
+                    else if (_nextState == States.Game)
+                    {
+                        _currentState = States.Loading;
+                        MinigameEvent.Release();
+                        SceneManager.LoadScene(1);
+                        Find<LoadingScene>().Activate();
+                    }
+
+                    else if (_nextState == States.Boss)
+                    {
+                        _currentState = States.Loading;
+                        SceneManager.LoadScene(3);
+                        Find<LoadingScene>().Activate();
+                    }
+
+                    break;
+
+                case States.Boss:
+
+                    if (_nextState == States.MainMenu)
+                    {
+                        BossEvent.Release();
+                        _currentState = States.Loading;
+                        SceneManager.LoadScene("MainMenu");
+                        Find<LoadingScene>().Activate();
+                        
+                    }
+
+                    else if (_nextState == States.Game)
+                    {
+                        _currentState = States.Loading;
+                        BossEvent.Release();
+                        SceneManager.LoadScene(1);
+                        Find<LoadingScene>().Activate();
+                    }
+
+                    else if (_nextState == States.Score)
+                    {
+                        _currentState = States.Loading;
+                        SceneManager.LoadScene("Score");
+                        Find<LoadingScene>().Activate();
+                    }
+
+                    break;
+
+                case States.Score:
+                    _currentState = States.Loading;
+                    Find<MenuManager>().Release();
+                    SceneManager.LoadScene(Constants.Scenes.SCENE_MAIN_MENU);
+                    Find<LoadingScene>().Activate();
+
+                    break;               
             }
         }
 
@@ -322,37 +362,5 @@ namespace nseh.Managers.Main
 
         #endregion
 
-        #region Utils Methods
-
-        /// <summary>
-        /// Function for use in the States that have no access to Unity functions. 
-        /// Call an IEnumerator through this GameObject.
-        /// </summary>
-        /// <param name="_coroutine">IEnumerator object.</param>
-        public void StartChildCoroutine(IEnumerator coroutine)
-        {
-            StartCoroutine(coroutine);
-        }
-
-        /// <summary>
-        /// Function for use in the States that have no access to Unity functions. 
-        /// Call an IEnumerator through this GameObject.
-        /// </summary>
-        /// <param name="_coroutine">IEnumerator object.</param>
-        public void StopChildCoroutine(IEnumerator coroutine)
-        {
-            StopCoroutine(coroutine);
-        }
-
-        /// <summary>
-        /// Function for use in the States that have no access to Unity functions.
-        /// </summary>
-        /// <param name="_coroutine">The name of the method.</param>
-        public void StopChildCoroutine(string methodName)
-        {
-            StopCoroutine(methodName);
-        }
-
-        #endregion
     }
 }

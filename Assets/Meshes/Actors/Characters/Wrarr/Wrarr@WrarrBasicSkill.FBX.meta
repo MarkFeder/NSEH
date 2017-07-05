@@ -137,17 +137,24 @@ ModelImporter:
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 7
+        intParameter: 5
         messageOptions: 0
-      - time: 0.40041494
-        functionName: OnStartRoar
+      - time: 0
+        functionName: OnPlayAttackAbilityParticle
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
-        functionName: OnEndRoar
+      - time: 0.31530064
+        functionName: OnActivateWave
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9216044
+        functionName: OnDeactivateWave
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
