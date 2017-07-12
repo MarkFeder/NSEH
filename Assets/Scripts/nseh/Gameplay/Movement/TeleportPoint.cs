@@ -5,7 +5,6 @@ using nseh.Gameplay.Entities.Player;
 using Tags = nseh.Utils.Constants.Tags;
 using nseh.Managers.Main;
 
-
 namespace nseh.Gameplay.Movement
 {
     public class TeleportPoint : MonoBehaviour

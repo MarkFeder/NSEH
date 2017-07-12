@@ -48,6 +48,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case DisadvantageChestType.PoisonCloud:
 
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(_chestType.ToString(), _seconds));
                     GameManager.Instance.StartCoroutine(_playerInfo.DecreaseHealthForEverySecond(_percent, _seconds));
                     ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
@@ -55,6 +56,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case DisadvantageChestType.ConfusedPotion:
 
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(_chestType.ToString(), _seconds));
                     GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.InvertControlForSeconds(_seconds));
                     ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleHeadPos);
 

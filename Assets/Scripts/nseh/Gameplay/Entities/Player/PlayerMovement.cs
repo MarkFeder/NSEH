@@ -258,6 +258,7 @@ namespace nseh.Gameplay.Entities.Player
 
         public IEnumerator BonificationAgilityForSeconds(int points, float seconds)
         {
+            _timeSpeed = Time.time;
             _playerInfo.CurrentAgility = _playerInfo.BaseAgility;
             _playerInfo.CurrentAgility += points;
             _currentSpeed = _baseSpeed;
@@ -265,8 +266,11 @@ namespace nseh.Gameplay.Entities.Player
 
             yield return new WaitForSeconds(seconds);
 
-            _playerInfo.CurrentAgility = _playerInfo.BaseAgility;
-            _currentSpeed = _baseSpeed;
+            if (Time.time >= _timeSpeed + seconds)
+            {
+                _playerInfo.CurrentAgility = _playerInfo.BaseAgility;
+                _currentSpeed = _baseSpeed;
+            }
 
         }
 

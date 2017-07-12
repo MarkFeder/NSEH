@@ -12,7 +12,6 @@ namespace nseh.Gameplay.Animations.Behaviour
         PlayerInfo _playerInfo;
         PlayerCombat _playerCombat;
         bool _A2;
-        AnimationState animationState;
 
         #endregion
 
@@ -21,8 +20,9 @@ namespace nseh.Gameplay.Animations.Behaviour
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
+
             _playerInfo = animator.GetComponent<PlayerInfo>();
-            animator.speed += (float)(_playerInfo.CurrentAgility * 0.025 * animator.speed);
+            animator.speed += (float)(_playerInfo.CurrentAgility * 0.025);
             _playerCombat = animator.GetComponent<PlayerCombat>();
             _playerCombat._currentAttack = PlayerCombat.Attack.A1;
             GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.DisableMovement(0.2f));

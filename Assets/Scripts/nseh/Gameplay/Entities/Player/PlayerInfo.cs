@@ -38,13 +38,21 @@ namespace nseh.Gameplay.Entities.Player
         private float _currentHealth; /*Just Debug*/
         private int _maxHealth;
         private int _penalization;
-        
 
         [Space(10)]
 
         [Header("Energy")]
         [SerializeField]
         private float _currentEnergy;
+
+        [Serializable]
+        public struct ItemsList
+        {
+            public string name;
+            public float time;
+        }
+        [Header("Items")]
+        public List<ItemsList> items;
 
         [Header("Score")]
         [SerializeField]

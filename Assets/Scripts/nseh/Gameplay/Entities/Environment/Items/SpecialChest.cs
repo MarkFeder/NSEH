@@ -42,12 +42,15 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case SpecialChestType.Invulnerability:
 
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds));
                     GameManager.Instance.StartCoroutine(_playerInfo.InvulnerabilityModeForSeconds(_seconds));
                     ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
                 case SpecialChestType.CriticalDamage:
+
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds));
 
                     GameManager.Instance.StartCoroutine(_playerInfo.BonificationAttackForSeconds(_points, _seconds));
                     ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);

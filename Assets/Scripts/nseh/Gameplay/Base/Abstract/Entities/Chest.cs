@@ -87,7 +87,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		protected virtual void OnTriggerEnter(Collider other)
 		{
-			if (other.CompareTag(Tags.PLAYER_BODY))
+			if (other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().items.Count < 2)
 			{
 				_sprite.SetActive(true);
 			}
@@ -95,14 +95,15 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		protected virtual void OnTriggerStay(Collider other)
 		{
-			if (other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().InteractPressed)
+			if (other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().InteractPressed && other.GetComponent<PlayerInfo>().items.Count<2)
 			{
+
 				SetVisibility(false);
 				_sprite.SetActive(false);
                 _text.SetActive(true);
 				_target = other.gameObject;
 				_playerInfo = _target.GetComponent<PlayerInfo>();
-				PlaySoundAtPlayer(_sound);
+                GameManager.Instance.SoundManager.PlayAudioFX(_sound, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
                 Activate();
 	
 			}
@@ -118,6 +119,16 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		protected void ParticleAnimation(GameObject particle, float timeToDisplayParticles, Transform particlesPos)
 		{
+
+            foreach (Transform aux in particlesPos)
+            {
+                if(aux.name.Contains(particle.name))
+                {
+                    Destroy(aux.gameObject);
+                    break;
+                }
+            }
+
 			GameObject particleGameObject = Instantiate(particle, particlesPos.position, particlesPos.rotation, particlesPos.transform);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
@@ -126,12 +137,6 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 			Destroy(particleGameObject, timeToDisplayParticles);
 		}
-
-		protected void PlaySoundAtPlayer(AudioClip clip)
-		{
-            GameManager.Instance.SoundManager.PlayAudioFX(clip, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
-            
-        }
 
 		#endregion
 

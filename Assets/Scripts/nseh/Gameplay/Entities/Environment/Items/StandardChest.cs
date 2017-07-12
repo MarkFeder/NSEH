@@ -34,6 +34,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
         protected override void Activate()
         {
+            
             switch (chestType)
             {
                 case StandardChestType.None:
@@ -51,6 +52,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case StandardChestType.Damage:
 
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds));
                     GameManager.Instance.StartCoroutine(_playerInfo.BonificationAttackForSeconds(_points, _seconds));
                     ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
@@ -58,6 +60,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case StandardChestType.Velocity:
 
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds));
                     GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.BonificationAgilityForSeconds(_points, _seconds));
                     ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
@@ -65,6 +68,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case StandardChestType.Jump:
 
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds));
                     GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.DoubleJumpForSeconds(_seconds));
                     ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
@@ -72,6 +76,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case StandardChestType.Defense:
 
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds));
                     GameManager.Instance.StartCoroutine(_playerInfo.BonificationDefenseForSeconds(_points, _seconds));
                     ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 

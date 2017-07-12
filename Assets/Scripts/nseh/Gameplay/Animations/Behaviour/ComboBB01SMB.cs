@@ -23,7 +23,7 @@ namespace nseh.Gameplay.Animations.Behaviour
 
             
             _playerInfo = animator.GetComponent<PlayerInfo>();
-            animator.speed += (float)(_playerInfo.CurrentAgility *0.025 * animator.speed);
+            animator.speed += (float)(_playerInfo.CurrentAgility *0.025);
             _playerCombat = animator.GetComponent<PlayerCombat>();
             _playerCombat._currentAttack = PlayerCombat.Attack.B1;
             GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.DisableMovement(0.2f));

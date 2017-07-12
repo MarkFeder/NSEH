@@ -27,6 +27,11 @@ namespace nseh.Gameplay.Entities.Player
         private List<Image> _playerLives;
         private HealthMode _healthMode;
         private bool _isDead;
+        private float _timeDefense;
+        private float _timeAttack;
+        private float _timeBaseDefense;
+        private float _timeBaseAttack;
+        private float _timeInvulnerability;
 
         #endregion
 
@@ -255,53 +260,73 @@ namespace nseh.Gameplay.Entities.Player
 
         public IEnumerator InvulnerabilityModeForSeconds(float seconds)
         {
+            _timeInvulnerability = Time.time;
             _healthMode = HealthMode.Invulnerability;
 
             yield return new WaitForSeconds(seconds);
 
-            _healthMode = HealthMode.Normal;
+            if (Time.time >= _timeInvulnerability + seconds)
+            {
+                _healthMode = HealthMode.Normal;
+            }
         }
 
         public IEnumerator BonificationDefenseForSeconds(int points, float seconds)
         {
+            _timeDefense = Time.time;
             _currentEndurance = _baseEndurance;
             _currentEndurance += points;
 
             yield return new WaitForSeconds(seconds);
 
-            _currentEndurance = _baseEndurance;
+            if (Time.time >= _timeDefense + seconds)
+            {
+                _currentEndurance = _baseEndurance;
+            }
         }
 
         public IEnumerator BonificationBaseDefenseForSeconds(int points, float seconds)
         {
+            _timeBaseDefense = Time.time;
             _baseEndurance += points;
             _currentEndurance += points;
 
             yield return new WaitForSeconds(seconds);
 
-            _baseEndurance -= points;
-            _currentEndurance -= points;
+            if (Time.time >= _timeBaseDefense + seconds)
+            {
+                _baseEndurance -= points;
+                _currentEndurance -= points;
+            }
         }
 
         public IEnumerator BonificationAttackForSeconds(int points, float seconds)
         {
+            _timeAttack = Time.time;
             _currentStrength = _baseStrength;
             _currentStrength += points;
 
             yield return new WaitForSeconds(seconds);
 
-            _currentStrength = _baseStrength;
+            if (Time.time >= _timeAttack + seconds)
+            {
+                _currentStrength = _baseStrength;
+            }
         }
 
         public IEnumerator BonificationBaseAttackForSeconds(int points, float seconds)
         {
+            _timeBaseAttack = Time.time;
             _baseStrength += points;
             _currentStrength += points;
 
             yield return new WaitForSeconds(seconds);
 
-            _baseStrength -= points;
-            _currentStrength -= points;
+            if (Time.time >= _timeBaseAttack + seconds)
+            {
+                _baseStrength -= points;
+                _currentStrength -= points;
+            }
         }
 
         #endregion
