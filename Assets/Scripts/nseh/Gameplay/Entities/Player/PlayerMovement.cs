@@ -94,6 +94,7 @@ namespace nseh.Gameplay.Entities.Player
             _currentSpeed = _baseSpeed;
             _usedExtraJump = false;
             _enableMovement = true;
+            grounded = true;
         }
 
         private void Update()

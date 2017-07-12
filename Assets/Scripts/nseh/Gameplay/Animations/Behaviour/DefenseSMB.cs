@@ -1,4 +1,5 @@
 ﻿using nseh.Gameplay.Entities.Player;
+using nseh.Managers.Main;
 using UnityEngine;
 
 namespace nseh.Gameplay.Animations.Behaviour
@@ -19,7 +20,7 @@ namespace nseh.Gameplay.Animations.Behaviour
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
             _playerInfo = animator.GetComponent<PlayerInfo>();
-            _playerInfo.PlayerMovement.DisableMovement(0.2f);
+            GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.DisableMovement(0.2f));
             _playerInfo.HealthMode = HealthMode.Defense;
         }
 

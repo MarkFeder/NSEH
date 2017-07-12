@@ -166,6 +166,7 @@ namespace nseh.Managers.Level
             }
 
             Time.timeScale = 1;
+            _players = new List<GameObject>();
             _isActivated = false;
         }
 

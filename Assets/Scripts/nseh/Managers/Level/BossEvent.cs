@@ -182,7 +182,7 @@ namespace nseh.Managers.Level
             {
                 GameManager.Instance._score[(character.GetComponent<PlayerInfo>().GamepadIndex) - 1, 2] = character.GetComponent<PlayerInfo>().CurrentScore;
             }
-
+            _players = new List<GameObject>();
             _isActivated = false;
         }
 

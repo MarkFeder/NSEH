@@ -331,7 +331,6 @@ namespace nseh.Gameplay.Entities.Player
             _deathCount++;
             _isDead = true;
 
-            PlayerMovement.DisableMovement(0f);
             GameManager.Instance.SoundManager.PlayAudioFX(_deathClip, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
         }
 
@@ -344,11 +343,11 @@ namespace nseh.Gameplay.Entities.Player
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Game":
-                    GameManager.Instance.Find<GameEvent>().ResetFromDeath(this.gameObject);
+                    GameManager.Instance.GameEvent.ResetFromDeath(this.gameObject);
                     break;
 
                 case "Boss":
-                    GameManager.Instance.Find<BossEvent>().ResetFromDeath(this.gameObject);
+                    GameManager.Instance.BossEvent.ResetFromDeath(this.gameObject);
                     break;
             }
 

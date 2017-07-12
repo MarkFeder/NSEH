@@ -326,7 +326,7 @@ InputManager:
     axis: 0
     joyNum: 4
   - serializedVersion: 3
-    m_Name: Hability_1
+    m_Name: Ability_1
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: joystick 1 button 7
@@ -342,7 +342,7 @@ InputManager:
     axis: 0
     joyNum: 1
   - serializedVersion: 3
-    m_Name: Hability_2
+    m_Name: Ability_2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -358,7 +358,7 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Hability_3
+    m_Name: Ability_3
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -374,7 +374,7 @@ InputManager:
     axis: 0
     joyNum: 3
   - serializedVersion: 3
-    m_Name: Hability_4
+    m_Name: Ability_4
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 

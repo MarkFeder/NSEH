@@ -99,6 +99,18 @@ namespace nseh.Gameplay.Entities.Player
         private PlayerMovement _playerMovement;
         private PlayerCombat _playerCombat;
 
+        private String _horizontalString;
+        private String _verticalString;
+
+        private String _interactString;
+        private String _jumpString;
+        private String _lightAttackString;
+        private String _heavyAttackString;
+        private String _defenseString;
+        private String _abilityString;
+        private String _definitiveString;
+        private String _pauseString;
+
         private float _horizontal;
         private float _vertical;
 
@@ -372,6 +384,7 @@ namespace nseh.Gameplay.Entities.Player
 
         private void Start()
         {
+            SetupInputStrings();
             _teletransported = false;
 
             MaxHealth = _maxHealth;
@@ -385,20 +398,35 @@ namespace nseh.Gameplay.Entities.Player
 
         private void Update()
         {
-            if (!GameManager.Instance.isPaused)
+            if (!GameManager.Instance.isPaused && !_isDead)
             {
-                _horizontal = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, _gamepadIndex));
-                _vertical = Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, _gamepadIndex));
-                JumpPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, _gamepadIndex));
-                LightAttackPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.A, _gamepadIndex));
-                HeavyAttackPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.B, _gamepadIndex));
-                InteractPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.INTERACT, _gamepadIndex));
-                DefensePressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.DEFENSE, _gamepadIndex));
-                AbilityPressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.ABILITY, _gamepadIndex));
-                DefinitivePressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.DEFINITIVE, _gamepadIndex));
-                PausePressed = Input.GetButtonDown(String.Format("{0}{1}", Inputs.OPTIONS, _gamepadIndex));
+                _horizontal = Input.GetAxis(_horizontalString);
+                _vertical = Input.GetAxis(_verticalString);
+                JumpPressed = Input.GetButtonDown(_jumpString);
+                LightAttackPressed = Input.GetButtonDown(_lightAttackString);
+                HeavyAttackPressed = Input.GetButtonDown(_heavyAttackString);
+                InteractPressed = Input.GetButtonDown(_interactString);
+                DefensePressed = Input.GetButtonDown(_defenseString);
+                AbilityPressed = Input.GetButtonDown(_abilityString);
+                DefinitivePressed = Input.GetButtonDown(_definitiveString);
+                PausePressed = Input.GetButtonDown(_pauseString);
             }
         }
+
+        private void SetupInputStrings()
+        {
+            _horizontalString = String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, _gamepadIndex);
+            _verticalString = String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, _gamepadIndex);
+
+            _interactString = String.Format("{0}{1}", Inputs.INTERACT, _gamepadIndex);
+            _jumpString = String.Format("{0}{1}", Inputs.JUMP, _gamepadIndex);
+            _lightAttackString = String.Format("{0}{1}", Inputs.A, _gamepadIndex);
+            _heavyAttackString = String.Format("{0}{1}", Inputs.B, _gamepadIndex);
+            _defenseString = String.Format("{0}{1}", Inputs.DEFENSE, _gamepadIndex);
+            _abilityString = String.Format("{0}{1}", Inputs.ABILITY, _gamepadIndex);
+            _definitiveString = String.Format("{0}{1}", Inputs.DEFINITIVE, _gamepadIndex);
+            _pauseString = String.Format("{0}{1}", Inputs.OPTIONS, _gamepadIndex);
+    }
 
         #endregion
 
