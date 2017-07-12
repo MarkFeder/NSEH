@@ -117,17 +117,17 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 			}
 		}
 
-		protected void ParticleAnimation(GameObject particle, float timeToDisplayParticles, Transform particlesPos)
+		protected GameObject ParticleAnimation(GameObject particle, float timeToDisplayParticles, Transform particlesPos)
 		{
 
-            foreach (Transform aux in particlesPos)
+            /*foreach (Transform aux in particlesPos)
             {
                 if(aux.name.Contains(particle.name))
                 {
                     Destroy(aux.gameObject);
                     break;
                 }
-            }
+            }*/
 
 			GameObject particleGameObject = Instantiate(particle, particlesPos.position, particlesPos.rotation, particlesPos.transform);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
@@ -135,7 +135,9 @@ namespace nseh.Gameplay.Base.Abstract.Entities
                 particle_aux.Play();
             }
 
-			Destroy(particleGameObject, timeToDisplayParticles);
+            return particleGameObject;
+
+			//Destroy(particleGameObject, timeToDisplayParticles);
 		}
 
 		#endregion

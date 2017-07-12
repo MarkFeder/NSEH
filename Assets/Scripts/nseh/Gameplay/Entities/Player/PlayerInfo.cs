@@ -50,6 +50,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             public string name;
             public float time;
+            public GameObject particle;
         }
         [Header("Items")]
         public List<ItemsList> items;

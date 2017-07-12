@@ -1729,6 +1729,13 @@ MonoBehaviour:
   _currentAgility: 0
   _currentHealth: 0
   _currentEnergy: 0
+  items:
+  - name: 
+    time: 0
+  - name: 
+    time: 0
+  - name: 
+    time: 0
   _currentScore: 0
   particleBodyPos: {fileID: 4668840236222398}
   particleHeadPos: {fileID: 4925990150715900}

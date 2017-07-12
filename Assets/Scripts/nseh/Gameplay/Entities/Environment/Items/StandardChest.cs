@@ -52,33 +52,29 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case StandardChestType.Damage:
 
-                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds));
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
                     GameManager.Instance.StartCoroutine(_playerInfo.BonificationAttackForSeconds(_points, _seconds));
-                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Velocity:
 
-                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds));
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
                     GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.BonificationAgilityForSeconds(_points, _seconds));
-                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Jump:
 
-                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds));
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
                     GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.DoubleJumpForSeconds(_seconds));
-                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
                 case StandardChestType.Defense:
 
-                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds));
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
                     GameManager.Instance.StartCoroutine(_playerInfo.BonificationDefenseForSeconds(_points, _seconds));
-                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 

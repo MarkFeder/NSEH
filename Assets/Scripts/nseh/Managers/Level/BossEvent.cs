@@ -201,6 +201,7 @@ namespace nseh.Managers.Level
                 deadPlayer.transform.rotation = freePlayerSpawnPoints[randomSpawn].transform.rotation;
                 freePlayerSpawnPoints[randomSpawn].GetComponent<PlayerSpawnPoint>().ParticleAnimation(deadPlayer.transform);
                 deadPlayer.GetComponent<PlayerMovement>().IsFacingRight = (deadPlayer.transform.localEulerAngles.y == 270.0f) ? true : false;
+
             }
             else
             {
