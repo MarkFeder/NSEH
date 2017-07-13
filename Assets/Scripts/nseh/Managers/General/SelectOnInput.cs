@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 using Inputs = nseh.Utils.Constants.Input;
 
 namespace nseh.Managers.General
@@ -16,8 +17,8 @@ namespace nseh.Managers.General
 
         #region Public Properties
 
-        public EventSystem eventSystem;
-        public GameObject selectedGameObject;
+        public List<MyEventSystem> eventSystem;
+        public List<GameObject> selectedGameObject;
 
 		#endregion
 
@@ -25,18 +26,25 @@ namespace nseh.Managers.General
 
 		private void Start()
 		{
-			eventSystem = FindObjectOfType<EventSystem>();
-			eventSystem.SetSelectedGameObject(selectedGameObject);
+			//eventSystem = FindObjectOfType<EventSystem>();
+            foreach(MyEventSystem aux in eventSystem)
+            {
+                aux.SetSelectedGameObject(selectedGameObject[eventSystem.IndexOf(aux)]);
+            }
+			
 			_buttonSelected = true;
 		}
 
 		private void Update()
 		{
 			if ((Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, 1)) != 0 || Input.GetAxisRaw(String.Format("{0}{1}", Inputs.AXIS_VERTICAL_GAMEPAD, 1)) != 0)
-				&& !_buttonSelected && selectedGameObject)
+				&& !_buttonSelected)
 			{
-				eventSystem.SetSelectedGameObject(selectedGameObject);
-				_buttonSelected = true;
+                foreach (MyEventSystem aux in eventSystem)
+                {
+                    aux.SetSelectedGameObject(selectedGameObject[eventSystem.IndexOf(aux)]);
+                }
+                _buttonSelected = true;
                 //SONIDO DE PASADA?
 			}
 		}

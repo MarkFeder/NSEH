@@ -181,9 +181,9 @@ namespace nseh.Managers.Main
 
         #region Characters Management
 
-        public void AddCharacter(string character)
+        public void AddCharacter(string character, int index)
         {
-            _characters.Add(character);
+            _characters[index] = (character);
         }
 
         public void RestartList()
@@ -195,6 +195,10 @@ namespace nseh.Managers.Main
         {
             _numberPlayers = number;
             _score = new int[number, 3];
+            for (int i = 0; i< number; i++)
+            {
+                _characters.Add("");
+            }
         }
 
         #endregion

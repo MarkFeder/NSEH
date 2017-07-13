@@ -1,7 +1,12 @@
 ﻿using UnityEngine.EventSystems;
+using UnityEngine;
+
+[RequireComponent(typeof(StandaloneInputModule))]
 
 public class MyEventSystem : EventSystem
 {
+    
+
     protected override void OnEnable()
     {
         // do not assign EventSystem.current

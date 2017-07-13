@@ -1,6 +1,6 @@
 ﻿using nseh.Managers.Main;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
 using System;
@@ -23,16 +23,16 @@ namespace nseh.Managers.General
 
         public GameObject current;
         public Text playerTurnText;
-        public Button play;
-        public Button wrarr;
-        public Button prospector;
-        public Button granhilda;
-        public Button musho;
-        public Button anthea;
-        public Button harley;
-        public Button myson;
-        public Button random;
-        public EventSystem eventSystem;
+        public MyButton play;
+        public MyButton wrarr;
+        public MyButton prospector;
+        public MyButton granhilda;
+        public MyButton musho;
+        public MyButton anthea;
+        public MyButton harley;
+        public MyButton myson;
+        public MyButton random;
+        public List<MyEventSystem> eventSystem;
         public GameObject selectedGameObject;
         public AudioClip start;
         public AudioClip back;
@@ -47,7 +47,7 @@ namespace nseh.Managers.General
             started = false;
             _MenuManager = GameManager.Instance.Find<MenuManager>();
             adding = 0;
-            playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
+            playerTurnText.text = "UNEMPLOYMENT OFFICE";
         }
 
         public void Update()
@@ -92,7 +92,6 @@ namespace nseh.Managers.General
             if (current.name == "Canvas_PickingCharacters")
             {
                 adding = 0;
-                playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
                 wrarr.interactable = true;
                 prospector.interactable = true;
                 granhilda.interactable = true;
@@ -110,13 +109,19 @@ namespace nseh.Managers.General
 
         public void AddingWrarr()
         {
-            _MenuManager.Adding("Wrarr");
-            adding++;
+            if (GameManager.Instance._characters[wrarr.player] == "")
+                adding++;
+            _MenuManager.Adding("Wrarr", wrarr.player);
             GameManager.Instance.SoundManager.PlayAudioFX(select, 0.5f, false, Vector3.zero, 0);
+
 
             if (adding == GameManager.Instance._numberPlayers)
             {
                 playerTurnText.text = "READY?";
+                play.interactable = true;
+                eventSystem[0].SetSelectedGameObject(selectedGameObject);
+            }
+            /*
                 wrarr.interactable = false;
                 prospector.interactable = false;
                 granhilda.interactable = false;
@@ -124,16 +129,15 @@ namespace nseh.Managers.General
                 anthea.interactable = false;
                 harley.interactable = false;
                 myson.interactable = false;
-                random.interactable = false;
-                play.interactable = true;
-                eventSystem.SetSelectedGameObject(selectedGameObject);
+                random.interactable = false;*/
+                
        /*
                 eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + 1;
                 eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + 1;
                 eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + 1;
                 */
                 
-            }
+            /*
             else
             {
                 playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
@@ -141,21 +145,27 @@ namespace nseh.Managers.General
                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_"+(adding+1).ToString();
                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + (adding + 1).ToString();
-            */   
-            }
+               
+            }*/
         }
 
       
 
         public void AddingProspector()
         {
-            _MenuManager.Adding("SirProspector");
-            adding++;
+            if (GameManager.Instance._characters[prospector.player] == "")
+                adding++;
+            _MenuManager.Adding("SirProspector", prospector.player);
+            
             GameManager.Instance.SoundManager.PlayAudioFX(select, 0.5f, false, Vector3.zero, 0);
 
             if (adding == GameManager.Instance._numberPlayers)
             {
                 playerTurnText.text = "READY?";
+                play.interactable = true;
+                eventSystem[0].SetSelectedGameObject(selectedGameObject);
+            }
+            /*
                 wrarr.interactable = false;
                 prospector.interactable = false;
                 granhilda.interactable = false;
@@ -163,15 +173,9 @@ namespace nseh.Managers.General
                 anthea.interactable = false;
                 harley.interactable = false;
                 myson.interactable = false;
-                random.interactable = false;
-                play.interactable = true;
-                eventSystem.SetSelectedGameObject(selectedGameObject);
-       /*
-                eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + 1;
-                eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + 1;
-                eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + 1;
-           */     
-            }
+                random.interactable = false;*/
+            
+        /*
             else
             {
                 playerTurnText.text = "PLAYER " + (adding + 1).ToString() + " TURN !";
@@ -179,8 +183,8 @@ namespace nseh.Managers.General
                 eventSystem.GetComponent<StandaloneInputModule>().horizontalAxis = "Horizontal_" + (adding + 1).ToString();
                 eventSystem.GetComponent<StandaloneInputModule>().verticalAxis = "Vertical_" + (adding + 1).ToString();
                 eventSystem.GetComponent<StandaloneInputModule>().submitButton = "Jump_" + (adding + 1).ToString();
-         */       
-            }
+               
+            }*/ 
         }
         
         public void HandleMasterVolume(float value)

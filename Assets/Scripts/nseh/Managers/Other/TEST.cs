@@ -12,7 +12,7 @@ public class TEST : MonoBehaviour
         //_prospector = Resources.Load("SirProspector") as GameObject;
         Debug.Log(_MenuManager);
         _MenuManager.ChangePlayers(1);
-        _MenuManager.Adding("SirProspector");
+        _MenuManager.Adding("SirProspector",0);
         _MenuManager.ChangeStates();
 
     }

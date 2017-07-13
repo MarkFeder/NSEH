@@ -42,9 +42,9 @@ namespace nseh.Managers
             MyGame.RestartList();
         }
 
-        public void Adding(string Character)
+        public void Adding(string Character, int index)
         {
-            MyGame.AddCharacter(Character);
+            MyGame.AddCharacter(Character, index);
         }
 
         public override void Release()

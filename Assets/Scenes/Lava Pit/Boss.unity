@@ -13934,8 +13934,21 @@ GameObject:
 --- !u!114 &1697914519
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114944975636405884, guid: ed44364e54fa8b8448c85708ec8ac321,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1697914518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2c3bb2c3e959a498c58066c1133da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
+--- !u!114 &1697914520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1697914518}
   m_Enabled: 1
@@ -13950,21 +13963,6 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
---- !u!114 &1697914520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114797231688449058, guid: ed44364e54fa8b8448c85708ec8ac321,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1697914518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 5
 --- !u!4 &1697914521
 Transform:
   m_ObjectHideFlags: 0
@@ -17453,6 +17451,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114073688882279086, guid: 8d3879f3c5c61c244b39a9efbb62f6c8,
+        type: 2}
+      propertyPath: eventSystem.Array.data[0]
+      value: 
+      objectReference: {fileID: 1697914519}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d3879f3c5c61c244b39a9efbb62f6c8, type: 2}
   m_IsPrefabParent: 0
