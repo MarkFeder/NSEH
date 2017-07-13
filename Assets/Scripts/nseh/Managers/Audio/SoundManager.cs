@@ -9,6 +9,7 @@ namespace nseh.Managers.Audio
 
         #region Private Properties
 
+        private float _masterVolume;
         private float _volumeSoundFX;
         private float _volumeMusic;
         private int _maxSounds;
@@ -25,9 +26,10 @@ namespace nseh.Managers.Audio
 
         public override void Activate()
         {
+            _masterVolume = 1;
             _maxSounds = 20;
             _isActivated = true;
-            _volumeSoundFX = 0.75f;
+            _volumeSoundFX = 1f;
             _volumeMusic = 1;
             soundList = new List<GameObject>();
         }
@@ -46,6 +48,11 @@ namespace nseh.Managers.Audio
         #endregion
 
         #region Public Methods
+
+        public void SetMasterVolume(float volume)
+        {
+            _masterVolume = volume;
+        }
 
         public void SetFXVolume(float volume)
         {
@@ -75,7 +82,7 @@ namespace nseh.Managers.Audio
                 GameObject aux = new GameObject(sound.name);
                 AudioSource AudioAux = aux.AddComponent<AudioSource>();
                 AudioAux.clip = sound;
-                AudioAux.volume = volumen * _volumeSoundFX;
+                AudioAux.volume = volumen * _volumeSoundFX * _masterVolume;
                 AudioAux.ignoreListenerPause = ignoreListener;
                 AudioAux.spatialBlend = spatialBlend;
                 soundList.Add(aux);
@@ -92,7 +99,7 @@ namespace nseh.Managers.Audio
                 GameObject aux = new GameObject(sound.name);
                 AudioSource AudioAux = aux.AddComponent<AudioSource>();
                 AudioAux.clip = sound;
-                AudioAux.volume = volumen * _volumeSoundFX;
+                AudioAux.volume = volumen * _volumeSoundFX * _masterVolume;
                 AudioAux.ignoreListenerPause = ignoreListener;
                 AudioAux.spatialBlend = spatialBlend;
                 AudioAux.pitch += pitch;
@@ -104,7 +111,7 @@ namespace nseh.Managers.Audio
 
         public void PlayAudioMusic( AudioSource aux)
         {
-            aux.volume = aux.volume * _volumeMusic;
+            aux.volume = aux.volume * _volumeMusic * _masterVolume;
             aux.ignoreListenerPause = true;
             aux.loop = true;
             aux.Play();
@@ -116,7 +123,7 @@ namespace nseh.Managers.Audio
             {
                 foreach (AudioSource auxAudio in list)
                 {
-                    auxAudio.volume = auxAudio.volume * _volumeSoundFX;
+                    auxAudio.volume = auxAudio.volume * _volumeSoundFX * _masterVolume;
                     auxAudio.ignoreListenerPause = true;
                     auxAudio.loop = true;
                     auxAudio.Play();

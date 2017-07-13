@@ -182,11 +182,20 @@ namespace nseh.Managers.General
          */       
             }
         }
-
-
-        public void SaveChanges()
+        
+        public void HandleMasterVolume(float value)
         {
+            GameManager.Instance.SoundManager.SetMasterVolume(value);
+        }
 
+        public void HandleFXVolume(float value)
+        {   
+            GameManager.Instance.SoundManager.SetFXVolume(value);
+        }
+
+        public void HandleMusicVolume(float value)
+        {
+            GameManager.Instance.SoundManager.SetMusicVolume(value);
         }
 
         public void PlayGame(GameObject newCanvas)
