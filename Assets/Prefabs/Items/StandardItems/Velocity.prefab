@@ -376,7 +376,7 @@ MonoBehaviour:
   chestType: 3
   _percent: 0
   _seconds: 20
-  _points: 5
+  _points: 3
 --- !u!212 &212028662712766380
 SpriteRenderer:
   m_ObjectHideFlags: 1

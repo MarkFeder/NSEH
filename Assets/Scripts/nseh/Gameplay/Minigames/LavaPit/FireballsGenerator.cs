@@ -37,7 +37,7 @@ namespace nseh.Gameplay.Minigames
             {
                 if (Time.time > _nextBall)
                 {
-                    _starting = Mathf.Clamp(_starting + _decrement, 0.75F, _starting);
+                    _starting = Mathf.Clamp(_starting + _decrement, 0.5F, _starting);
                     _nextBall = (Time.time + _starting);
                     RaycastHit hit;
                     Ray downRay = new Ray(transform.position, Vector3.right);

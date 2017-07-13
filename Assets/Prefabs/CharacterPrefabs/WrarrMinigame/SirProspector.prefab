@@ -2119,7 +2119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b1eb59c5757cf46a8e26bf4718528e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedVertical: 7
+  speedVertical: 10
   speedHorizontal: 20
   gamepadIndex: 1
   started: 0

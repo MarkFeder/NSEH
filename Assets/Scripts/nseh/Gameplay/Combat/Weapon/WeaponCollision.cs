@@ -62,14 +62,16 @@ namespace nseh.Gameplay.Combat.Weapon
                 
                 PlayerInfo _auxPlayerInfo = enemy.GetComponent<PlayerInfo>();
                 _enemyTargets.Add(enemy);
-                _auxPlayerInfo.TakeDamage((float)((int)_playerCombat._currentAttack + ((int)(_playerCombat._currentAttack) * 0.05 * _playerInfo.CurrentStrength)), _playerInfo, position.point);
+                _auxPlayerInfo.TakeDamage((float)(((int)_playerCombat._currentAttack + ((int)(_playerCombat._currentAttack) * 0.05 * _playerInfo.CurrentStrength))* _playerCombat.CriticalIncrement), _playerInfo, position.point);
+                _playerCombat.CriticManagement();
             }
 
             else if (collider.transform.root.tag == Tags.ENEMY)
             {
                 ContactPoint position = collider.contacts[0];
                 EnemyHealth _auxEnemyHealth = enemy.GetComponent<EnemyHealth>();
-                _auxEnemyHealth.TakeDamage((float)((int)_playerCombat._currentAttack + ((int)(_playerCombat._currentAttack) * 0.05 * _playerInfo.CurrentStrength)), _playerInfo, position.point);
+                _auxEnemyHealth.TakeDamage((float)(((int)_playerCombat._currentAttack + ((int)(_playerCombat._currentAttack) * 0.05 * _playerInfo.CurrentStrength)) * _playerCombat.CriticalIncrement), _playerInfo, position.point);
+                _playerCombat.CriticManagement();
 
             }
         }

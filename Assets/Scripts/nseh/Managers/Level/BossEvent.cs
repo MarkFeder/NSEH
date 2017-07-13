@@ -27,6 +27,7 @@ namespace nseh.Managers.Level
         private List<GameObject> _spawnPoints;
         private List<GameObject> _players;
         private Dictionary<string, GameObject> _playerPrefabs;
+        private List<AudioSource> _ambientSounds;
 
         #endregion
 
@@ -112,6 +113,14 @@ namespace nseh.Managers.Level
             set
             {
                 _playerPrefabs = value;
+            }
+        }
+
+        public List<AudioSource> AmbientSounds
+        {
+            set
+            {
+                _ambientSounds = value;
             }
         }
 
@@ -231,6 +240,7 @@ namespace nseh.Managers.Level
         {
             yield return new WaitForSeconds(1);
             _loading.SetActive(false);
+            GameManager.Instance.SoundManager.PlayAudioMusic(Camera.main.GetComponent<AudioSource>());
             Ready.text = "DEFEAT THE BOSS TOGETHER!";
             yield return new WaitForSeconds(3);
             Ready.text = "";

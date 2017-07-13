@@ -29,6 +29,7 @@ namespace nseh.Managers.Level
         private List<GameObject> _players;
         private Dictionary<string, GameObject> _playerPrefabs;
         private CameraComponent _camera;
+        private List<AudioSource> _ambientSounds;
 
         #endregion
 
@@ -110,6 +111,14 @@ namespace nseh.Managers.Level
             set
             {
                 _playerPrefabs = value;
+            }
+        }
+
+        public List<AudioSource> AmbientSounds
+        {
+            set
+            {
+                _ambientSounds = value;
             }
         }
 
@@ -262,6 +271,8 @@ namespace nseh.Managers.Level
         {          
             yield return new WaitForSeconds(1);
             _loading.SetActive(false);
+            GameManager.Instance.SoundManager.PlayAudioMusic(Camera.main.GetComponent<AudioSource>());
+            GameManager.Instance.SoundManager.PlayAmbientSounds(_ambientSounds);
             Ready.text = "FIGHT THIS STRANGE PEOPLE! SAVE THE LAVA PIT!";
             yield return new WaitForSeconds(3);
             Ready.text = "FIIIIIIGHT!!!";

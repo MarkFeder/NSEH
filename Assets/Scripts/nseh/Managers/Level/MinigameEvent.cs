@@ -22,6 +22,7 @@ namespace nseh.Managers.Level
         private List<GameObject> _players;
         private List<IEvent> _events;
         private Dictionary<string, GameObject> _playerPrefabs;
+        private List<AudioSource> _ambientSounds;
 
         #endregion
 
@@ -112,6 +113,14 @@ namespace nseh.Managers.Level
             }
         }
 
+        public List<AudioSource> AmbientSounds
+        {
+            set
+            {
+                _ambientSounds = value;
+            }
+        }
+
         #endregion
 
         #region Service Management
@@ -146,6 +155,8 @@ namespace nseh.Managers.Level
             }
 
             _loading.SetActive(false);
+            GameManager.Instance.SoundManager.PlayAudioMusic(Camera.main.GetComponent<AudioSource>());
+
         }
 
         public override void Tick()

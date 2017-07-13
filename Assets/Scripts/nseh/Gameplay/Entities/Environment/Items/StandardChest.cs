@@ -46,7 +46,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case StandardChestType.Health:
 
                     _playerInfo.IncreaseHealth(_percent);
-                    ParticleAnimation(_particlePrefab, 1.5f, _playerInfo.ParticleBodyPos);
+                    ParticleAnimation(_particlePrefab, _playerInfo.ParticleBodyPos);
 
                     break;
 

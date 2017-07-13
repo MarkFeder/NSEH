@@ -28,6 +28,7 @@ namespace nseh.Managers.Audio
             _maxSounds = 20;
             _isActivated = true;
             _volumeSoundFX = 0.75f;
+            _volumeMusic = 1;
             soundList = new List<GameObject>();
         }
 
@@ -101,13 +102,26 @@ namespace nseh.Managers.Audio
             }
         }
 
-        public void PlayAudioMusic(AudioClip sound, float volumen, Camera camera)
+        public void PlayAudioMusic( AudioSource aux)
         {
-            AudioSource aux = camera.GetComponent<AudioSource>();
-            aux.clip = sound;
-            aux.volume = volumen * _volumeMusic;
+            aux.volume = aux.volume * _volumeMusic;
             aux.ignoreListenerPause = true;
+            aux.loop = true;
             aux.Play();
+        }
+
+        public void PlayAmbientSounds(List<AudioSource> list)
+        {
+            if (list != null)
+            {
+                foreach (AudioSource auxAudio in list)
+                {
+                    auxAudio.volume = auxAudio.volume * _volumeSoundFX;
+                    auxAudio.ignoreListenerPause = true;
+                    auxAudio.loop = true;
+                    auxAudio.Play();
+                }
+            }     
         }
 
         private IEnumerator RemovingSound(GameObject audioAux, float time)

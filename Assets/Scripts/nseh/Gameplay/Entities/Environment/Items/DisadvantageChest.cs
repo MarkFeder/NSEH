@@ -42,7 +42,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case DisadvantageChestType.ChestBomb:
 
                     _playerInfo.DecreaseHealth(_percent);
-                    ParticleAnimation(_particlePrefab, 1.0f, _playerInfo.ParticleBodyPos);
+                    ParticleAnimation(_particlePrefab, _playerInfo.ParticleBodyPos);
 
                     break;
 

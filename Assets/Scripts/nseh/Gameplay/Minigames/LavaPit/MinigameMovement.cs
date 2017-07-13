@@ -23,30 +23,34 @@ namespace nseh.Gameplay.Minigames
         #region Private Properties
 
         private Rigidbody _body;
+        private String _horizontalString;
+        private String _jumpString;
 
         #endregion
 
-        #region Private Regions
+        #region Private Methods
 
         private void Start()
         {
             _body = GetComponent<Rigidbody>();
             started = false;
+            _horizontalString = String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, gamepadIndex);
+            _jumpString = String.Format("{0}{1}", Inputs.JUMP, gamepadIndex);
+
         }
 
         private void Update()
         {
             if (started)
             {
-                if (Input.GetButtonDown(String.Format("{0}{1}", Inputs.JUMP, gamepadIndex)))
+                if (Input.GetButtonDown(_jumpString))
                 {
-
-                    _body.velocity = new Vector3(_body.velocity.x, _body.velocity.y, speedVertical);
+                    _body.velocity = new Vector3(_body.velocity.x, _body.velocity.y/*0?*/, speedVertical);
                 }
 
-                if (Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, gamepadIndex)) != 0)
+                if (Input.GetAxis(_horizontalString) != 0)
                 {
-                    _body.velocity = new Vector3(speedHorizontal * Input.GetAxis(String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, gamepadIndex)), _body.velocity.y, _body.velocity.z);
+                    _body.velocity = new Vector3(speedHorizontal * Input.GetAxis(_horizontalString), _body.velocity.y/*0?*/, _body.velocity.z);
 
                 }
             }

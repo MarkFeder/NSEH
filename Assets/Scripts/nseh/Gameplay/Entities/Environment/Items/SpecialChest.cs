@@ -50,15 +50,16 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case SpecialChestType.CriticalDamage:
 
-                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
-                    GameManager.Instance.StartCoroutine(_playerInfo.BonificationAttackForSeconds(_points, _seconds));
+                    _playerInfo.PlayerCombat.AddCriticalAttacks(_points, _particlePrefab, _playerInfo.ParticleBodyPos);
+                    //GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
+                    //GameManager.Instance.StartCoroutine(_playerInfo.BonificationAttackForSeconds(_points, _seconds));
 
                     break;
 
                 case SpecialChestType.UnlockDefinitiveMode:
 
                     _playerInfo.IncreaseEnergy(100);
-                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
+                    ParticleAnimation(_particlePrefab, _playerInfo.ParticleBodyPos);
 
                     break;
 

@@ -1729,6 +1729,7 @@ MonoBehaviour:
   _currentAgility: 0
   _currentHealth: 0
   _currentEnergy: 0
+  items: []
   _currentScore: 0
   particleBodyPos: {fileID: 4668840236222398}
   particleHeadPos: {fileID: 4925990150715900}
@@ -1871,6 +1872,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0ecdbbb623d896c44bb5c4b8241ceedf, type: 3}
   - {fileID: 8300000, guid: 470ace09b3c8b3849a4db9475b0a07d4, type: 3}
   _currentAttack: 0
+  criticalAttacks: 0
 --- !u!135 &135667962235617574
 SphereCollider:
   m_ObjectHideFlags: 1

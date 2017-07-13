@@ -140,11 +140,33 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 			//Destroy(particleGameObject, timeToDisplayParticles);
 		}
 
-		#endregion
+        protected void ParticleAnimation(GameObject particle, Transform particlesPos)
+        {
 
-		#region Private Methods
+            /*foreach (Transform aux in particlesPos)
+            {
+                if(aux.name.Contains(particle.name))
+                {
+                    Destroy(aux.gameObject);
+                    break;
+                }
+            }*/
 
-		private void SetVisibility(bool isVisible)
+            GameObject particleGameObject = Instantiate(particle, particlesPos.position, particlesPos.rotation, particlesPos.transform);
+            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Play();
+            }
+
+            Destroy(particleGameObject, 1);
+            
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void SetVisibility(bool isVisible)
 		{
 			_isVisible = isVisible;
             foreach (Renderer aux in _renderer)
