@@ -4145,7 +4145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 343126775}
-  selectedGameObject: {fileID: 0}
+  selectedGameObject: {fileID: 1591125510}
 --- !u!1 &1554608328
 GameObject:
   m_ObjectHideFlags: 0
