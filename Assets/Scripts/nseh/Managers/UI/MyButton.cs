@@ -3,63 +3,44 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyButton : Button
+namespace nseh.Managers.UI
 {
-    public List<MyEventSystem> eventSystem;
-    public MyEventSystem eventCurrent;
-    public int player;
 
-    protected override void Awake()
+    public class MyButton : Button
     {
-        base.Awake();
-        eventSystem = GetComponent<EventSystemProvider>().eventSystem;
-        player = 0;
-    }
 
-    /*
-    public void Update()
-    {
-        foreach (MyEventSystem aux in eventSystem)
+        #region Public Properties
+
+        public List<MyEventSystem> eventSystem;
+        public MyEventSystem eventCurrent;
+        public int player;
+
+        #endregion
+
+        #region Protected Methods
+
+        protected override void Awake()
         {
-
-            eventCurrent = aux;
-           
+            base.Awake();
+            eventSystem = GetComponent<EventSystemProvider>().eventSystem;
+            player = 0;
         }
-    }*/
 
-
-    public override void OnSubmit(BaseEventData eventData)
-    {    
-        player = eventSystem.IndexOf(eventData.currentInputModule.transform.GetComponent<MyEventSystem>());
-        base.OnSubmit(eventData);
-    }
-
-    /*
-    public override void OnPointerDown(PointerEventData eventData)
-    {
-        //player = eventSystem.IndexOf(eventCurrent);
-        Debug.Log("AAAA" + player);
-        if (eventData.button != PointerEventData.InputButton.Left)
-            return;
-
-        // Selection tracking
-        if (IsInteractable() && navigation.mode != Navigation.Mode.None)
+        public override void OnSubmit(BaseEventData eventData)
         {
-            player = eventSystem.IndexOf(eventCurrent);
-            Debug.Log("AAAA" + player);
-            eventCurrent.SetSelectedGameObject(gameObject, eventData);
-            
+            player = eventSystem.IndexOf(eventData.currentInputModule.transform.GetComponent<MyEventSystem>());
+            base.OnSubmit(eventData);
         }
-            
-        base.OnPointerDown(eventData);
-    }
-    
-    public override void Select()
-    {
-        Debug.Log("AAAAAAAAAAAAAAA");
-        if (eventCurrent.alreadySelecting)
-            return;
 
-        eventCurrent.SetSelectedGameObject(gameObject);
-    }*/
+        public override void OnMove(AxisEventData eventData)
+        {
+            base.OnMove(eventData);
+            //Debug.Log("AAAAAAAAAAAA " + eventData.selectedObject.name);
+            //Debug.Log("BBBBBBBBBBBB " + eventData.currentInputModule.transform.name);
+            //sonido de pasada
+        }
+
+        #endregion
+
+    }
 }

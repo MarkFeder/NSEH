@@ -1,22 +1,29 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine;
 
-[RequireComponent(typeof(StandaloneInputModule))]
-
-public class MyEventSystem : EventSystem
+namespace nseh.Managers.UI
 {
-    
+    [RequireComponent(typeof(StandaloneInputModule))]
 
-    protected override void OnEnable()
+    public class MyEventSystem : EventSystem
     {
-        // do not assign EventSystem.current
-    }
 
-    protected override void Update()
-    {
-        EventSystem originalCurrent = current;
-        current = this; // in order to avoid reimplementing half of the EventSystem class, just temporarily assign this EventSystem to be the globally current one
-        base.Update();
-        current = originalCurrent;
+        #region Protected Methods
+
+        protected override void OnEnable()
+        {
+            // do not assign EventSystem.current
+        }
+
+        protected override void Update()
+        {
+            EventSystem originalCurrent = current;
+            current = this; // in order to avoid reimplementing half of the EventSystem class, just temporarily assign this EventSystem to be the globally current one
+            base.Update();
+            current = originalCurrent;
+        }
+
+        #endregion
+
     }
 }

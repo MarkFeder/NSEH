@@ -1,10 +1,9 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using Inputs = nseh.Utils.Constants.Input;
 
-namespace nseh.Managers.General
+namespace nseh.Managers.UI
 { 
     public class SelectOnInput : MonoBehaviour
     {
@@ -26,7 +25,6 @@ namespace nseh.Managers.General
 
 		private void Start()
 		{
-			//eventSystem = FindObjectOfType<EventSystem>();
             foreach(MyEventSystem aux in eventSystem)
             {
                 aux.SetSelectedGameObject(selectedGameObject[eventSystem.IndexOf(aux)]);
@@ -45,7 +43,6 @@ namespace nseh.Managers.General
                     aux.SetSelectedGameObject(selectedGameObject[eventSystem.IndexOf(aux)]);
                 }
                 _buttonSelected = true;
-                //SONIDO DE PASADA?
 			}
 		}
 

@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class EventSystemProvider : MonoBehaviour
+namespace nseh.Managers.UI
 {
-    public List<MyEventSystem> eventSystem;
+
+    public class EventSystemProvider : MonoBehaviour
+    {
+        public List<MyEventSystem> eventSystem;
+    }
 }
