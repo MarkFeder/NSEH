@@ -110,7 +110,17 @@ namespace nseh.Managers.UI
         {
             SelectingCharacter("SirProspector", prospector);         
         }
-        
+
+        public void AddingGranhilda()
+        {
+            SelectingCharacter("Granhilda", granhilda);
+        }
+
+        public void AddingMyson()
+        {
+            SelectingCharacter("Myson", myson);
+        }
+
         public void HandleMasterVolume(float value)
         {
             GameManager.Instance.SoundManager.SetMasterVolume(value);
