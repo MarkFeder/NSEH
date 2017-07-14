@@ -98,6 +98,8 @@ namespace nseh.Gameplay.Player.Abilities
 
         public virtual void OnHideShovel(AnimationEvent animationEvent)
         {
+            transform.localEulerAngles = new Vector3(0, 90, 0);
+            _playerInfo.PlayerMovement.IsFacingRight = (transform.localEulerAngles.y == 270.0f) ? true : false;
             _shovel.enabled = false;
         }
 

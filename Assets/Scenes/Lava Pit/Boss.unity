@@ -8909,7 +8909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefabs:
-  - {fileID: 1196191226483754, guid: 456b6de0edf03464bba1207fe96dcf0a, type: 2}
+  - {fileID: 1035674010603866, guid: 50ed6419e8af5774ab44848d71596f14, type: 2}
   - {fileID: 1828854585127354, guid: caf2cde8ac3a9d243b967355eba30ea1, type: 2}
 --- !u!4 &958919604
 Transform:

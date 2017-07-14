@@ -36,7 +36,7 @@ namespace nseh.Gameplay.Animations.Behaviour
             if (_playerInfo.LightAttackPressed)
                 _A2 = true;
 
-            if (_A2 && stateInfo.normalizedTime >= 0.95)
+            if (_A2 && stateInfo.normalizedTime >= 0.67)
             {
                 animator.SetTrigger("Combo_AAA_02");
                 _A2 = false;

@@ -33,7 +33,7 @@ namespace nseh.Gameplay.Animations.Behaviour
             if (_playerInfo.HeavyAttackPressed)
                 _A3 = true;
 
-            if (_A3 && stateInfo.normalizedTime >= 0.90)
+            if (_A3 && stateInfo.normalizedTime >= 0.67)
             {
                 animator.SetTrigger("Combo_AAA_03");
                 _A3 = false;

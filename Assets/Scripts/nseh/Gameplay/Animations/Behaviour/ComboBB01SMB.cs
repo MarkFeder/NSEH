@@ -38,7 +38,7 @@ namespace nseh.Gameplay.Animations.Behaviour
             if (_playerInfo.HeavyAttackPressed)
                 _B2 = true;
 
-            if(_B2 && stateInfo.normalizedTime >= 0.95)
+            if(_B2 && stateInfo.normalizedTime >= 0.7)
             {
                 animator.SetTrigger("Combo_BB_02");
                 _B2 = false;

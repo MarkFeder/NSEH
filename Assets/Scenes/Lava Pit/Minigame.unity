@@ -8794,7 +8794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefabs:
-  - {fileID: 1385650246820782, guid: a5f403d947163d747920ce40a295b864, type: 2}
+  - {fileID: 1413124878726594, guid: a5f403d947163d747920ce40a295b864, type: 2}
   - {fileID: 1442156889705492, guid: ed049c5f181f2fa4bbd7eecf7b5071b4, type: 2}
 --- !u!4 &1375754336
 Transform:

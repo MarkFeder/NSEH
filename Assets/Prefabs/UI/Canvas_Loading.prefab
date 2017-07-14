@@ -39,8 +39,7 @@ GameObject:
   - component: {fileID: 223315972111213762}
   - component: {fileID: 114463248922453372}
   - component: {fileID: 114324513810001292}
-  - component: {fileID: 114885628144890816}
-  - component: {fileID: 114747774489822190}
+  - component: {fileID: 114510219707299038}
   m_Layer: 5
   m_Name: Canvas_Loading
   m_TagString: Untagged
@@ -85,6 +84,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114510219707299038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853548221391998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a96570dbc7fcc464fad19ffbc1aaf3fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114744878844306032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,30 +122,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114747774489822190
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1853548221391998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a96570dbc7fcc464fad19ffbc1aaf3fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114885628144890816
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1853548221391998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 266b4fc28ed92e74496421c32225d053, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
-  selectedGameObject: {fileID: 0}
 --- !u!222 &222910608948662010
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -160,7 +146,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &224567189970638616
 RectTransform:

@@ -46,11 +46,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ILMTex:
-        m_Texture: {fileID: 2800000, guid: c3074654e950fe0418304775dde3af5c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 043c7f64109f0dd4ca7ad7c475da8a5c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 58c42b184f8fee04a97860e9bdeb49da, type: 3}
+        m_Texture: {fileID: 2800000, guid: d8c9ba5d9ffb5fd4291852003283f428, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -74,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SSSTex:
-        m_Texture: {fileID: 2800000, guid: 2e5e3d9412f4cb44ab5ed0a178ef34a4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 19dbd41acde9ac843963dca04f4fca31, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularReflectionSampler:
