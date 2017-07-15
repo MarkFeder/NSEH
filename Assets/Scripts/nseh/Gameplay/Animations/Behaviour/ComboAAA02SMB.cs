@@ -30,7 +30,7 @@ namespace nseh.Gameplay.Animations.Behaviour
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            if (_playerInfo.HeavyAttackPressed)
+            if (_playerInfo.LightAttackPressed)
                 _A3 = true;
 
             if (_A3 && stateInfo.normalizedTime >= 0.67)

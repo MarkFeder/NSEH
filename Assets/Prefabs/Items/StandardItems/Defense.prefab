@@ -373,7 +373,7 @@ MonoBehaviour:
     type: 2}
   _destructionTime: 2.5
   _timeToDisplayText: 2
-  chestType: 5
+  chestType: 4
   _percent: 0
   _seconds: 15
   _points: 2

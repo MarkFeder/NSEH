@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 using nseh.Managers.Main;
 using Damage = nseh.Utils.Constants.PlayerInfo;
 using nseh.Gameplay.Combat.Weapon;
@@ -55,6 +56,7 @@ namespace nseh.Gameplay.Entities.Player
         public Attack _currentAttack;
         public int criticalAttacks;
         private int _criticalIncrement;
+        private float _timeDisarmed;
 
         public int CriticalIncrement
         {
@@ -137,6 +139,19 @@ namespace nseh.Gameplay.Entities.Player
             {
                 weapon.enabled = false;
                 weapon.GetComponent<WeaponCollision>().enabled = false;
+            }
+        }
+
+        public IEnumerator DisarmedForSeconds(float seconds)
+        {
+            _timeDisarmed = Time.time;
+            _playerInfo.EnableAttack = false;
+
+            yield return new WaitForSeconds(seconds);
+
+            if (Time.time >= _timeDisarmed + seconds)
+            {
+                _playerInfo.EnableAttack = true;
             }
         }
 

@@ -27,11 +27,13 @@ namespace nseh.Gameplay.Entities.Player
         private List<Image> _playerLives;
         private HealthMode _healthMode;
         private bool _isDead;
+        private float _incrementDamage;
         private float _timeDefense;
         private float _timeAttack;
         private float _timeBaseDefense;
         private float _timeBaseAttack;
         private float _timeInvulnerability;
+        private float _timeVulnerability;
 
         #endregion
 
@@ -193,7 +195,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             if(_healthMode == HealthMode.Normal && !_isDead)
             {
-                float damage = (float)(amount - (amount * 0.025 * CurrentEndurance));
+                float damage = (float)((amount - (amount * 0.025 * CurrentEndurance))* _incrementDamage);
                 
                 CurrentHealth -= damage;
                 CurrentHealth = (int)Mathf.Clamp(CurrentHealth, 0.0f, _maxHealth);
@@ -268,6 +270,19 @@ namespace nseh.Gameplay.Entities.Player
             if (Time.time >= _timeInvulnerability + seconds)
             {
                 _healthMode = HealthMode.Normal;
+            }
+        }
+
+        public IEnumerator VulnerableForSeconds(float seconds)
+        {
+            _timeVulnerability = Time.time;
+            _incrementDamage = 1.5f;
+
+            yield return new WaitForSeconds(seconds);
+
+            if (Time.time >= _timeVulnerability + seconds)
+            {
+                _incrementDamage = 1f;
             }
         }
 

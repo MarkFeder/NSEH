@@ -132,6 +132,7 @@ namespace nseh.Gameplay.Entities.Player
         private bool _abilityPressed;
         private bool _definitivePressed;
         private bool _pausePressed;
+        private bool _enableAttack;
 
 
         #endregion
@@ -373,6 +374,19 @@ namespace nseh.Gameplay.Entities.Player
 
         }
 
+        public bool EnableAttack
+        {
+            get
+            {
+                return _enableAttack;
+            }
+
+            set
+            {
+                _enableAttack = value;
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -389,6 +403,7 @@ namespace nseh.Gameplay.Entities.Player
             _currentAgility = _baseAgility;
             _currentEndurance = _baseEndurance;
             _currentStrength = _baseStrength;
+            _incrementDamage = 1;
         }
 
         private void Start()
@@ -412,13 +427,19 @@ namespace nseh.Gameplay.Entities.Player
                 _horizontal = Input.GetAxis(_horizontalString);
                 _vertical = Input.GetAxis(_verticalString);
                 JumpPressed = Input.GetButtonDown(_jumpString);
-                LightAttackPressed = Input.GetButtonDown(_lightAttackString);
-                HeavyAttackPressed = Input.GetButtonDown(_heavyAttackString);
+
                 InteractPressed = Input.GetButtonDown(_interactString);
                 DefensePressed = Input.GetButtonDown(_defenseString);
                 AbilityPressed = Input.GetButtonDown(_abilityString);
                 DefinitivePressed = Input.GetButtonDown(_definitiveString);
                 PausePressed = Input.GetButtonDown(_pauseString);
+
+                if (EnableAttack)
+                {
+                    LightAttackPressed = Input.GetButtonDown(_lightAttackString);
+                    HeavyAttackPressed = Input.GetButtonDown(_heavyAttackString);
+                }
+                
             }
         }
 

@@ -158,12 +158,12 @@ namespace nseh.Managers.UI
 
         private void SelectingCharacter (string name, MyButton button)
         {
-            /*
+           /* 
             if (GameManager.Instance._characters[button.player] == "")
                 adding++;
             _MenuManager.Adding(name, button.player);
             */
-
+            
             _MenuManager.Adding(name, adding);
             adding++;
 

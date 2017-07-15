@@ -10,8 +10,8 @@ namespace nseh.Gameplay.Entities.Environment.Items
         Health = 1,
         Damage = 2,
         Velocity = 3,
-        Jump = 4,
-        Defense = 5
+        Defense = 4,
+        Energy = 5
     }
 
     public class StandardChest : Chest
@@ -64,17 +64,17 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     break;
 
-                case StandardChestType.Jump:
-
-                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
-                    GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.DoubleJumpForSeconds(_seconds));
-
-                    break;
-
                 case StandardChestType.Defense:
 
                     GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
                     GameManager.Instance.StartCoroutine(_playerInfo.BonificationDefenseForSeconds(_points, _seconds));
+
+                    break;
+
+                case StandardChestType.Energy:
+
+                    _playerInfo.IncreaseEnergy(25);
+                    ParticleAnimation(_particlePrefab, _playerInfo.ParticleBodyPos);
 
                     break;
 

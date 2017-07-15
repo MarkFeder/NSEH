@@ -99,15 +99,14 @@ namespace nseh.Gameplay.Entities.Player
 
         private void Update()
         {
-            if (!GameManager.Instance.isPaused)
+            if (!GameManager.Instance.isPaused && _enableMovement)
             {
-                Move();
-
-                _anim.SetBool(MoveAnimParameters.GROUNDED, grounded);
+                Move();               
                 if (_playerInfo.JumpPressed)
-                    Jump();  
-                          
-            }        
+                    Jump();               
+            }
+
+            _anim.SetBool(MoveAnimParameters.GROUNDED, grounded);
         }
 
         private void Jump()
@@ -129,9 +128,9 @@ namespace nseh.Gameplay.Entities.Player
 
         private void Move()
         {   
-            if (Mathf.Abs(_playerInfo.Horizontal) > 0.1 && _enableMovement)
+            if (Mathf.Abs(_playerInfo.Horizontal) > 0.1)
             {
-                _body.velocity = new Vector3(_inverted * Mathf.Round(_playerInfo.Horizontal) * (_currentSpeed + (float)(_currentSpeed * 0.1 * _playerInfo.CurrentAgility)), _body.velocity.y, 0);
+                _body.velocity = new Vector3(_inverted * Mathf.Round(_playerInfo.Horizontal) * (_currentSpeed + (float)(_currentSpeed * 0.05 * _playerInfo.CurrentAgility)), _body.velocity.y, 0);
                 OnFlipPlayer(_playerInfo.Horizontal);
                 _anim.SetBool(MoveAnimParameters.SPEED, true);
             }

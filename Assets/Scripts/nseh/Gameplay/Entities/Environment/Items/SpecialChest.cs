@@ -9,7 +9,10 @@ namespace nseh.Gameplay.Entities.Environment.Items
         None = 0,
         Invulnerability = 1,
         CriticalDamage = 2,
-        UnlockDefinitiveMode = 3
+        UnlockDefinitiveMode = 3,
+        Jump = 4,
+        ExtraLife = 5
+
     }
 
     public class SpecialChest : Chest
@@ -44,8 +47,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
                     GameManager.Instance.StartCoroutine(_playerInfo.InvulnerabilityModeForSeconds(_seconds));
-                    
-
+                   
                     break;
 
                 case SpecialChestType.CriticalDamage:
@@ -59,6 +61,20 @@ namespace nseh.Gameplay.Entities.Environment.Items
                 case SpecialChestType.UnlockDefinitiveMode:
 
                     _playerInfo.IncreaseEnergy(100);
+                    ParticleAnimation(_particlePrefab, _playerInfo.ParticleBodyPos);
+
+                    break;
+
+                case SpecialChestType.Jump:
+
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
+                    GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.DoubleJumpForSeconds(_seconds));
+
+                    break;
+
+                case SpecialChestType.ExtraLife:
+
+                    _playerInfo.IncreaseHealth(100);
                     ParticleAnimation(_particlePrefab, _playerInfo.ParticleBodyPos);
 
                     break;

@@ -7,9 +7,11 @@ namespace nseh.Gameplay.Entities.Environment.Items
     public enum DisadvantageChestType
     {
         None = 0,
-        ChestBomb = 1,
-        PoisonCloud = 2,
-        ConfusedPotion = 3
+        PoisonCloud = 1,
+        Vulnerable = 2,
+        ConfusedPotion = 3,
+        LessEnergy = 4,
+        Disarmed = 5
     }
 
     public class DisadvantageChest : Chest
@@ -39,17 +41,17 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     break;
 
-                case DisadvantageChestType.ChestBomb:
+                case DisadvantageChestType.PoisonCloud:
 
-                    _playerInfo.DecreaseHealth(_percent);
-                    ParticleAnimation(_particlePrefab, _playerInfo.ParticleBodyPos);
+                    GameManager.Instance.StartCoroutine(_playerInfo.DecreaseHealthForEverySecond(_percent, _seconds));
+                    ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos);
 
                     break;
 
-                case DisadvantageChestType.PoisonCloud:
+                case DisadvantageChestType.Vulnerable:
 
                     GameManager.Instance.StartCoroutine(_playerInfo.AddItem(_chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
-                    GameManager.Instance.StartCoroutine(_playerInfo.DecreaseHealthForEverySecond(_percent, _seconds));
+                    GameManager.Instance.StartCoroutine(_playerInfo.VulnerableForSeconds(_seconds));
 
                     break;
 
@@ -57,6 +59,20 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                     GameManager.Instance.StartCoroutine(_playerInfo.AddItem(_chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
                     GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.InvertControlForSeconds(_seconds));
+
+                    break;
+
+                case DisadvantageChestType.LessEnergy:
+
+                    _playerInfo.DecreaseEnergy(50);
+                    ParticleAnimation(_particlePrefab, _playerInfo.ParticleBodyPos);
+
+                    break;
+
+                case DisadvantageChestType.Disarmed:
+
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(_chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
+                    GameManager.Instance.StartCoroutine(_playerInfo.PlayerCombat.DisarmedForSeconds(_seconds));
 
                     break;
 

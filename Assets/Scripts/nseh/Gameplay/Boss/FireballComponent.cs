@@ -25,17 +25,22 @@ namespace nseh.Gameplay.Boss
 
         #region Private Methods
 
-        private void Start()
+        private void Awake()
         {
             _enemies = new List<GameObject>();
-            GameManager.Instance.SoundManager.PlayAudioFX(fireballClip[UnityEngine.Random.Range(0, fireballClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+        }
 
+        private void Start()
+        {        
+            GameManager.Instance.SoundManager.PlayAudioFX(fireballClip[UnityEngine.Random.Range(0, fireballClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
         }
 
         private void OnTriggerEnter(Collider other)
         {
             GameObject enemy = other.gameObject;
             string colTag = other.tag;
+
+            Debug.Log(colTag + " " + enemy+" "+ _enemies);
 
             if (colTag == Tags.PLAYER && !_enemies.Contains(enemy))
             {

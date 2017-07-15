@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
 using nseh.Managers.Main;
 using nseh.Utils;
 using nseh.Gameplay.Misc;
@@ -305,7 +306,11 @@ namespace nseh.Managers.Level
         {
             Time.timeScale = 0.5f;
             Ready.text = "THE LAVA IS RISING! RUN TO THE VOLCANO!";
-            yield return new WaitForSeconds(3);
+            foreach (PlayerInfo element in _players.Select(t => t.GetComponent<PlayerInfo>()))
+            {
+                element.HealthMode = HealthMode.Invulnerability;
+            }
+                yield return new WaitForSeconds(3);
             _loading.SetActive(true);
             Release();
             yield return new WaitForSeconds(1);
