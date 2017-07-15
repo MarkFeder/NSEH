@@ -43,7 +43,7 @@ namespace nseh.Gameplay.Entities.Environment
         {
             float dice = Random.value;
 
-            if (dice <= 0.8)
+            if (dice <= 0.6)
             {
                 int randomStandardItem = (int)Random.Range(0, _standardItems.Count);
                 _instancedItem = Instantiate(_standardItems[randomStandardItem], this.transform.position, this.transform.rotation);
@@ -51,7 +51,7 @@ namespace nseh.Gameplay.Entities.Environment
                 _instancedItem.GetComponent<StandardChest>().SpawnItemPoint = this;
             }
 
-            if (0.8f < dice && dice <= 0.9f)
+            else if (0.6f < dice && dice <= 0.8f)
             {
                 int randomSpecialItem = (int)Random.Range(0, _specialItems.Count);
                 _instancedItem = Instantiate(_specialItems[randomSpecialItem], this.transform.position, this.transform.rotation);
@@ -59,7 +59,7 @@ namespace nseh.Gameplay.Entities.Environment
                 _instancedItem.GetComponent<SpecialChest>().SpawnItemPoint = this;
             }
 
-            if (0.9f < dice && dice <= 1)
+            else
             {
                 int randomDisadvantageItem = (int)Random.Range(0, _disadvantageItems.Count);
                 _instancedItem = Instantiate(_disadvantageItems[randomDisadvantageItem], this.transform.position, this.transform.rotation);

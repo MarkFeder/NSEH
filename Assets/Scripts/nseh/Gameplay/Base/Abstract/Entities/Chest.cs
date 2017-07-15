@@ -87,7 +87,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		protected virtual void OnTriggerEnter(Collider other)
 		{
-			if (other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().items.Count < 2)
+			if (other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().items.Count < 3)
 			{
 				_sprite.SetActive(true);
 			}
@@ -95,7 +95,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
 
 		protected virtual void OnTriggerStay(Collider other)
 		{
-			if (other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().InteractPressed && other.GetComponent<PlayerInfo>().items.Count<2)
+			if (other.CompareTag(Tags.PLAYER_BODY) && other.GetComponent<PlayerInfo>().InteractPressed && other.GetComponent<PlayerInfo>().items.Count<3)
 			{
 
 				SetVisibility(false);
