@@ -214,6 +214,8 @@ namespace nseh.Gameplay.Entities.Player
         {
             yield return new WaitForSeconds(seconds);
 
+            _body.isKinematic = true;
+            _body.isKinematic = false;
             _enableMovement = false;
             /*
 			enabled = false;

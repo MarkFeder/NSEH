@@ -18,12 +18,13 @@ namespace nseh.Gameplay.Animations.Behaviour
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            _A3 = false;
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
             _playerInfo = animator.GetComponent<PlayerInfo>();
             _playerCombat = animator.GetComponent<PlayerCombat>();
             _playerCombat._currentAttack = PlayerCombat.Attack.A2;
-            _A3 = false;
+            
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

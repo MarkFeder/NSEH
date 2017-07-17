@@ -404,6 +404,7 @@ namespace nseh.Gameplay.Entities.Player
             _currentEndurance = _baseEndurance;
             _currentStrength = _baseStrength;
             _incrementDamage = 1;
+            EnableAttack = true;
         }
 
         private void Start()
