@@ -1,5 +1,6 @@
 ﻿using nseh.Gameplay.Entities.Player;
 using UnityEngine;
+using System.Collections;
 using nseh.Gameplay.Combat.Special.Wrarr;
 
 namespace nseh.Gameplay.Player.Abilities
@@ -27,7 +28,11 @@ namespace nseh.Gameplay.Player.Abilities
         [SerializeField]
         private GameObject _boneRock;
         [SerializeField]
-        private float _rockForce;
+        private Transform _positionRock;
+        [SerializeField]
+        private float _rockForceX;
+        [SerializeField]
+        private float _rockForceY;
 
         private PlayerInfo _playerInfo;
         private Rigidbody _body;
@@ -45,9 +50,16 @@ namespace nseh.Gameplay.Player.Abilities
             _body = GetComponent<Rigidbody>();
         }
 
+        private IEnumerator ActivateRockCollider()
+        {
+            yield return new WaitForSeconds(0.05f);
+            _rockCollider.enabled = true;
+
+        }
+
         #endregion
 
-        #region Animation Events
+            #region Animation Events
 
         public virtual void OnPlayAttackAbilityParticle(AnimationEvent animationEvent)
         {
@@ -73,7 +85,7 @@ namespace nseh.Gameplay.Player.Abilities
 
         public virtual void OnInstanceRock(AnimationEvent animationEvent)
         {
-            _rockAux = Instantiate(_rock, _boneRock.transform.position, Quaternion.identity, _boneRock.transform);
+            _rockAux = Instantiate(_rock, _positionRock.transform.position, Quaternion.identity, _boneRock.transform);
             _rockRigidBody = _rockAux.transform.GetChild(0).GetComponent<Rigidbody>();
             _rockCollider = _rockAux.transform.GetChild(0).GetComponent<Collider>();
             _rockCollider.enabled = false;
@@ -84,13 +96,13 @@ namespace nseh.Gameplay.Player.Abilities
             _rockAux.transform.parent = null;
             _rockRigidBody.isKinematic = false;
             _rockRigidBody.useGravity = true;
-            _rockCollider.enabled = true;
 
             Vector3 vForward = transform.TransformDirection(Vector3.forward);
-            _rockRigidBody.AddForce(vForward * _rockForce, ForceMode.Force);
+            _rockRigidBody.AddForce(new Vector3  (_rockForceX * vForward.x, _rockForceY, 0) , ForceMode.Force);
+            StartCoroutine(ActivateRockCollider());
         }
 
-        #endregion
+            #endregion
 
-    }
+        }
 }

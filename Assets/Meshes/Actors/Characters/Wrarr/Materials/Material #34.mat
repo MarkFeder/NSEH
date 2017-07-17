@@ -38,11 +38,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ILMTex:
-        m_Texture: {fileID: 2800000, guid: c3074654e950fe0418304775dde3af5c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 043c7f64109f0dd4ca7ad7c475da8a5c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a9882ad7164d00f48a55b1c014cfb8a9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1fbec28153965b24890388ee4fba59cd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SSSTex:
-        m_Texture: {fileID: 2800000, guid: 03cdba0bfac0cff4897310e44fb06cff, type: 3}
+        m_Texture: {fileID: 2800000, guid: b7c430914d86fd643b3952c1f1a4636b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ToonShade:
