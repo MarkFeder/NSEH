@@ -59,7 +59,7 @@ namespace nseh.Gameplay.Player.Abilities
 
         #endregion
 
-            #region Animation Events
+        #region Animation Events
 
         public virtual void OnPlayAttackAbilityParticle(AnimationEvent animationEvent)
         {

@@ -208,6 +208,10 @@ namespace nseh.Gameplay.Entities.Player
         public void EnableMovement()
         {
             _enableMovement = true;
+
+            if (grounded)
+                _body.isKinematic = false;
+
         }
 
         public IEnumerator DisableMovement(float seconds)
@@ -215,7 +219,6 @@ namespace nseh.Gameplay.Entities.Player
             yield return new WaitForSeconds(seconds);
 
             _body.isKinematic = true;
-            _body.isKinematic = false;
             _enableMovement = false;
             /*
 			enabled = false;
