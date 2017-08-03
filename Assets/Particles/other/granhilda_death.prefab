@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4832217025414778}
   - component: {fileID: 198674854730533230}
   - component: {fileID: 199432095039885890}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: granhilda_death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,13 +34,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1872207645361334}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.0518142, y: 0.16594559, z: 0.10781944}
-  m_LocalScale: {x: 0.37, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: 3.26, z: 0}
+  m_LocalScale: {x: 0.36, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 90, z: 90}
 --- !u!198 &198674854730533230
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -49,8 +49,8 @@ ParticleSystem:
   m_GameObject: {fileID: 1872207645361334}
   serializedVersion: 5
   lengthInSec: 1
-  simulationSpeed: 0.5
-  looping: 0
+  simulationSpeed: 0.25
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   autoRandomSeed: 1
@@ -96,7 +96,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1138870560
+  randomSeed: -1075160161
   InitialModule:
     serializedVersion: 3
     enabled: 1

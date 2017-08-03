@@ -207,7 +207,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.76868945
+      - time: 0.68577486
         functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}

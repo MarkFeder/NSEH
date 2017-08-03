@@ -179,7 +179,7 @@ ModelImporter:
     - serializedVersion: 16
       name: GranhildaComboAAA
       takeName: GranhildaAttackAAA
-      firstFrame: 20
+      firstFrame: 19
       lastFrame: 43
       wrapMode: 0
       orientationOffsetY: 0

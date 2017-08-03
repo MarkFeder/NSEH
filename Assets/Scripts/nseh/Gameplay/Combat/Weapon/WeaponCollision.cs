@@ -55,9 +55,10 @@ namespace nseh.Gameplay.Combat.Weapon
 
         private void OnCollisionEnter(Collision collider)
         {
-            GameObject enemy = collider.transform.root.gameObject; 
+            GameObject enemy = collider.transform.root.gameObject;
+            
             if (enemy.tag == Tags.PLAYER_BODY && !_enemyTargets.Contains(enemy))
-            {
+            {   
                 ContactPoint position = collider.contacts[0];
                 
                 PlayerInfo _auxPlayerInfo = enemy.GetComponent<PlayerInfo>();

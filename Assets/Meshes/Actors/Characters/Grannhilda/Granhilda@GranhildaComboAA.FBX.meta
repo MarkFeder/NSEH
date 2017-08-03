@@ -179,7 +179,7 @@ ModelImporter:
     - serializedVersion: 16
       name: GranhildaComboAA
       takeName: GranhildaAttackAA
-      firstFrame: 10
+      firstFrame: 9
       lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
@@ -200,14 +200,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.36309704
+      - time: 0.460658
         functionName: ActivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.78118956
+      - time: 0.6848187
         functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}

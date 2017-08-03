@@ -24,6 +24,7 @@ namespace nseh.Gameplay.Combat.Special.Granhilda
         private GameObject _particle;
         private GameObject particleGameObject;
         private PlayerInfo _playerInfo;
+        private Collider _collider;
 
         #endregion
 
@@ -32,8 +33,9 @@ namespace nseh.Gameplay.Combat.Special.Granhilda
         // Use this for initialization
         void Awake()
         {
-            _playerInfo = GetComponent<PlayerInfo>();
+            _playerInfo = transform.root.GetComponent<PlayerInfo>();
             _playersInShield = new List<GameObject>();
+            _collider = GetComponent<Collider>();
         }
 
         // Update is called once per frame
@@ -47,8 +49,8 @@ namespace nseh.Gameplay.Combat.Special.Granhilda
 
         private void OnEnable()
         {
-            //_playersInShield.Add(_playerInfo.gameObject);
-            particleGameObject = Instantiate(_particle, _playerInfo.ParticleFootPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
+            _collider.enabled = true;
+            particleGameObject = Instantiate(_particle, this.gameObject.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
                 particle_aux.Play();
@@ -61,6 +63,7 @@ namespace nseh.Gameplay.Combat.Special.Granhilda
         {
             Destroy(particleGameObject);
             _playersInShield = new List<GameObject>();
+            _collider.enabled = false;
         }
 
         private IEnumerator Effect()

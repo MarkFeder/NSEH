@@ -179,7 +179,7 @@ ModelImporter:
     - serializedVersion: 16
       name: GranhildaComboBB
       takeName: GranhildaAttackBB
-      firstFrame: 18
+      firstFrame: 17
       lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0

@@ -38,12 +38,15 @@ namespace nseh.Gameplay.Player.Abilities
         private GameObject _staticShield;
         [SerializeField]
         private Renderer _hammer;
+        [SerializeField]
+        private Collider _definitiveCollider;
 
         private PlayerInfo _playerInfo;
         private PlayerMovement _playerMovement;
 
         private bool _canJump;
         private float _jumpHeight;
+        private Collider _collider;
 
         #endregion
 
@@ -52,6 +55,7 @@ namespace nseh.Gameplay.Player.Abilities
         void Start()
         {
             _playerInfo = GetComponent<PlayerInfo>();
+            _collider = GetComponent<Collider>();
             _playerMovement = GetComponent<PlayerMovement>();
             _canJump = false;
             _jumpHeight = BaseParameters.JUMPHEIGHT;
@@ -59,8 +63,9 @@ namespace nseh.Gameplay.Player.Abilities
 
         void Update()
         {
-            if(_canJump && _playerMovement.grounded)
-                _playerInfo.Body.velocity = new Vector3(_playerInfo.Body.velocity.x, _jumpHeight, 0);
+            Debug.Log(_canJump + " " + _playerMovement.grounded + " " + _playerInfo.JumpPressed);
+            if(_canJump && _playerMovement.grounded && _playerInfo.JumpPressed)
+                _definitiveCollider.GetComponent<Rigidbody>().velocity = new Vector3(_playerInfo.Body.velocity.x, _jumpHeight, 0);
         }
 
         #endregion
@@ -69,7 +74,8 @@ namespace nseh.Gameplay.Player.Abilities
 
         public virtual void OnParticlesDeath(AnimationEvent animationEvent)
         {
-            GameObject particleGameObject = Instantiate(_particleAbility, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
+
+            GameObject particleGameObject = Instantiate(_particleDeath, this.gameObject.transform.position, _particleDeath.transform.rotation);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
                 particle_aux.Play();
@@ -113,7 +119,7 @@ namespace nseh.Gameplay.Player.Abilities
 
         public virtual void OnParticlesDefinitive(AnimationEvent animationEvent)
         {
-            GameObject particleGameObject = Instantiate(_particleDefinitive, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
+            GameObject particleGameObject = Instantiate(_particleDefinitive, this.gameObject.transform.position, _particleDefinitive.transform.rotation, this.gameObject.transform);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
                 particle_aux.Play();
@@ -140,7 +146,11 @@ namespace nseh.Gameplay.Player.Abilities
         public virtual void OnAddForce(AnimationEvent animationEvent)
         {
             _playerInfo.Body.isKinematic = false;
-            _playerInfo.Body.AddForce(Vector3.forward * _forceDefinitive);
+            _definitiveCollider.enabled = true;
+            _collider.enabled = false;
+            
+            Vector3 vForward = transform.TransformDirection(Vector3.forward);
+            _definitiveCollider.GetComponent<Rigidbody>().AddForce(new Vector3(_forceDefinitive * vForward.x, 0, 0), ForceMode.Force);
             _canJump = true;
 
         }
@@ -148,6 +158,9 @@ namespace nseh.Gameplay.Player.Abilities
         public virtual void OnStopDefinitive(AnimationEvent animationEvent)
         {
             _playerInfo.Body.isKinematic = true;
+            _collider.enabled = true;
+            _definitiveCollider.enabled = false;
+            _playerInfo.Body.velocity = Vector3.zero;
             _canJump = false;
         }
 
