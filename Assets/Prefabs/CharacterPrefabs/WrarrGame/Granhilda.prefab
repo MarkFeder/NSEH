@@ -419,7 +419,7 @@ GameObject:
   - component: {fileID: 114814884202628306}
   m_Layer: 8
   m_Name: Granhilda
-  m_TagString: PlayerBody
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 54473618007552436}
   - component: {fileID: 114897355713530060}
   m_Layer: 8
-  m_Name: WeaponWheelChair
+  m_Name: WeaponLighting
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -847,7 +847,7 @@ GameObject:
   - component: {fileID: 4426934333385198}
   m_Layer: 8
   m_Name: particleFootPos
-  m_TagString: PlayerBody
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1009,6 +1009,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1716119264237948
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4279548577857902}
+  - component: {fileID: 136796773389435648}
+  - component: {fileID: 54989850336962746}
+  - component: {fileID: 114508436465948714}
+  m_Layer: 8
+  m_Name: WeaponWheelChair
+  m_TagString: Weapon
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1723099133908448
 GameObject:
   m_ObjectHideFlags: 1
@@ -1080,7 +1098,7 @@ GameObject:
   - component: {fileID: 4851005679310966}
   m_Layer: 8
   m_Name: particleBodyPos
-  m_TagString: PlayerBody
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1140,7 +1158,7 @@ GameObject:
   - component: {fileID: 4297317526566324}
   m_Layer: 8
   m_Name: particleHeadPos
-  m_TagString: PlayerBody
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1247,7 +1265,7 @@ GameObject:
   - component: {fileID: 114510517522342346}
   m_Layer: 10
   m_Name: Text_Sprite
-  m_TagString: PlayerBody
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1354,8 +1372,8 @@ GameObject:
   - component: {fileID: 136650058323521502}
   - component: {fileID: 114043595605195234}
   m_Layer: 8
-  m_Name: Wave
-  m_TagString: PlayerBody
+  m_Name: StaticShield
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1388,6 +1406,7 @@ Transform:
   - {fileID: 4102400361461354}
   - {fileID: 4906150679839194}
   - {fileID: 4671181526250302}
+  - {fileID: 4416221410444006}
   m_Father: {fileID: 4813307689514994}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1771,6 +1790,19 @@ Transform:
   m_Father: {fileID: 4671181526250302}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4279548577857902
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1716119264237948}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4671181526250302}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4293714250783382
 Transform:
   m_ObjectHideFlags: 1
@@ -1946,12 +1978,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1306890529097138}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.50123066, y: 0.49875772, z: 0.50123864, w: -0.4987669}
+  m_LocalPosition: {x: -1.42, y: -0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4671181526250302}
-  m_RootOrder: 2
+  m_Father: {fileID: 4012246552220130}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4426934333385198
 Transform:
@@ -2240,7 +2272,7 @@ Transform:
   m_Children:
   - {fileID: 4273330729242982}
   - {fileID: 4585537436224702}
-  - {fileID: 4416221410444006}
+  - {fileID: 4279548577857902}
   m_Father: {fileID: 4012246552220130}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2525,7 +2557,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1702429318795988}
-  m_LocalRotation: {x: -0.175296, y: 0.68503535, z: 0.68503237, w: 0.17529556}
+  m_LocalRotation: {x: -0.17529601, y: 0.6850354, z: 0.6850324, w: 0.17529558}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
   m_Children:
@@ -2737,6 +2769,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!54 &54989850336962746
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1716119264237948}
+  serializedVersion: 2
+  m_Mass: 0.578
+  m_Drag: 0
+  m_AngularDrag: 2.8986
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!95 &95766133238340786
 Animator:
   serializedVersion: 3
@@ -2824,6 +2871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponList:
   - {fileID: 136088077800708078}
+  - {fileID: 136796773389435648}
   - {fileID: 136669405756260310}
   _audioAttack:
   - {fileID: 8300000, guid: 8c5338c228425d945be264b94e886e58, type: 3}
@@ -2841,6 +2889,18 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1520368946123070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _trailParticle: {fileID: 0}
+--- !u!114 &114508436465948714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1716119264237948}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d58e333707361014e993f97dfd977bcb, type: 3}
@@ -2870,11 +2930,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609f0dbb670ded54a92f90ef05a2abd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particleAbility: {fileID: 0}
-  _particleDefinitive: {fileID: 0}
+  _particleAAA: {fileID: 1546198654830584, guid: 75c20c0a0021ec24d8a0de0f36013372,
+    type: 2}
+  _particleDragonFire: {fileID: 1010057357487998, guid: 98480f1b8e694264a89f244307a9b01f,
+    type: 2}
+  _particleDeath: {fileID: 1872207645361334, guid: 3430ee0e8520d074c89b7ca3d5d2099c,
+    type: 2}
+  _particleAbility: {fileID: 1079802138713914, guid: 2ad54ed72e7a6bd45b53b5445f08e458,
+    type: 2}
+  _particleDefinitive: {fileID: 1010057357487998, guid: 86e901ee290fc09449ea6fc74bd5c48c,
+    type: 2}
   _forceDefinitive: 0
-  _staticShield: {fileID: 0}
-  _hammer: {fileID: 0}
+  _staticShield: {fileID: 1966975683785602}
+  _hammer: {fileID: 137499634353604100}
 --- !u!114 &114738521085993224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2942,7 +3010,7 @@ MonoBehaviour:
   particleBodyPos: {fileID: 4851005679310966}
   particleHeadPos: {fileID: 4297317526566324}
   particleFootPos: {fileID: 4426934333385198}
-  _hitParticle: {fileID: 1174489842537230, guid: 615a2ed8be64e974b8bdf7f806e56f4b,
+  _hitParticle: {fileID: 1495619914040564, guid: 6f23561fef1d9ab4ba2d5fb200d2902f,
     type: 2}
   _hitClip:
   - {fileID: 8300000, guid: f84439cf5a203fe4bb1c27233142f77c, type: 3}
@@ -2954,7 +3022,7 @@ MonoBehaviour:
   _takeDamageClip: []
   _deathClip: {fileID: 8300000, guid: f4d411e381b201a48be007b63ded1c85, type: 3}
   _gamepadIndex: 0
-  _playerName: Wrarr
+  _playerName: Granhilda
   _characterPortrait: {fileID: 21300000, guid: 666c9329772596f43b834495fda8e204, type: 3}
   colliderList:
   - {fileID: 0}
@@ -2993,9 +3061,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.32
-  m_Height: 3.97
+  m_Height: 5.28
   m_Direction: 0
-  m_Center: {x: 0.85, y: 0, z: 0}
+  m_Center: {x: 1.27, y: 0, z: 0}
 --- !u!136 &136650058323521502
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3018,8 +3086,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.86
-  m_Height: 1
+  m_Radius: 0.41
+  m_Height: 1.98
   m_Direction: 1
   m_Center: {x: 0, y: 0.24, z: 0}
 --- !u!136 &136772968611522996
@@ -3031,10 +3099,23 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: a6f4fff5e90fc7c41ae01fe59e77470b, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.38145766
-  m_Height: 1.4450363
+  m_Radius: 0.73
+  m_Height: 0.89
   m_Direction: 1
   m_Center: {x: 0, y: 0.59928674, z: 0.051237106}
+--- !u!136 &136796773389435648
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1716119264237948}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.86
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.24, z: 0}
 --- !u!137 &137499634353604100
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

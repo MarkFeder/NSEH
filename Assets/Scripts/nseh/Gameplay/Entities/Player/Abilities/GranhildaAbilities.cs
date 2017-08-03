@@ -14,6 +14,12 @@ namespace nseh.Gameplay.Player.Abilities
 
         [Header("Particles")]
         [SerializeField]
+        private GameObject _particleAAA;
+        [SerializeField]
+        private GameObject _particleDragonFire;
+        [SerializeField]
+        private GameObject _particleDeath;
+        [SerializeField]
         private GameObject _particleAbility;
         [SerializeField]
         private GameObject _particleDefinitive;
@@ -60,6 +66,39 @@ namespace nseh.Gameplay.Player.Abilities
         #endregion
 
         #region Animation Events
+
+        public virtual void OnParticlesDeath(AnimationEvent animationEvent)
+        {
+            GameObject particleGameObject = Instantiate(_particleAbility, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
+            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Play();
+            }
+
+            Destroy(particleGameObject, 1f);
+        }
+
+        public virtual void OnParticlesAttackAAA(AnimationEvent animationEvent)
+        {
+            GameObject particleGameObject = Instantiate(_particleAbility, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
+            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Play();
+            }
+
+            Destroy(particleGameObject, 1f);
+        }
+
+        public virtual void OnParticlesDragonFire(AnimationEvent animationEvent)
+        {
+            GameObject particleGameObject = Instantiate(_particleAbility, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
+            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Play();
+            }
+
+            Destroy(particleGameObject, 1f);
+        }
 
         public virtual void OnParticlesAbility(AnimationEvent animationEvent)
         {

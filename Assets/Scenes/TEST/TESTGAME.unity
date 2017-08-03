@@ -139,8 +139,7 @@ MonoBehaviour:
   _nextState: 0
   _numberPlayers: 0
   _characters: []
-  player1character: 
-  player2character: 
+  isPaused: 0
 --- !u!4 &71646626
 Transform:
   m_ObjectHideFlags: 0
