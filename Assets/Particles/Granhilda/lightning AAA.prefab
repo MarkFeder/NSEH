@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4416599063371086}
   - component: {fileID: 198901257087518230}
   - component: {fileID: 199666189297652210}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: lightning impact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4059110850890498}
   - component: {fileID: 198924438403556300}
   - component: {fileID: 199429439389253418}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: lightning AAA
   m_TagString: Untagged
   m_Icon: {fileID: 0}

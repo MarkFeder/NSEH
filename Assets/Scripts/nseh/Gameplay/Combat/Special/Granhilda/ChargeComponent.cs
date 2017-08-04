@@ -12,12 +12,9 @@ namespace nseh.Gameplay.Combat.Special.Granhilda
 
         #region Private Properties
 
-        private Rigidbody _body;
-        private Collider _collider;
-        private List<GameObject> _enemies;
-
-        private PlayerInfo _senderInfo;
         private PlayerCombat _playerCombat;
+        private PlayerInfo _playerInfo;
+        private List<GameObject> _enemyTargets;
         [SerializeField]
         private float _damage;
 
@@ -29,35 +26,43 @@ namespace nseh.Gameplay.Combat.Special.Granhilda
         {
             Rigidbody _rigidBody = GetComponent<Rigidbody>();
             Collider _collider = GetComponent<Collider>();
-            _enemies = new List<GameObject>();
-            _enemies.Add(this.gameObject.transform.root.gameObject);
-            _senderInfo = this.gameObject.transform.root.GetComponent<PlayerInfo>();
+            _enemyTargets = new List<GameObject>();
+            _playerInfo = this.gameObject.transform.root.GetComponent<PlayerInfo>();
             _playerCombat = this.gameObject.transform.root.GetComponent<PlayerCombat>();
 
             _rigidBody.isKinematic = false;
             _rigidBody.angularDrag = 0;
+            _rigidBody.mass = 0;
             _collider.enabled = false;
             _collider.isTrigger = false;
+
+            _enemyTargets.Add(this.gameObject.transform.root.gameObject);
+        }
+
+        private void OnDisable()
+        {
+            _enemyTargets.Clear();
+            _enemyTargets.Add(this.gameObject.transform.root.gameObject);
         }
 
         private void OnCollisionEnter(Collision collider)
         {
-            GameObject hit = collider.transform.root.gameObject;
-            ContactPoint position = collider.contacts[0];
-
-            if (hit.tag == Tags.PLAYER_BODY && !_enemies.Contains(hit))
+            
+            GameObject enemy = collider.transform.root.gameObject;
+            if (enemy.tag == Tags.PLAYER_BODY && !_enemyTargets.Contains(enemy))
             {
-                Physics.IgnoreCollision(_collider, collider.collider);
-                PlayerInfo _auxPlayerInfo = hit.GetComponent<PlayerInfo>();
-                _enemies.Add(hit);
-                _auxPlayerInfo.TakeDamage(_damage, _senderInfo);
+
+                PlayerInfo _auxPlayerInfo = enemy.GetComponent<PlayerInfo>();
+                _enemyTargets.Add(enemy);
+                _auxPlayerInfo.TakeDamage(_damage);
             }
 
-            else if (hit.tag == Tags.ENEMY && !_enemies.Contains(hit))
+            else if (collider.transform.root.tag == Tags.ENEMY)
             {
-                Physics.IgnoreCollision(_collider, collider.collider);
-                EnemyHealth _auxEnemyHealth = hit.GetComponent<EnemyHealth>();
-                _auxEnemyHealth.TakeDamage((float)((int)_playerCombat._currentAttack + ((int)(_playerCombat._currentAttack) * 0.05 * _senderInfo.CurrentStrength)), _senderInfo, position.point);
+                ContactPoint position = collider.contacts[0];
+                EnemyHealth _auxEnemyHealth = enemy.GetComponent<EnemyHealth>();
+                _auxEnemyHealth.TakeDamage((float)(((int)_damage + ((int)(_damage) * 0.05 * _playerInfo.CurrentStrength)) * _playerCombat.CriticalIncrement), _playerInfo, position.point);
+
             }
         }
 

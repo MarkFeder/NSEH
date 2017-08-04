@@ -39,7 +39,7 @@ namespace nseh.Gameplay.Player.Abilities
         [SerializeField]
         private Renderer _hammer;
         [SerializeField]
-        private Collider _definitiveCollider;
+        private GameObject _colliderDefinitive;
 
         private PlayerInfo _playerInfo;
         private PlayerMovement _playerMovement;
@@ -47,6 +47,7 @@ namespace nseh.Gameplay.Player.Abilities
         private bool _canJump;
         private float _jumpHeight;
         private Collider _collider;
+        private ChargeComponent _auxCharge;
 
         #endregion
 
@@ -63,9 +64,8 @@ namespace nseh.Gameplay.Player.Abilities
 
         void Update()
         {
-            Debug.Log(_canJump + " " + _playerMovement.grounded + " " + _playerInfo.JumpPressed);
             if(_canJump && _playerMovement.grounded && _playerInfo.JumpPressed)
-                _definitiveCollider.GetComponent<Rigidbody>().velocity = new Vector3(_playerInfo.Body.velocity.x, _jumpHeight, 0);
+                _playerInfo.Body.velocity = new Vector3(_playerInfo.Body.velocity.x, _jumpHeight, 0);
         }
 
         #endregion
@@ -75,13 +75,13 @@ namespace nseh.Gameplay.Player.Abilities
         public virtual void OnParticlesDeath(AnimationEvent animationEvent)
         {
 
-            GameObject particleGameObject = Instantiate(_particleDeath, this.gameObject.transform.position, _particleDeath.transform.rotation);
+            GameObject particleGameObject = Instantiate(_particleDeath, this.gameObject.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
                 particle_aux.Play();
             }
 
-            Destroy(particleGameObject, 1f);
+            Destroy(particleGameObject, 2.5f);
         }
 
         public virtual void OnParticlesAttackAAA(AnimationEvent animationEvent)
@@ -108,7 +108,7 @@ namespace nseh.Gameplay.Player.Abilities
 
         public virtual void OnParticlesAbility(AnimationEvent animationEvent)
         {
-            GameObject particleGameObject = Instantiate(_particleAbility, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
+            GameObject particleGameObject = Instantiate(_particleAbility, this.gameObject.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
                 particle_aux.Play();
@@ -119,13 +119,13 @@ namespace nseh.Gameplay.Player.Abilities
 
         public virtual void OnParticlesDefinitive(AnimationEvent animationEvent)
         {
-            GameObject particleGameObject = Instantiate(_particleDefinitive, this.gameObject.transform.position, _particleDefinitive.transform.rotation, this.gameObject.transform);
+            GameObject particleGameObject = Instantiate(_particleDefinitive, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
                 particle_aux.Play();
             }
 
-            Destroy(particleGameObject, 3f);
+            Destroy(particleGameObject, 2f);
         }
 
         public virtual void OnHideHammer(AnimationEvent animationEvent)
@@ -146,20 +146,22 @@ namespace nseh.Gameplay.Player.Abilities
         public virtual void OnAddForce(AnimationEvent animationEvent)
         {
             _playerInfo.Body.isKinematic = false;
-            _definitiveCollider.enabled = true;
-            _collider.enabled = false;
-            
+            Physics.IgnoreLayerCollision(8, 8, true);
+            Physics.IgnoreLayerCollision(8, 12, true);
+            _colliderDefinitive.GetComponent<Collider>().enabled = true;
+            _colliderDefinitive.GetComponent<ChargeComponent>().enabled = true;
             Vector3 vForward = transform.TransformDirection(Vector3.forward);
-            _definitiveCollider.GetComponent<Rigidbody>().AddForce(new Vector3(_forceDefinitive * vForward.x, 0, 0), ForceMode.Force);
+            _playerInfo.Body.velocity = new Vector3 (_forceDefinitive * vForward.x, 0, 0);
             _canJump = true;
 
         }
 
         public virtual void OnStopDefinitive(AnimationEvent animationEvent)
         {
-            _playerInfo.Body.isKinematic = true;
-            _collider.enabled = true;
-            _definitiveCollider.enabled = false;
+            Physics.IgnoreLayerCollision(8, 8, false);
+            Physics.IgnoreLayerCollision(8, 12, false);
+            _colliderDefinitive.GetComponent<Collider>().enabled = false;
+            _colliderDefinitive.GetComponent<ChargeComponent>().enabled = false;
             _playerInfo.Body.velocity = Vector3.zero;
             _canJump = false;
         }

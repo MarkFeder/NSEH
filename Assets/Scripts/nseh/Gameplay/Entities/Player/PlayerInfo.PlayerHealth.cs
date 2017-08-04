@@ -370,7 +370,7 @@ namespace nseh.Gameplay.Entities.Player
         {
             _deathCount++;
             _isDead = true;
-
+            _playerMovement.DisableMovement(0);
             GameManager.Instance.SoundManager.PlayAudioFX(_deathClip, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
         }
 

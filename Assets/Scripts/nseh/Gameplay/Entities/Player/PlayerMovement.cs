@@ -218,18 +218,14 @@ namespace nseh.Gameplay.Entities.Player
         {
             yield return new WaitForSeconds(seconds);
 
-            _body.isKinematic = true;
             _enableMovement = false;
-            /*
-			enabled = false;
 
 			if (!grounded)
 			{
 				_playerInfo.Body.useGravity = true;
 			}
 
-            else
-			_playerInfo.Body.isKinematic = true;*/
+			_playerInfo.Body.isKinematic = true;
         }
 
         public IEnumerator InvertControlForSeconds(float seconds)
