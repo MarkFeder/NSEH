@@ -1713,7 +1713,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1715124377482186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 27.24}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4813307689514994}
@@ -2589,7 +2589,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1702429318795988}
-  m_LocalRotation: {x: -0.17529601, y: 0.6850354, z: 0.6850324, w: 0.17529558}
+  m_LocalRotation: {x: -0.175296, y: 0.68503535, z: 0.68503237, w: 0.17529556}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
   m_Children:
@@ -2989,7 +2989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609f0dbb670ded54a92f90ef05a2abd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particleAAA: {fileID: 1546198654830584, guid: 75c20c0a0021ec24d8a0de0f36013372,
+  _particleAAA: {fileID: 1487209718080448, guid: 25995bf685c2fce4991aa0cabb833eb8,
     type: 2}
   _particleDragonFire: {fileID: 1010057357487998, guid: 98480f1b8e694264a89f244307a9b01f,
     type: 2}

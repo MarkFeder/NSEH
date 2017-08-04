@@ -52,7 +52,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case SpecialChestType.CriticalDamage:
 
-                    _playerInfo.PlayerCombat.AddCriticalAttacks(_points, _particlePrefab, _playerInfo.ParticleBodyPos);
+                    _playerInfo.PlayerCombat.AddCriticalAttacks(_points, _particlePrefab, _playerInfo.ParticleFootPos);
                     //GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
                     //GameManager.Instance.StartCoroutine(_playerInfo.BonificationAttackForSeconds(_points, _seconds));
 

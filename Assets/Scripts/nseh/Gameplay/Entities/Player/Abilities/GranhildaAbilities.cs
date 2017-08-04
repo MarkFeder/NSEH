@@ -86,13 +86,13 @@ namespace nseh.Gameplay.Player.Abilities
 
         public virtual void OnParticlesAttackAAA(AnimationEvent animationEvent)
         {
-            GameObject particleGameObject = Instantiate(_particleAbility, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
+            GameObject particleGameObject = Instantiate(_particleAAA, this.gameObject.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
                 particle_aux.Play();
             }
 
-            Destroy(particleGameObject, 1f);
+            Destroy(particleGameObject, 0.5f);
         }
 
         public virtual void OnParticlesDragonFire(AnimationEvent animationEvent)
