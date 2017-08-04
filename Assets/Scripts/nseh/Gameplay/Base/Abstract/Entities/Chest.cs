@@ -158,7 +158,7 @@ namespace nseh.Gameplay.Base.Abstract.Entities
                 particle_aux.Play();
             }
 
-            Destroy(particleGameObject, 1);
+            Destroy(particleGameObject, 2);
             
         }
 
