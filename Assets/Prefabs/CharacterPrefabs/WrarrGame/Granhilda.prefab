@@ -3242,7 +3242,7 @@ SkinnedMeshRenderer:
   m_GameObject: {fileID: 1359585881652050}
   m_Enabled: 1
   m_CastShadows: 3
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -3336,7 +3336,7 @@ SkinnedMeshRenderer:
   m_GameObject: {fileID: 1912911975303674}
   m_Enabled: 1
   m_CastShadows: 3
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -3443,7 +3443,7 @@ SkinnedMeshRenderer:
   m_GameObject: {fileID: 1418654747852320}
   m_Enabled: 1
   m_CastShadows: 3
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
