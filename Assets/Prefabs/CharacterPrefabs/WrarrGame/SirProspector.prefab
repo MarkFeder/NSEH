@@ -2399,13 +2399,13 @@ MonoBehaviour:
   - {fileID: 135110043887193156}
   - {fileID: 65953472030693778}
   _audioAttack:
-  - {fileID: 8300000, guid: 1dd83104416d59649814f434ee466f4b, type: 3}
-  - {fileID: 8300000, guid: 6e2d5eaae04dc464e997c35bac529bcb, type: 3}
-  - {fileID: 8300000, guid: 289d2b16bbf4fee41ae4a000cccbaffe, type: 3}
-  - {fileID: 8300000, guid: b6a724af91f9b7f4388fd1efeaecc4e0, type: 3}
-  - {fileID: 8300000, guid: 748d0724951c50142b776ce1fd754f33, type: 3}
-  - {fileID: 8300000, guid: e2d6278dd682d4e4b9f0d264992ec039, type: 3}
-  - {fileID: 8300000, guid: f43ffebb4d8316842ac827734368aae7, type: 3}
+  - {fileID: 8300000, guid: 8fb3f758945fd7d4ab1f9e58381bebfb, type: 3}
+  - {fileID: 8300000, guid: 47aa90f2a075dde4e854df01bead15de, type: 3}
+  - {fileID: 8300000, guid: 335098ad8ba33a44998fdb77f76dd0c4, type: 3}
+  - {fileID: 8300000, guid: 6b6baf246a61ee646828e966877b35c5, type: 3}
+  - {fileID: 8300000, guid: 81c86dd510f135b4a8430eab6cdce26b, type: 3}
+  - {fileID: 8300000, guid: 7da12d31071bf6440a352d9f7ef2c2e9, type: 3}
+  - {fileID: 8300000, guid: d988e948a7560b74f8bab58fc9556fbd, type: 3}
   _currentAttack: 0
   criticalAttacks: 0
 --- !u!114 &114961640944861004
