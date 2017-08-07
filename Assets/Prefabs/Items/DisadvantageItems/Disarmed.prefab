@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animation: {fileID: 0}
-  _sound: {fileID: 8300000, guid: 7da8a7710c9ce794d91b60d24182ef26, type: 3}
+  _sound: {fileID: 8300000, guid: d5e28b51c362b3247abc5f9654629843, type: 3}
   _uses: 1
   _displayName: 
   _particlePrefab: {fileID: 1782131903861840, guid: 14ca63aa042fb0040ae2cc7cfc3445a2,
