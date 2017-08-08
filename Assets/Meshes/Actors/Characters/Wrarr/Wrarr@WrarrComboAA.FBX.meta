@@ -132,6 +132,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.16831683
+        functionName: OnPlayAttackSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
       - time: 0.53436637
         functionName: ActivateCollider
         data: 
@@ -141,13 +148,6 @@ ModelImporter:
         messageOptions: 0
       - time: 0.6799141
         functionName: DeactivateCollider
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0
-        functionName: OnPlayAttackSound
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
