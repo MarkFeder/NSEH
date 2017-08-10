@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using nseh.Gameplay.Entities.Player;
 using nseh.Gameplay.Combat.Special.Granhilda;
+using nseh.Managers.Main;
 using BaseParameters = nseh.Utils.Constants.PlayerInfo;
 
 
@@ -40,6 +41,9 @@ namespace nseh.Gameplay.Player.Abilities
         private Renderer _hammer;
         [SerializeField]
         private GameObject _colliderDefinitive;
+
+        [SerializeField]
+        private AudioClip _soundIdle;
 
         private PlayerInfo _playerInfo;
         private PlayerMovement _playerMovement;
@@ -166,7 +170,12 @@ namespace nseh.Gameplay.Player.Abilities
             _canJump = false;
         }
 
-            #endregion
+        public virtual void OnSoundIdle(AnimationEvent animationEvent)
+        {
+            GameManager.Instance.SoundManager.PlayAudioFX(_soundIdle, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
         }
+
+        #endregion
+    }
 
 }

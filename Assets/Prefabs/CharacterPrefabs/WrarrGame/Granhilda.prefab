@@ -2921,13 +2921,13 @@ MonoBehaviour:
   - {fileID: 136796773389435648}
   - {fileID: 136669405756260310}
   _audioAttack:
-  - {fileID: 8300000, guid: 8c5338c228425d945be264b94e886e58, type: 3}
-  - {fileID: 8300000, guid: 572cadf4fedb0184d9ec76e3bada0353, type: 3}
-  - {fileID: 8300000, guid: 9a5dbfe3521b2ac4f9754bff78a6848c, type: 3}
-  - {fileID: 8300000, guid: b2f1da690b7f4a547987d1a27bec204c, type: 3}
-  - {fileID: 8300000, guid: e563a2590354b8a4f931ab5392f6c6e2, type: 3}
-  - {fileID: 8300000, guid: 0ecdbbb623d896c44bb5c4b8241ceedf, type: 3}
-  - {fileID: 8300000, guid: 470ace09b3c8b3849a4db9475b0a07d4, type: 3}
+  - {fileID: 8300000, guid: e1bdc3748bad80f43927e97b10221029, type: 3}
+  - {fileID: 8300000, guid: 9679cdd66e4ae5949bb96a2db98c7941, type: 3}
+  - {fileID: 8300000, guid: e75a51dc521677b409251c3901a2624b, type: 3}
+  - {fileID: 8300000, guid: 70ab1f244ca68a2409afbcb6f5c0173b, type: 3}
+  - {fileID: 8300000, guid: bc67175391a73a34dbe5f6c9e977ba6d, type: 3}
+  - {fileID: 8300000, guid: 2898278d3a371d341a4cf2c190a63dcd, type: 3}
+  - {fileID: 8300000, guid: acfcc9716ca1926418d5978bb4a759a3, type: 3}
   _currentAttack: 0
   criticalAttacks: 0
 --- !u!114 &114325691782696460
@@ -3003,6 +3003,7 @@ MonoBehaviour:
   _staticShield: {fileID: 1966975683785602}
   _hammer: {fileID: 137499634353604100}
   _colliderDefinitive: {fileID: 1511169271644930}
+  _soundIdle: {fileID: 8300000, guid: 4828793d5d1bc57459f5e0327cd2ff09, type: 3}
 --- !u!114 &114738521085993224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3015,13 +3016,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentSpeed: 0
-  audioJump: {fileID: 8300000, guid: b7a8e032a4bfcc94dbb6a304f9f363ce, type: 3}
-  audioLoopJump: {fileID: 8300000, guid: b7a8e032a4bfcc94dbb6a304f9f363ce, type: 3}
+  audioJump: {fileID: 8300000, guid: 5038f4f2529c8ea4e9e99a75b3c80da7, type: 3}
+  audioLoopJump: {fileID: 8300000, guid: 5038f4f2529c8ea4e9e99a75b3c80da7, type: 3}
   audioSteps:
-  - {fileID: 8300000, guid: c028e80467cb4ae4fbf0ae0e00fc0cc4, type: 3}
-  - {fileID: 8300000, guid: 0815406d821f4534991df2043d5a3d02, type: 3}
-  - {fileID: 8300000, guid: ba7346457651a014fa15f43820372f20, type: 3}
-  - {fileID: 8300000, guid: 322068510ba77844e9587e19e1949816, type: 3}
+  - {fileID: 8300000, guid: d62f05330511ee349b2dbfea458aa062, type: 3}
   grounded: 0
 --- !u!114 &114814884202628306
 MonoBehaviour:
@@ -3080,7 +3078,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 348b31241b4dd8d4c8de41ce89e2d7ef, type: 3}
   - {fileID: 8300000, guid: 5721b576a0a1c954bb8a2b1a30f83af2, type: 3}
   _takeDamageClip: []
-  _deathClip: {fileID: 8300000, guid: f4d411e381b201a48be007b63ded1c85, type: 3}
+  _deathClip: {fileID: 8300000, guid: b3e632cdfa9c4144793016c0be4939f3, type: 3}
   _gamepadIndex: 0
   _playerName: Granhilda
   _characterPortrait: {fileID: 21300000, guid: 666c9329772596f43b834495fda8e204, type: 3}
