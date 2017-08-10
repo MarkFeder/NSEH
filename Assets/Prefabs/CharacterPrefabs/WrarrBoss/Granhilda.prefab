@@ -1564,7 +1564,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1215680864720594}
-  m_LocalRotation: {x: -0.175296, y: 0.68503535, z: 0.68503237, w: 0.17529556}
+  m_LocalRotation: {x: -0.17529601, y: 0.6850354, z: 0.6850324, w: 0.17529558}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
   m_Children:
@@ -2978,8 +2978,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9679cdd66e4ae5949bb96a2db98c7941, type: 3}
   - {fileID: 8300000, guid: e75a51dc521677b409251c3901a2624b, type: 3}
   - {fileID: 8300000, guid: 70ab1f244ca68a2409afbcb6f5c0173b, type: 3}
-  - {fileID: 8300000, guid: bc67175391a73a34dbe5f6c9e977ba6d, type: 3}
-  - {fileID: 8300000, guid: 0ecdbbb623d896c44bb5c4b8241ceedf, type: 3}
+  - {fileID: 8300000, guid: ea91cdc5a374eba4f9c4fe1c0d0914e3, type: 3}
+  - {fileID: 8300000, guid: b72d2a368a4e0a7469b42d91574a99ac, type: 3}
   - {fileID: 8300000, guid: 470ace09b3c8b3849a4db9475b0a07d4, type: 3}
   _currentAttack: 0
   criticalAttacks: 0
