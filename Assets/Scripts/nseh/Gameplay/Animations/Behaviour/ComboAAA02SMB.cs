@@ -34,7 +34,7 @@ namespace nseh.Gameplay.Animations.Behaviour
             if (_playerInfo.LightAttackPressed)
                 _A3 = true;
 
-            if (_A3 && stateInfo.normalizedTime >= 0.67)
+            if (_A3 && stateInfo.normalizedTime >= 0.7)
             {
                 animator.SetTrigger("Combo_AAA_03");
                 _A3 = false;

@@ -57,7 +57,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case DisadvantageChestType.ConfusedPotion:
 
-                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(_chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(_chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleHeadPos)));
                     GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.InvertControlForSeconds(_seconds));
 
                     break;
