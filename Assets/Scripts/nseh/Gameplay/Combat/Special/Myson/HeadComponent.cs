@@ -1,27 +1,23 @@
-﻿using nseh.Gameplay.Entities.Player;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using nseh.Gameplay.Entities.Enemies;
+using System.Collections;
 using Tags = nseh.Utils.Constants.Tags;
 
-namespace nseh.Gameplay.Combat.Special.Wrarr
+namespace nseh.Gameplay.Combat.Special.Myson
 {
-    public class RockComponent : MonoBehaviour
-    {
+    public class HeadComponent : MonoBehaviour {
+
 
         #region Private Properties
 
-        private Rigidbody _body;
         private Collider _collider;
+        private Rigidbody _body;
         private List<GameObject> _enemies;
-
-        private PlayerInfo _senderInfo;
-        private PlayerCombat _playerCombat;
-        [SerializeField]
-        private float _damage;
 
         [SerializeField]
         private GameObject _particle;
+        [SerializeField]
+        private GameObject _explosion;
 
         #endregion
 
@@ -33,8 +29,6 @@ namespace nseh.Gameplay.Combat.Special.Wrarr
             _collider = GetComponent<Collider>();
             _enemies = new List<GameObject>();
             _enemies.Add(this.gameObject.transform.root.gameObject);
-            _senderInfo = this.gameObject.transform.root.GetComponent<PlayerInfo>();
-            _playerCombat = this.gameObject.transform.root.GetComponent<PlayerCombat>();
 
             _body.isKinematic = false;
             _body.angularDrag = 0;
@@ -48,24 +42,12 @@ namespace nseh.Gameplay.Combat.Special.Wrarr
             GameObject hit = collider.transform.root.gameObject;
             ContactPoint position = collider.contacts[0];
 
-            if (hit.tag == Tags.PLAYER_BODY && !_enemies.Contains(hit))
-            {
-                PlayerInfo _auxPlayerInfo = hit.GetComponent<PlayerInfo>();
-                _enemies.Add(hit);
-                FireParticles(position.point);
-                _auxPlayerInfo.TakeDamage(_damage, _senderInfo);
-            }
-
-            else if (hit.tag == Tags.ENEMY && !_enemies.Contains(hit))
-            {
-                EnemyHealth _auxEnemyHealth = hit.GetComponent<EnemyHealth>();
-                _auxEnemyHealth.TakeDamage((float)((int)_playerCombat._currentAttack + ((int)(_playerCombat._currentAttack) * 0.05 * _senderInfo.CurrentStrength)), _senderInfo, position.point);
-            }
-
-            else if (hit.tag == Tags.ONE_WAY_PLATFORM)
+            if (hit.tag == Tags.PLAYER_BODY || hit.tag == Tags.ENEMY)
             {
                 FireParticles(position.point);
-                Destroy(transform.parent.gameObject);
+                _collider.enabled = false;
+                gameObject.transform.parent.GetComponent<Renderer>().enabled = false;
+                StartCoroutine(Explosion(position.point));
             }
         }
 
@@ -78,6 +60,17 @@ namespace nseh.Gameplay.Combat.Special.Wrarr
             }
 
             Destroy(particleGameObject, 3f);
+        }
+
+        private IEnumerator Explosion(Vector3 positionExplosion)
+        {
+            GameObject explosionAux = Instantiate(_explosion, positionExplosion, Quaternion.identity, this.gameObject.transform.root);
+
+            Debug.Log("que estoy to loco");
+            yield return new WaitForSeconds(0.25f);
+
+            Destroy(explosionAux);
+
         }
 
         #endregion

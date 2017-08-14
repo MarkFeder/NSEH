@@ -18,7 +18,9 @@ namespace nseh.Gameplay.Player.Abilities
         [SerializeField]
         private Renderer _body;
         [SerializeField]
-        private Renderer _head;
+        private Renderer _headRenderer;
+        [SerializeField]
+        private GameObject _headObject;
 
         [Header("Parameters Abilities")]
         [SerializeField]
@@ -50,9 +52,15 @@ namespace nseh.Gameplay.Player.Abilities
             Destroy(particleGameObject, 3f);
         }
 
+        public virtual void OnActivateHead(AnimationEvent animationEvent)
+        {
+            _headObject.GetComponent<Collider>().enabled = true;
+        }
+
         public virtual void OnHideHead(AnimationEvent animationEvent)
         {
-            _head.enabled = false;
+            _headRenderer.enabled = false;
+            _headObject.GetComponent<Collider>().enabled = false;
         }
 
         public virtual void OnHideBody(AnimationEvent animationEvent)
@@ -67,7 +75,7 @@ namespace nseh.Gameplay.Player.Abilities
 
         public virtual void OnShowHead(AnimationEvent animationEvent)
         {
-            _head.enabled = true;
+            _headRenderer.enabled = true;
         }
 
         public IEnumerator Ghost(float seconds)
