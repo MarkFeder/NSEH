@@ -16,10 +16,21 @@ namespace nseh.Gameplay.Player.Abilities
         private Renderer _headRenderer;
         [SerializeField]
         private GameObject _headObject;
+        [Space(10)]
 
         [Header("Parameters Abilities")]
         [SerializeField]
         private float _timeGhost;
+        [Space(10)]
+
+        [Header("Parameters Abilities")]
+        [SerializeField]
+        private GameObject _particlePropulsor;
+        [SerializeField]
+        private GameObject _rightHand;
+        [SerializeField]
+        private GameObject _leftHand;
+
 
         private PlayerInfo _playerInfo;
 
@@ -35,6 +46,29 @@ namespace nseh.Gameplay.Player.Abilities
         #endregion
 
         #region Animation Events
+
+        public virtual void OnActivateParticle(int mano)
+        {
+            if(mano == 0)
+            {
+                GameObject particleGameObject = Instantiate(_particlePropulsor, _leftHand.transform.position, _leftHand.transform.rotation, _leftHand.transform);
+                foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+                {
+                    particle_aux.Play();
+                }
+                Destroy(particleGameObject, 1f);
+            }
+
+            else
+            {
+                GameObject particleGameObject = Instantiate(_particlePropulsor, _rightHand.transform.position, _rightHand.transform.rotation, _rightHand.transform);
+                foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
+                {
+                    particle_aux.Play();
+                }
+                Destroy(particleGameObject, 1f);
+            }
+        }
 
         public virtual void OnActivateHead(AnimationEvent animationEvent)
         {

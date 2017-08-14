@@ -3871,8 +3871,8 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1482973499759162}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 105d9b5bb5d543a48b78fce706a514f6, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6e25867355fe5af44bf6728c362bfe69, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 9d70ffa37cdc68449a15bd97e54075b9, type: 3}
+  m_Controller: {fileID: 9100000, guid: 16586cc40cd7e604383796323db54fe0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3982,6 +3982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particle: {fileID: 1590570170545266, guid: 6d6272dc6a4349445beb195de94d4f51, type: 2}
   _explosion: {fileID: 1392508292138932, guid: e422db25be7de7d43b494f412c223fb7, type: 2}
+  _headRenderer: {fileID: 0}
 --- !u!114 &114905510709243778
 MonoBehaviour:
   m_ObjectHideFlags: 1

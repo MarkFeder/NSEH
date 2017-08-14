@@ -4088,6 +4088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particle: {fileID: 1590570170545266, guid: 6d6272dc6a4349445beb195de94d4f51, type: 2}
   _explosion: {fileID: 1392508292138932, guid: e422db25be7de7d43b494f412c223fb7, type: 2}
+  _headRenderer: {fileID: 137170604912047628}
 --- !u!114 &114050193735168484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4099,11 +4100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865f89e833d298946af991e9dbfaece3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particleDefinitive: {fileID: 0}
   _body: {fileID: 137708268605151932}
   _headRenderer: {fileID: 137170604912047628}
   _headObject: {fileID: 1996853037926300}
   _timeGhost: 5
+  _particlePropulsor: {fileID: 1285009766775358, guid: 0b19bd3646c264845a040af4451020c1,
+    type: 2}
+  _rightHand: {fileID: 1067103085186812}
+  _leftHand: {fileID: 1706432302240080}
 --- !u!114 &114086516149547070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4243,7 +4247,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.38145766
-  m_Height: 1.4651229
+  m_Height: 1.31
   m_Direction: 1
   m_Center: {x: 0, y: 0.5892434, z: 0.051237106}
 --- !u!136 &136632002936167914

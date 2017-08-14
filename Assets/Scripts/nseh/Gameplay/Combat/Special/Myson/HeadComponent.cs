@@ -18,6 +18,8 @@ namespace nseh.Gameplay.Combat.Special.Myson
         private GameObject _particle;
         [SerializeField]
         private GameObject _explosion;
+        [SerializeField]
+        private Renderer _headRenderer;
 
         #endregion
 
@@ -46,7 +48,7 @@ namespace nseh.Gameplay.Combat.Special.Myson
             {
                 FireParticles(position.point);
                 _collider.enabled = false;
-                gameObject.transform.parent.GetComponent<Renderer>().enabled = false;
+                _headRenderer.enabled = false;
                 StartCoroutine(Explosion(position.point));
             }
         }

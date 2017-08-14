@@ -123,6 +123,11 @@ namespace nseh.Gameplay.Entities.Player
         
         public void ActivateCollider(int index)
         {
+            foreach(Collider aux in _weaponList)
+            {
+                aux.enabled = false;
+            }
+
             _weaponList[index].enabled = true;
             _weaponList[index].GetComponent<WeaponCollision>().enabled = true;
         }
