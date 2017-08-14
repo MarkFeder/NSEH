@@ -55,7 +55,7 @@ namespace nseh.Gameplay.Combat.Special.Myson
 
         private void FireParticles(Vector3 position)
         {
-            GameObject particleGameObject = Instantiate(_particle, position, transform.rotation);
+            GameObject particleGameObject = Instantiate(_particle, position, _particle.transform.rotation);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
                 particle_aux.Play();

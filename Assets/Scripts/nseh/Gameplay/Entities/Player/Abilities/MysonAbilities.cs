@@ -51,22 +51,22 @@ namespace nseh.Gameplay.Player.Abilities
         {
             if(mano == 0)
             {
-                GameObject particleGameObject = Instantiate(_particlePropulsor, _leftHand.transform.position, _leftHand.transform.rotation, _leftHand.transform);
+                GameObject particleGameObject = Instantiate(_particlePropulsor, _leftHand.transform.position, this.gameObject.transform.rotation);
                 foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
                 {
                     particle_aux.Play();
                 }
-                Destroy(particleGameObject, 1f);
+                Destroy(particleGameObject, 0.3f);
             }
 
             else
             {
-                GameObject particleGameObject = Instantiate(_particlePropulsor, _rightHand.transform.position, _rightHand.transform.rotation, _rightHand.transform);
+                GameObject particleGameObject = Instantiate(_particlePropulsor, _rightHand.transform.position, this.gameObject.transform.rotation);
                 foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
                 {
                     particle_aux.Play();
                 }
-                Destroy(particleGameObject, 1f);
+                Destroy(particleGameObject, 0.3f);
             }
         }
 

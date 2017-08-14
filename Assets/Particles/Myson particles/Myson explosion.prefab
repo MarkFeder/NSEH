@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4874538177566058}
   - component: {fileID: 198881707293777650}
   - component: {fileID: 199864408674721686}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: after
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4872306636988290}
   - component: {fileID: 198807004645938024}
   - component: {fileID: 199880732292841940}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: littleheads
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4904780311832752}
   - component: {fileID: 198899940315779734}
   - component: {fileID: 199707224903635766}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Myson explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4943877077779584}
   - component: {fileID: 198656584159954952}
   - component: {fileID: 199982647581607324}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: dots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4303554366313398}
   - component: {fileID: 198453879371288008}
   - component: {fileID: 199350800328617216}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: preboom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4724457472688982}
   - component: {fileID: 198892846955713310}
   - component: {fileID: 199603829253497868}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: boomwave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,8 +172,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1590570170545266}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 2.186}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4872306636988290}
@@ -182,7 +182,7 @@ Transform:
   - {fileID: 4874538177566058}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 90}
 --- !u!4 &4943877077779584
 Transform:
   m_ObjectHideFlags: 1
@@ -251,7 +251,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 191406744
+  randomSeed: -1560237582
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3176,7 +3176,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -436377374
+  randomSeed: 681771472
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6102,51 +6102,39 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 659034279
+  randomSeed: -1688102083
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       minMaxState: 3
-      scalar: 1
+      scalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 1
-          tangentMode: 0
-        - serializedVersion: 2
-          time: 1
           value: 1
-          inSlope: 1
+          inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0
+          value: 0.2
           inSlope: 0
-          outSlope: 0.5
-          tangentMode: 0
-        - serializedVersion: 2
-          time: 1
-          value: 0.5
-          inSlope: 0.5
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
     startSpeed:
-      minMaxState: 2
+      minMaxState: 0
       scalar: 8
       maxCurve:
         serializedVersion: 2
@@ -6154,12 +6142,6 @@ ParticleSystem:
         - serializedVersion: 2
           time: 0
           value: 1
-          inSlope: -2
-          outSlope: -2
-          tangentMode: 0
-        - serializedVersion: 2
-          time: 0.1387558
-          value: -0.6603699
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -6937,7 +6919,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0.49019608}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -9057,7 +9039,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -2108187353
+  randomSeed: -1081287313
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -11995,7 +11977,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1381705081
+  randomSeed: -922101627
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -14944,7 +14926,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 729045082
+  randomSeed: -1739548659
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15088,7 +15070,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.04827571, b: 1, a: 0.709}
+      maxColor: {r: 0.42352942, g: 0.4392157, b: 0.7882353, a: 0.709}
     startSize:
       minMaxState: 0
       scalar: 5
@@ -15785,7 +15767,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 0, g: 1, b: 0.7921569, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

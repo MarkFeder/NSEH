@@ -269,15 +269,15 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.85138
-        functionName: DeactivateCollider
+      - time: 0.6680972
+        functionName: OnActivateParticle
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.63392866
-        functionName: OnActivateParticle
+      - time: 0.85138
+        functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
