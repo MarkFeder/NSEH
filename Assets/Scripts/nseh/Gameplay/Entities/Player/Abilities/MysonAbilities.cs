@@ -9,11 +9,6 @@ namespace nseh.Gameplay.Player.Abilities
 
         #region Private Properties
 
-        [Header("Particles")]
-        [SerializeField]
-        private GameObject _particleDefinitive;
-        [Space(10)]
-
         [Header("Definitive GameObjects")]
         [SerializeField]
         private Renderer _body;
@@ -40,17 +35,6 @@ namespace nseh.Gameplay.Player.Abilities
         #endregion
 
         #region Animation Events
-
-        public virtual void OnParticlesDefinitive(AnimationEvent animationEvent)
-        {
-            GameObject particleGameObject = Instantiate(_particleDefinitive, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
-            foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
-            {
-                particle_aux.Play();
-            }
-
-            Destroy(particleGameObject, 3f);
-        }
 
         public virtual void OnActivateHead(AnimationEvent animationEvent)
         {
