@@ -2870,7 +2870,7 @@ MonoBehaviour:
   _deathClip: {fileID: 8300000, guid: b3e632cdfa9c4144793016c0be4939f3, type: 3}
   _gamepadIndex: 0
   _playerName: Granhilda
-  _characterPortrait: {fileID: 21300000, guid: 666c9329772596f43b834495fda8e204, type: 3}
+  _characterPortrait: {fileID: 21300000, guid: 619eb4fb817e5ee4bbf3c013b4732566, type: 3}
   colliderList:
   - {fileID: 0}
   - {fileID: 0}

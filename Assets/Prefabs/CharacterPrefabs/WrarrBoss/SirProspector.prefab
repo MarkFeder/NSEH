@@ -2223,7 +2223,7 @@ MonoBehaviour:
   _deathClip: {fileID: 8300000, guid: 0d6eb84b653361d44885447ec58b3a6c, type: 3}
   _gamepadIndex: 0
   _playerName: SirProspector
-  _characterPortrait: {fileID: 21300000, guid: d1cb5f9b810fe5c41ae98ad8a60289fe, type: 3}
+  _characterPortrait: {fileID: 21300000, guid: 0b6598691988e204cb0d19a3768a090a, type: 3}
   colliderList: []
 --- !u!114 &114805773849879886
 MonoBehaviour:

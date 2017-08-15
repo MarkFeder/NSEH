@@ -1624,7 +1624,7 @@ MonoBehaviour:
   _deathClip: {fileID: 8300000, guid: f4d411e381b201a48be007b63ded1c85, type: 3}
   _gamepadIndex: 0
   _playerName: Wrarr
-  _characterPortrait: {fileID: 21300000, guid: 666c9329772596f43b834495fda8e204, type: 3}
+  _characterPortrait: {fileID: 21300000, guid: 4417a83860fb44f48873f53d8b681baa, type: 3}
   colliderList:
   - {fileID: 136284950294785092}
   - {fileID: 136482371557573568}
