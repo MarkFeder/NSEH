@@ -3,6 +3,7 @@ using nseh.Utils;
 using UnityEngine;
 using nseh.Gameplay.Base.Interfaces;
 using nseh.Managers.Main;
+using System.Collections;
 
 namespace nseh.Gameplay.Gameflow
 {
@@ -21,6 +22,7 @@ namespace nseh.Gameplay.Gameflow
         #region Public Properties
 
         public float elapsedTime;
+        public GameObject volcano;
 
         #endregion
 
@@ -48,12 +50,14 @@ namespace nseh.Gameplay.Gameflow
                 if (elapsedTime >= Constants.Events.Tar_Event.EVENT_START && !_lavaUp)
                 {
                     _lavaUp = true;
+                    StartCoroutine(FadeTo(1.0f, 1f));
                     lava.LavaMotion();
 
                 }
                 else if (elapsedTime >= Constants.Events.Tar_Event.EVENT_START + eventDuration)
                 {
                     elapsedTime = 0;
+                    StartCoroutine(FadeTo(0.0f, 1f));
                     _lavaUp = false;
                 }
             }
@@ -66,6 +70,17 @@ namespace nseh.Gameplay.Gameflow
             lava.ResetLava();
             _lavaUp = false;
             _isActivated = false;
+        }
+
+        private IEnumerator FadeTo(float aValue, float aTime)
+        {
+            float alpha = volcano.transform.GetComponent<SpriteRenderer>().color.a;
+            for (float t = 0.0f; t < 1f; t += Time.deltaTime / aTime)
+            {
+                Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
+                volcano.transform.GetComponent<SpriteRenderer>().color = newColor;
+                yield return null;
+            }
         }
 
         #endregion

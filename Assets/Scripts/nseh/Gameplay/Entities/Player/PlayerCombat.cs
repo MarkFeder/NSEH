@@ -126,6 +126,7 @@ namespace nseh.Gameplay.Entities.Player
             foreach(Collider aux in _weaponList)
             {
                 aux.enabled = false;
+                aux.GetComponent<WeaponCollision>().enabled = false;
             }
 
             _weaponList[index].enabled = true;

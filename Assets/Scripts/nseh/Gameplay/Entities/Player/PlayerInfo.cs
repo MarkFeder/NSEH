@@ -433,7 +433,11 @@ namespace nseh.Gameplay.Entities.Player
                 DefensePressed = Input.GetButtonDown(_defenseString);
                 AbilityPressed = Input.GetButtonDown(_abilityString);
                 DefinitivePressed = Input.GetButtonDown(_definitiveString);
-                PausePressed = Input.GetButtonDown(_pauseString);
+                if (GameManager.Instance.canPaused)
+                {
+                    PausePressed = Input.GetButtonDown(_pauseString);
+                }
+                    
 
                 if (EnableAttack)
                 {

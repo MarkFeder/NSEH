@@ -11,12 +11,12 @@ namespace nseh.Gameplay.Minigames
 
         #region Public Properties
 
-        public float speedVertical;
         public float speedHorizontal;
         public int gamepadIndex;
         public bool started;
         public int puntuation;
         public List<AudioClip> audioSteps;
+        public float time;
 
         #endregion
 
@@ -25,6 +25,7 @@ namespace nseh.Gameplay.Minigames
         private Rigidbody _body;
         private String _horizontalString;
         private String _jumpString;
+        private int _count;
 
         #endregion
 
@@ -36,6 +37,7 @@ namespace nseh.Gameplay.Minigames
             started = false;
             _horizontalString = String.Format("{0}{1}", Inputs.AXIS_HORIZONTAL_GAMEPAD, gamepadIndex);
             _jumpString = String.Format("{0}{1}", Inputs.JUMP, gamepadIndex);
+            _count = 10;
 
         }
 
@@ -43,14 +45,21 @@ namespace nseh.Gameplay.Minigames
         {
             if (started)
             {
+                if(Time.time >= time+0.25f)
+                {
+                    Debug.Log(gamepadIndex+ " "+ Mathf.Clamp(_count*2.5f, 0, 20));
+                    _body.velocity = new Vector3(_body.velocity.x, 0, Mathf.Clamp(_count*2.5f, 0, 20));
+                    _count = 0;
+                    time = Time.time;
+                }
                 if (Input.GetButtonDown(_jumpString))
                 {
-                    _body.velocity = new Vector3(_body.velocity.x, _body.velocity.y/*0?*/, speedVertical);
+                    _count++;
                 }
 
                 if (Input.GetAxis(_horizontalString) != 0)
                 {
-                    _body.velocity = new Vector3(speedHorizontal * Input.GetAxis(_horizontalString), _body.velocity.y/*0?*/, _body.velocity.z);
+                    _body.velocity = new Vector3(speedHorizontal * Input.GetAxis(_horizontalString), 0, _body.velocity.z);
 
                 }
             }

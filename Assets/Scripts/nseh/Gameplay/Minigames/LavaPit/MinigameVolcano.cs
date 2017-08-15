@@ -54,20 +54,18 @@ namespace nseh.Gameplay.Gameflow
             yield return new WaitForSeconds(3);
             _minigameEvent.Ready.text = "USE THE JOYSTICK TO DODGE THE FIREBALLS!";
             yield return new WaitForSeconds(3);
-            _minigameEvent.Ready.text = "READY";
-            yield return new WaitForSeconds(1);
-            _minigameEvent.Ready.text = "STEADY";
-            yield return new WaitForSeconds(1);
             _minigameEvent.Ready.text = "RUUUUUUN!!!";
             yield return new WaitForSeconds(1);
             _minigameEvent.Ready.text = "";
             _minigameEvent.started = true;
-            Physics.gravity = new Vector3(0, 0, -10);
+            GameManager.Instance.canPaused = true;
+            Physics.gravity = new Vector3(0, 0, -4f);
             Camera.main.GetComponent<CameraScript>().started = true;
             _fireGenerators.GetComponent<FireballsGenerator>().started = true;
             foreach (GameObject character in _minigameEvent.Players)
             {
                 character.GetComponent<MinigameMovement>().started = true;
+                character.GetComponent<MinigameMovement>().time = Time.time - 1f;
                 character.GetComponent<Animator>().SetBool("Start", true);
             }
         }
@@ -78,8 +76,8 @@ namespace nseh.Gameplay.Gameflow
 
         public void StopMinigame()
         {
-            _minigameEvent.Ready.text = "SAFE!";
-            Camera.main.GetComponent<CameraScript>().started = false;
+            _minigameEvent.Ready.text = "SAFE?";
+            StartCoroutine(StopCamera());
             _fireGenerators.GetComponent<FireballsGenerator>().started = false;
         }
 
@@ -99,6 +97,12 @@ namespace nseh.Gameplay.Gameflow
             {
                 GameManager.Instance.StartCoroutine(_minigameEvent.ChangeStage());
             }
+        }
+
+        public IEnumerator StopCamera()
+        {
+            yield return new WaitForSeconds(5f);
+            Camera.main.GetComponent<CameraScript>().started = false;
         }
 
         #endregion

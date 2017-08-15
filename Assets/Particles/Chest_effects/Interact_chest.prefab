@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4962855091664250}
   - component: {fileID: 198551747169979706}
   - component: {fileID: 199920710064936882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4331345242024716}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Interact_chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}

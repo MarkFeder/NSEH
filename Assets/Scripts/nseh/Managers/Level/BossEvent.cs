@@ -245,11 +245,13 @@ namespace nseh.Managers.Level
             yield return new WaitForSeconds(3);
             Ready.text = "";
             started = true;
+            MyGame.canPaused = true;
         }
 
         private IEnumerator StopBoss()
         {
             Ready.text = "BAVA DONGO IS DOWN! YOU WIN!";
+            MyGame.canPaused = false;
             yield return new WaitForSeconds(5);
             Ready.text = "";
             _loading.SetActive(true);
@@ -268,7 +270,7 @@ namespace nseh.Managers.Level
                 _aux.transform.position = SpawnPoints[i].transform.position;
                 _aux.transform.rotation = SpawnPoints[i].transform.rotation;
                 _aux.GetComponent<PlayerInfo>().GamepadIndex = i + 1;
-                _aux.transform.GetChild(4).GetComponent<PlayerText>().playerText = i + 1;
+                //_aux.transform.GetChild(4).GetComponent<PlayerText>().playerText = i + 1;
                 CanvasPlayers.EnableHud(i + 1);
                 auxPortrail = CanvasPlayers.GetPortraitForPlayer(i + 1);
                 auxPortrail.sprite = _aux.GetComponent<PlayerInfo>().CharacterPortrait;

@@ -272,6 +272,8 @@ namespace nseh.Managers.Level
         {          
             yield return new WaitForSeconds(1);
             _loading.SetActive(false);
+            MyGame.isPaused = true;
+            
             GameManager.Instance.SoundManager.PlayAudioMusic(Camera.main.GetComponent<AudioSource>());
             GameManager.Instance.SoundManager.PlayAmbientSounds(_ambientSounds);
             Ready.text = "FIGHT THIS STRANGE PEOPLE! SAVE THE LAVA PIT!";
@@ -285,6 +287,7 @@ namespace nseh.Managers.Level
             }
             Ready.text = "";
             MyGame.isPaused = !MyGame.isPaused;
+            MyGame.canPaused = true;
             _timeRemaining = Constants.LevelManager.TIME_REMAINING;
 
             if (_events != null)
@@ -306,11 +309,13 @@ namespace nseh.Managers.Level
         {
             Time.timeScale = 0.5f;
             Ready.text = "THE LAVA IS RISING! RUN TO THE VOLCANO!";
+            MyGame.canPaused = false;
             foreach (PlayerInfo element in _players.Select(t => t.GetComponent<PlayerInfo>()))
             {
                 element.HealthMode = HealthMode.Invulnerability;
             }
-                yield return new WaitForSeconds(3);
+
+            yield return new WaitForSeconds(1.5f);
             _loading.SetActive(true);
             Release();
             yield return new WaitForSeconds(1);
@@ -328,7 +333,7 @@ namespace nseh.Managers.Level
                 _aux.transform.position = _spawnPoints[i].transform.position;
                 _aux.transform.rotation = _spawnPoints[i].transform.rotation;
                 _aux.GetComponent<PlayerInfo>().GamepadIndex = i + 1;
-                _aux.transform.GetChild(4).GetComponent<PlayerText>().playerText = i + 1;
+                //_aux.transform.GetChild(4).GetComponent<PlayerText>().playerText = i + 1;
                 _camera.positions.Add(_aux.transform);
                 CanvasPlayers.EnableHud(i + 1);
                 auxPortrail = CanvasPlayers.GetPortraitForPlayer(i+1);

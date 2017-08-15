@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4834377702257794}
   - component: {fileID: 198797407658820668}
   - component: {fileID: 199857313841157160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: drain energy orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4885593259411338}
   - component: {fileID: 198715854398050832}
   - component: {fileID: 199736542753222090}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: growing distortion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4227081008178654}
   - component: {fileID: 198684739798365604}
   - component: {fileID: 199088315325523466}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: disperse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4243214861497214}
   - component: {fileID: 198284866146718228}
   - component: {fileID: 199849899449707068}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: drain energy orb (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4423009564222170}
   - component: {fileID: 198005048003819056}
   - component: {fileID: 199838998506345654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: drain energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

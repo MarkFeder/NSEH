@@ -40,8 +40,6 @@ namespace nseh.Gameplay.Boss
             GameObject enemy = other.gameObject;
             string colTag = other.tag;
 
-            Debug.Log(colTag + " " + enemy+" "+ _enemies);
-
             if (colTag == Tags.PLAYER && !_enemies.Contains(enemy))
             {
                 _enemies.Add(enemy);

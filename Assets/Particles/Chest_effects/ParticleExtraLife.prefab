@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4989472202353876}
   - component: {fileID: 95901710958385594}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4316364720578500}
   - component: {fileID: 198471005992843494}
   - component: {fileID: 199909428551930924}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4573224112054350}
   - component: {fileID: 198633052758228666}
   - component: {fileID: 199606561150270382}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4572200883173154}
   - component: {fileID: 198968350595770656}
   - component: {fileID: 199039188575134340}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: "healing 2\xBA option"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

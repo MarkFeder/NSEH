@@ -50,10 +50,10 @@ namespace nseh.Gameplay.Player.Abilities
             _body = GetComponent<Rigidbody>();
         }
 
-        private IEnumerator ActivateRockCollider()
+        private IEnumerator CanDestroyRock()
         {
-            yield return new WaitForSeconds(0.05f);
-            _rockCollider.enabled = true;
+            yield return new WaitForSeconds(0.5f);
+            _rockAux.GetComponent<RockComponent>().canDestroy = true;
 
         }
 
@@ -99,7 +99,8 @@ namespace nseh.Gameplay.Player.Abilities
 
             Vector3 vForward = transform.TransformDirection(Vector3.forward);
             _rockRigidBody.AddForce(new Vector3  (_rockForceX * vForward.x, _rockForceY, 0) , ForceMode.Force);
-            StartCoroutine(ActivateRockCollider());
+            _rockCollider.enabled = true;
+            StartCoroutine(CanDestroyRock());
         }
 
             #endregion

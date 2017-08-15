@@ -193,7 +193,7 @@ namespace nseh.Managers.Level
 
         public IEnumerator ChangeStage()
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1.5f);
             _loading.SetActive(true);
             Release();
             yield return new WaitForSeconds(1);
@@ -209,7 +209,7 @@ namespace nseh.Managers.Level
                     _aux = Object.Instantiate(_playerPrefabs[MyGame._characters[i]]);
                     _aux.transform.position = _spawnPoints[i].transform.position;
                     _aux.transform.rotation = _spawnPoints[i].transform.rotation;
-                    _aux.transform.GetChild(1).GetComponent<TextMinigame>().playerText = i + 1;
+                    //_aux.transform.GetChild(1).GetComponent<TextMinigame>().playerText = i + 1;
                     _aux.GetComponent<MinigameMovement>().gamepadIndex = i + 1;
                     Players.Add(_aux);
             }

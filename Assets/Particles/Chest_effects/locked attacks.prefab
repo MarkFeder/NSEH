@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4679899867056662}
   - component: {fileID: 198123930697926122}
   - component: {fileID: 199254166170124484}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4356737788461450}
   - component: {fileID: 198538026349520398}
   - component: {fileID: 199983468151765328}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: locked attacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}

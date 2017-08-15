@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4960584967326526}
   - component: {fileID: 198058745177029984}
   - component: {fileID: 199010741961437888}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: nebula
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4096338946188072}
   - component: {fileID: 198109110183342002}
   - component: {fileID: 199499500489641556}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: weakness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4512414217806538}
   - component: {fileID: 198168526720864210}
   - component: {fileID: 199896826369615958}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: snow down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4138230243303262}
   - component: {fileID: 198420397926849818}
   - component: {fileID: 199460455297991306}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: snow up
   m_TagString: Untagged
   m_Icon: {fileID: 0}

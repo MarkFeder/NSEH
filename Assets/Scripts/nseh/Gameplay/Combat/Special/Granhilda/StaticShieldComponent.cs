@@ -75,7 +75,7 @@ namespace nseh.Gameplay.Combat.Special.Granhilda
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.CompareTag(Constants.Tags.PLAYER_BODY) && !PlayerListContains(other.gameObject))
+            if ((other.CompareTag(Constants.Tags.PLAYER_BODY) || other.CompareTag(Constants.Tags.ENEMY)) && !PlayerListContains(other.gameObject))
             {
                 _playersInShield.Add(other.gameObject);
             }

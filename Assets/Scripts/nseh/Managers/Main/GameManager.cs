@@ -76,6 +76,15 @@ namespace nseh.Managers.Main
             }
         }
 
+        public States CurrentState
+        {
+            get
+            {
+                return _currentState;
+            }
+
+        }
+
         #endregion
 
         #region Public Properties
@@ -87,6 +96,7 @@ namespace nseh.Managers.Main
         public List<string> _characters;
         public int [,] _score;
         public bool isPaused;
+        public bool canPaused;
 
         #endregion
 
@@ -124,6 +134,7 @@ namespace nseh.Managers.Main
                 _soundManager.Activate();
 				Find<MenuManager>().Activate();
                 isPaused = false;
+                canPaused = true;
             }
         }
 
@@ -133,7 +144,7 @@ namespace nseh.Managers.Main
 
         public void Update()
         {
-            if (!isPaused)
+            if (!isPaused )
             {
                 foreach (Service thisService in _servicesList)
                 {
@@ -147,33 +158,40 @@ namespace nseh.Managers.Main
 
         public void TogglePause()
         {
-            isPaused = !isPaused;
-
-            if (isPaused)
+            if (canPaused)
             {
-                Time.timeScale = 0;
-            }
+                isPaused = !isPaused;
 
-            else
-            {
-                Time.timeScale = 1;
+                if (isPaused)
+                {
+                    Time.timeScale = 0;
+                }
+
+                else
+                {
+                    Time.timeScale = 1;
+                }
             }
+           
         }
 
         public void TogglePause(GameObject canvas)
         {
-            isPaused = !isPaused;
+            if (canPaused)
+            {
+                isPaused = !isPaused;
 
-            if (isPaused)
-            {    
-                Time.timeScale = 0;
-                canvas.SetActive(true);
-            }
+                if (isPaused)
+                {
+                    Time.timeScale = 0;
+                    canvas.SetActive(true);
+                }
 
-            else
-            {   
-                Time.timeScale = 1;
-                canvas.SetActive(false);
+                else
+                {
+                    Time.timeScale = 1;
+                    canvas.SetActive(false);
+                }
             }
         }
 

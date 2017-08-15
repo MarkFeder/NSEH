@@ -4,10 +4,10 @@ using UnityEngine;
 using nseh.Gameplay.Entities.Enemies;
 using Tags = nseh.Utils.Constants.Tags;
 
-
 namespace nseh.Gameplay.Combat.Special.Myson
 {
     public class ExplosionComponent : MonoBehaviour {
+
         #region Private Properties
 
         private Collider _collider;
@@ -53,7 +53,7 @@ namespace nseh.Gameplay.Combat.Special.Myson
             else if (hit.tag == Tags.ENEMY && !_enemies.Contains(hit))
             {
                 EnemyHealth _auxEnemyHealth = hit.GetComponent<EnemyHealth>();
-                _auxEnemyHealth.TakeDamage((float)((int)_playerCombat._currentAttack + ((int)(_playerCombat._currentAttack) * 0.05 * _senderInfo.CurrentStrength)), _senderInfo, Vector3.zero);
+                _auxEnemyHealth.TakeDamage(_damage*2, _senderInfo, Vector3.zero);
             }
         }
 

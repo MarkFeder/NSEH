@@ -89,6 +89,12 @@ namespace nseh.Gameplay.Entities.Player
             _inverted = -1;
             _jumpHeight = BaseParameters.JUMPHEIGHT;
             _baseSpeed = BaseParameters.BASESPEED;
+            if(GameManager.Instance.CurrentState == GameManager.States.Boss)
+            {
+                _jumpHeight = BaseParameters.JUMPHEIGHT/1.5f;
+                _baseSpeed = BaseParameters.BASESPEED/1.5f;
+            }
+
             _facingRight = (transform.localEulerAngles.y == 270.0f) ? true : false;
             _canUseDoubleJump = false;
             _currentSpeed = _baseSpeed;
@@ -222,10 +228,17 @@ namespace nseh.Gameplay.Entities.Player
 
 			if (!grounded)
 			{
-				_playerInfo.Body.useGravity = true;
-			}
-
-			_playerInfo.Body.isKinematic = true;
+                _playerInfo.Body.isKinematic = true;
+                _playerInfo.Body.isKinematic = false;
+                //_playerInfo.Body.useGravity = true;
+                yield return new WaitForSeconds(1f);
+                _playerInfo.Body.isKinematic = true;
+            }
+            else
+            {
+                _playerInfo.Body.isKinematic = true;
+            }
+			
         }
 
         public IEnumerator InvertControlForSeconds(float seconds)

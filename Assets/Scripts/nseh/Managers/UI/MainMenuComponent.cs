@@ -103,22 +103,34 @@ namespace nseh.Managers.UI
 
         public void AddingWrarr()
         {
-            SelectingCharacter("Wrarr", wrarr);
+            if (!GameManager.Instance._characters.Contains("Wrarr"))
+            {
+                SelectingCharacter("Wrarr", wrarr);
+            }           
         }  
 
         public void AddingProspector()
         {
-            SelectingCharacter("SirProspector", prospector);         
+            if (!GameManager.Instance._characters.Contains("SirProspector"))
+            {
+                SelectingCharacter("SirProspector", prospector);
+            }                     
         }
 
         public void AddingGranhilda()
         {
-            SelectingCharacter("Granhilda", granhilda);
+            if (!GameManager.Instance._characters.Contains("Granhilda"))
+            {
+                SelectingCharacter("Granhilda", granhilda);
+            }           
         }
 
         public void AddingMyson()
         {
-            SelectingCharacter("Myson", myson);
+            if (!GameManager.Instance._characters.Contains("Myson"))
+            {
+                SelectingCharacter("Myson", myson);
+            }
         }
 
         public void HandleMasterVolume(float value)

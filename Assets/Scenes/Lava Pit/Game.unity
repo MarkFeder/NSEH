@@ -2591,6 +2591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lava: {fileID: 1853577762}
   elapsedTime: 0
+  volcano: {fileID: 1153099548}
 --- !u!1 &763335413
 GameObject:
   m_ObjectHideFlags: 0
@@ -4591,6 +4592,11 @@ Prefab:
 --- !u!4 &1153099547 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4777860042535446, guid: e0b01a250357ed9448f6b796989fde64,
+    type: 2}
+  m_PrefabInternal: {fileID: 1153099546}
+--- !u!1 &1153099548 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1126299357594514, guid: e0b01a250357ed9448f6b796989fde64,
     type: 2}
   m_PrefabInternal: {fileID: 1153099546}
 --- !u!1 &1162096527
@@ -8884,7 +8890,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1748006356798916, guid: 00d49b9073cf2204eb9124a4fd19e999, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00d49b9073cf2204eb9124a4fd19e999, type: 2}

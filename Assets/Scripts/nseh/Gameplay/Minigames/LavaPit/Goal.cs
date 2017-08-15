@@ -38,12 +38,12 @@ namespace nseh.Gameplay.Minigames
             {
                 if (Time.time - aux < 0.5)
                 {
-                    num += 100;
+                    num += 50;
                 }
                 other.GetComponent<MinigameMovement>().puntuation = num;
                 aux = Time.time;
                 eventAux.AddPuntuation(num, other.GetComponent<MinigameMovement>().gamepadIndex - 1);
-                num -= 100;
+                num -= 50;
             }
         }
 

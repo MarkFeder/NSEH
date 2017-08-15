@@ -23,6 +23,7 @@ namespace nseh.Gameplay.Combat.Special.Wrarr
         [SerializeField]
         private GameObject _particle;
 
+        public bool canDestroy;
         #endregion
 
         #region Private Methods
@@ -41,6 +42,7 @@ namespace nseh.Gameplay.Combat.Special.Wrarr
             _body.mass = 1;
             _collider.enabled = false;
             _collider.isTrigger = false;
+            canDestroy = false;
         }
 
         private void OnCollisionEnter(Collision collider)
@@ -59,10 +61,11 @@ namespace nseh.Gameplay.Combat.Special.Wrarr
             else if (hit.tag == Tags.ENEMY && !_enemies.Contains(hit))
             {
                 EnemyHealth _auxEnemyHealth = hit.GetComponent<EnemyHealth>();
-                _auxEnemyHealth.TakeDamage((float)((int)_playerCombat._currentAttack + ((int)(_playerCombat._currentAttack) * 0.05 * _senderInfo.CurrentStrength)), _senderInfo, position.point);
+                FireParticles(position.point);
+                _auxEnemyHealth.TakeDamage(_damage, _senderInfo);
             }
 
-            else if (hit.tag == Tags.ONE_WAY_PLATFORM)
+            else if (hit.tag == Tags.ONE_WAY_PLATFORM && canDestroy)
             {
                 FireParticles(position.point);
                 Destroy(transform.parent.gameObject);

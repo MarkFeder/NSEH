@@ -92,6 +92,15 @@ namespace nseh.Gameplay.Entities.Enemies
             Destroy(particleGameObject, 1f);
         }
 
+        public void TakeDamage(float amount, PlayerInfo sender)
+        {
+            CurrentHealth -= amount;
+            GameManager.Instance.SoundManager.PlayAudioFX(hitClip[Random.Range(0, hitClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+            sender.IncreaseEnergy(amount / 2);
+            sender.IncreaseScore((int)amount);
+        }
+
         public void ActivateHitbox(int index)
         {
             _hitBox[index].enabled = true;

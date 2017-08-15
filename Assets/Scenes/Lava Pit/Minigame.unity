@@ -7952,7 +7952,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1748006356798916, guid: 00d49b9073cf2204eb9124a4fd19e999, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00d49b9073cf2204eb9124a4fd19e999, type: 2}
@@ -9003,7 +9003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   started: 0
-  speed: 5
+  speed: 4
   center: {fileID: 770644903}
   goal: {fileID: 88840983}
   eventAux: {fileID: 1423878266}
