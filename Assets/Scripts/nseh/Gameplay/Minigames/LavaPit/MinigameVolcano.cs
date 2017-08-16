@@ -59,7 +59,7 @@ namespace nseh.Gameplay.Gameflow
             _minigameEvent.Ready.text = "";
             _minigameEvent.started = true;
             GameManager.Instance.canPaused = true;
-            Physics.gravity = new Vector3(0, 0, -4f);
+            Physics.gravity = new Vector3(0, 0, -3f);
             Camera.main.GetComponent<CameraScript>().started = true;
             _fireGenerators.GetComponent<FireballsGenerator>().started = true;
             foreach (GameObject character in _minigameEvent.Players)

@@ -172,6 +172,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 6
         messageOptions: 0
+      - time: 0.38944998
+        functionName: OnParticlesDefinitive
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.6111194
         functionName: OnShowSword
         data: 

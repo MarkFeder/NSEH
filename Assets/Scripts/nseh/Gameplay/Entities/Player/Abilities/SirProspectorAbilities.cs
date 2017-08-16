@@ -87,7 +87,7 @@ namespace nseh.Gameplay.Player.Abilities
                 particle_aux.Play();
             }
 
-            Destroy(particleGameObject, 3f);
+            Destroy(particleGameObject, 2f);
         }
 
         public virtual void OnIncreaseAttack(AnimationEvent animationEvent)
