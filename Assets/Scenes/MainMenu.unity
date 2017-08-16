@@ -4261,7 +4261,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  eventSystem: []
+  eventSystem:
+  - {fileID: 709}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!114 &650
@@ -5008,10 +5009,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 0}
+    m_SelectOnUp: {fileID: 694}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 661}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 0.37254903}
@@ -5527,10 +5528,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 0}
+    m_SelectOnUp: {fileID: 16819867}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 749}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 0.37254903}
@@ -5905,7 +5906,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  eventSystem: []
+  eventSystem:
+  - {fileID: 709}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!114 &730
@@ -6201,7 +6203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 0}
+    m_SelectOnUp: {fileID: 2126694637}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 713}
     m_SelectOnRight: {fileID: 0}
@@ -6983,7 +6985,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  eventSystem: []
+  eventSystem:
+  - {fileID: 709}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!114 &780
@@ -7080,7 +7083,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  eventSystem: []
+  eventSystem:
+  - {fileID: 709}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!114 &783
@@ -7632,6 +7636,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   selectingButton: 1
   clipSelection: {fileID: 8300000, guid: 64fa50eac2d604bf48cf96641825eb6e, type: 3}
 --- !u!114 &16819865
@@ -7681,7 +7687,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_SelectOnUp: {fileID: 1481694871}
-    m_SelectOnDown: {fileID: 689}
+    m_SelectOnDown: {fileID: 713}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 1139600064}
   m_Transition: 0
@@ -7712,6 +7718,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!1 &29078435
@@ -8747,6 +8755,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   selectingButton: 1
   clipSelection: {fileID: 8300000, guid: 64fa50eac2d604bf48cf96641825eb6e, type: 3}
 --- !u!114 &414834391
@@ -8838,6 +8848,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!1 &529716333
@@ -9791,6 +9803,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   selectingButton: 1
   clipSelection: {fileID: 8300000, guid: 64fa50eac2d604bf48cf96641825eb6e, type: 3}
 --- !u!114 &746925535
@@ -9882,6 +9896,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!1 &807094465
@@ -10591,6 +10607,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   selectingButton: 1
   clipSelection: {fileID: 8300000, guid: 64fa50eac2d604bf48cf96641825eb6e, type: 3}
 --- !u!114 &1117394428
@@ -10682,6 +10700,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!1 &1122861515
@@ -10940,6 +10960,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   selectingButton: 1
   clipSelection: {fileID: 8300000, guid: 64fa50eac2d604bf48cf96641825eb6e, type: 3}
 --- !u!114 &1139600062
@@ -10989,7 +11011,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_SelectOnUp: {fileID: 746925537}
-    m_SelectOnDown: {fileID: 689}
+    m_SelectOnDown: {fileID: 713}
     m_SelectOnLeft: {fileID: 16819867}
     m_SelectOnRight: {fileID: 1333851745}
   m_Transition: 0
@@ -11020,6 +11042,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!1 &1143368940
@@ -11451,6 +11475,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   selectingButton: 1
   clipSelection: {fileID: 8300000, guid: 64fa50eac2d604bf48cf96641825eb6e, type: 3}
 --- !u!114 &1333851743
@@ -11500,7 +11526,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_SelectOnUp: {fileID: 414834393}
-    m_SelectOnDown: {fileID: 661}
+    m_SelectOnDown: {fileID: 749}
     m_SelectOnLeft: {fileID: 1139600064}
     m_SelectOnRight: {fileID: 2126694637}
   m_Transition: 0
@@ -11531,6 +11557,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!1 &1363137923
@@ -12067,6 +12095,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   selectingButton: 1
   clipSelection: {fileID: 8300000, guid: 64fa50eac2d604bf48cf96641825eb6e, type: 3}
 --- !u!114 &1481694869
@@ -12158,6 +12188,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   eventCurrent: {fileID: 0}
   player: 0
 --- !u!1 &1519051906
@@ -13652,6 +13684,8 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   selectingButton: 1
   clipSelection: {fileID: 8300000, guid: 64fa50eac2d604bf48cf96641825eb6e, type: 3}
 --- !u!114 &2126694635
@@ -13701,7 +13735,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_SelectOnUp: {fileID: 1117394430}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 749}
     m_SelectOnLeft: {fileID: 1333851745}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 0
@@ -13732,5 +13766,7 @@ MonoBehaviour:
   eventSystem:
   - {fileID: 709}
   - {fileID: 683}
+  - {fileID: 664}
+  - {fileID: 644}
   eventCurrent: {fileID: 0}
   player: 0
