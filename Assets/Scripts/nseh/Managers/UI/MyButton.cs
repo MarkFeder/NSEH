@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
+using nseh.Managers.Main;
 
 namespace nseh.Managers.UI
 {
@@ -32,12 +33,19 @@ namespace nseh.Managers.UI
             base.OnSubmit(eventData);
         }
 
-        public override void OnMove(AxisEventData eventData)
+        public override void OnSelect(BaseEventData eventData)
         {
-            base.OnMove(eventData);
-            //Debug.Log("AAAAAAAAAAAA " + eventData.selectedObject.name);
-            //Debug.Log("BBBBBBBBBBBB " + eventData.currentInputModule.transform.name);
-            //sonido de pasada
+            base.OnSelect(eventData);
+            GameManager.Instance.SoundManager.PlayAudioFX(gameObject.transform.GetComponent<EventSystemProvider>().clipSelection, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+            if (gameObject.transform.GetComponent<EventSystemProvider>().selectingButton)
+                gameObject.transform.GetChild(0).GetChild(eventSystem.IndexOf(eventData.currentInputModule.transform.GetComponent<MyEventSystem>())).GetComponent<Image>().enabled = true;
+        }
+
+        public override void OnDeselect(BaseEventData eventData)
+        {
+            base.OnDeselect(eventData);
+            if (gameObject.transform.GetComponent<EventSystemProvider>().selectingButton)
+                gameObject.transform.GetChild(0).GetChild(eventSystem.IndexOf(eventData.currentInputModule.transform.GetComponent<MyEventSystem>())).GetComponent<Image>().enabled = false;
         }
 
         #endregion
