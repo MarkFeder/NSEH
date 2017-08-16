@@ -47,7 +47,6 @@ namespace nseh.Gameplay.Minigames
             {
                 if(Time.time >= time+0.25f)
                 {
-                    Debug.Log(gamepadIndex+ " "+ Mathf.Clamp(_count*3f, 0, 20));
                     _body.velocity = new Vector3(_body.velocity.x, 0, Mathf.Clamp(_count*3f, 0, 20));
                     _count = 0;
                     time = Time.time;

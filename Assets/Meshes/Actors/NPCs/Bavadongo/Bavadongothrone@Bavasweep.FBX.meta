@@ -156,19 +156,19 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.48092324
-        functionName: ActivateCollider
+      - time: 0
+        functionName: ActivateSound
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 2
+        intParameter: 5
         messageOptions: 0
-      - time: 0.92562157
-        functionName: DeactivateCollider
+      - time: 0.006158129
+        functionName: ActivateParticle
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 2
+        intParameter: 8
         messageOptions: 0
       - time: 0.42769188
         functionName: ActivateSomeParticle
@@ -184,22 +184,57 @@ ModelImporter:
         floatParameter: 0
         intParameter: 7
         messageOptions: 0
-      - time: 0.006158129
-        functionName: ActivateParticle
+      - time: 0.63865197
+        functionName: ActivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 8
+        intParameter: 2
         messageOptions: 0
-      - time: 0
-        functionName: ActivateSound
+      - time: 0.67830837
+        functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 5
+        intParameter: 2
         messageOptions: 0
-      - time: 0.7442302
-        functionName: ResetList
+      - time: 0.67830837
+        functionName: ActivateCollider
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
+      - time: 0.73634714
+        functionName: DeactivateCollider
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
+      - time: 0.763743
+        functionName: ActivateCollider
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
+      - time: 0.7986416
+        functionName: DeactivateCollider
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
+      - time: 0.7986416
+        functionName: ActivateCollider
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.8765475
+        functionName: DeactivateCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
