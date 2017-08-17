@@ -63,6 +63,7 @@ namespace nseh.Gameplay.Combat.Special.Wrarr
                 EnemyHealth _auxEnemyHealth = hit.GetComponent<EnemyHealth>();
                 FireParticles(position.point);
                 _auxEnemyHealth.TakeDamage(_damage, _senderInfo);
+                Destroy(transform.parent.gameObject);
             }
 
             else if (hit.tag == Tags.ONE_WAY_PLATFORM && canDestroy)

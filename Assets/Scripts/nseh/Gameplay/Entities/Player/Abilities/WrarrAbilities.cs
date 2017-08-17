@@ -54,6 +54,8 @@ namespace nseh.Gameplay.Player.Abilities
         {
             yield return new WaitForSeconds(0.5f);
             _rockAux.GetComponent<RockComponent>().canDestroy = true;
+            yield return new WaitForSeconds(5f);
+            Destroy(_rockAux);
 
         }
 
