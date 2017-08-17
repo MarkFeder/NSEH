@@ -112,8 +112,8 @@ namespace nseh.Managers.Main
             {
                 _instance = this;
                 DontDestroyOnLoad(this);
-                //Cursor.visible = false;
-                //Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
 
                 _servicesList = new List<Service>();
                 _characters = new List<string>();
