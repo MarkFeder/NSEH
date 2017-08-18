@@ -182,20 +182,6 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.15728359
-        functionName: ActivateHitbox
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 2
-        messageOptions: 0
-      - time: 0.9404942
-        functionName: DeactivateHitbox
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 2
-        messageOptions: 0
       - time: 0.9404942
         functionName: DeactivateHitbox
         data: 
@@ -223,13 +209,6 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
-        messageOptions: 0
-      - time: 0
-        functionName: DeactivateHitbox
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 2
         messageOptions: 0
       - time: 0
         functionName: ActivateSound
