@@ -77,6 +77,14 @@ namespace nseh.Gameplay.Entities.Player
             get { return _body.velocity.y < 0.0f; }
         }
 
+        public float TimeConfusion
+        {
+            get
+            {
+                return _timeConfusion;
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -101,6 +109,7 @@ namespace nseh.Gameplay.Entities.Player
             _usedExtraJump = false;
             _enableMovement = true;
             grounded = true;
+            _timeConfusion = 0F;
         }
 
         private void Update()
@@ -160,7 +169,7 @@ namespace nseh.Gameplay.Entities.Player
             }
         }
 
-        private void Flip()
+        public void Flip()
         {
             _facingRight = !_facingRight;
             var rotation = transform.localRotation;
@@ -214,9 +223,7 @@ namespace nseh.Gameplay.Entities.Player
         public void EnableMovement()
         {
             _enableMovement = true;
-
-            if (grounded)
-                _body.isKinematic = false;
+            _body.isKinematic = false;
 
         }
 
@@ -225,20 +232,43 @@ namespace nseh.Gameplay.Entities.Player
             yield return new WaitForSeconds(seconds);
 
             _enableMovement = false;
+            _playerInfo.Body.isKinematic = true;
 
-			if (!grounded)
-			{
+            /*
+            if (!grounded)
+            {
                 _playerInfo.Body.isKinematic = true;
                 _playerInfo.Body.isKinematic = false;
                 //_playerInfo.Body.useGravity = true;
                 yield return new WaitForSeconds(1f);
                 _playerInfo.Body.isKinematic = true;
+            }*/
+			
+        }
+
+        public IEnumerator DisableMovementDeath(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+
+            _enableMovement = false;
+            _playerInfo.Body.isKinematic = true;
+
+            if (!grounded)
+            {
+                _playerInfo.Body.isKinematic = false;
             }
-            else
+
+
+            /*
+            if (!grounded)
             {
                 _playerInfo.Body.isKinematic = true;
-            }
-			
+                _playerInfo.Body.isKinematic = false;
+                //_playerInfo.Body.useGravity = true;
+                yield return new WaitForSeconds(1f);
+                _playerInfo.Body.isKinematic = true;
+            }*/
+
         }
 
         public IEnumerator InvertControlForSeconds(float seconds)
@@ -253,6 +283,7 @@ namespace nseh.Gameplay.Entities.Player
                 Quaternion rotation = transform.localRotation;
                 rotation.y = -rotation.y;
                 transform.localRotation = rotation;
+                _timeConfusion = 0;
             }
         }
 

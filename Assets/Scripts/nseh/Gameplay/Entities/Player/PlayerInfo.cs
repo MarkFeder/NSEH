@@ -355,6 +355,11 @@ namespace nseh.Gameplay.Entities.Player
             {
                 return _currentScore;
             }
+
+            set
+            {
+                _currentScore = value;
+            }
         }
 
         public GameObject HitParticle

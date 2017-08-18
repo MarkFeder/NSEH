@@ -7005,8 +7005,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.6787666, y: 0.1986138, z: 0.33880207}
-  m_Center: {x: -2.6642022, y: -0.22869293, z: 0.08035218}
+  m_Size: {x: 2.0983765, y: 0.1986138, z: 1.0722551}
+  m_Center: {x: -2.8740075, y: -0.22869293, z: 0.4470787}
 --- !u!54 &254203142
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7916,8 +7916,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.7715439, y: 0.1986138, z: 0.33880207}
-  m_Center: {x: -0.884438, y: -0.22869293, z: 0.08035218}
+  m_Size: {x: 2.341015, y: 0.1986138, z: 0.84198517}
+  m_Center: {x: -0.5997028, y: -0.22869293, z: 0.33194372}
 --- !u!54 &671363204
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8102,7 +8102,7 @@ GameObject:
   - component: {fileID: 726981481}
   m_Layer: 0
   m_Name: Right_Limit
-  m_TagString: Untagged
+  m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 40
@@ -10317,7 +10317,7 @@ GameObject:
   - component: {fileID: 1521051393}
   m_Layer: 0
   m_Name: Left_Limit
-  m_TagString: Untagged
+  m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 40

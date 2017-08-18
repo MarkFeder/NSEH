@@ -14,7 +14,7 @@ namespace nseh.Gameplay.Animations.Behaviour
             PlayerMovement _playerMovement;
 
             _playerMovement = animator.GetComponent<PlayerMovement>();
-            GameManager.Instance.StartCoroutine(_playerMovement.DisableMovement(0));
+            GameManager.Instance.StartCoroutine(_playerMovement.DisableMovementDeath(0));
         }
 
         #endregion

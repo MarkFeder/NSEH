@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4856043066784706}
   - component: {fileID: 137133380991451820}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Martillo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,7 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4638716510480360}
   - component: {fileID: 137080179896659746}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Granhilda
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -866,7 +866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4507428597204768}
   - component: {fileID: 137042958625490846}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Silla
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1804,7 +1804,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1474538042597846}
-  m_LocalRotation: {x: -0.175296, y: 0.68503535, z: 0.68503237, w: 0.17529556}
+  m_LocalRotation: {x: -0.17529601, y: 0.6850354, z: 0.6850324, w: 0.17529558}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
   m_Children:

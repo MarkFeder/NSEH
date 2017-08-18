@@ -10626,6 +10626,21 @@ Prefab:
       propertyPath: m_RaycastTarget
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114889717620093150, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114889717620093150, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.9744422
+      objectReference: {fileID: 0}
+    - target: {fileID: 114889717620093150, guid: d1b905cc00cc4944b9c2232ee7246378,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.07352942
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1b905cc00cc4944b9c2232ee7246378, type: 2}
   m_IsPrefabParent: 0
@@ -10731,6 +10746,10 @@ Prefab:
       propertyPath: eventSystem.Array.data[0]
       value: 
       objectReference: {fileID: 1489974286}
+    - target: {fileID: 1254259489819470, guid: 8d3879f3c5c61c244b39a9efbb62f6c8, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d3879f3c5c61c244b39a9efbb62f6c8, type: 2}
   m_IsPrefabParent: 0

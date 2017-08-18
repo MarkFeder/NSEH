@@ -340,7 +340,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508149735930480}
-  m_Text: DISARMED!
+  m_Text: UNARMED!
   m_OffsetZ: 0.05
   m_CharacterSize: 1
   m_LineSpacing: 1

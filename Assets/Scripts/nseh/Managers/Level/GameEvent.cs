@@ -248,6 +248,12 @@ namespace nseh.Managers.Level
                 deadPlayer.transform.rotation = freePlayerSpawnPoints[randomSpawn].transform.rotation;
                 freePlayerSpawnPoints[randomSpawn].GetComponent<PlayerSpawnPoint>().ParticleAnimation(deadPlayer.transform);
                 deadPlayer.GetComponent<PlayerMovement>().IsFacingRight = (deadPlayer.transform.localEulerAngles.y == 270.0f) ? true : false;
+
+                if (deadPlayer.GetComponent<PlayerMovement>().TimeConfusion != 0)
+                {
+                    Debug.Log("sssss");
+                    deadPlayer.GetComponent<PlayerMovement>().Flip();
+                }
             }
 
             else
@@ -366,6 +372,9 @@ namespace nseh.Managers.Level
                 _players[i].transform.position = _spawnPoints[i].transform.position;
                 _players[i].transform.rotation = _spawnPoints[i].transform.rotation;
                 _players[i].GetComponent<PlayerMovement>().IsFacingRight = (_players[i].transform.localEulerAngles.y == 270.0f) ? true : false;
+                _players[i].GetComponent<PlayerInfo>().CurrentHealth = _players[i].GetComponent<PlayerInfo>().MaxHealth;
+                _players[i].GetComponent<PlayerInfo>().CurrentEnergy = 0;
+                _players[i].GetComponent<PlayerInfo>().CurrentScore = 0;
             }
         }
 

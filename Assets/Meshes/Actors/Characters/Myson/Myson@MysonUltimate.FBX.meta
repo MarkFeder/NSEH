@@ -262,6 +262,20 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.27700046
+        functionName: OnPlayAttackSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 6
+        messageOptions: 0
+      - time: 0.7083333
+        functionName: OnActivateHead
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.8323134
         functionName: OnHideHead
         data: 
@@ -271,13 +285,6 @@ ModelImporter:
         messageOptions: 0
       - time: 0.99573326
         functionName: OnShowHead
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.7083333
-        functionName: OnActivateHead
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

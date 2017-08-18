@@ -67,7 +67,7 @@ namespace nseh.Gameplay.Entities.Environment.Items
 
                 case SpecialChestType.Jump:
 
-                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleBodyPos)));
+                    GameManager.Instance.StartCoroutine(_playerInfo.AddItem(chestType.ToString(), _seconds, ParticleAnimation(_particlePrefab, _seconds, _playerInfo.ParticleHeadPos)));
                     GameManager.Instance.StartCoroutine(_playerInfo.PlayerMovement.DoubleJumpForSeconds(_seconds));
 
                     break;

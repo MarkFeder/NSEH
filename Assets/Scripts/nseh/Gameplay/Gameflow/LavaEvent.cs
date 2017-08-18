@@ -66,10 +66,12 @@ namespace nseh.Gameplay.Gameflow
         public void EventRelease()
         {
             eventDuration = Constants.Events.Tar_Event.EVENT_DURATION;
+            volcano.transform.GetComponent<SpriteRenderer>().color= new Color (1,1,1,0);
             elapsedTime = 0;
             lava.ResetLava();
             _lavaUp = false;
             _isActivated = false;
+
         }
 
         private IEnumerator FadeTo(float aValue, float aTime)

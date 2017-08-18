@@ -25,7 +25,7 @@ namespace nseh.Gameplay.Minigames
 
         public void Start ()
         {
-            num = 50 + (4 - GameManager.Instance._numberPlayers) * 50;
+            num = (4 - GameManager.Instance._numberPlayers) * 50;
         }
 	
         #endregion

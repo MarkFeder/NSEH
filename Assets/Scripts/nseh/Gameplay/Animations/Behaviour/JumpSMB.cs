@@ -14,10 +14,16 @@ namespace nseh.Gameplay.Animations.Behaviour
 
         #region Public Methods
 
-        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+      /*  public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
+            
+        }*/
+
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateUpdate(animator, stateInfo, layerIndex);
             _playerInfo = animator.GetComponent<PlayerInfo>();
             _playerInfo.PlayerMovement.EnableMovement();
         }
