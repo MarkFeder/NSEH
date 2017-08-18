@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using nseh.Managers.Main;
 using Tags = nseh.Utils.Constants.Tags;
 
 namespace nseh.Gameplay.Combat.Special.Myson
@@ -20,6 +21,8 @@ namespace nseh.Gameplay.Combat.Special.Myson
         private GameObject _explosion;
         [SerializeField]
         private Renderer _headRenderer;
+        [SerializeField]
+        private AudioClip _explosionClip;
 
         #endregion
 
@@ -47,6 +50,7 @@ namespace nseh.Gameplay.Combat.Special.Myson
             if (hit.tag == Tags.PLAYER_BODY || hit.tag == Tags.ENEMY)
             {
                 FireParticles(position.point);
+                GameManager.Instance.SoundManager.PlayAudioFX(_explosionClip, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
                 _collider.enabled = false;
                 _headRenderer.enabled = false;
                 StartCoroutine(Explosion(position.point));

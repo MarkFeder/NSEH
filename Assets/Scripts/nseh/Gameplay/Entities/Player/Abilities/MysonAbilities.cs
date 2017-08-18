@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using nseh.Gameplay.Entities.Player;
+using nseh.Managers.Main;
 
 namespace nseh.Gameplay.Player.Abilities
 {
@@ -31,6 +32,10 @@ namespace nseh.Gameplay.Player.Abilities
         [SerializeField]
         private GameObject _leftHand;
 
+        [Header("Additional Sounds")]
+        [SerializeField]
+        private AudioClip _broFist;
+
 
         private PlayerInfo _playerInfo;
 
@@ -46,6 +51,11 @@ namespace nseh.Gameplay.Player.Abilities
         #endregion
 
         #region Animation Events
+
+        public virtual void OnBroFistSound(AnimationEvent animationEvent)
+        {
+            GameManager.Instance.SoundManager.PlayAudioFX(_broFist, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+        }
 
         public virtual void OnActivateParticle(int mano)
         {
