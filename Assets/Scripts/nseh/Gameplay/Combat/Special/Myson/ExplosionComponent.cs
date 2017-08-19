@@ -4,13 +4,15 @@ using UnityEngine;
 using nseh.Gameplay.Entities.Enemies;
 using Tags = nseh.Utils.Constants.Tags;
 
+
 namespace nseh.Gameplay.Combat.Special.Myson
 {
-    public class ExplosionComponent : MonoBehaviour {
-
+    public class ExplosionComponent : MonoBehaviour
+    {
         #region Private Properties
 
         private Collider _collider;
+        private Rigidbody _body;
         private List<GameObject> _enemies;
 
         private PlayerInfo _senderInfo;
@@ -24,6 +26,7 @@ namespace nseh.Gameplay.Combat.Special.Myson
 
         private void Start()
         {
+            _body = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             _enemies = new List<GameObject>();
             _enemies.Add(this.gameObject.transform.root.gameObject);
@@ -31,16 +34,14 @@ namespace nseh.Gameplay.Combat.Special.Myson
             _playerCombat = this.gameObject.transform.root.GetComponent<PlayerCombat>();
             this.gameObject.transform.parent = null;
 
-            _collider.isTrigger = true;
+            _body.isKinematic = false;
+            _body.angularDrag = 0;
+            _body.mass = 0;
+            _collider.isTrigger = false;
         }
 
-        private void OnTriggerEnter(Collider collider)
+        private void OnCollisionEnter(Collision collider)
         {
-            foreach (GameObject zus in _enemies)
-            {
-                Debug.Log(zus.name);
-            }
-
             GameObject hit = collider.transform.root.gameObject;
 
             if (hit.tag == Tags.PLAYER_BODY && !_enemies.Contains(hit))
@@ -53,7 +54,8 @@ namespace nseh.Gameplay.Combat.Special.Myson
             else if (hit.tag == Tags.ENEMY && !_enemies.Contains(hit))
             {
                 EnemyHealth _auxEnemyHealth = hit.GetComponent<EnemyHealth>();
-                _auxEnemyHealth.TakeDamage(_damage*2, _senderInfo, Vector3.zero);
+                _enemies.Add(hit);
+                _auxEnemyHealth.TakeDamage(_damage*2, _senderInfo);
             }
         }
 

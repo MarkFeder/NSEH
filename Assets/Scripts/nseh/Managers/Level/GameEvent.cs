@@ -245,14 +245,12 @@ namespace nseh.Managers.Level
             {
                 int randomSpawn = (int)UnityEngine.Random.Range(0, freePlayerSpawnPoints.Count);
                 deadPlayer.transform.position = freePlayerSpawnPoints[randomSpawn].transform.position;
-                deadPlayer.transform.rotation = freePlayerSpawnPoints[randomSpawn].transform.rotation;
                 freePlayerSpawnPoints[randomSpawn].GetComponent<PlayerSpawnPoint>().ParticleAnimation(deadPlayer.transform);
-                deadPlayer.GetComponent<PlayerMovement>().IsFacingRight = (deadPlayer.transform.localEulerAngles.y == 270.0f) ? true : false;
 
-                if (deadPlayer.GetComponent<PlayerMovement>().TimeConfusion != 0)
+                if (deadPlayer.GetComponent<PlayerMovement>().TimeConfusion == 0)
                 {
-                    Debug.Log("sssss");
-                    deadPlayer.GetComponent<PlayerMovement>().Flip();
+                    deadPlayer.transform.rotation = freePlayerSpawnPoints[randomSpawn].transform.rotation;
+                    deadPlayer.GetComponent<PlayerMovement>().IsFacingRight = (deadPlayer.transform.localEulerAngles.y == 270.0f) ? true : false;
                 }
             }
 

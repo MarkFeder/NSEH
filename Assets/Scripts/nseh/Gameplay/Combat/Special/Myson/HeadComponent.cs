@@ -71,9 +71,7 @@ namespace nseh.Gameplay.Combat.Special.Myson
         private IEnumerator Explosion(Vector3 positionExplosion)
         {
             GameObject explosionAux = Instantiate(_explosion, positionExplosion, Quaternion.identity, this.gameObject.transform.root);
-
-            Debug.Log("que estoy to loco");
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(3f);
 
             Destroy(explosionAux);
 
