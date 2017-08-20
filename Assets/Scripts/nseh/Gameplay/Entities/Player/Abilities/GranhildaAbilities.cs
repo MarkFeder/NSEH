@@ -123,7 +123,7 @@ namespace nseh.Gameplay.Player.Abilities
 
         public virtual void OnParticlesDefinitive(AnimationEvent animationEvent)
         {
-            GameObject particleGameObject = Instantiate(_particleDefinitive, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
+            GameObject particleGameObject = Instantiate(_particleDefinitive, _playerInfo.ParticleBodyPos.transform.position, this.gameObject.transform.rotation, _playerInfo.ParticleBodyPos);
             foreach (ParticleSystem particle_aux in particleGameObject.GetComponentsInChildren<ParticleSystem>())
             {
                 particle_aux.Play();

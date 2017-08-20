@@ -150,21 +150,24 @@ namespace nseh.Gameplay.Entities.Player
 
         public void TakeDamage(float pureDamage)
         {
-            CurrentHealth -= pureDamage;
-            CurrentHealth = (int)Mathf.Clamp(CurrentHealth, 0.0f, _maxHealth);
-            IncreaseEnergy(pureDamage);
-            GameManager.Instance.SoundManager.PlayAudioFX(_hitClip[Random.Range(0, _hitClip.Count)], 1f, false, transform.position, 0, Random.Range(-0.1F, 0.1F));
+            if (_healthMode == HealthMode.Normal && !_isDead)
+            {
+                CurrentHealth -= pureDamage;
+                CurrentHealth = (int)Mathf.Clamp(CurrentHealth, 0.0f, _maxHealth);
+                IncreaseEnergy(pureDamage);
+                GameManager.Instance.SoundManager.PlayAudioFX(_hitClip[Random.Range(0, _hitClip.Count)], 1f, false, transform.position, 0, Random.Range(-0.1F, 0.1F));
 
-            if (CurrentHealth == 0)
-            {
-                DecreaseScore(_penalization);
-                StartCoroutine(LoseLife(3));
-                _animator.SetTrigger("Dead");
-            }
-            else
-            {
-                _animator.SetTrigger("Hurt");
-                //GameManager.Instance.SoundManager.PlayAudioFX(_takeDamageClip[Random.Range(0, _takeDamageClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+                if (CurrentHealth == 0)
+                {
+                    DecreaseScore(_penalization);
+                    StartCoroutine(LoseLife(3));
+                    _animator.SetTrigger("Dead");
+                }
+                else
+                {
+                    _animator.SetTrigger("Hurt");
+                    //GameManager.Instance.SoundManager.PlayAudioFX(_takeDamageClip[Random.Range(0, _takeDamageClip.Count)], 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+                }
             }
         }
 

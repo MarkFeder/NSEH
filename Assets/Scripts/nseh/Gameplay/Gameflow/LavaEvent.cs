@@ -23,6 +23,7 @@ namespace nseh.Gameplay.Gameflow
 
         public float elapsedTime;
         public GameObject volcano;
+        public GameObject particleSmoke;
 
         #endregion
 
@@ -31,6 +32,10 @@ namespace nseh.Gameplay.Gameflow
         public void Start()
         {
             _isActivated = false;
+            foreach (ParticleSystem particle_aux in particleSmoke.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Stop();
+            }
         }
 
         public void ActivateEvent()
@@ -38,6 +43,7 @@ namespace nseh.Gameplay.Gameflow
             _isActivated = true;
             _lavaUp = false;
             eventDuration = Constants.Events.Tar_Event.EVENT_DURATION;
+
             elapsedTime = 0;
 
         }
@@ -51,6 +57,10 @@ namespace nseh.Gameplay.Gameflow
                 {
                     _lavaUp = true;
                     StartCoroutine(FadeTo(1.0f, 1f));
+                    foreach (ParticleSystem particle_aux in particleSmoke.GetComponentsInChildren<ParticleSystem>())
+                    {
+                        particle_aux.Play();
+                    }
                     lava.LavaMotion();
 
                 }
@@ -58,6 +68,10 @@ namespace nseh.Gameplay.Gameflow
                 {
                     elapsedTime = 0;
                     StartCoroutine(FadeTo(0.0f, 1f));
+                    foreach (ParticleSystem particle_aux in particleSmoke.GetComponentsInChildren<ParticleSystem>())
+                    {
+                        particle_aux.Stop();
+                    }
                     _lavaUp = false;
                 }
             }
@@ -67,6 +81,10 @@ namespace nseh.Gameplay.Gameflow
         {
             eventDuration = Constants.Events.Tar_Event.EVENT_DURATION;
             volcano.transform.GetComponent<SpriteRenderer>().color= new Color (1,1,1,0);
+            foreach (ParticleSystem particle_aux in particleSmoke.GetComponentsInChildren<ParticleSystem>())
+            {
+                particle_aux.Stop();
+            }
             elapsedTime = 0;
             lava.ResetLava();
             _lavaUp = false;

@@ -95,7 +95,7 @@ namespace nseh.Gameplay.Player.Abilities
         {
             _body.enabled = false;
             Physics.IgnoreLayerCollision(8, 8, true);
-            Physics.IgnoreLayerCollision(8, 12, true);
+            //Physics.IgnoreLayerCollision(8, 12, true);
             _playerInfo.EnableAttack = false;
             StartCoroutine(Ghost(_timeGhost));
 
@@ -113,7 +113,7 @@ namespace nseh.Gameplay.Player.Abilities
             _body.enabled = true;
             _playerInfo.EnableAttack = true;
             Physics.IgnoreLayerCollision(8, 8, false);
-            Physics.IgnoreLayerCollision(8, 12, false);
+            //Physics.IgnoreLayerCollision(8, 12, false);
 
         }
 
