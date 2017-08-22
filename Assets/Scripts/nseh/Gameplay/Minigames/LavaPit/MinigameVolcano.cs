@@ -77,6 +77,7 @@ namespace nseh.Gameplay.Gameflow
         public void StopMinigame()
         {
             _minigameEvent.Ready.text = "SAFE?";
+            Physics.IgnoreLayerCollision(12, 9, false);
             StartCoroutine(StopCamera());
             _fireGenerators.GetComponent<FireballsGenerator>().started = false;
         }

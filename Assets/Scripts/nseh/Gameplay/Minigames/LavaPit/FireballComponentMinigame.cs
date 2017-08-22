@@ -7,6 +7,6 @@ public class FireballComponentMinigame : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        Physics.IgnoreLayerCollision(12, 9, false);
+        Physics.IgnoreLayerCollision(12, 9, true);
     }
 }
