@@ -233,17 +233,8 @@ namespace nseh.Gameplay.Entities.Player
 
             _enableMovement = false;
             _playerInfo.Body.isKinematic = true;
+            _playerInfo.Body.isKinematic = false;
 
-            /*
-            if (!grounded)
-            {
-                _playerInfo.Body.isKinematic = true;
-                _playerInfo.Body.isKinematic = false;
-                //_playerInfo.Body.useGravity = true;
-                yield return new WaitForSeconds(1f);
-                _playerInfo.Body.isKinematic = true;
-            }*/
-			
         }
 
         public IEnumerator DisableMovementDeath(float seconds)
@@ -257,17 +248,6 @@ namespace nseh.Gameplay.Entities.Player
             {
                 _playerInfo.Body.isKinematic = false;
             }
-
-
-            /*
-            if (!grounded)
-            {
-                _playerInfo.Body.isKinematic = true;
-                _playerInfo.Body.isKinematic = false;
-                //_playerInfo.Body.useGravity = true;
-                yield return new WaitForSeconds(1f);
-                _playerInfo.Body.isKinematic = true;
-            }*/
 
         }
 

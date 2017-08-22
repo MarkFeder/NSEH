@@ -1951,6 +1951,16 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.1680001
       objectReference: {fileID: 0}
+    - target: {fileID: 108670657600624934, guid: 89dc0d9235037144284e2a62e2c7f427,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967039
+      objectReference: {fileID: 0}
+    - target: {fileID: 108570502415930002, guid: 89dc0d9235037144284e2a62e2c7f427,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967039
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 89dc0d9235037144284e2a62e2c7f427, type: 2}
   m_IsPrefabParent: 0
@@ -10422,6 +10432,26 @@ Prefab:
     - target: {fileID: 4625036043597932, guid: a031ba67b7f2cfa46b94e6895154bf29, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198760253788124042, guid: a031ba67b7f2cfa46b94e6895154bf29,
+        type: 2}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198619939975547010, guid: a031ba67b7f2cfa46b94e6895154bf29,
+        type: 2}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198619939975547010, guid: a031ba67b7f2cfa46b94e6895154bf29,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1558174035
+      objectReference: {fileID: 0}
+    - target: {fileID: 198760253788124042, guid: a031ba67b7f2cfa46b94e6895154bf29,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1448918532
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a031ba67b7f2cfa46b94e6895154bf29, type: 2}

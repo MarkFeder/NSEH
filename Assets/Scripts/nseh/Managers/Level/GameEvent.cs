@@ -198,6 +198,7 @@ namespace nseh.Managers.Level
             }
 
             _clock.text = "";
+            Physics.IgnoreLayerCollision(8, 8, false);
             ResetPlayerSpawnPoint();
             ResetPlayerPrefab();
             GameManager.Instance.StartCoroutine(CanvasLoadingWait());
@@ -320,6 +321,7 @@ namespace nseh.Managers.Level
             }
 
             yield return new WaitForSeconds(1.5f);
+            Physics.IgnoreLayerCollision(8, 8, false);
             _loading.SetActive(true);
             Release();
             yield return new WaitForSeconds(1);

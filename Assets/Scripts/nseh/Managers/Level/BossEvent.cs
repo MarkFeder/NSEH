@@ -256,6 +256,7 @@ namespace nseh.Managers.Level
             Ready.text = "";
             _loading.SetActive(true);
             yield return new WaitForSeconds(1);
+            Physics.IgnoreLayerCollision(8, 8, false);
             Release();
             MyGame.StartCoroutine(ScoreMenu());
         }

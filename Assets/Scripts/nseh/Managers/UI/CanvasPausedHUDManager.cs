@@ -50,6 +50,7 @@ namespace nseh.Managers.UI
 
         public void RestartGame()
         {
+            Physics.IgnoreLayerCollision(8, 8, false);
             if (SceneManager.GetActiveScene().name == "Game")  
                 GameManager.Instance.GameEvent.Restart();
             

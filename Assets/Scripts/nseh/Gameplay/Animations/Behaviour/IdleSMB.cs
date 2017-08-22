@@ -23,7 +23,7 @@ namespace nseh.Gameplay.Animations.Behaviour
             _playerInfo = animator.GetComponent<PlayerInfo>();
             _playerCombat = animator.GetComponent<PlayerCombat>();
             _playerCombat._currentAttack = PlayerCombat.Attack.None;
-            _playerInfo.PlayerMovement.EnableMovement();
+            
             //_playerInfo.LightAttackPressed = false;
             //_playerInfo.HeavyAttackPressed = false;
 
@@ -31,6 +31,7 @@ namespace nseh.Gameplay.Animations.Behaviour
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            _playerInfo.PlayerMovement.EnableMovement();
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
             if (_playerInfo.LightAttackPressed)
