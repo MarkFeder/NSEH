@@ -124,6 +124,14 @@ namespace nseh.Managers.Level
             }
         }
 
+        public List<GameObject> Players
+        {
+            get
+            {
+                return _players;
+            }
+        }
+
         #endregion
 
         #region Service Management
@@ -256,7 +264,6 @@ namespace nseh.Managers.Level
             Ready.text = "";
             _loading.SetActive(true);
             yield return new WaitForSeconds(1);
-            Physics.IgnoreLayerCollision(8, 8, false);
             Release();
             MyGame.StartCoroutine(ScoreMenu());
         }
@@ -278,6 +285,7 @@ namespace nseh.Managers.Level
                 PlayerInfo _playerInfo = _aux.GetComponent<PlayerInfo>();
                 _playerInfo.HealthBar = CanvasPlayers.GetHealthBarComponentForPlayer(i + 1);
                 _playerInfo.EnergyBar = CanvasPlayers.GetEnergyBarComponentForPlayer(i + 1);
+                _aux.layer = 13 + i;
                 _playerInfo.PlayerMovement.DisableMovement(0);
                 _players.Add(_aux);
 

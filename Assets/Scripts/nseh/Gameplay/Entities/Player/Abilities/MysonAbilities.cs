@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.SceneManagement;
 using nseh.Gameplay.Entities.Player;
 using nseh.Managers.Main;
 
@@ -36,6 +39,7 @@ namespace nseh.Gameplay.Player.Abilities
         [SerializeField]
         private AudioClip _broFist;
 
+        private List<int> _playerLayers;
 
         private PlayerInfo _playerInfo;
 
@@ -45,7 +49,33 @@ namespace nseh.Gameplay.Player.Abilities
 
         private void Start()
         {
+            _playerLayers = new List<int>();
             _playerInfo = GetComponent<PlayerInfo>();
+
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Game":
+
+                    foreach (GameObject player in GameManager.Instance.GameEvent.Players)
+                    {
+                        if (player.layer != gameObject.layer)
+                        {
+                            _playerLayers.Add(player.layer);
+                        }
+                    }
+                    break;
+
+                case "Boss":
+
+                    foreach (GameObject player in GameManager.Instance.GameEvent.Players)
+                    {
+                        if (player.layer != gameObject.layer)
+                        {
+                            _playerLayers.Add(player.layer);
+                        }
+                    }
+                    break;
+            }
         }
 
         #endregion
@@ -94,7 +124,14 @@ namespace nseh.Gameplay.Player.Abilities
         public virtual void OnHideBody(AnimationEvent animationEvent)
         {
             _body.enabled = false;
-            Physics.IgnoreLayerCollision(8, 8, true);
+            
+            
+            for (int i = 0; i < _playerLayers.Count; i++)
+            {
+                Physics.IgnoreLayerCollision(gameObject.layer, _playerLayers[i], true);
+            }
+
+            Physics.IgnoreLayerCollision(gameObject.layer, 8, true);
             //Physics.IgnoreLayerCollision(8, 12, true);
             _playerInfo.EnableAttack = false;
             StartCoroutine(Ghost(_timeGhost));
@@ -109,10 +146,15 @@ namespace nseh.Gameplay.Player.Abilities
         public IEnumerator Ghost(float seconds)
         {
             yield return new WaitForSeconds(seconds);
-
             _body.enabled = true;
             _playerInfo.EnableAttack = true;
-            Physics.IgnoreLayerCollision(8, 8, false);
+
+            for (int i = 0; i < _playerLayers.Count; i++)
+            {
+                Physics.IgnoreLayerCollision(gameObject.layer, _playerLayers[i], false);
+            }
+
+            Physics.IgnoreLayerCollision(gameObject.layer, 8, false);
             //Physics.IgnoreLayerCollision(8, 12, false);
 
         }

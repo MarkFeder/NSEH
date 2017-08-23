@@ -123,6 +123,14 @@ namespace nseh.Managers.Level
             }
         }
 
+        public List<GameObject> Players
+        {
+            get
+            {
+                return _players;
+            }
+        }
+
         #endregion
 
         #region Service Management
@@ -321,7 +329,6 @@ namespace nseh.Managers.Level
             }
 
             yield return new WaitForSeconds(1.5f);
-            Physics.IgnoreLayerCollision(8, 8, false);
             _loading.SetActive(true);
             Release();
             yield return new WaitForSeconds(1);
@@ -347,6 +354,7 @@ namespace nseh.Managers.Level
                 PlayerInfo _playerInfo = _aux.GetComponent<PlayerInfo>();
                 _playerInfo.HealthBar = CanvasPlayers.GetHealthBarComponentForPlayer(i+1);
                 _playerInfo.EnergyBar = CanvasPlayers.GetEnergyBarComponentForPlayer(i + 1);
+                _aux.layer = 13 + i;
                 _playerInfo.PlayerMovement.DisableMovement(0);
                 //deshabilitar combate
                 _players.Add(_aux);

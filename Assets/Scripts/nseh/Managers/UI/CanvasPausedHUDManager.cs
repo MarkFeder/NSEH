@@ -50,7 +50,18 @@ namespace nseh.Managers.UI
 
         public void RestartGame()
         {
-            Physics.IgnoreLayerCollision(8, 8, false);
+
+            for(int i = 0; i<GameManager.Instance._numberPlayers; i++)
+            {
+                for(int j = 0; j<GameManager.Instance._numberPlayers; i++)
+                {
+                    Physics.IgnoreLayerCollision(13 + i, 13 + j, false);
+                }
+
+                Physics.IgnoreLayerCollision(13 + i, 12, false);
+                Physics.IgnoreLayerCollision(13 + i, 8, false);
+            }
+
             if (SceneManager.GetActiveScene().name == "Game")  
                 GameManager.Instance.GameEvent.Restart();
             
@@ -62,6 +73,17 @@ namespace nseh.Managers.UI
 
         public void GoToMainMenu()
         {
+            for (int i = 0; i < GameManager.Instance._numberPlayers; i++)
+            {
+                for (int j = 0; j < GameManager.Instance._numberPlayers; i++)
+                {
+                    Physics.IgnoreLayerCollision(13 + i, 13 + j, false);
+                }
+
+                Physics.IgnoreLayerCollision(13 + i, 12, false);
+                Physics.IgnoreLayerCollision(13 + i, 8, false);
+            }
+
             GameManager.Instance.ChangeState(GameManager.States.MainMenu);
             GameManager.Instance.TogglePause();
         }

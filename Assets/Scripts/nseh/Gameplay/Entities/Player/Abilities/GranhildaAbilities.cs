@@ -1,4 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using nseh.Gameplay.Entities.Player;
 using nseh.Gameplay.Combat.Special.Granhilda;
 using nseh.Managers.Main;
@@ -48,6 +52,8 @@ namespace nseh.Gameplay.Player.Abilities
         private PlayerInfo _playerInfo;
         private PlayerMovement _playerMovement;
 
+        private List<int> _playerLayers;
+
         private bool _canJump;
         private float _jumpHeight;
         private Collider _collider;
@@ -59,11 +65,37 @@ namespace nseh.Gameplay.Player.Abilities
 
         void Start()
         {
+            _playerLayers = new List<int>();
             _playerInfo = GetComponent<PlayerInfo>();
             _collider = GetComponent<Collider>();
             _playerMovement = GetComponent<PlayerMovement>();
             _canJump = false;
             _jumpHeight = BaseParameters.JUMPHEIGHT;
+
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Game":
+
+                    foreach (GameObject player in GameManager.Instance.GameEvent.Players)
+                    {
+                        if (player.layer != gameObject.layer)
+                        {
+                            _playerLayers.Add(player.layer);
+                        }
+                    }
+                    break;
+
+                case "Boss":
+
+                    foreach (GameObject player in GameManager.Instance.GameEvent.Players)
+                    {
+                        if (player.layer != gameObject.layer)
+                        {
+                            _playerLayers.Add(player.layer);
+                        }
+                    }
+                    break;
+            }
         }
 
         void Update()
@@ -150,8 +182,12 @@ namespace nseh.Gameplay.Player.Abilities
         public virtual void OnAddForce(AnimationEvent animationEvent)
         {
             _playerInfo.Body.isKinematic = false;
-            Physics.IgnoreLayerCollision(8, 8, true);
-            Physics.IgnoreLayerCollision(8, 12, true);
+            for (int i = 0; i < _playerLayers.Count; i++)
+            {
+                Physics.IgnoreLayerCollision(gameObject.layer, _playerLayers[i], true);
+            }
+            Physics.IgnoreLayerCollision(gameObject.layer, 8, true);
+            Physics.IgnoreLayerCollision(gameObject.layer, 12, true);
             _colliderDefinitive.GetComponent<Collider>().enabled = true;
             _colliderDefinitive.GetComponent<ChargeComponent>().enabled = true;
             Vector3 vForward = transform.TransformDirection(Vector3.forward);
@@ -162,8 +198,12 @@ namespace nseh.Gameplay.Player.Abilities
 
         public virtual void OnStopDefinitive(AnimationEvent animationEvent)
         {
-            Physics.IgnoreLayerCollision(8, 8, false);
-            Physics.IgnoreLayerCollision(8, 12, false);
+            for (int i = 0; i < _playerLayers.Count; i++)
+            {
+                Physics.IgnoreLayerCollision(gameObject.layer, _playerLayers[i], false);
+            }
+            Physics.IgnoreLayerCollision(gameObject.layer, 8, false);
+            Physics.IgnoreLayerCollision(gameObject.layer, 12, false);
             _colliderDefinitive.GetComponent<Collider>().enabled = false;
             _colliderDefinitive.GetComponent<ChargeComponent>().enabled = false;
             _playerInfo.Body.velocity = Vector3.zero;
