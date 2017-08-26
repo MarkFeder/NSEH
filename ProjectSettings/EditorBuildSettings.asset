@@ -5,18 +5,21 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: f2777bccedc67674287212cf5fdae037
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lava Pit/Game.unity
     guid: fe3deef03a63b6a4086864aeb7f2d600
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lava Pit/Minigame.unity
     guid: 11a2212af0afd3b4686ca583d93fa2d9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lava Pit/Boss.unity
     guid: 62ded9c859968f749905de1db26fd061
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Score.unity
     guid: 1b2ed815eb1a62d45bd8264c7fdebbb6
+  - enabled: 1
+    path: Assets/Scenes/Multiplayer/MultiplayerMenu.unity
+    guid: 4693eae05ff30354d8f06b81b34198d6

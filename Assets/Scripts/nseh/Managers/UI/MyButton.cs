@@ -36,7 +36,7 @@ namespace nseh.Managers.UI
         public override void OnSelect(BaseEventData eventData)
         {
             base.OnSelect(eventData);
-            GameManager.Instance.SoundManager.PlayAudioFX(gameObject.transform.GetComponent<EventSystemProvider>().clipSelection, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
+            // GameManager.Instance.SoundManager.PlayAudioFX(gameObject.transform.GetComponent<EventSystemProvider>().clipSelection, 1f, false, new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z), 0);
             if (gameObject.transform.GetComponent<EventSystemProvider>().selectingButton)
                 gameObject.transform.GetChild(0).GetChild(eventSystem.IndexOf(eventData.currentInputModule.transform.GetComponent<MyEventSystem>())).GetComponent<Image>().enabled = true;
         }
