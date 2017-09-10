@@ -182,6 +182,18 @@ namespace nseh.Managers.Level
                     events.EventRelease();
                 }
             }
+            for (int i = 0; i < GameManager.Instance._numberPlayers; i++)
+            {
+                for (int j = 0; j < GameManager.Instance._numberPlayers; j++)
+                {
+                    Debug.Log(i + " " + j);
+                    Physics.IgnoreLayerCollision(13 + i, 13 + j, false);
+
+                }
+
+                Physics.IgnoreLayerCollision(13 + i, 12, false);
+                Physics.IgnoreLayerCollision(13 + i, 8, false);
+            }
 
             Time.timeScale = 1;
             _players = new List<GameObject>();
@@ -206,7 +218,6 @@ namespace nseh.Managers.Level
             }
 
             _clock.text = "";
-            Physics.IgnoreLayerCollision(8, 8, false);
             ResetPlayerSpawnPoint();
             ResetPlayerPrefab();
             GameManager.Instance.StartCoroutine(CanvasLoadingWait());

@@ -200,6 +200,19 @@ namespace nseh.Managers.Level
                 GameManager.Instance._score[(character.GetComponent<PlayerInfo>().GamepadIndex) - 1, 2] = character.GetComponent<PlayerInfo>().CurrentScore;
             }
             _players = new List<GameObject>();
+
+            for (int i = 0; i < GameManager.Instance._numberPlayers; i++)
+            {
+                for (int j = 0; j < GameManager.Instance._numberPlayers; j++)
+                {
+                    Debug.Log(i + " " + j);
+                    Physics.IgnoreLayerCollision(13 + i, 13 + j, false);
+
+                }
+
+                Physics.IgnoreLayerCollision(13 + i, 12, false);
+                Physics.IgnoreLayerCollision(13 + i, 8, false);
+            }
             _isActivated = false;
         }
 
